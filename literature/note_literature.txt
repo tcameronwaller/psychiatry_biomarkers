@@ -1,0 +1,526 @@
+
+
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Heritability of metabolite abundance
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed: _______
+Date: _______
+Journal: MedRxiv (https://www.medrxiv.org/content/10.1101/2020.08.01.20166413v1)
+Authors: Qin, ..., Inouye
+Title: "Genome-wide association and Mendelian randomization analysis prioritizes bioactive metabolites with putative causal effects on common diseases"
+Note:
+- 8,738 persons from Finland (FINRISK) cohort
+- 2,886 persons from Framingham Heart Study (FHS) cohort
+- 11,067 metabolites (91% unidentifiable)
+- " 818  were  chemically  identified  metabolites  (414  123 confirmed  or  putative  eicosanoids11,  100  free  fatty  acids  (FFA),  66  polar  compounds,  47  124 very-long-chain  dicarboxylic  acids  (VLCDCA),  47  fatty  acids  esters  of  hydroxy  fatty  acids  125 (FAHFA),  35  bile  acids,  14  docosanoids,  14  endocannabinoids  and  4  sterols)"
+
+
+--------------------------------------------------
+PubMed: 33031748
+Date: 7 October 2020
+Journal: American Journal of Human Genetics
+Authors: Feofanova, ..., Yu
+Title: "A Genome-wide Association Study Discovers 46 Loci of the Human Metabolome in the Hispanic Community Health Study/Study of Latinos"
+Note:
+- 3,926 persons of hispanic, latino ancestry and ethnicity
+- 640 metabolites
+- metabolite level heritability estimation by LD score regression (LDSC v1.0.0)
+-- after taking regression residuals to control for:
+--- sex
+--- age
+--- glomerular filtration rate (estimation)
+--- recruitment center
+--- ancestry (genetic principal components)
+- metabolite heritabilities in Supplemental Table 14
+-- 50 of 640 metabolites had SNV heritability >= 20%
+-- 255 of 640 metabolites had SNV heritability >= 5%
+--- N-acetylasparagine: 0.5390
+--- N-acetyltryptophan: 0.1289
+--- gammaglutamyltryptophan: 0.1191
+--- kynurenine: 0.1254
+--- serotonin: 0.0669
+--- quinolinate: 0.0900
+--- N-acetylkynurenine: 0.2776
+--- kynurenine: 0.1254
+- metabolite GWAS summary statistics available on request from corresponding author, Dr. Robert C. Kaplan
+
+--------------------------------------------------
+PubMed: 31960908
+Date: 27 March 2020
+Journal: Human Molecular Genetics
+Authors: Nag, ..., Steves
+Title: "Genome-wide scan identifies novel genetic loci regulating salivary metabolite levels"
+Note:
+- cites Zierer, Nature Genetics, 2018
+- cites Goodrich, Cell, 2014
+- 1419 persons in TwinsUK cohort
+- genotype data from UKBiobank, I think
+- 823 identifiable metabolites from saliva samples
+- metabolite data do not seem to be available with publication
+- authors did not evaluate heritability
+
+--------------------------------------------------
+PubMed:31978332
+Date: 6 February 2020
+Journal: American Journal of Human Genetics
+Authors: Ndungu, ..., McCarthy
+Title: "A Multi-tissue Transcriptome Analysis of Human Metabolites Guides Interpretability of Associations Based on Multi-SNP Models for Gene Expression"
+Note:
+- authors selected 46 metabolites with GWAS causative SNPs from multiple GWAS analyses
+-- tryptophan association to TDO2, SLC16A10
+-- kynurenine association to SLC7A5, SH2B3
+-- HWESASXX association to ANPEP
+- authors performed TWAS, integrating transcriptome data from GTEx and metabolome data from Shin 2014 (PubMed:24816252)
+
+
+--------------------------------------------------
+PubMed: 31959995
+Date: 20 January 2020
+Journal: Nature Genetics
+Authors: Schlosser, ..., Kottgen
+Title: "Genetic studies of urinary metabolites illuminate mechanisms of detoxification and excretion in humans"
+Note:
+- 1,627 persons
+- urine samples
+- 1,172 metabolites
+- calculation of mQTLs and application to UK Biobank data
+
+
+--------------------------------------------------
+PubMed:31911595
+Date: 7 January 2020
+Journal: Nature Communications
+Authors: Hagenbeek, ..., Boomsma
+Title: "Heritability estimates for 361 blood metabolites across 40 genome-wide association studies"
+heritability method: Genome-wide Complex Trait Analysis (GCTA)
+Note:
+- includes data from Gieger 2008 (PubMed:19043545)
+- includes data from Krumsiek 2012 (PubMed:23093944)
+- includes data from Shin 2014 (PubMed:24816252)
+- includes data from Yet 2016 (PubMed:27073872)
+- includes data from Long 2017 (PubMed:28263315)
+- 369 consensus metabolites from multiple data sets
+-- 53 organic acids
+- Supplementary Data 3
+- most relevant values are h2SNP for the non-class GRM (more loci)
+- includes information for very few relevant metabolites
+
+
+--------------------------------------------------
+PubMed:31636271
+Date: 21 October 2019
+Journal: Nature Communications
+Title: "A comprehensive study of metabolite genetics reveals strong pleiotropy and heterogeneity across time and context"
+Note:
+- authors do not evaluate heritability
+- the metabolite data set is mostly lipids
+
+--------------------------------------------------
+PubMed:31104335
+Date: 18 May 2019
+Journal: Genetic Epidemiology
+Authors: Darst, ..., Engelman
+Title: "Integrated analysis of genomics, longitudinal metabolomics, and Alzheimer's risk factors among 1,111 cohort participants"
+Note:
+- cited by National Cancer Institute project PLCO-555 (https://cdas.cancer.gov/approved-projects/2424/)
+- similar data and analyses to Darst 2019 (PubMed:30799310)
+
+--------------------------------------------------
+PubMed:30799310
+Date: 24 February 2019
+Journal: Aging
+Authors: Darst, ..., Engelman
+Title: "Longitudinal plasma metabolomics of aging and sex"
+Note:
+- cited by National Cancer Institute project PLCO-555 (https://cdas.cancer.gov/approved-projects/2424/)
+- samples from Wisconsin Registry for Alzheimer's Prevention (WRAP)
+-- participants did not have dementia at enrollment in longitudinal study
+- fasting plasma samples
+- 1097 metabolites measured
+- heritabilities across 1,111 persons with both metabolomic and genomic data
+- authors calculated heritabilities of metabolites by GCTA
+- authors did not publish all GWAS summary statistics
+
+--------------------------------------------------
+PubMed:28263315
+Date: 2017
+Journal: Nature Genetics
+Authors: Long, ..., Perkins
+Title: "Whole-genome sequencing identifies common-to-rare variants associated with human blood metabolites"
+- 1960 persons from TwinsUK
+-- one third of this cohort was in the cohort by Shin 2014 (PubMed:24816252)
+-- three longitudinal samples for each person
+- non-targeted metabolomics
+-- 901 metabolites
+-- 644 consistent heritability 10.5%-93.2%
+-- 486 identifiable, 158 unknown
+- ACE model estimation of "proportion of total variance explained by additive genetic effects"
+-- separate heritability estimate for each longitudinal sample
+-- 644 metabolites had consistent heritability across longitudinal samples
+- HWESASXX heritability 
+
+--------------------------------------------------
+PubMed:27073872
+Date: 13 April 2016
+Journal: PLOS One
+Authors: Yet, ..., Bell
+Title: "Genetic Influences on Metabolite Levels: A Comparison across Metabolomic Platforms"
+Note:
+- 1001 persons from TwinsUK cohort
+- authors estimated heritability for only 43 metabolites
+-- ACE model on twin pairs
+-- Supplemental Table 2
+--- tryptophan genetic heritability: 0.09
+
+--------------------------------------------------
+PubMed:24816252
+Date: 11 May 2014
+Journal: Nature Genetics
+Authors: Shin, ..., Soranzo
+Title: "An atlas of genetic influences on human blood metabolites"
+persons: 7,824
+metabolites, total: 486
+metabolites, identifiable: 309
+metabolites, unidentifiable: 177
+heritability method: TwinsUK cohort and classical twin model
+
+--------------------------------------------------
+PubMed:22286219
+Date: 29 January 2012
+Journal: Nature Genetics
+Authors: Kettunen, ..., Ripatti
+Title: "Genome-wide association study identifies multiple loci influencing human serum metabolite levels"
+Note:
+- persons: 8,330
+- metabolites, total: 216
+- authors evaluated heritability for at least a few metabolites
+
+--------------------------------------------------
+PubMed:21886157
+Date: 31 August 2011
+Journal: Nature
+Title: "Human metabolic individuality in biomedical and pharmaceutical research"
+
+--------------------------------------------------
+PubMed:20037589
+Date: 27 December 2009
+Journal: Nature Genetics
+Title: "A genome-wide perspective of genetic variation in human metabolism"
+persons: 1,809
+metabolites, total: 163
+
+--------------------------------------------------
+PubMed:19043545
+Date: 28 November 2008
+Journal: PLOS Genetics
+Authors: Gieger, ..., Suhre
+Title: "Genetics Meets Metabolomics: A Genome-Wide Association Study of Metabolite Profiles in Human Serum"
+Note:
+- persons: 284, all male
+- metabolites, total: 363
+- this article is a pioneer in broad metabolome data across a large-ish cohort
+- GWAS
+- did not evaluate heritability
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Microbiome and Metabolome
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed: 29808030
+Date: 28 May 2018
+Journal: Nature Genetics
+Authors: Zierer, ..., Menni
+Title: "The fecal metabolome as a functional readout of the gut microbiome"
+Note:
+- fecal samples from 786 persons in TwinsUK cohort
+- 1116 metabolites
+
+--------------------------------------------------
+PubMed: 27409811
+Date: 13 July 2016
+Journal: Nature
+Authors: Pedersen, ..., Pedersen
+Title: "Human gut microbes impact host serum metabolome and insulin sensitivity"
+Note:
+- fasting serum samples from 277 persons in Danish cohort
+- 325 polar metabolites (94 identifiable) and 876 lipids (289 identifiable)
+- microbiome correlates to serum branched chain amino acids and insulin resistance
+
+--------------------------------------------------
+PubMed:27173935
+Date: 11 May 2016
+Journal: Cell Host & Microbe
+Authors: Goodrich, ..., Ley
+Title: "Genetic Determinants of the Gut Microbiome in UK Twins"
+Note:
+- extension of analysis from Goodrich Cell 2014 on a larger data set 
+
+--------------------------------------------------
+PubMed:25417156
+Date: 6 November 2014
+Journal: Cell
+Authors: Goodrich, ..., Ley
+Title: "Human genetics shape the gut microbiome"
+Note:
+- fecal samples from 1000 persons in TwinsUK cohort (416 twin pairs)
+- ACE model of heritability
+- genetic heritability estimate was greatest for family Christensenellaceae (39%)
+- family Christensenellaceae associates with lesser body mass index (BMI)
+- family Christensenellaceae alters weight gain in mouse experiments
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Heterogeneity in Bipolar Disorder
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed:32948743
+Date: 18 September 2020
+Journal: Translational Psychiatry
+Authors: Coombes, ..., Biernacka
+Title: "Dissecting clinical heterogeneity of bipolar disorder using multiple polygenic risk scores"
+Note:
+- 1969 persons with bipolar disorder
+- psychosis, anhedonia, BMI, rapic cycling, ADHD, MDD, suicidality, educational attainment
+- authors applied principal component analysis to aggregate Polygenic Risk Scores across multiple thresholds for pruning Single Nucleotide Variations (SNVs)
+- 
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Heterogeneity in obesity
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Empirical metabolomics in Psychiatric Disorders
+Humans
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+
+--------------------------------------------------
+PubMed: 32581873
+Date: 5 June 2020
+Authors: Joaquim, ..., Turck
+Journal: Frontiers in Psychiatry
+Title: "Plasma Metabolite Profiles in First Episode Psychosis: Exploring Symptoms Heterogeneity/Severity in Schizophrenia and Bipolar Disorder Cohorts"
+Note:
+- 28 persons with schizophrenia
+- 27 persons with bipolar disorder
+- 42 heatlhy controls
+- persons in different cohorts differed by sex
+- blood metabolites
+- there were not any significant differential metabolites between groups
+-- either healthy control versus psychiatric disorders or schizophrenia versus bipolar disorder
+- there were roughly 25 metabolites that differed by severity of either schizophrenia or bipolar disorder
+- authors were not able to identify these metabolites
+
+--------------------------------------------------
+PubMed: 30579177
+Date: February 2019
+Authors: Wang, ..., Wang
+Journal: Psychiatric Research
+Title: "Metabolic profiling identifies phospholipids as potential serum biomarkers for schizophrenia"
+Note:
+- study identified 51 phospholipids that differ between schizophrenia and health
+- 6 of these phsopholipids suffice to distinguish schizophrenia from health
+- pay wall: accessed 20 October 2020
+
+--------------------------------------------------
+PubMed: 30470469
+Date: April 2019
+Authors: Costa, ..., Gattaz
+Journal: Schizophrenia Research
+Title: "Plasma metabolites in first episode psychoses"
+Note:
+- supposedly identifies 4 metabolites that differentiate schizophrenia from bipolar disorder
+- pay wall: accessed 20 October 2020
+
+
+--------------------------------------------------
+PubMed: 26441135
+Date: February 2016
+Authors: Haenisch, ..., Bahn
+Journal: Brain, Behavior, and Immunity
+Title: "Towards a blood-based diagnostic panel for bipolar disorder"
+Note:
+- 371 persons with bipolar disorder
+- 75 persons with schizophrenia
+- 90 persons with major depression disorder (MDD)
+- 371 persons in good health (controls)
+- fasting blood samples
+- authors identified 20 peptides in blood
+- strong predictive discrimination between bipolar disorder and both MDD and healthy controls
+- Table 2 reports the 20 peptides
+-- includes Angiotensin-Converting Enzyme (ACE) and other metalloendopeptidases
+
+
+--------------------------------------------------
+PubMed: 25784130
+Date: 18 March 2015
+Authors: Liu, ..., Xu
+Journal: Journal of Proteome Research
+Title: "Discovery and validation of plasma biomarkers for major depressive disorder classification based on liquid chromatography-mass spectrometry"
+Note:
+- __ persons with major depressive disorder (MDD)
+- plasma metabolites
+- differences in acyl carnitines, lipids, and tryptophan pathways
+- pay wall: accessed 20 October 2020
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Empirical metabolomics in Psychiatric Disorders
+Animal models
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Metabolism in Psychiatric Disorders
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed:31919502
+Date: 10 January 2020
+Journal: Schizophrenia Bulletin
+Title: "Assessing the Causal Effects of Human Serum Metabolites on 5 Major Psychiatric Disorders"
+Note:
+- Brandon J. Coombes shared and recommended this article on 16 September 2020.
+- Genetically determined metabotypes (GDMs)
+- This study uses the metabolomics data from Shin et al 2014 (PubMed:24816252)
+-- 486 metabolites, of which 309 identifiable and 177 unidentifiable
+- 486 human serum metabolites, of which ___ identifiable
+- This article's method applies Mendelian randomization, which is a little more complex and obscure than a straightforward regression type PRS.
+- Polygenic risk scores (PRSs) also utilize more genetic signal and have better statistical power, I think
+
+--------------------------------------------------
+PubMed:29673576
+Date: June 2018
+Journal: Molecular Metabolism
+Title: "The role of genetic variation of human metabolism for BMI, mental traits and mental disorders"
+Note:
+- Brandon J. Coombes shared and recommended this article on 16 September 2020.
+- 516 SNPs (216 independent loci) GWAS association with human metabolism
+
+--------------------------------------------------
+PubMed:26414676
+Date: 28 September 2015
+Journal: Nature Genetics
+Title: "An atlas of genetic correlations across human diseases and traits"
+Note:
+- This article reports genetic correlations between many phenotypes of interest.
+- This article reports suggestively causal relationships between body mass index (BMI) and psychiatric disorders (schizophrenia, bipolar illness, anorexia nervosa, Alzheimer's disease, smoking, neuroticism, and educational attainment).
+- Bipolar Disorder versus BMI (rg: -0.071; se: 0.04085; z: -1.73; p: 0.0836) (Supplemental Data)
+- Bipolar Disorder versus Hip Circumference (rg: -0.086; se: 0.04795; z: -1.789; p: 0.07361) (Supplemental Data)
+- Bipolar Disorder versus Waist Circumference (rg: -0.034; se: 0.04977; z: -0.679; p: 0.4972) (Supplemental Data)
+- Bipolar Disorder versus Overweight (BMI 25 to <30) (rg: -0.112; se: 0.04986; z: -2.24; p: 0.0251) (Supplemental Data)
+- Bipolar Disorder versus Obesity Class 1 (BMI 30 to <35) (rg: -0.132; se: 0.04603; z: -2.868; p: 0.004127) (Supplemental Data)
+- Bipolar Disorder versus Obesity Class 2 (BMI 35 to < 40) (rg: -0.207; se: 0.05918; z: -3.496; p: 0.0004728) (Supplemental Data)
+- Bipolar Disorder versus Obesity Class 3 (BMI >=40) (rg: -0.322; se: 0.09168; z: -3.509; p: 0.0004499) (Supplemental Data)
+- Bipolar Disorder versus Type 2 Diabetes (rg: -0.164; se: 0.07077; z: -2.313; p: 0.0207) (Supplemental Data)
+- Genetically, Bipolar Disorder relates to obesity to a similar extent as Anorexia
+- Bipolar Disorder versus Anorexia (rg: 0.112; se: 0.08209; z: 1.359; p: 0.1742)
+- Anorexia versus BMI (rg: -0.184; se: 0.03595; z: -5.113; p: 3.17E-07) (Supplemental Data)
+- Anorexia versus Overweight (rg: -0.168; se: 0.05143; z: -3.275; p: 0.001058)
+- Anorexia versus Obesity Class 1 (rg: -0.198; se: 0.04682; z: -4.238; p: 2.26E-05)
+- Anorexia versus Obesity Class 2 (rg: -0.213; se: 0.05669; z: -3.756; p: 0.0001728)
+- Anorexia versus Obesity Class 3 (rg: -0.187; se: 0.08645; z: -2.166; p: 0.03031)
+
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Kynurenine metabolic pathway
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed:31616242
+Date: 20 September 2019
+Journal: Frontiers in Neuroscience
+Title: "Kynurenine Pathway Metabolites as Biomarkers for Amyotrophic Lateral Sclerosis"
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Mitochondria in Psychiatric Disorders
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed:27588285
+Date: 18 August 2016
+Journal: Frontiers in Cell and Developmental Biology
+Title: "The Evolution of Per-cell Organelle Number"
+Note: Mitochondrial copy number also is different in Bipolar Disorder.
+
+--------------------------------------------------
+PubMed:26281784
+Date: 18 August 2015
+Journal: Nature Reviews Genetics
+Title: "The dynamics of mitochondrial DNA heteroplasmy: implications for human health and disease"
+Note: Mitochondrial heteroplasmy is more common in females with Bipolar Disorder.

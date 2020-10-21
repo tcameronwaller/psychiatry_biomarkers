@@ -1,0 +1,81 @@
+
+
+
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Heterogeneity in Bipolar Disorder
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed: 32767004
+Date: 7 August 2020
+Journal: Current Topics in Behavioral Neurosciences
+Authors: Fabbri
+Title: "The Role of Genetics in Bipolar Disorder"
+Note:
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Empirical metabolomics in Psychiatric Disorders
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+
+--------------------------------------------------
+PubMed: 28947341
+Date: May 2018
+Journal: Schizophrenia Research
+Authors: Davison, ..., Cotter
+Title: "A systematic review of metabolite biomarkers of schizophrenia"
+Note:
+- systematic review of 63 metabolomic studies on biofluids from persons with schizophrenia
+- polyunsaturated fatty acids
+- vitamin E
+- creatinine
+- lipid peroxidation metabolites
+- glutamate
+- pay wall: accessed 20 October 2020
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Empirical metabolomics in Psychiatric Disorders
+Animal models
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed: 32079262
+Date: 17 February 2020
+Authors: Humer, ..., Pieh
+Journal: Metabolites
+Title: "Metabolomics in Psychiatric Disorders: What We Learn from Animal Models"
+Note:
+- animal models
+- advantage of access to brain tissue with control of many influential variables
+-- environment
+-- diet, fasting
+-- age, circadian rhythm
+-- with or without pharmaceutics
+-- gut microbiome
+- depression, anxiety, schizophrenia, addiction
+
