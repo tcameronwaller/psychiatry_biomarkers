@@ -25,7 +25,7 @@ Note:
 - 2,886 persons from Framingham Heart Study (FHS) cohort
 - 11,067 metabolites (91% unidentifiable)
 - " 818  were  chemically  identified  metabolites  (414  123 confirmed  or  putative  eicosanoids11,  100  free  fatty  acids  (FFA),  66  polar  compounds,  47  124 very-long-chain  dicarboxylic  acids  (VLCDCA),  47  fatty  acids  esters  of  hydroxy  fatty  acids  125 (FAHFA),  35  bile  acids,  14  docosanoids,  14  endocannabinoids  and  4  sterols)"
-
+- authors calculate SNP heritability, but this information is not readily accessible
 
 --------------------------------------------------
 PubMed: 33031748
@@ -34,6 +34,7 @@ Journal: American Journal of Human Genetics
 Authors: Feofanova, ..., Yu
 Title: "A Genome-wide Association Study Discovers 46 Loci of the Human Metabolome in the Hispanic Community Health Study/Study of Latinos"
 Note:
+- pay wall: accessed 27 October 2020
 - 3,926 persons of hispanic, latino ancestry and ethnicity
 - 640 metabolites
 - metabolite level heritability estimation by LD score regression (LDSC v1.0.0)
@@ -149,7 +150,7 @@ Note:
 -- participants did not have dementia at enrollment in longitudinal study
 - fasting plasma samples
 - 1097 metabolites measured
-- heritabilities across 1,111 persons with both metabolomic and genomic data
+- heritabilities across 1,111 persons with both metabolomic and genomic data (Supplemental Table 1)
 - authors calculated heritabilities of metabolites by GCTA
 - authors did not publish all GWAS summary statistics
 
