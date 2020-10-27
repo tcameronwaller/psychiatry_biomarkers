@@ -27,6 +27,27 @@ Note:
 --------------------------------------------------
 --------------------------------------------------
 --------------------------------------------------
+Oxidative stress in psychiatric disorders
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed: 28942195
+Date: April 2018
+Journal: Redox Biology
+Authors: Erjavec, ..., Pivac
+Title: "Short overview on metabolomic approach and redox changes in psychiatric disorders"
+Note:
+- authors discuss the potential of metabolomics to reveal oxidative stress mechanisms in psychiatric disorders
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
 Empirical metabolomics in Psychiatric Disorders
 --------------------------------------------------
 --------------------------------------------------
@@ -34,12 +55,66 @@ Empirical metabolomics in Psychiatric Disorders
 --------------------------------------------------
 --------------------------------------------------
 
+--------------------------------------------------
+PubMed: 33067567
+Date: 16 October 2020
+Authors: Needham, ..., Mazmanian
+Journal: Nature Reviews Neuroscience
+Title: "Gut microbial molecules in behavioural and neurodegenerative conditions"
+
+--------------------------------------------------
+PubMed: 31562625
+Date: 28 September 2019
+Authors: Shih
+Journal: Advances in Experimental Medicine and Biology
+Title: "Metabolomics Biomarkers for Precision Psychiatry"
+
+--------------------------------------------------
+PubMed: 30904564
+Date: 13 July 2019
+Authors: Pedrini, ..., Brietzke
+Journal: Progress in Neuro-Psychopharmacology and Biological Psychiatry
+Title: "Advances and challenges in development of precision psychiatry through clinical metabolomics on mood and psychotic disorders"
+Note:
+- pay wall
+
+--------------------------------------------------
+PubMed: 30980044
+Date: 12 April 2019
+Authors: Savitz
+Journal: Molecular Psychiatry
+Title: "The kynurenine pathway: a finger in every pie"
+Note:
+- pay wall
+
+--------------------------------------------------
+PubMed: 30747428
+Date: 13 February 2019
+Authors: Quintero, ..., Tasic
+Journal: Advances in Experimental Medicine and Biology
+Title: "Metabolomic Biomarkers in Mental Disorders: Bipolar Disorder and Schizophrenia"
+Note:
+- pay wall
+
+--------------------------------------------------
+PubMed: 30411484
+Date: 8 November 2018
+Authors: MacDonald, ..., Trakadis
+Journal: American Journal of Medical Genetics
+Title: "Biomarkers for major depressive and bipolar disorders using metabolomics: A systematic review"
+
+--------------------------------------------------
+PubMed: 29940237
+Date: 22 June 2018
+Authors: Arnone, ..., Selvaraj
+Journal: Neuroscience and Behavioral Reviews
+Title: "Role of Kynurenine pathway and its metabolites in mood disorders: A systematic review and meta-analysis of clinical studies"
 
 --------------------------------------------------
 PubMed: 28947341
 Date: May 2018
-Journal: Schizophrenia Research
 Authors: Davison, ..., Cotter
+Journal: Schizophrenia Research
 Title: "A systematic review of metabolite biomarkers of schizophrenia"
 Note:
 - systematic review of 63 metabolomic studies on biofluids from persons with schizophrenia

@@ -1,4 +1,5 @@
 
+https://www.nature.com/articles/mp2015205.pdf?origin=ppub
 
 
 --------------------------------------------------
@@ -324,13 +325,12 @@ Heterogeneity in obesity
 --------------------------------------------------
 --------------------------------------------------
 
-
 --------------------------------------------------
 --------------------------------------------------
 --------------------------------------------------
 --------------------------------------------------
 --------------------------------------------------
-Empirical metabolomics in Psychiatric Disorders
+Empirical metabolomics in Bipolar Disorder
 Humans
 --------------------------------------------------
 --------------------------------------------------
@@ -338,6 +338,45 @@ Humans
 --------------------------------------------------
 --------------------------------------------------
 
+--------------------------------------------------
+PubMed: 33077852
+Date: 19 October 2020
+Authors: Bartoli, ..., Carra
+Journal: Molecular Psychiatry
+Title: "The kynurenine pathway in bipolar disorder: a meta-analysis on the peripheral blood levels of tryptophan and related metabolites"
+Note:
+- pay wall: accessed 27 October 2020
+- meta-analysis on data from 16 independent studies (Supplemental Table 1)
+-- some of these (such as 30867076-Steen-2020) used low-coverage metabolite assays
+- 762 total persons with bipolar disorder (BD) (Supplemental Table 1)
+-- maximum study cohort: 163
+-- potential for overlap
+- 759 persons as healthy controls (Supplemental Table 1)
+-- potential for overlap
+- evaluation of publication bias by Egger's test and sequential sensitivity analysis
+- metabolite decrease in BD blood (Table 1)
+-- some of these metabolites also correlate with mania versus depression mood episodes
+-- tryptophan
+-- kynurenine
+-- kynurenic acid
+-- xanthurenic acid
+- metabolite no difference in BD blood (Table 1)
+-- 3-hydroxykynurenine (3HK)
+-- anthranilic acid (AA)
+-- 3-hydroxyanthranilic acid (3HAA)
+-- Quinolinic acid (QA)
+
+
+--------------------------------------------------
+PubMed: 31398273
+Authors: van den Ameele, ..., Morrens
+Date: February 2020
+Journal: Bipolar Disorder
+Title: "A mood state-specific interaction between kynurenine metabolism and inflammation is present in bipolar disorder"
+Note:
+- included in 33077852-bartoli-2020
+- measurements on kynurenine metabolites
+-- tryptophan (TRP), kynurenine (KYN), 3-hydroxykynurenine (3-HK), quinolinic acid (QA), kynurenic acid (KYNA)
 
 --------------------------------------------------
 PubMed: 32581873
@@ -355,6 +394,191 @@ Note:
 -- either healthy control versus psychiatric disorders or schizophrenia versus bipolar disorder
 - there were roughly 25 metabolites that differed by severity of either schizophrenia or bipolar disorder
 - authors were not able to identify these metabolites
+
+--------------------------------------------------
+PubMed: 30867076
+Date: 14 March 2019
+Authors: Steen, ..., Andreassen
+Journal: Psychological Medicine
+Title: "Metabolic dysfunctions in the kynurenine pathway, noradrenergic and purine metabolism in schizophrenia and bipolar disorders"
+Note:
+- pay wall: accessed 27 October 2020
+- author Erik G. Jonsson at Karolinska Institutet
+- 212 persons with schizophrenia or bipolar disorder
+- 68 persons healthy control
+- blood plasma samples
+- coulometric array measurement of 52 metabolites
+- decrease in psychiatric disorder cases
+-- 3-hydroxykynurenine
+-- xanthurenic acid
+-- vanillylmandelic acid
+-- metanephrine
+- increase in psychiatric disorder cases
+-- xanthine
+
+--------------------------------------------------
+PubMed: 29962973
+Authors: van den Ameele, ..., Morrens
+Date: June 2018
+Journal: Frontiers in Psychiatry
+Title: "Markers of inflammation and monoamine metabolism indicate accelerated aging in bipolar disorder"
+Note:
+- 49 persons with bipolar disorder
+- 30 persons healthy controls
+- measurements of inflammatory markers
+- measurements of monoamines
+
+--------------------------------------------------
+PubMed: 27984586
+Date: 16 December 2016
+Authors: Setoyama, ..., Kanba
+Journal: PLoS One
+Title: "Plasma Metabolites Predict Severity of Depression and Suicidal Ideation in Psychiatric Patients-A Multicenter Pilot Analysis"
+Note:
+- 76 persons with depression
+- 14 persons with bipolar disorder
+- 123 metabolites
+- metabolite association with severity of depression (SOD)
+-- 3-hydroxybutyrate
+-- betaine
+-- citrate
+-- creatinine
+-- gamma-aminobutyrate
+
+--------------------------------------------------
+PubMed: 27114925
+Date: June 2016
+Authors: Yoshimi, ..., Hashimoto
+Journal: BBA Clinical
+Title: "Blood metabolomics analysis identifies abnormalities in the citric acid cycle, urea cycle, and amino acid metabolism in bipolar disorder"
+Note:
+- authors Alireza M. Salehi and Mikael Landen at Karolinska Institutet
+- included in 33077852-bartoli-2020
+- 39 persons healthy controls
+- 54 persons (male) with bipolar disorder
+-- 31 persons bipolar disorder type I (BPI)
+-- 17 persons bipolar disorder type II (BPII)
+-- 6 persons bipolar disorder other
+- serum samples
+- 116 metabolites (Supplemental Table 1)
+-- 82 metabolites detectable in serum (Table 2)
+- differential abundance between cases and controls
+-- uric acid, coenzyme A, glycerol 3-phosphate, pyruvate, N-acetylglutamate, 2-hydroxyglutarate, 2-oxoglutarate, citrate, cis-aconitate, isocitrate, urea, Beta-alanine, serine, valine, threonine, ornithine, glutamine, arginine
+- logistic regression association of metabolites with BD
+-- pyruvate, N-acetylglutamate, 2-oxoglutarate, Beta-alanine, serine, arginine
+
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Empirical metabolomics in other Psychiatric Disorders
+Humans
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+
+--------------------------------------------------
+PubMed: 33087514
+Date: 21 October 2020
+Authors: Kang, ..., Krajmalnik-Brown
+Journal: mSphere
+Title: "Distinct Fecal and Plasma Metabolites in Children with Autism Spectrum Disorders and Their Modulation after Microbiota Transfer Therapy"
+Note:
+- 18 persons (children, 7-16 years age) with Autism Spectrum Disorder (AUD)
+- 20 persons (children) with typical development (TD)
+- blood plasma and fecal samples before and after microbiota transfer therapy (MTT)
+- 619 plasma metabolites
+-- decrease in AUD
+--- sarcosine
+--- methylsuccinate
+--- galactonate
+--- nicotinamide riboside
+--- inosine monophosphate
+--- leucylglycine
+--- valylglycine
+--- iminodiacetate
+-- increase in AUD
+--- caprylate
+--- heptanoate
+- 669 fecal metabolites
+
+--------------------------------------------------
+PubMed: 33086922
+Date: 21 October 2020
+Authors: Bilgic, ..., Unlu
+Journal: International Journal of Neuroscience
+Title: "Altered Kynurenine Pathway Metabolite Levels in Toddlers and Preschool Children With Autism Spectrum Disorder"
+Note:
+- pay wall: unable to access from Mayo Clinic network
+- 68 persons (children, 1.5-5 years age) with Autism Spectrum Disorder (AUD)
+- 44 persons (children, 1.5-5 years age) with typical development
+- serum samples
+- liquid chromatography, mass spectrometry
+- increase in AUD
+-- 3-hydroxykynurenine
+-- kynurenic acid
+- decrease in AUD
+-- 3-hydroxyanthranilic acid
+
+--------------------------------------------------
+PubMed:
+Date: 9 October 2020
+Authors: Needham, ..., Mazmanian
+Journal: Biological Psychiatry
+Title: "Plasma and Fecal Metabolite Profiles in Autism Spectrum Disorder"
+Note:
+- children age 3-12 years
+- plasma samples from 130 children with Autism Spectrum Disorder (ASD)
+- plasma samples from 101 children with typical development (TD)
+- fecal samples from 57 children with ASD
+- fecal samples from 40 children with TD
+- 1,611 plasma metabolites
+- 814 fecal metabolites
+- 194 metabolites different in plasma (Supplement Table 1)
+- 19 metabolites different in feces (Supplement Table 4)
+
+--------------------------------------------------
+PubMed: 33023268
+Date: 2 October 2020
+Authors: Qureshi, ..., Krajmalnik-Brown, Hahn
+Journal: Journal of Personalized Medicine
+Title: "Multivariate Analysis of Fecal Metabolites from Children with Autism Spectrum Disorder and Gastrointestinal Symptoms before and after Microbiota Transfer Therapy"
+Note:
+- similar data to (PubMed: 33087514)
+- 18 persons (children, 7-16 years age) with Autism Spectrum Disorder (AUD)
+- 20 persons (children) with typical development (TD)
+- microbiota transfer therapy (MTT) changed AUD fecal metablome to resemble TD fecal metabolome more closely
+
+--------------------------------------------------
+PubMed: 32717948
+Date: 23 July 2020
+Authors: Kotlega, ..., Szczuko
+Journal: International Journal of Molecular Sciences
+Title: "The Association of Free Fatty Acids and Eicosanoids with the Severity of Depressive Symptoms in Stroke Patients"
+Note:
+- 74 persons with ischemic stroke
+- measurement of free fatty acids and eicosanoids
+
+--------------------------------------------------
+PubMed: 31959849
+Date: 20 January 2020
+Journal: Molecular Psychiatry
+Authors: Pu, ..., Xie
+Title: "An integrated meta-analysis of peripheral blood metabolites and biological functions in major depressive disorder"
+Note:
+- data from 48 independent studies on metabolism in Major Depressive Disorder (MDD)
+-- MENDA database
+-- 33 studies on plasma
+-- 24 studies had cohorts of persons without use of antidepressants
+- 83 consensus metabolites
+- 23 metabolites had differential abundance between MDD and healthy
+- further differences between cohorts with or without antidepressants
+- decrease in tryptophan and kynurenic acid pathways
 
 --------------------------------------------------
 PubMed: 30579177
@@ -377,7 +601,6 @@ Note:
 - supposedly identifies 4 metabolites that differentiate schizophrenia from bipolar disorder
 - pay wall: accessed 20 October 2020
 
-
 --------------------------------------------------
 PubMed: 26441135
 Date: February 2016
@@ -394,7 +617,6 @@ Note:
 - strong predictive discrimination between bipolar disorder and both MDD and healthy controls
 - Table 2 reports the 20 peptides
 -- includes Angiotensin-Converting Enzyme (ACE) and other metalloendopeptidases
-
 
 --------------------------------------------------
 PubMed: 25784130
@@ -437,6 +659,7 @@ Metabolism in Psychiatric Disorders
 PubMed:31919502
 Date: 10 January 2020
 Journal: Schizophrenia Bulletin
+Authors: Yang, ..., Ma
 Title: "Assessing the Causal Effects of Human Serum Metabolites on 5 Major Psychiatric Disorders"
 Note:
 - Brandon J. Coombes shared and recommended this article on 16 September 2020.
@@ -451,10 +674,14 @@ Note:
 PubMed:29673576
 Date: June 2018
 Journal: Molecular Metabolism
+Authors: Hebebrand, ..., Libuda
 Title: "The role of genetic variation of human metabolism for BMI, mental traits and mental disorders"
 Note:
 - Brandon J. Coombes shared and recommended this article on 16 September 2020.
 - 516 SNPs (216 independent loci) GWAS association with human metabolism
+- This study used GWAS summary statistics from multiple previous analyses of metabolites
+- Draisma et al, Nature Communications, 2015 only included about 150 metabolites across 7,478 persons
+-
 
 --------------------------------------------------
 PubMed:26414676
