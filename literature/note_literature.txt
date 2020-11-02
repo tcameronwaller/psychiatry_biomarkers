@@ -120,6 +120,15 @@ Note:
 
 
 --------------------------------------------------
+PubMed: 31882771
+Date: 27 December 2019
+Authors: Al-Khelaifi, ..., Elrayess
+Journal: Scientific Reports
+Title: "Metabolic GWAS of elite athletes reveals novel genetically-influenced metabolites associated with athletic performance"
+Note:
+- 490 persons who were elite athletes
+
+--------------------------------------------------
 PubMed:31636271
 Date: 21 October 2019
 Journal: Nature Communications
