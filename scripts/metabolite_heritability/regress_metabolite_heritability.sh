@@ -81,7 +81,7 @@ echo "metabolite identifier: " $identifier
 # Extract and organize information from summary.
 # Write information to new, temporary file.
 cd $path_heritability_metabolites
-echo "identifier allele_1 allele_2 count effect p_value" > ${identifier}_new.txt
+echo "SNP A1 A2 N BETA P" > ${identifier}_new.txt
 zcat $path_file | awk 'NR > 1 {print $1, $2, $3, $16, $8, $10}' >> ${identifier}_new.txt
 #head -10 summary.txt
 
