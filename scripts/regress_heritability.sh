@@ -29,12 +29,12 @@ set +x
 cd $path_heritability
 #gunzip $path_metabolites/metabolites_meta/M02342.metal.pos.txt.gz -c >> raw
 zcat $path_metabolites/metabolites_meta/M02342.metal.pos.txt.gz >> raw
-$pathldsc/munge_sumstats.py \
+$path_ldsc/munge_sumstats.py \
 --sumstats raw \
 --out test \
 --merge-alleles $path_alleles/w_hm3.snplist
 
-$pathldsc/ldsc.py \
+$path_ldsc/ldsc.py \
 --h2 $path_access/test.sumstats.gz \
 --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
