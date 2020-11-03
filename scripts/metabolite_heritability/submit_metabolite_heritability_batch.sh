@@ -53,10 +53,9 @@ fi
 echo "----------------------------------------------------------------------"
 echo "Organize the array of batch instances."
 echo "----------------------------------------------------------------------"
-cd $path_metabolites_summaries
-echo $path_metabolites_summaries
-#metabolite_files=(*.metal.pos.txt.gz)
-metabolite_files=(*)
+cd $path_metabolite_summaries
+echo $path_metabolite_summaries
+metabolite_files=(*.metal.pos.txt.gz)
 printf "%s\n" "${metabolite_files[@]}" > $path_metabolites/metabolite_files.txt
 count=${#metabolite_files[@]}
 cat $metabolite_files
