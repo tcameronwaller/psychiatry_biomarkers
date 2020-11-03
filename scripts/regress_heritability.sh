@@ -27,7 +27,7 @@ set +x
 # M15140 kynurenine
 
 cd $path_heritability
-$file="$path_metabolites/metabolites_meta/M02342.metal.pos.txt.gz"
+file="$path_metabolites/metabolites_meta/M02342.metal.pos.txt.gz"
 head -10 $file
 echo "identifier allele_1 allele_2 count effect p_value" > base
 zcat $file | awk 'NR > 1 {print $1, $2, $3, $16, $8, $10}' >> base
