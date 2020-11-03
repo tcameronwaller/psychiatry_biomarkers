@@ -28,17 +28,19 @@ set +x
 
 cd $path_heritability
 $file="$path_metabolites/metabolites_meta/M02342.metal.pos.txt.gz"
+head -10 $file
 echo "identifier allele_1 allele_2 count effect p_value" > base
 zcat $file | awk 'NR > 1 {print $1, $2, $3, $16, $8, $10}' >> base
-$path_ldsc/munge_sumstats.py \
---sumstats base \
---out test \
---merge-alleles $path_alleles/w_hm3.snplist
+head -10 base
+#$path_ldsc/munge_sumstats.py \
+#--sumstats base \
+#--out test \
+#--merge-alleles $path_alleles/w_hm3.snplist
 
-$path_ldsc/ldsc.py \
---h2 $path_access/test.sumstats.gz \
---ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
---w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
---out test_h2
+#$path_ldsc/ldsc.py \
+#--h2 $path_access/test.sumstats.gz \
+#--ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+#--w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+#--out test_h2
 
 # less test_h2.log
