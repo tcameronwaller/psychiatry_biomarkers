@@ -57,12 +57,11 @@ count=$3
 echo "read private file path variables and organize paths..."
 cd ~/paths
 path_ldsc=$(<"./tools_ldsc.txt")
-path_dock="$path_waller/dock"
 path_access="$path_dock/access"
-path_disequilibrium="$path_access/disequilibrium"
-path_alleles="$path_access/alleles"
-path_metabolites="$path_access/metabolites"
-path_metabolite_summaries="$path_access/metabolites/metabolites_meta"
+path_disequilibrium="$path_dock/access/disequilibrium"
+path_alleles="$path_dock/access/alleles"
+path_metabolites="$path_dock/access/metabolites"
+path_metabolite_summaries="$path_dock/access/metabolites/metabolites_meta"
 path_heritability_metabolites="$path_dock/heritability/metabolites"
 
 
