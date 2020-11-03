@@ -28,13 +28,12 @@ cd ~/paths
 path_temporary=$(<"./temporary_bipolar_metabolism.txt")
 path_waller="$path_temporary/waller"
 path_dock="$path_waller/dock"
-path_access="$path_waller/dock/access"
-path_disequilibrium="$path_access/disequilibrium"
-path_alleles="$path_access/alleles"
-path_metabolites="$path_access/metabolites"
-path_metabolite_summaries="$path_access/metabolites/metabolites_meta"
-path_heritability="$path_waller/dock/heritability"
-path_heritability_metabolites="$path_waller/dock/heritability/metabolites"
+path_disequilibrium="$path_dock/access/disequilibrium"
+path_alleles="$path_dock/access/alleles"
+path_metabolites="$path_dock/access/metabolites"
+path_metabolite_summaries="$path_dock/access/metabolites/metabolites_meta"
+path_heritability="$path_dock/heritability"
+path_heritability_metabolites="$path_dock/heritability/metabolites"
 path_bipolar_metabolism="$path_waller/bipolar_metabolism"
 path_scripts="$path_bipolar_metabolism/scripts/metabolite_heritability"
 
@@ -54,9 +53,11 @@ fi
 echo "----------------------------------------------------------------------"
 echo "Organize the array of batch instances."
 echo "----------------------------------------------------------------------"
-metabolite_files=$path_metabolites_summaries/*.metal.pos.txt.gz
+cd $path_metabolites_summaries
+metabolite_files=(./*.metal.pos.txt.gz)
 printf "%s\n" "${metabolite_files[@]}" > $path_metabolites/metabolite_files.txt
 count=${#metabolite_files[@]}
+cat $metabolite_files
 
 # Submit array batch to Sun Grid Engine.
 # Array batch indices cannot start at zero.
@@ -64,8 +65,8 @@ echo "----------------------------------------------------------------------"
 echo "Submit array batch to Sun Grid Engine."
 echo "----------------------------------------------------------------------"
 #qsub -t 1-${count}:1 -o \
-qsub -t 1-5:1 -o \
-"$path_heritability/out.txt" -e "$path_heritability/error.txt" \
-$path_scripts/regress_metabolite_heritability.sh \
-$path_metabolites/metabolite_files.txt \
-$path_dock $count
+#qsub -t 1-5:1 -o \
+#"$path_heritability/out.txt" -e "$path_heritability/error.txt" \
+#$path_scripts/regress_metabolite_heritability.sh \
+#$path_metabolites/metabolite_files.txt \
+#$path_dock $count
