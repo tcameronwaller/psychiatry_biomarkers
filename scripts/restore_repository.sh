@@ -26,7 +26,7 @@ cd $path_waller
 wget https://github.com/tcameronwaller/bipolar_metabolism/archive/main.zip
 unzip main.zip
 rm main.zip
-mv bipolar_metabolism-main $path_sexy_alcohol
+mv bipolar_metabolism-main $path_bipolar_metabolism
 mv "$path_bipolar_metabolism/package" "$path_bipolar_metabolism/bipolar_metabolism"
 
 echo "access current version of the promiscuity repository..."
