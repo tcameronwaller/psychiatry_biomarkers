@@ -70,10 +70,11 @@ path_heritability_metabolites="$path_dock/heritability/metabolites"
 # Execute procedure.
 
 # Read instance.
-readarray -t paths_files < $path_instances
-path_file=${paths_files[$index]}
+readarray -t files < $path_instances
+file=${files[$index]}
+path_file=="$path_metabolite_summaries/$file"
 
-file="$(basename $path_file)"
+#file="$(basename $path_file)"
 identifier="$(cut -d'.' -f1 <<<$file)"
 echo "metabolite identifier: " $identifier
 
