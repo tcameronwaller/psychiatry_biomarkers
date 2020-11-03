@@ -57,9 +57,10 @@ echo "----------------------------------------------------------------------"
 cd $path_metabolite_summaries
 echo $path_metabolite_summaries
 metabolite_files=(*.metal.pos.txt.gz)
-printf "%s\n" "${metabolite_files[@]}" > $path_metabolites/metabolite_files.txt
+#printf "%s\n" "${metabolite_files[@]}" > $path_metabolites/metabolite_files.txt
 count=${#metabolite_files[@]}
-cat $metabolite_files
+echo "count of file paths: " $count
+#cat $metabolite_files
 
 # Submit array batch to Sun Grid Engine.
 # Array batch indices cannot start at zero.
