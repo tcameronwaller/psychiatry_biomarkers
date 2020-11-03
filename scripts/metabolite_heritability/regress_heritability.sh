@@ -28,12 +28,13 @@ set +x
 
 cd $path_heritability
 file="$path_metabolites/metabolites_meta/M02342.metal.pos.txt.gz"
-head -10 $file
-echo "identifier allele_1 allele_2 count effect p_value" > base
-zcat $file | awk 'NR > 1 {print $1, $2, $3, $16, $8, $10}' >> base
-head -10 base
+# Extract and organize information from summary.
+# Write information to new, temporary file.
+echo "identifier allele_1 allele_2 count effect p_value" > summary.txt
+zcat $file | awk 'NR > 1 {print $1, $2, $3, $16, $8, $10}' >> summary.txt
+head -10 summary.txt
 #$path_ldsc/munge_sumstats.py \
-#--sumstats base \
+#--sumstats summary.txt \
 #--out test \
 #--merge-alleles $path_alleles/w_hm3.snplist
 
