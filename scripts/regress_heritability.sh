@@ -27,10 +27,11 @@ set +x
 # M15140 kynurenine
 
 cd $path_heritability
-#gunzip $path_metabolites/metabolites_meta/M02342.metal.pos.txt.gz -c >> raw
-zcat $path_metabolites/metabolites_meta/M02342.metal.pos.txt.gz >> raw
+$file="$path_metabolites/metabolites_meta/M02342.metal.pos.txt.gz"
+echo "identifier allele_1 allele_2 count effect p_value" > base
+zcat $file | awk 'NR > 1 {print $1, $2, $3, $16, $8, $10}' >> base
 $path_ldsc/munge_sumstats.py \
---sumstats raw \
+--sumstats base \
 --out test \
 --merge-alleles $path_alleles/w_hm3.snplist
 
