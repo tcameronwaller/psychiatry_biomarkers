@@ -90,7 +90,7 @@ $path_ldsc/munge_sumstats.py \
 --merge-alleles $path_alleles/w_hm3.snplist
 
 $path_ldsc/ldsc.py \
---h2 $path_heritability/${identifier}_munge.sumstats.gz \
+--h2 $path_heritability_metabolites/${identifier}_munge.sumstats.gz \
 --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --out ${identifier}_heritability
