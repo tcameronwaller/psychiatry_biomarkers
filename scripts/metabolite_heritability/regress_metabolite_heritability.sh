@@ -71,7 +71,7 @@ path_heritability_metabolites="$path_dock/heritability/metabolites"
 # Read instance.
 readarray -t files < $path_instances
 file=${files[$index]}
-path_file=="$path_metabolite_summaries/$file"
+path_file="$path_metabolite_summaries/$file"
 
 #file="$(basename $path_file)"
 identifier="$(cut -d'.' -f1 <<<$file)"
@@ -82,7 +82,7 @@ echo "metabolite identifier: " $identifier
 cd $path_heritability_metabolites
 echo "SNP A1 A2 N BETA P" > ${identifier}_new.txt
 zcat $path_file | awk 'NR > 1 {print $1, $2, $3, $16, $8, $10}' >> ${identifier}_new.txt
-#head -10 summary.txt
+#head -10 ${identifier}_new.txt
 
 $path_ldsc/munge_sumstats.py \
 --sumstats ${identifier}_new.txt \
@@ -90,7 +90,7 @@ $path_ldsc/munge_sumstats.py \
 --merge-alleles $path_alleles/w_hm3.snplist
 
 $path_ldsc/ldsc.py \
---h2 $path_heritability/${name}_munge.sumstats.gz \
+--h2 $path_heritability/${identifier}_munge.sumstats.gz \
 --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --out ${identifier}_heritability
