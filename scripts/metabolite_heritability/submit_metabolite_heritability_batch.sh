@@ -69,8 +69,7 @@ done
 echo "----------------------------------------------------------------------"
 echo "Submit array batch to Sun Grid Engine."
 echo "----------------------------------------------------------------------"
-#qsub -t 1-${count}:1 -o \
-qsub -t 1-5:1 -o \
+qsub -t 1-${count}:1 -o \
 "$path_heritability/out.txt" -e "$path_heritability/error.txt" \
 $path_scripts/regress_metabolite_heritability.sh \
 $path_metabolites/metabolite_files.txt \

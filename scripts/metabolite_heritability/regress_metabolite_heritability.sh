@@ -10,7 +10,8 @@
 #$ -N waller_ldsc
 # Contact.
 #$ -M tcameronwaller@gmail.com
-#$ -m abes
+### #$ -m abes
+#$ -m e
 # Standard output and error.
 # Specify as arguments when calling qsub.
 ### -o "./out"
@@ -54,7 +55,7 @@ count=$3
 ###########################################################################
 # Organize paths.
 # Read private, local file paths.
-echo "read private file path variables and organize paths..."
+#echo "read private file path variables and organize paths..."
 cd ~/paths
 path_ldsc=$(<"./tools_ldsc.txt")
 path_access="$path_dock/access"
@@ -75,7 +76,7 @@ path_file="$path_metabolite_summaries/$file"
 
 #file="$(basename $path_file)"
 identifier="$(cut -d'.' -f1 <<<$file)"
-echo "metabolite identifier: " $identifier
+#echo "metabolite identifier: " $identifier
 
 # Extract and organize information from summary.
 # Write information to new, temporary file.
