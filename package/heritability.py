@@ -207,7 +207,7 @@ def read_extract_metabolite_heritability(
     )
     # Read relevant lines from file.
     lines = utility.read_file_text_lines(
-        path_file=path_file,
+        path_file=path_heritability,
         start=20,
         stop=25,
     )
