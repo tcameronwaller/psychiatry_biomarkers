@@ -16,7 +16,8 @@ import textwrap
 
 # Custom.
 
-import assembly
+import heritability
+#import assembly
 #import plot
 #import utility
 
@@ -139,9 +140,9 @@ def define_main_subparser(subparsers=None):
         )
     )
     parser_main.add_argument(
-        "-assembly", "--assembly", dest="assembly", action="store_true",
+        "-heritability", "--heritability", dest="heritability", action="store_true",
         help=(
-            "Organization of information for further analyses."
+            "Collection of heritability estimates from LD Score regression."
         )
     )
     # Define behavior.
@@ -222,11 +223,11 @@ def evaluate_main_parameters(arguments):
     print("--------------------------------------------------")
     print("... call to main routine ...")
     # Execute procedure.
-    if arguments.assembly:
+    if arguments.heritability:
         # Report status.
-        print("... executing assembly procedure ...")
+        print("... executing heritability procedure ...")
         # Execute procedure.
-        assembly.execute_procedure(
+        heritability.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass
