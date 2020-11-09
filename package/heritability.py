@@ -279,6 +279,7 @@ def read_collect_metabolite_heritabilities(
     )
     # Report.
     if report:
+        utility.print_terminal_partition(level=2)
         print(table)
     # Return information.
     return table
@@ -1032,13 +1033,13 @@ def execute_procedure(
         report=True,
     )
     # Extract identifiers of metabolites with GWAS summary statistics.
-    metabolites_identifiers = extract_metabolite_file_identifiers(
+    metabolite_identifiers = extract_metabolite_file_identifiers(
         metabolite_files=source["metabolite_files"],
     )
     # Collect linkage disequilibrium score regression heritability estimates
     # for each metabolite.
     table_metabolite_heritability = read_collect_metabolite_heritabilities(
-        metabolites_identifiers=metabolites_identifiers,
+        metabolite_identifiers=metabolite_identifiers,
         path_dock=path_dock,
         report=True,
     )
