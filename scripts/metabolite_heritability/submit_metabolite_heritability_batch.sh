@@ -61,7 +61,7 @@ count=${#metabolite_files[@]}
 echo "count of file paths: " $count
 rm $path_metabolites/metabolite_files.txt
 for path_file in "${metabolite_files[@]}"; do
-    echo $ path_file >> $path_metabolites/metabolite_files.txt
+    echo $path_file >> $path_metabolites/metabolite_files.txt
 done
 
 
