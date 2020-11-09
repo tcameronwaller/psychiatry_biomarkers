@@ -59,6 +59,7 @@ echo $path_metabolite_summaries
 metabolite_files=(*.metal.pos.txt.gz)
 count=${#metabolite_files[@]}
 echo "count of file paths: " $count
+rm $path_metabolites/metabolite_files.txt
 for path_file in "${metabolite_files[@]}"; do
     echo $ path_file >> $path_metabolites/metabolite_files.txt
 done
@@ -69,8 +70,8 @@ done
 echo "----------------------------------------------------------------------"
 echo "Submit array batch to Sun Grid Engine."
 echo "----------------------------------------------------------------------"
-qsub -t 1-${count}:1 -o \
-"$path_heritability/out.txt" -e "$path_heritability/error.txt" \
-$path_scripts/regress_metabolite_heritability.sh \
-$path_metabolites/metabolite_files.txt \
-$path_dock $count
+#qsub -t 1-${count}:1 -o \
+#"$path_heritability/out.txt" -e "$path_heritability/error.txt" \
+#$path_scripts/regress_metabolite_heritability.sh \
+#$path_metabolites/metabolite_files.txt \
+#$path_dock $count

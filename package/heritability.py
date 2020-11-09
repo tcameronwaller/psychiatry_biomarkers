@@ -205,33 +205,36 @@ def read_extract_metabolite_heritability(
     path_heritability = os.path.join(
         path_dock, "heritability", "metabolites", name_file
     )
-    # Read relevant lines from file.
-    lines = utility.read_file_text_lines(
-        path_file=path_heritability,
-        start=20,
-        stop=25,
-    )
-    # Extract information from lines.
-    prefix_variants = "After merging with regression SNP LD, "
-    suffix_variants = " SNPs remain."
-    prefix_heritability = "Total Observed scale h2: "
-    suffix_heritability = " ("
-    suffix_error = ")"
+    # Initialize variables.
     variants = float("nan")
     heritability = float("nan")
     standard_error = float("nan")
-    for line in lines:
-        if prefix_variants in line:
-            variants = float(
-                line.replace(prefix_variants, "").replace(suffix_variants, "")
-            )
-        elif prefix_heritability in line:
-            content = line.replace(prefix_heritability, "")
-            contents = content.split(" (")
-            heritability = float(contents[0])
-            standard_error = float(
-                contents[1].replace(")", "")
-            )
+    # Read relevant lines from file.
+    if os.path.isfile(path_heritability):
+        lines = utility.read_file_text_lines(
+            path_file=path_heritability,
+            start=20,
+            stop=25,
+        )
+        # Extract information from lines.
+        prefix_variants = "After merging with regression SNP LD, "
+        suffix_variants = " SNPs remain."
+        prefix_heritability = "Total Observed scale h2: "
+        suffix_heritability = " ("
+        suffix_error = ")"
+        for line in lines:
+            if prefix_variants in line:
+                variants = float(
+                    line.replace(prefix_variants, "").replace(suffix_variants, "")
+                )
+            elif prefix_heritability in line:
+                content = line.replace(prefix_heritability, "")
+                contents = content.split(" (")
+                heritability = float(contents[0])
+                standard_error = float(
+                    contents[1].replace(")", "")
+                )
+                pass
             pass
         pass
     # Collect information.
@@ -1020,7 +1023,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 2")
+    print("version check: 3")
 
     # Initialize directories.
     paths = initialize_directories(
