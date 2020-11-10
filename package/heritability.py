@@ -114,15 +114,15 @@ def read_source(
     """
 
     # Specify directories and files.
-    path_table_metabolite_identifiers = os.path.join(
+    path_table_metabolite_names = os.path.join(
         path_dock, "access", "metabolites", "metaboliteMap.txt"
     )
     path_metabolite_files = os.path.join(
         path_dock, "access", "metabolites", "metabolite_files.txt"
     )
     # Read information from file.
-    table_metabolite_identifiers = pandas.read_csv(
-        path_table_metabolite_identifiers,
+    table_metabolite_names = pandas.read_csv(
+        path_table_metabolite_names,
         sep="\t",
         header=0,
         dtype="string",
@@ -134,14 +134,14 @@ def read_source(
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
-        print(table_metabolite_identifiers)
+        print(table_metabolite_names)
         utility.print_terminal_partition(level=2)
         print("count of metabolites: " + str(len(metabolite_files)))
         print("example: " + str(metabolite_files[10]))
         utility.print_terminal_partition(level=2)
     # Compile and return information.
     return {
-        "table_metabolite_identifiers": table_metabolite_identifiers,
+        "table_metabolite_names": table_metabolite_names,
         "metabolite_files": metabolite_files,
     }
 
@@ -288,6 +288,72 @@ def read_collect_metabolite_heritabilities(
     return table
 
 
+def merge_metabolite_names_heritabilities(
+    table_names=None,
+    table_heritabilities=None,
+    report=None,
+):
+    """
+    Merges tables with information about metabolite names and heritabilities.
+
+    arguments:
+        table_names (object): Pandas data frame of metabolite identifiers and
+            names
+        table_heritabilities (object): Pandas data frame of metabolite
+            heritability estimates
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): Pandas data frame of metabolite identifiers, names, and
+            heritability estimates
+
+    """
+
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print(table_names)
+        utility.print_terminal_partition(level=2)
+        print(table_heritabilities)
+    # Organize data.
+    table_names.astype("string")
+    table_names.rename(
+        columns={
+            "metabolonID": "identifier",
+            "metabolonDescription": "name",
+        },
+        inplace=True,
+    )
+    table_names.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
+    table_heritabilities["identifier"].astype("string")
+    table_heritabilities.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
+    # Merge data tables using database-style join.
+    # Alternative is to use DataFrame.join().
+    table_merge = table_names.merge(
+        table_heritabilities,
+        how="outer",
+        left_on="identifier",
+        right_on="identifier",
+        suffixes=("_name", "_heritability"),
+    )
+    # Remove excess columns.
+
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print(table_merge)
+    # Return information.
+    return table_merge
 
 
 
@@ -1023,7 +1089,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 3")
+    print("version check: 1")
 
     # Initialize directories.
     paths = initialize_directories(
@@ -1041,21 +1107,21 @@ def execute_procedure(
     )
     # Collect linkage disequilibrium score regression heritability estimates
     # for each metabolite.
-    table_metabolite_heritability = read_collect_metabolite_heritabilities(
+    table_heritabilities = read_collect_metabolite_heritabilities(
         metabolite_identifiers=metabolite_identifiers,
         path_dock=path_dock,
+        report=True,
+    )
+    # Merge metabolite heritabilities to metabolite names.
+    table_names_heritabilities = merge_metabolite_names_heritabilities(
+        table_names=source["table_metabolite_names"],
+        tabe_heritabilities=table_heritabilities,
         report=True,
     )
 
 
     # Merge heritability table with metabolite name table.
 
-    # 1. read identifiers of all metabolites from list file
-    # 2. check that LD Score regression files exist for all metabolites
-    # 3. iterate on metabolites with LD Score regression files
-    # 4. for each metabolite LDSC result file
-    # 5. --- find relevant rows by leading strings
-    # 6. --- extract and organize
     # 7. organize summary table
     # 8. save summary table
 
