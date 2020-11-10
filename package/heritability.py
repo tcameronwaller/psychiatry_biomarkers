@@ -1115,7 +1115,7 @@ def execute_procedure(
     # Merge metabolite heritabilities to metabolite names.
     table_names_heritabilities = merge_metabolite_names_heritabilities(
         table_names=source["table_metabolite_names"],
-        tabe_heritabilities=table_heritabilities,
+        table_heritabilities=table_heritabilities,
         report=True,
     )
 
