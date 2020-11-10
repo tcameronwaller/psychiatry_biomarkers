@@ -20,6 +20,8 @@ path_ldsc=$(<"./tools_ldsc.txt")
 set +x
 
 # M00053 glutamine
+# -- 1030131 SNPs
+# -- heritability 0.4114 (0.0504)
 # M00054 tryptophan
 # M01712 cortisol
 # M01769 cortisone
