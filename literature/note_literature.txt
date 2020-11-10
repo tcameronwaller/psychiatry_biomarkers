@@ -8,6 +8,7 @@ https://www.nature.com/articles/mp2015205.pdf?origin=ppub
 --------------------------------------------------
 --------------------------------------------------
 Heritability of metabolite abundance
+priority
 --------------------------------------------------
 --------------------------------------------------
 --------------------------------------------------
@@ -25,7 +26,9 @@ Note:
 - 2,886 persons from Framingham Heart Study (FHS) cohort
 - 11,067 metabolites (91% unidentifiable)
 - " 818  were  chemically  identified  metabolites  (414  123 confirmed  or  putative  eicosanoids11,  100  free  fatty  acids  (FFA),  66  polar  compounds,  47  124 very-long-chain  dicarboxylic  acids  (VLCDCA),  47  fatty  acids  esters  of  hydroxy  fatty  acids  125 (FAHFA),  35  bile  acids,  14  docosanoids,  14  endocannabinoids  and  4  sterols)"
-- authors calculate SNP heritability, but this information is not readily accessible
+- authors calculated and mentioned SNP heritability briefly, but this information is not readily accessible
+-- I could not find metabolite heritabilities in the supplemental tables
+- on 10 November 2020, I was unable to find a published version of this article
 
 --------------------------------------------------
 PubMed: 33031748
@@ -56,6 +59,85 @@ Note:
 --- N-acetylkynurenine: 0.2776
 --- kynurenine: 0.1254
 - metabolite GWAS summary statistics available on request from corresponding author, Dr. Robert C. Kaplan
+
+--------------------------------------------------
+PubMed:31911595
+Date: 7 January 2020
+Journal: Nature Communications
+Authors: Hagenbeek, ..., Boomsma
+Title: "Heritability estimates for 361 blood metabolites across 40 genome-wide association studies"
+heritability method: Genome-wide Complex Trait Analysis (GCTA)
+Note:
+- includes data from Gieger 2008 (PubMed:19043545)
+- includes data from Krumsiek 2012 (PubMed:23093944)
+- includes data from Shin 2014 (PubMed:24816252)
+- includes data from Yet 2016 (PubMed:27073872)
+- includes data from Long 2017 (PubMed:28263315)
+- 369 consensus metabolites from multiple data sets
+-- 53 organic acids
+- Supplementary Data 3
+- most relevant values are h2SNP for the non-class GRM (more loci)
+- includes information for very few relevant metabolites
+
+--------------------------------------------------
+PubMed:30799310
+Date: 24 February 2019
+Journal: Aging
+Authors: Darst, ..., Engelman
+Title: "Longitudinal plasma metabolomics of aging and sex"
+Note:
+- cited by National Cancer Institute project PLCO-555 (https://cdas.cancer.gov/approved-projects/2424/)
+- samples from Wisconsin Registry for Alzheimer's Prevention (WRAP)
+-- participants did not have dementia at enrollment in longitudinal study
+- fasting plasma samples
+- 1097 metabolites measured
+- heritabilities across 1,111 persons with both metabolomic and genomic data (Supplemental Table 1)
+- authors calculated heritabilities of metabolites by GCTA
+- authors did not publish all GWAS summary statistics
+
+--------------------------------------------------
+PubMed:28263315
+Date: 2017
+Journal: Nature Genetics
+Authors: Long, ..., Perkins
+Title: "Whole-genome sequencing identifies common-to-rare variants associated with human blood metabolites"
+- 1960 persons from TwinsUK
+-- one third of this cohort was in the cohort by Shin 2014 (PubMed:24816252)
+-- three longitudinal samples for each person
+- non-targeted metabolomics
+-- 901 metabolites
+-- 644 consistent heritability 10.5%-93.2%
+-- 486 identifiable, 158 unknown
+- ACE model estimation of "proportion of total variance explained by additive genetic effects"
+-- separate heritability estimate for each longitudinal sample
+-- 644 metabolites had consistent heritability across longitudinal samples
+- HWESASXX heritability 
+
+--------------------------------------------------
+PubMed:24816252
+Date: 11 May 2014
+Journal: Nature Genetics
+Authors: Shin, ..., Soranzo
+Title: "An atlas of genetic influences on human blood metabolites"
+persons: 7,824
+metabolites, total: 486
+metabolites, identifiable: 309
+metabolites, unidentifiable: 177
+heritability method: TwinsUK cohort and classical twin model
+
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Heritability of metabolite abundance
+other
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
 
 --------------------------------------------------
 PubMed: 31960908
@@ -98,27 +180,6 @@ Note:
 - 1,172 metabolites
 - calculation of mQTLs and application to UK Biobank data
 
-
---------------------------------------------------
-PubMed:31911595
-Date: 7 January 2020
-Journal: Nature Communications
-Authors: Hagenbeek, ..., Boomsma
-Title: "Heritability estimates for 361 blood metabolites across 40 genome-wide association studies"
-heritability method: Genome-wide Complex Trait Analysis (GCTA)
-Note:
-- includes data from Gieger 2008 (PubMed:19043545)
-- includes data from Krumsiek 2012 (PubMed:23093944)
-- includes data from Shin 2014 (PubMed:24816252)
-- includes data from Yet 2016 (PubMed:27073872)
-- includes data from Long 2017 (PubMed:28263315)
-- 369 consensus metabolites from multiple data sets
--- 53 organic acids
-- Supplementary Data 3
-- most relevant values are h2SNP for the non-class GRM (more loci)
-- includes information for very few relevant metabolites
-
-
 --------------------------------------------------
 PubMed: 31882771
 Date: 27 December 2019
@@ -127,6 +188,7 @@ Journal: Scientific Reports
 Title: "Metabolic GWAS of elite athletes reveals novel genetically-influenced metabolites associated with athletic performance"
 Note:
 - 490 persons who were elite athletes
+- authors did not analyze or comment on heritability
 
 --------------------------------------------------
 PubMed:31636271
@@ -148,40 +210,6 @@ Note:
 - similar data and analyses to Darst 2019 (PubMed:30799310)
 
 --------------------------------------------------
-PubMed:30799310
-Date: 24 February 2019
-Journal: Aging
-Authors: Darst, ..., Engelman
-Title: "Longitudinal plasma metabolomics of aging and sex"
-Note:
-- cited by National Cancer Institute project PLCO-555 (https://cdas.cancer.gov/approved-projects/2424/)
-- samples from Wisconsin Registry for Alzheimer's Prevention (WRAP)
--- participants did not have dementia at enrollment in longitudinal study
-- fasting plasma samples
-- 1097 metabolites measured
-- heritabilities across 1,111 persons with both metabolomic and genomic data (Supplemental Table 1)
-- authors calculated heritabilities of metabolites by GCTA
-- authors did not publish all GWAS summary statistics
-
---------------------------------------------------
-PubMed:28263315
-Date: 2017
-Journal: Nature Genetics
-Authors: Long, ..., Perkins
-Title: "Whole-genome sequencing identifies common-to-rare variants associated with human blood metabolites"
-- 1960 persons from TwinsUK
--- one third of this cohort was in the cohort by Shin 2014 (PubMed:24816252)
--- three longitudinal samples for each person
-- non-targeted metabolomics
--- 901 metabolites
--- 644 consistent heritability 10.5%-93.2%
--- 486 identifiable, 158 unknown
-- ACE model estimation of "proportion of total variance explained by additive genetic effects"
--- separate heritability estimate for each longitudinal sample
--- 644 metabolites had consistent heritability across longitudinal samples
-- HWESASXX heritability 
-
---------------------------------------------------
 PubMed:27073872
 Date: 13 April 2016
 Journal: PLOS One
@@ -193,18 +221,6 @@ Note:
 -- ACE model on twin pairs
 -- Supplemental Table 2
 --- tryptophan genetic heritability: 0.09
-
---------------------------------------------------
-PubMed:24816252
-Date: 11 May 2014
-Journal: Nature Genetics
-Authors: Shin, ..., Soranzo
-Title: "An atlas of genetic influences on human blood metabolites"
-persons: 7,824
-metabolites, total: 486
-metabolites, identifiable: 309
-metabolites, unidentifiable: 177
-heritability method: TwinsUK cohort and classical twin model
 
 --------------------------------------------------
 PubMed:22286219
