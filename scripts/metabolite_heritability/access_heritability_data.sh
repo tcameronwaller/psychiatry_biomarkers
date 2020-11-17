@@ -9,6 +9,9 @@ path_temporary=$(<"./temporary_bipolar_metabolism.txt")
 path_waller="$path_temporary/waller"
 path_access="$path_waller/dock/access"
 path_disequilibrium="$path_access/disequilibrium"
+path_baseline="$path_access/baseline"
+path_weights="$path_access/weights"
+path_frequencies="$path_access/frequencies"
 path_alleles="$path_access/alleles"
 path_metabolites="$path_access/metabolites"
 path_metabolite_summaries=$(<"./24816252_shin_2014.txt")
@@ -19,8 +22,8 @@ path_metabolite_summaries=$(<"./24816252_shin_2014.txt")
 set +x
 
 # Remove previous version of program.
-echo "remove previous versions of data..."
-rm -r $path_access
+#echo "remove previous versions of data..."
+#rm -r $path_access
 
 # Determine whether the temporary directory structure already exists.
 if [ ! -d $path_access ]; then
@@ -28,19 +31,44 @@ if [ ! -d $path_access ]; then
     # Create directory.
     mkdir -p $path_access
     mkdir -p $path_disequilibrium
+    mkdir -p $path_baseline
+    mkdir -p $path_weights
+    mkdir -p $path_frequencies
     mkdir -p $path_alleles
     mkdir -p $path_metabolites
 fi
 
+mkdir -p $path_disequilibrium
+mkdir -p $path_baseline
+mkdir -p $path_weights
+mkdir -p $path_frequencies
+mkdir -p $path_alleles
+
 cd $path_access
 # Linkage disequilibrium scores for European population.
+# For simple heritability estimation.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/eur_w_ld_chr.tar.bz2
-tar -jxvf eur_w_ld_chr.tar.bz2 -C $path_disequilibrium
+tar -xjvf eur_w_ld_chr.tar.bz2 -C $path_disequilibrium
+
+# Baseline model linkage disequilibrium scores.
+# For partitioned heritability estimation by stratified LD score regression.
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_baseline_ldscores.tgz
+tar -xzvf 1000G_Phase3_baseline_ldscores.tgz -C $path_baseline
 
 # Definitions of Simple Nucleotide Variant alleles.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2
 bunzip2 "$path_access/w_hm3.snplist.bz2"
 mv "$path_access/w_hm3.snplist" "$path_alleles/w_hm3.snplist"
+
+# Weights.
+# For partitioned heritability estimation by stratified LD score regression.
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/weights_hm3_no_hla.tgz
+tar -xzvf weights_hm3_no_hla.tgz -C $path_weights
+
+# Frequencies.
+# For partitioned heritability estimation by stratified LD score regression.
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_frq.tgz
+tar -xzvf 1000G_Phase3_frq.tgz -C $path_frequencies
 
 # GWAS summary statistics for metabolites.
 cp -r $path_metabolite_summaries "$path_access/shin_et_al.metal.out.tar.gz"

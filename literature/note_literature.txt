@@ -76,6 +76,7 @@ Note:
 - 369 consensus metabolites from multiple data sets
 -- 53 organic acids
 - Supplementary Data 3
+-- Supplemental Data 2 translates metabolite name abbreviations
 - most relevant values are h2SNP for the non-class GRM (more loci)
 - includes information for very few relevant metabolites
 
@@ -108,6 +109,7 @@ Title: "Whole-genome sequencing identifies common-to-rare variants associated wi
 -- 901 metabolites
 -- 644 consistent heritability 10.5%-93.2%
 -- 486 identifiable, 158 unknown
+- Supplemental Table 1: metabolite heritabilities
 - ACE model estimation of "proportion of total variance explained by additive genetic effects"
 -- separate heritability estimate for each longitudinal sample
 -- 644 metabolites had consistent heritability across longitudinal samples
@@ -229,9 +231,9 @@ Journal: Nature Genetics
 Authors: Kettunen, ..., Ripatti
 Title: "Genome-wide association study identifies multiple loci influencing human serum metabolite levels"
 Note:
-- persons: 8,330
-- metabolites, total: 216
-- authors evaluated heritability for at least a few metabolites
+- persons: 8,330 (221 monozygotic twin pairs, 340 dizygotic twin pairs)
+- metabolites, total: 117
+- authors evaluated heritability by ACE twin model
 
 --------------------------------------------------
 PubMed:21886157
