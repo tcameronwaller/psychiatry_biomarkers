@@ -22,8 +22,8 @@ path_metabolite_summaries=$(<"./24816252_shin_2014.txt")
 set +x
 
 # Remove previous version of program.
-#echo "remove previous versions of data..."
-#rm -r $path_access
+echo "remove previous versions of data..."
+rm -r $path_access
 
 # Determine whether the temporary directory structure already exists.
 if [ ! -d $path_access ]; then
@@ -38,22 +38,18 @@ if [ ! -d $path_access ]; then
     mkdir -p $path_metabolites
 fi
 
-mkdir -p $path_disequilibrium
-mkdir -p $path_baseline
-mkdir -p $path_weights
-mkdir -p $path_frequencies
-mkdir -p $path_alleles
-
 cd $path_access
 # Linkage disequilibrium scores for European population.
 # For simple heritability estimation.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/eur_w_ld_chr.tar.bz2
 tar -xjvf eur_w_ld_chr.tar.bz2 -C $path_disequilibrium
+# dock/access/disequilibrium/eur_w_ld_chr/*
 
 # Baseline model linkage disequilibrium scores.
 # For partitioned heritability estimation by stratified LD score regression.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_baseline_ldscores.tgz
 tar -xzvf 1000G_Phase3_baseline_ldscores.tgz -C $path_baseline
+# dock/access/baseline/1000G_EUR_Phase3_baseline/baseline.*
 
 # Definitions of Simple Nucleotide Variant alleles.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2
@@ -64,11 +60,13 @@ mv "$path_access/w_hm3.snplist" "$path_alleles/w_hm3.snplist"
 # For partitioned heritability estimation by stratified LD score regression.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/weights_hm3_no_hla.tgz
 tar -xzvf weights_hm3_no_hla.tgz -C $path_weights
+# dock/access/weights/weights_hm3_no_hla/weights.*
 
 # Frequencies.
 # For partitioned heritability estimation by stratified LD score regression.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_frq.tgz
 tar -xzvf 1000G_Phase3_frq.tgz -C $path_frequencies
+# dock/access/frequencies/1000G_Phase3_frq/1000G.EUR.QC.*
 
 # GWAS summary statistics for metabolites.
 cp -r $path_metabolite_summaries "$path_access/shin_et_al.metal.out.tar.gz"
