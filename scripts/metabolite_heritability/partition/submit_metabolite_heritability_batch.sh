@@ -34,7 +34,7 @@ path_metabolite_summaries="$path_dock/access/metabolites/metabolites_meta"
 path_heritability="$path_dock/heritability"
 path_heritability_metabolites="$path_dock/heritability/metabolites"
 path_bipolar_metabolism="$path_waller/bipolar_metabolism"
-path_scripts="$path_bipolar_metabolism/scripts/metabolite_heritability"
+path_scripts="$path_bipolar_metabolism/scripts/metabolite_heritability/partition"
 
 # Echo each command to console.
 #set -x
