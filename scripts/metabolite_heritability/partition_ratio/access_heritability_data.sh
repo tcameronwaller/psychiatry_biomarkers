@@ -49,7 +49,7 @@ tar -xjvf eur_w_ld_chr.tar.bz2 -C $path_disequilibrium
 # For partitioned heritability estimation by stratified LD score regression.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_baselineLD_v2.2_ldscores.tgz
 tar -xzvf 1000G_Phase3_baselineLD_v2.2_ldscores.tgz -C $path_baseline
-# dock/access/baseline/_____/baselineLD.*
+# dock/access/baseline/baselineLD.*
 
 # Definitions of Simple Nucleotide Variant alleles.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2
@@ -61,7 +61,7 @@ mv "$path_access/w_hm3.snplist" "$path_alleles/w_hm3.snplist"
 # For partitioned heritability estimation by stratified LD score regression.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_weights_hm3_no_MHC.tgz
 tar -xzvf 1000G_Phase3_weights_hm3_no_MHC.tgz -C $path_weights
-# dock/access/weights/___/weights.hm3_noMHC.*
+# dock/access/weights/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC.*
 
 # Frequencies.
 # For partitioned heritability estimation by stratified LD score regression.

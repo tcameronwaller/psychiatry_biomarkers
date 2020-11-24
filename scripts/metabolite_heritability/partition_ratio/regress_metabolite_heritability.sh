@@ -97,10 +97,12 @@ $path_ldsc/munge_sumstats.py \
 
 $path_ldsc/ldsc.py \
 --h2 $path_heritability_metabolites/${identifier}_munge.sumstats.gz \
---ref-ld-chr $path_baseline/1000G_EUR_Phase3_baseline/baseline. \
---overlap-annot \
---w-ld-chr $path_weights/weights_hm3_no_hla/weights. \
+--ref-ld-chr $path_baseline/baselineLD. \
+--w-ld-chr $path_weights/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
 --frqfile-chr $path_frequencies/1000G_Phase3_frq/1000G.EUR.QC. \
+--overlap-annot \
+--print-coefficients \
+--print-delete-vals \
 --out ${identifier}_heritability
 
 # Report.
