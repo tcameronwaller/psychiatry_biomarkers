@@ -21,6 +21,31 @@ Title: "The accuracy of LD Score regression as an estimator of confounding and g
 Note:
 
 --------------------------------------------------
+PubMed: 28892061
+Date: 11 September 2017
+Journal: Nature Genetics
+Authors: Gazal, ..., Price
+Title: "Linkage disequilibrium–dependent architecture of human complex traits shows action of negative selection"
+Note:
+- authors cite Lee and Wray, Nature Genetics, 2012 (PubMed:22344220): "Estimating the heritability explained by SNPs, and its distribution across... allele frequencies"
+- stratified LD score regression from Finucane and ___, Nature Genetics, 2015 partitions heritability between binary, nominal genomic annotations: sets of genomic SNVs with functional relevance, such as epigenomic architecture
+- authors extended stratified LD score regression for ratio-scale continuous genomic annotations: recombination rate, linkage disequilibrium, allele age, allele frequency
+- authors observed that "common variants that are more recent tend to have lower LLD and to explain more heritability, which is consistent with the action of negative selection, as selection has had less time to eliminate recent weakly deleterious variants"
+- greater SNV-specific heritability correlates with: more common variant frequency, more recent or newer alleles, and lesser linkage disequilibrium
+
+--------------------------------------------------
+PubMed: 
+Date:
+Journal: Nature Genetics
+Authors: Finucane, ..., ____
+Title: ""
+Note:
+- stratified LD score regression
+-- partition heritability between binary, nominal genomic annotations: sets of genomic SNVs with functional relevance, such as epigenomic architecture
+-- genomic annotations overlap, such that sets are not exclusive
+-- Chi-square enrichment of heritability among functional sets of SNVs
+
+--------------------------------------------------
 PubMed: 25642630
 Date: 2 February 2015
 Journal: Nature Genetics

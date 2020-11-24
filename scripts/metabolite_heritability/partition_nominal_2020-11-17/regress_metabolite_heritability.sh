@@ -92,6 +92,9 @@ $path_ldsc/munge_sumstats.py \
 --out ${identifier}_munge \
 --merge-alleles $path_alleles/w_hm3.snplist
 
+# Partitioned heritability by stratified LD score regression.
+# https://github.com/bulik/ldsc/wiki/Partitioned-Heritability
+
 $path_ldsc/ldsc.py \
 --h2 $path_heritability_metabolites/${identifier}_munge.sumstats.gz \
 --ref-ld-chr $path_baseline/1000G_EUR_Phase3_baseline/baseline. \
