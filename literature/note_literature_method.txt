@@ -52,6 +52,9 @@ Journal: Nature Genetics
 Authors: Bulik-Sullivan, ..., Neale
 Title: "LD Score regression distinguishes confounding from polygenicity in genome-wide association studies"
 Note:
+- original report on method Linkage Disequilibrium Score Regression (LDSC)
+- assumptions
+-- 
 
 --------------------------------------------------
 --------------------------------------------------
