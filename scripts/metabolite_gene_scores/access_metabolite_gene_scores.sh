@@ -43,9 +43,8 @@ for file in $path_ukbiobank_metabolites/*; do
       # File name matches glob pattern.
       echo "... pattern match! ..."
       base_name="$(basename -- $file)"
-      echo $base_name
       # Copy the file to new directory.
-      #cp
+      cp $file "$path_access_metabolites/$base_name"
     fi
   fi
 done
