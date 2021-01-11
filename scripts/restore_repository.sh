@@ -10,7 +10,7 @@ project="bipolar_metabolism"
 # Read private, local file paths.
 echo "read private file path variables..."
 cd ~/paths
-path_temporary=$(<"./temporary_${project}.txt")
+path_temporary=$(<"./processing_${project}.txt")
 path_repository="$path_temporary/waller/${project}"
 path_uk_biobank="$path_temporary/waller/uk_biobank"
 path_promiscuity="$path_temporary/waller/promiscuity"

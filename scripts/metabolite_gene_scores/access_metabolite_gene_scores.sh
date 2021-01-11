@@ -16,7 +16,7 @@
 echo "read private file path variables and organize paths..."
 cd ~/paths
 path_ukbiobank_metabolites=$(<"./batzler_ukbiobank_metabolites.txt")
-path_temporary=$(<"./temporary_bipolar_metabolism.txt")
+path_temporary=$(<"./processing_bipolar_metabolism.txt")
 path_dock="$path_temporary/waller/dock"
 path_access_metabolites="$path_dock/access/ukbiobank_metabolites"
 
@@ -33,14 +33,15 @@ if [ ! -d $path_access_metabolites ]; then
 fi
 
 # Define glob pattern to recognize relevant files.
-prefix="UKB_M[:digit:][:digit:][:digit:][:digit:][:digit:]"
-pattern="$path_ukbiobank_metabolites/$prefix.metal.pos_imp0.8_maf0.01.all.score.gz"
+#prefix="UKB_M[:digit:][:digit:][:digit:][:digit:][:digit:]"
+prefix="UKB_M?????"
+pattern="$path_ukbiobank_metabolites/$prefix.metal.pos_imp0.8_maf0.01.{snp,all.score.gz}"
 # Iterate on all files and directories in parent directory.
 for file in $path_ukbiobank_metabolites/*; do
-  if [ -f $file ]; then
+  if [ -f "$file" ]; then
     # Current content item is a file.
     echo $file
-    if [[ $file == $pattern ]]; then
+    if [[ "$file" == ${pattern} ]]; then
       # File name matches glob pattern.
       #echo $file
       echo "pattern match!"
