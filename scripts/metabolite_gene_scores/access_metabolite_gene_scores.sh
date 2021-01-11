@@ -33,11 +33,7 @@ if [ ! -d $path_access_metabolites ]; then
 fi
 
 # Define glob pattern to recognize relevant files.
-#prefix="UKB_M[:digit:][:digit:][:digit:][:digit:][:digit:]"
-#prefix="UKB_M?????"
-#pattern="$path_ukbiobank_metabolites/${prefix}.metal.pos_imp0.8_maf0.01.{snp,all.score.gz}"
-#pattern="${path_ukbiobank_metabolites}/UKB_M?????.metal.pos_imp0.8_maf0.01.*"
-pattern="${path_ukbiobank_metabolites}/UKB_M?????.metal.pos_imp0.8_maf0.01.{snp,all.score.gz}"
+pattern="${path_ukbiobank_metabolites}/UKB_M?????.metal.pos_imp0.8_maf0.01.*"
 # Iterate on all files and directories in parent directory.
 for file in $path_ukbiobank_metabolites/*; do
   if [ -f "$file" ]; then
