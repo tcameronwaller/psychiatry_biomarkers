@@ -37,11 +37,13 @@ prefix="UKB_M[:digit:][:digit:][:digit:][:digit:][:digit:]"
 pattern="$path_ukbiobank_metabolites/$prefix.metal.pos_imp0.8_maf0.01.all.score.gz"
 # Iterate on all files and directories in parent directory.
 for file in $path_ukbiobank_metabolites/*; do
-  if [ -f "$file" ]; then
+  if [ -f $file ]; then
     # Current content item is a file.
+    echo $file
     if [[ $file == $pattern ]]; then
       # File name matches glob pattern.
-      echo $file
+      #echo $file
+      echo "pattern match!"
       # Copy the file to new directory...
     fi
   fi
