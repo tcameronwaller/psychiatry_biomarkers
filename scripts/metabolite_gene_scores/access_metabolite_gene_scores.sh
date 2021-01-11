@@ -41,9 +41,11 @@ for file in $path_ukbiobank_metabolites/*; do
     echo $file
     if [[ "$file" == ${pattern} ]]; then
       # File name matches glob pattern.
-      #echo $file
-      echo "pattern match!"
-      # Copy the file to new directory...
+      echo "... pattern match! ..."
+      base_name="$(basename -- $file)"
+      echo $base_name
+      # Copy the file to new directory.
+      #cp
     fi
   fi
 done
