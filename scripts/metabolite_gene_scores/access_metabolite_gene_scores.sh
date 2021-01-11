@@ -36,7 +36,7 @@ fi
 #prefix="UKB_M[:digit:][:digit:][:digit:][:digit:][:digit:]"
 #prefix="UKB_M?????"
 #pattern="$path_ukbiobank_metabolites/${prefix}.metal.pos_imp0.8_maf0.01.{snp,all.score.gz}"
-pattern="$path_ukbiobank_metabolites/UKB_M*"
+pattern="${path_ukbiobank_metabolites}/UKB_M[:digit:][:digit:][:digit:][:digit:][:digit:]*"
 # Iterate on all files and directories in parent directory.
 for file in $path_ukbiobank_metabolites/*; do
   if [ -f "$file" ]; then
