@@ -105,7 +105,7 @@ def filter_files_names_metabolites_genetic_scores(
         ), files
     ))
     files_scores_unique = utility.collect_unique_elements(
-        elements=identifiers,
+        elements=files_scores,
     )
     return files_scores_unique
 
