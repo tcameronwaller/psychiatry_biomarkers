@@ -277,16 +277,16 @@ def read_source_metabolite_genetic_scores(
         match = any(list(map(
             lambda metabolite: (metabolite in path_file), metabolites
         )))
-        #if match:
-        utility.print_terminal_partition(level=2)
-        print("raw table for example metabolites:")
-        print(table)
-        utility.print_terminal_partition(level=3)
-        print(table.columns.to_list())
-        utility.print_terminal_partition(level=3)
-        print("variable types:")
-        print(table.dtypes)
-        utility.print_terminal_partition(level=3)
+        if match:
+            utility.print_terminal_partition(level=2)
+            print("raw table for example metabolites:")
+            print(table)
+            utility.print_terminal_partition(level=3)
+            print(table.columns.to_list())
+            utility.print_terminal_partition(level=3)
+            print("variable types:")
+            print(table.dtypes)
+            utility.print_terminal_partition(level=3)
     # Compile and return information.
     return table
 
@@ -627,7 +627,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 8")
+    print("version check: 9")
 
     # Initialize directories.
     paths = initialize_directories(
