@@ -263,7 +263,7 @@ def read_source_metabolite_genetic_scores(
     }
     table = pandas.read_csv(
         path_file,
-        sep="\t", # "," or "\t"
+        sep="\s+", # ",", "\t", "\s+"
         header=0,
         dtype=variables_types,
         na_values=["NA", "<NA>"],
