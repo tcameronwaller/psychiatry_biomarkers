@@ -219,9 +219,6 @@ def read_source_initial(
     }
 
 
-
-
-
 def read_source_metabolite_genetic_scores(
     path_file=None,
 ):
@@ -262,11 +259,8 @@ def read_source_metabolite_genetic_scores(
     }
 
 
-
-
 def read_collect_aggregate_metabolites_genetic_scores(
-    metabolites_identifiers=None,
-    files_paths=None,
+    metabolites_files_paths=None,
 ):
     """
     Reads metabolites' genetic scores across the UK Biobank from file,
@@ -274,36 +268,19 @@ def read_collect_aggregate_metabolites_genetic_scores(
     within a table.
 
     arguments:
-        metabolites_identifiers (list<str>): unique identifiers of metabolites
-        files_paths (list<str>): complete paths to files with metabolites'
-            genetic scores across the UK Biobank
+        metabolites_files_paths (dict<list<str>>): collection of files and paths
+            for metabolites
 
     raises:
 
     returns:
-        (list<str>): unique identifiers of metabolites
+        (dict): collection of information
 
     """
-
-
-
-    for metabolite_identifier in metabolites_identifiers:
-        # do stuff...
-
-        # TODO: read in metabolite score table 1 and a time
-        table_metabolite_scores = read_source_metabolite_genetic_scores(
-            path_file=
-        )
-        # TODO: aggregate scores by SVD
-        # TODO: --- maintain bindings between scores and UK Biobank identifiers
-        # TODO: collect aggregate scores in table along with UK Biobank identifiers
-
-        pass
 
     # Compile information.
     pail = dict()
     # Return information.
-
 
     pass
 
@@ -558,11 +535,9 @@ def execute_procedure(
     print(source["metabolites_files_paths"])
     # Collect metabolites' genetic scores, and aggregate these by singular value
     # decomposition (SVD).
-    if False:
-        pail_metabolites_scores = read_collect_aggregate_metabolites_genetic_scores(
-            metabolites_identifiers=metabolites_identifiers,
-            files_paths=source["files_paths"],
-        )
+    pail_metabolites_scores = read_collect_aggregate_metabolites_genetic_scores(
+        metabolites_files_paths=source["metabolites_files_paths"],
+    )
     # Alright... now read in the scores one metabolite at a time...
 
 
