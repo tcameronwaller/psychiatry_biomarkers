@@ -268,6 +268,7 @@ def read_source_metabolite_genetic_scores(
         dtype=variables_types,
         na_values=["NA", "<NA>"],
         keep_default_na=True,
+        compression=None, # "gzip"
     )
     # Report.
     if report:
@@ -622,7 +623,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 6")
+    print("version check: 7")
 
     # Initialize directories.
     paths = initialize_directories(
