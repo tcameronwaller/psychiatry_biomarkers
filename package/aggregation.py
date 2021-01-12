@@ -282,11 +282,32 @@ def read_collect_aggregate_metabolites_genetic_scores(
 
     """
 
-    # Compile information.
-    pail = dict()
-    # Return information.
+    # Initialize a table for collection.
+    table_collection = pandas.DataFrame(columns=["identifier_ukb"])
+    # UK Biobank identifier is in column "FID" within the metabolite tables
+    # rename to "identifier_ukb"
 
-    pass
+    for metabolite in metabolites_files_paths.keys():
+        # TODO: function should return a table with UKB ID and metabolite scores
+        table_metabolite = pandas.DataFrame({
+            "identifier_ukb": ["a", "b", "c", "d", "e"],
+            metabolite: [1, 2, 3, 4, 5],
+        })
+        table_collection = table_collection.merge(
+            table_metabolite,
+            how="outer",
+            left_on="identifier_ukb",
+            right_on="identifier_ukb",
+            suffixes=("_1", "_2"),
+        )
+        # TODO: here, I should merge that table into the collection table...
+
+        pass
+
+    # Compile information.
+    #pail = dict()
+    # Return information.
+    return table_collection
 
 
 
@@ -523,7 +544,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 3")
+    print("version check: 4")
 
     # Initialize directories.
     paths = initialize_directories(
@@ -536,12 +557,14 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
-    print(source["metabolites_files_paths"])
+    #print(source["metabolites_files_paths"])
     # Collect metabolites' genetic scores, and aggregate these by singular value
     # decomposition (SVD).
-    pail_metabolites_scores = read_collect_aggregate_metabolites_genetic_scores(
+    # pail_metabolites_scores
+    table_scores = read_collect_aggregate_metabolites_genetic_scores(
         metabolites_files_paths=source["metabolites_files_paths"],
     )
+    print(table_scores)
     # Alright... now read in the scores one metabolite at a time...
 
 
