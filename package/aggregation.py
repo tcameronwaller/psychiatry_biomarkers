@@ -369,7 +369,7 @@ def read_collect_aggregate_metabolites_genetic_scores(
             })
         table_metabolite = read_aggregate_metabolite_genetic_scores(
             metabolite=metabolite,
-            metabolite_files_paths=metabolites_files_paths,
+            metabolites_files_paths=metabolites_files_paths,
         )
         table_collection = table_collection.merge(
             table_metabolite,
@@ -622,7 +622,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 5")
+    print("version check: 6")
 
     # Initialize directories.
     paths = initialize_directories(
