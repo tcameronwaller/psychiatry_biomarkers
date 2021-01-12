@@ -318,23 +318,25 @@ def read_aggregate_metabolite_genetic_scores(
         path_file=metabolite_file_path,
         report=True,
     )
-    table_metabolite_raw.drop(
-        labels=[
-            "X5.e08", "X1e.07", "X1e.06", "X1e.05", "X0.0001", "X0.001",
-            "X0.01", "X0.05", "X0.1", "X0.2",
-        ],
-        axis="columns",
-        inplace=True
-    )
+    if False:
+        table_metabolite_raw.drop(
+            labels=[
+                "X5.e08", "X1e.07", "X1e.06", "X1e.05", "X0.0001", "X0.001",
+                "X0.01", "X0.05", "X0.1", "X0.2",
+            ],
+            axis="columns",
+            inplace=True
+        )
+    table = table_metabolite_raw.loc[["FID", "X1"]]
     # Translate column names.
     translations = dict()
     translations["FID"] = "identifier_ukb"
     translations["X1"] = metabolite
-    table_metabolite_raw.rename(
+    table.rename(
         columns=translations,
         inplace=True,
     )
-    return table_metabolite_raw
+    return table
 
 
 def read_collect_aggregate_metabolites_genetic_scores(
