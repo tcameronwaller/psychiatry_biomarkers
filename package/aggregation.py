@@ -101,7 +101,7 @@ def filter_files_names_metabolites_genetic_scores(
     # Filter to names of files with genetic scores.
     files_scores = list(filter(
         lambda file: (
-            (pattern in str(file))
+            (str(pattern) in str(file))
         ), files
     ))
     files_scores_unique = utility.collect_unique_elements(
@@ -168,11 +168,15 @@ def associate_metabolites_identifiers_files_paths(
         identifier = extract_metabolite_identifier_from_file_name(
             file=file,
         )
-        if ((len(identifier) > 1) and (identifier[0] == "M")):
-            metabolites_files_paths["identifier"] = dict()
-            metabolites_files_paths["identifier"]["metabolite"] = identifier
-            metabolites_files_paths["identifier"]["file"] = file
-            metabolites_files_paths["identifier"]["path"] = file_path
+        if (
+            (len(identifier) > 1) and
+            (identifier[0] == "M") and
+            (identifier not in metabolites_files_paths)
+        ):
+            metabolites_files_paths[identifier] = dict()
+            metabolites_files_paths[identifier]["metabolite"] = identifier
+            metabolites_files_paths[identifier]["file"] = file
+            metabolites_files_paths[identifier]["path"] = file_path
         pass
     # Return information.
     return metabolites_files_paths
@@ -519,7 +523,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 2")
+    print("version check: 3")
 
     # Initialize directories.
     paths = initialize_directories(
@@ -559,14 +563,14 @@ def execute_procedure(
     # ... aggregate PRS scores by PRS-PCA
     # ... collect metabolite's PC1 PRS-PCA score with other metabolite scores
 
-
-    # Collect information.
-    information = dict()
-    # Write product information to file.
-    write_product(
-        paths=paths,
-        information=information
-    )
+    if False:
+        # Collect information.
+        information = dict()
+        # Write product information to file.
+        write_product(
+            paths=paths,
+            information=information
+        )
 
     pass
 
