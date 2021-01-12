@@ -225,6 +225,7 @@ def read_source_initial(
 
 def read_source_metabolite_genetic_scores(
     path_file=None,
+    report=None,
 ):
     """
     Reads and organizes source information from file.
@@ -244,23 +245,93 @@ def read_source_metabolite_genetic_scores(
 
     """
 
-    # Specify directories and files.
-    path_metabolite_gene_scores = os.path.join(
-        path_dock, "access", "ukbiobank_metabolites"
-    )
     # Read information from file.
-    files = utility.extract_directory_file_names(
-        path=path_metabolite_gene_scores,
-    )
-    files_paths = list()
-    for file in files:
-        file_path = os.path.join(path_metabolite_gene_scores, file)
-        files_paths.append(file_path)
-    # Compile and return information.
-    return {
-        "files": files,
-        "files_paths": files_paths,
+    variables_types = {
+        "FID": "string",
+        "IID": "string",
+        "X5e.08": "float32",
+        "X1e.07": "float32",
+        "X1e.06": "float32",
+        "X1e.05": "float32",
+        "X0.0001": "float32",
+        "X0.001": "float32",
+        "X0.01": "float32",
+        "X0.05": "float32",
+        "X0.1": "float32",
+        "X0.2": "float32",
+        "X1": "float32",
     }
+    table = pandas.read_csv(
+        path_file,
+        sep="\t", # "," or "\t"
+        header=0,
+        dtype=variables_types,
+        na_values=["NA", "<NA>"],
+        keep_default_na=True,
+    )
+    # Report.
+    if report:
+        # Report only for a few metabolites.
+        metabolites = ["M33627", "M22649", "M27710"]
+        match = any(list(map(
+            lambda metabolite: (metabolite in path_file), metabolites
+        )))
+        if match:
+            utility.print_terminal_partition(level=2)
+            print("raw table for example metabolites:")
+            print(table)
+            utility.print_terminal_partition(level=3)
+            print("variable types:")
+            print(table.dtypes)
+            utility.print_terminal_partition(level=3)
+    # Compile and return information.
+    return table
+
+
+def read_aggregate_metabolite_genetic_scores(
+    metabolite=None,
+    metabolites_files_paths=None,
+):
+    """
+    Reads a metabolite's genetic scores across the UK Biobank from file,
+    and aggregates these scores by Singular Value Decomposition (SVD).
+
+    arguments:
+        metabolite (str): identifier of a metabolite
+        metabolites_files_paths (dict<list<str>>): collection of files and paths
+            for metabolites
+
+    raises:
+
+    returns:
+        (object): Pandas data frame of a metabolite's aggregate genetic scores
+            across UK Biobank
+
+    """
+
+    # Read raw table of metabolite's genetic scores.
+    metabolite_file_path = metabolites_files_paths[metabolite]["path"]
+    table_metabolite_raw = read_source_metabolite_genetic_scores(
+        path_file=metabolite_file_path,
+        report=True,
+    )
+    table_metabolite_raw.drop(
+        labels=[
+            "X5.e08", "X1e.07", "X1e.06", "X1e.05", "X0.0001", "X0.001",
+            "X0.01", "X0.05", "X0.1", "X0.2",
+        ],
+        axis="columns",
+        inplace=True
+    )
+    # Translate column names.
+    translations = dict()
+    translations["FID"] = "identifier_ukb"
+    translations["X1"] = metabolite
+    table_metabolite_raw.rename(
+        columns=translations,
+        inplace=True,
+    )
+    return table_metabolite_raw
 
 
 def read_collect_aggregate_metabolites_genetic_scores(
@@ -282,6 +353,8 @@ def read_collect_aggregate_metabolites_genetic_scores(
 
     """
 
+    # TODO: this merge collection strategy does work!
+
     # Initialize a table for collection.
     table_collection = pandas.DataFrame(columns=["identifier_ukb"])
     # UK Biobank identifier is in column "FID" within the metabolite tables
@@ -289,16 +362,21 @@ def read_collect_aggregate_metabolites_genetic_scores(
 
     for metabolite in metabolites_files_paths.keys():
         # TODO: function should return a table with UKB ID and metabolite scores
-        table_metabolite = pandas.DataFrame({
-            "identifier_ukb": ["a", "b", "c", "d", "e"],
-            metabolite: [1, 2, 3, 4, 5],
-        })
+        if False:
+            table_metabolite = pandas.DataFrame({
+                "identifier_ukb": ["a", "b", "c", "d", "e"],
+                metabolite: [1, 2, 3, 4, 5],
+            })
+        table_metabolite = read_aggregate_metabolite_genetic_scores(
+            metabolite=metabolite,
+            metabolite_files_paths=metabolites_files_paths,
+        )
         table_collection = table_collection.merge(
             table_metabolite,
             how="outer",
             left_on="identifier_ukb",
             right_on="identifier_ukb",
-            suffixes=("_1", "_2"),
+            suffixes=("_original", "_novel"),
         )
         # TODO: here, I should merge that table into the collection table...
 
@@ -544,7 +622,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 4")
+    print("version check: 5")
 
     # Initialize directories.
     paths = initialize_directories(
