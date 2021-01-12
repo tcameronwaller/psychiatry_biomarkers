@@ -277,14 +277,14 @@ def read_source_metabolite_genetic_scores(
         match = any(list(map(
             lambda metabolite: (metabolite in path_file), metabolites
         )))
-        if match:
-            utility.print_terminal_partition(level=2)
-            print("raw table for example metabolites:")
-            print(table)
-            utility.print_terminal_partition(level=3)
-            print("variable types:")
-            print(table.dtypes)
-            utility.print_terminal_partition(level=3)
+        #if match:
+        utility.print_terminal_partition(level=2)
+        print("raw table for example metabolites:")
+        print(table)
+        utility.print_terminal_partition(level=3)
+        print("variable types:")
+        print(table.dtypes)
+        utility.print_terminal_partition(level=3)
     # Compile and return information.
     return table
 
