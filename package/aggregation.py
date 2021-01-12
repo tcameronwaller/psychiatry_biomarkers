@@ -282,6 +282,8 @@ def read_source_metabolite_genetic_scores(
         print("raw table for example metabolites:")
         print(table)
         utility.print_terminal_partition(level=3)
+        print(table.columns.tolist())
+        utility.print_terminal_partition(level=3)
         print("variable types:")
         print(table.dtypes)
         utility.print_terminal_partition(level=3)
