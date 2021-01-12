@@ -6,7 +6,7 @@
 echo "read private file path variables and organize paths..."
 cd ~/paths
 path_python_library=$(<"./project_tools_python_library.txt")
-path_temporary=$(<"./temporary_bipolar_metabolism.txt")
+path_temporary=$(<"./processing_bipolar_metabolism.txt")
 path_waller="$path_temporary/waller"
 path_dock="$path_waller/dock"
 path_bipolar_metabolism="$path_waller/bipolar_metabolism"
@@ -29,4 +29,7 @@ fi
 
 # Execute procedure(s).
 
-python3 $path_package/interface.py main --path_dock $path_dock --heritability
+# Aggregate genetic scores for metabolites across UK Biobank.
+python3 $path_package/interface.py main --path_dock $path_dock --aggregation
+
+# TODO: assembly of UK Biobank phenotypic variables with genetic metabolite scores.

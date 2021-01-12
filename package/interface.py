@@ -16,7 +16,7 @@ import textwrap
 
 # Custom.
 
-import heritability
+import aggregation
 #import assembly
 #import plot
 #import utility
@@ -140,9 +140,10 @@ def define_main_subparser(subparsers=None):
         )
     )
     parser_main.add_argument(
-        "-heritability", "--heritability", dest="heritability", action="store_true",
+        "-aggregation", "--aggregation", dest="aggregation",
+        action="store_true",
         help=(
-            "Collection of heritability estimates from LD Score regression."
+            "Aggregation of genetic scores for metabolites across UK Biobank."
         )
     )
     # Define behavior.
@@ -223,11 +224,11 @@ def evaluate_main_parameters(arguments):
     print("--------------------------------------------------")
     print("... call to main routine ...")
     # Execute procedure.
-    if arguments.heritability:
+    if arguments.aggregation:
         # Report status.
-        print("... executing heritability procedure ...")
+        print("... executing aggregation procedure ...")
         # Execute procedure.
-        heritability.execute_procedure(
+        aggregation.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass
