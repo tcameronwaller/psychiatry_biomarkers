@@ -282,7 +282,7 @@ def read_source_metabolite_genetic_scores(
         print("raw table for example metabolites:")
         print(table)
         utility.print_terminal_partition(level=3)
-        print(table.columns.tolist())
+        print(table.columns.to_list())
         utility.print_terminal_partition(level=3)
         print("variable types:")
         print(table.dtypes)
@@ -327,7 +327,7 @@ def read_aggregate_metabolite_genetic_scores(
             axis="columns",
             inplace=True
         )
-    table = table_metabolite_raw.loc[["FID", "X1"]]
+    table = table_metabolite_raw.loc[:, ["FID", "X1"]]
     # Translate column names.
     translations = dict()
     translations["FID"] = "identifier_ukb"
@@ -627,7 +627,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 7")
+    print("version check: 8")
 
     # Initialize directories.
     paths = initialize_directories(
