@@ -29,7 +29,7 @@ fi
 
 # Execute procedure(s).
 
-# Aggregate genetic scores for metabolites across UK Biobank.
+# Collect and aggregate genetic scores for metabolites across the UK Biobank.
 python3 $path_package/interface.py main --path_dock $path_dock --aggregation
 
 # TODO: assembly of UK Biobank phenotypic variables with genetic metabolite scores.
