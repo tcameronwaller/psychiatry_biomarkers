@@ -28,7 +28,6 @@ import numpy
 import pandas
 import scipy.stats
 
-
 # Custom
 import promiscuity.utility as utility
 import promiscuity.plot as plot
@@ -299,6 +298,10 @@ def read_aggregate_metabolite_genetic_scores(
     Reads a metabolite's genetic scores across the UK Biobank from file,
     and aggregates these scores by Singular Value Decomposition (SVD).
 
+    This function returns a table for a single metabolite with UK Biobank
+    identifiers and a single column of aggregate scores for the metabolite
+    across these UK Biobank records.
+
     arguments:
         metabolite (str): identifier of a metabolite
         metabolites_files_paths (dict<list<str>>): collection of files and paths
@@ -318,15 +321,6 @@ def read_aggregate_metabolite_genetic_scores(
         path_file=metabolite_file_path,
         report=True,
     )
-    if False:
-        table_metabolite_raw.drop(
-            labels=[
-                "X5.e08", "X1e.07", "X1e.06", "X1e.05", "X0.0001", "X0.001",
-                "X0.01", "X0.05", "X0.1", "X0.2",
-            ],
-            axis="columns",
-            inplace=True
-        )
     table = table_metabolite_raw.loc[:, ["FID", "X1"]]
     # Translate column names.
     translations = dict()
@@ -364,6 +358,11 @@ def read_collect_aggregate_metabolites_genetic_scores(
     table_collection = pandas.DataFrame(columns=["identifier_ukb"])
     # UK Biobank identifier is in column "FID" within the metabolite tables
     # rename to "identifier_ukb"
+    table_collection.set_index(
+        "identifier_ukb",
+        drop=True,
+        inplace=True,
+    )
 
     for metabolite in metabolites_files_paths.keys():
         # TODO: function should return a table with UKB ID and metabolite scores
@@ -375,6 +374,17 @@ def read_collect_aggregate_metabolites_genetic_scores(
         table_metabolite = read_aggregate_metabolite_genetic_scores(
             metabolite=metabolite,
             metabolites_files_paths=metabolites_files_paths,
+        )
+        table_metabolite.dropna(
+            axis="index",
+            how="any",
+            subset=["identifier_ukb"],
+            inplace=True,
+        )
+        table_metabolite.set_index(
+            "identifier_ukb",
+            drop=True,
+            inplace=True,
         )
         table_collection = table_collection.merge(
             table_metabolite,
@@ -627,7 +637,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 9")
+    print("version check: 1")
 
     # Initialize directories.
     paths = initialize_directories(
