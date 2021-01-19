@@ -464,6 +464,13 @@ def organize_principal_component_aggregation(
         dtype="float32",
         copy=True,
     )
+    table_components.rename_axis(
+        index="identifier_ukb",
+        axis="index",
+        copy=False,
+        inplace=True,
+    )
+
 
 
 
@@ -1002,7 +1009,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 4")
+    print("version check: 5")
 
     # Initialize directories.
     paths = initialize_directories(
