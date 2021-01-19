@@ -403,6 +403,8 @@ def organize_singular_value_decomposition(
     return pail
 
 
+# TODO: organize this better...
+# TODO: give useful metrics on the PCA
 def organize_principal_component_aggregation(
     table=None,
     report=None,
@@ -420,8 +422,8 @@ def organize_principal_component_aggregation(
     raises:
 
     returns:
-        (dict): collection of information about the singular value
-            decomposition
+        (dict): collection of information about the principal components
+            aggregation
 
     """
 
@@ -441,8 +443,7 @@ def organize_principal_component_aggregation(
     # Matrix format has samples (cases, observations) across dimension 0 (rows)
     # and variables (features) across dimension 1 (columns).
     matrix = table.to_numpy()
-
-    pail = statsmodels.multivariate.pca.PCA(
+    pail_components = statsmodels.multivariate.pca.PCA(
         matrix,
         ncomp=3, # None
         standardize=True,
@@ -451,14 +452,10 @@ def organize_principal_component_aggregation(
         method="eig", # "svd", "eig", "nipals"
         missing=None, # None or "drop-row"
     )
-
-    #pail.loadings
-    #pail.eigenvals
-    #pail.eigenvecs
-
+    # Organize information.
     columns = ["component_1", "component_2", "component_3"]
     table_components = pandas.DataFrame(
-        data=pail.factors,
+        data=pail_components.factors,
         index=index,
         columns=columns,
         dtype="float32",
@@ -470,24 +467,23 @@ def organize_principal_component_aggregation(
         copy=False,
         inplace=True,
     )
-
-
-
-
-    # Eigenvalues: calculate from singular values
-    # Principal components: calculate from U and S
-    # Loadings: calculate from V and S
-
+    table_components.reset_index(
+        level=None,
+        inplace=True
+    )
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
         print("Report from: organize_principal_component_aggregation()")
         utility.print_terminal_partition(level=2)
         print("Shape of original matrix: " + str(matrix.shape))
-        print("Shape of Principal Components: " + str(pail.factors.shape))
-        print("Shape of loadings: " + str(pail.loadings.shape))
-        print("Shape of Eigenvalues: " + str(pail.eigenvals.shape))
-        print("Shape of Eigenvectors: " + str(pail.eigenvecs.shape))
+        print(
+            "Shape of Principal Components: " +
+            str(pail_components.factors.shape)
+        )
+        print("Shape of loadings: " + str(pail_components.loadings.shape))
+        print("Shape of Eigenvalues: " + str(pail_components.eigenvals.shape))
+        print("Shape of Eigenvectors: " + str(pail_components.eigenvecs.shape))
         utility.print_terminal_partition(level=3)
         print("table_components")
         utility.print_terminal_partition(level=4)
@@ -495,9 +491,10 @@ def organize_principal_component_aggregation(
         pass
 
     # Compile information.
-    #pail = dict()
+    pail = dict()
+    pail["table_components"] = table_components
     # Return.
-    return table_components
+    return pail
 
 
 # TODO: in progress...
@@ -527,8 +524,8 @@ def organize_aggregate_metabolite_genetic_scores(
     raises:
 
     returns:
-        (dict): collection of information about the singular valude
-            decomposition on metabolite's genetic scores
+        (object): Pandas data frame of a metabolite's aggregate genetic scores
+            across UK Biobank
 
     """
 
@@ -556,24 +553,20 @@ def organize_aggregate_metabolite_genetic_scores(
         table=table,
         report=report,
     )
-
-    # I need a table of principal components on the original scores... then I can "select"
-    # PC1 here.
-    # The new function should be something like... calculate majority positive PCs
-
-    # TODO: I need to consider all values simultaneously in order to determine the new column...
-    # TODO: cannot do this row-by-row
-
-    # TODO: maybe specify an index ("identifier_ukb") before passing to new function
-
-    # Compile information.
-    pail = dict()
-    # TODO: this should be a table with "identifier_ukb" and
-    # TODO: I'll probably need to customize that a bit here...
-    #pail["table_aggregation"] = "blah"
-
+    table_aggregation = pail_aggregation["table_components"].loc[
+        :, pail_aggregation["table_components"].columns.isin([
+            "identifier_ukb", "component_1"
+        ])
+    ]
+    # Translate column names.
+    translations = dict()
+    translations["component_1"] = identifier
+    table_aggregation.rename(
+        columns=translations,
+        inplace=True,
+    )
     # Return.
-    return pail
+    return table_aggregation
 
 
 def read_aggregate_metabolite_genetic_scores(
@@ -623,7 +616,7 @@ def read_aggregate_metabolite_genetic_scores(
         inplace=True,
     )
     # Aggregate scores.
-    pail_aggregation = organize_aggregate_metabolite_genetic_scores(
+    table_aggregation = organize_aggregate_metabolite_genetic_scores(
         identifier=metabolite,
         column_index="identifier_ukb",
         columns_scores=[
@@ -640,10 +633,10 @@ def read_aggregate_metabolite_genetic_scores(
         print("Report from: read_aggregate_metabolite_genetic_scores()")
         utility.print_terminal_partition(level=2)
         print("blah blah...")
-        print(pail_aggregation["table_aggregation"])
+        print(table_aggregation)
         utility.print_terminal_partition(level=3)
     # Return.
-    return pail_aggregation
+    return table_aggregation
 
 
 def read_aggregate_test_metabolite_genetic_scores(
@@ -670,13 +663,13 @@ def read_aggregate_test_metabolite_genetic_scores(
     """
 
     # Aggregate metabolite's genetic scores.
-    pail_aggregation = read_aggregate_metabolite_genetic_scores(
+    table_aggregation = read_aggregate_metabolite_genetic_scores(
         metabolite=metabolite,
         metabolites_files_paths=metabolites_files_paths,
         report=True,
     )
     # Copy information.
-    table = pail_aggregation["table_aggregation"].copy(deep=True)
+    table = table_aggregation.copy(deep=True)
     # Organize information.
     table.dropna(
         axis="index",
@@ -734,7 +727,8 @@ def read_aggregate_collect_metabolites_genetic_scores(
         inplace=True,
     )
 
-    for metabolite in metabolites_files_paths.keys():
+    #for metabolite in metabolites_files_paths.keys():
+    for metabolite in ["M00599", "M32315", "M02342", "M00054"]:
         # Aggregate metabolite's genetic scores.
         pail_aggregation = read_aggregate_metabolite_genetic_scores(
             metabolite=metabolite,
@@ -1009,7 +1003,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 5")
+    print("version check: 6")
 
     # Initialize directories.
     paths = initialize_directories(
@@ -1034,14 +1028,14 @@ def execute_procedure(
         report=True,
     )
 
-    if False:
-        # Collect metabolites' genetic scores, and aggregate these by singular value
-        # decomposition (SVD).
-        # pail_metabolites_scores
-        table_scores = read_aggregate_collect_metabolites_genetic_scores(
-            metabolites_files_paths=source["metabolites_files_paths"],
-        )
-        print(table_scores)
+    # Collect metabolites' genetic scores, and aggregate these by singular value
+    # decomposition (SVD).
+    # pail_metabolites_scores
+    table_scores = read_aggregate_collect_metabolites_genetic_scores(
+        metabolites_files_paths=source["metabolites_files_paths"],
+    )
+    print("printing after read_aggregate_collect_metabolites_genetic_scores")
+    print(table_scores)
 
     # ^^^ read in list of unique metabolite identifiers "M#####"
 
