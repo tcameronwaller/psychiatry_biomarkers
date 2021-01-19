@@ -451,7 +451,7 @@ def read_aggregate_metabolite_genetic_scores(
     return table_aggregation
 
 
-def read_aggregate_test_metabolite_genetic_score(
+def read_aggregate_test_metabolite_genetic_scores(
     metabolite=None,
     metabolites_files_paths=None,
     report=None,
@@ -814,7 +814,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 1")
+    print("version check: 2")
 
     # Initialize directories.
     paths = initialize_directories(
