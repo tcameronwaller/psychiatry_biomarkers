@@ -406,6 +406,7 @@ def organize_singular_value_decomposition(
 # TODO: organize this better...
 # TODO: give useful metrics on the PCA
 def organize_principal_component_aggregation(
+    threshold_valid_proportion_per_column=None,
     table=None,
     report=None,
 ):
@@ -414,6 +415,8 @@ def organize_principal_component_aggregation(
     (PCA).
 
     arguments:
+        threshold_valid_proportion_per_column (float): proportion of rows that
+            must have a valid value for a column in order to keep the column
         table (object): Pandas data frame of variables (features) across
             columns and samples (cases, observations) across rows with explicit
             index
@@ -429,6 +432,15 @@ def organize_principal_component_aggregation(
 
     # Copy information.
     table = table.copy(deep=True)
+    # Drop any columns with inadequate null values across rows.
+    rows = table.shape[0]
+    threshold = round(rows*threshold_valid_proportion_per_column)
+    table.dropna(
+        axis="columns",
+        thresh=threshold,
+        subset=None,
+        inplace=True,
+    )
     # Drop any rows with null values in any columns.
     table.dropna(
         axis="index",
@@ -476,6 +488,9 @@ def organize_principal_component_aggregation(
         utility.print_terminal_partition(level=2)
         print("Report from: organize_principal_component_aggregation()")
         utility.print_terminal_partition(level=2)
+        print(
+            "Threshold on rows with valid values per column: " + str(threshold)
+        )
         print("Shape of original matrix: " + str(matrix.shape))
         print(
             "Shape of Principal Components: " +
@@ -550,6 +565,7 @@ def organize_aggregate_metabolite_genetic_scores(
         )
 
     pail_aggregation = organize_principal_component_aggregation(
+        threshold_valid_proportion_per_column=0.75,
         table=table,
         report=report,
     )
@@ -1003,7 +1019,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 6")
+    print("version check: 7")
 
     # Initialize directories.
     paths = initialize_directories(
