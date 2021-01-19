@@ -280,6 +280,7 @@ def read_source_metabolite_genetic_scores(
         )))
         if match:
             utility.print_terminal_partition(level=2)
+            print("Path: " + str(path_file))
             print("raw table for example metabolites:")
             print(table)
             utility.print_terminal_partition(level=3)
@@ -648,7 +649,7 @@ def read_aggregate_metabolite_genetic_scores(
         utility.print_terminal_partition(level=2)
         print("Report from: read_aggregate_metabolite_genetic_scores()")
         utility.print_terminal_partition(level=2)
-        print("blah blah...")
+        print("Metabolite: " + str(metabolite))
         print(table_aggregation)
         utility.print_terminal_partition(level=3)
     # Return.
@@ -1019,7 +1020,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 7")
+    print("version check: 8")
 
     # Initialize directories.
     paths = initialize_directories(
