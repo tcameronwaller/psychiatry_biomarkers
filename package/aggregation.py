@@ -435,7 +435,7 @@ def organize_principal_component_aggregation(
         inplace=True,
     )
     # Copy information.
-    index = copy.deepcopy(table_scale.index.to_list())
+    index = copy.deepcopy(table.index.to_list())
 
     # Organize matrix.
     # Matrix format has samples (cases, observations) across dimension 0 (rows)
