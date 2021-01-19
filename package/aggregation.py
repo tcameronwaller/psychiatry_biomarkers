@@ -343,13 +343,6 @@ def organize_singular_value_decomposition(
     # (features) across dimension 1.
     matrix = table.to_numpy()
 
-    # M: count of samples
-    # N: count of variables
-    # K: minimum of M or N
-
-    # Matrix "u" has shape (M, K)
-    # Matrix "vh" has shape (K, N)
-
     u, s, vh = scipy.linalg.svd(
         matrix,
         full_matrices=False, # Full matrices do not convey more information.
@@ -359,19 +352,35 @@ def organize_singular_value_decomposition(
         lapack_driver="gesdd",
     )
 
+    # https://stats.stackexchange.com/questions/134282/relationship-between-svd-and-pca-how-to-use-svd-to-perform-pca
+
+    # Eigenvalues
+
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
         print("Report from: organize_singular_value_decomposition()")
         utility.print_terminal_partition(level=2)
+        # M: count of samples (cases)
+        # N: count of variables (features)
+        # K: minimum of M or N
+        # Original matrix has shape (M, N)
         print("Shape of original matrix: " + str(matrix.shape))
+        # Matrix "u" has shape (M, K)
         print("Shape of matrix U: " + str(u.shape))
+        # Matrix "s" has shape (K, )
         print("Shape of matrix s: " + str(s.shape))
+        print(s)
+        # Matrix "vh" has shape (K, N)
         print("Shape of matrix vh: " + str(vh.shape))
         pass
 
     # Compile information.
     pail = dict()
+    pail["table_scale"] = table_scale
+    pail["u"] = u
+    pail["s"] = s
+    pail["vh"] = vh
     # Return.
     return pail
 
@@ -572,8 +581,6 @@ def read_aggregate_test_metabolite_genetic_scores(
     pail = dict()
     # Return.
     return pail
-
-
 
 
 def read_aggregate_collect_metabolites_genetic_scores(
