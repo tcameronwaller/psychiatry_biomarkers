@@ -290,9 +290,103 @@ def read_source_metabolite_genetic_scores(
     return table
 
 
+##########
+# Aggregation
+
+# raw matrix must have variables across columns and cases (samples) across rows
+
+# PCA on covariance matrix: must center the mean (mean = 0)
+# PCA on correlation matrix: must standardize scale (mean = 0, standard deviation = 1)
+
+# use the thin method to exclude unnecessary dimensionality in component matrices
+
+
+def organize_singular_value_decomposition(
+    table=None,
+):
+    """
+    Organizes a Singular Value Decomposition (SVD).
+
+    arguments:
+        table (object): Pandas data frame of variable observations across
+            columns and cases or samples across rows
+
+    raises:
+
+    returns:
+        (dict): collection of information about the SVD
+
+    """
+
+    # Compile information.
+    pail = dict()
+    # Return.
+    return pail
+
+
+
+# TODO: in progress...
+def organize_aggregate_metabolite_genetic_scores(
+    identifier=None,
+    column_index=None,
+    columns_scores=None,
+    table=None,
+):
+    """
+    Aggregates a metabolite's genetic scores across the UK Biobank by Singular
+    Value Decomposition (SVD).
+
+    This function drops any columns that neither have specification for index
+    nor scores.
+
+    arguments:
+        identifier (str):
+        column_index (str): name of column with UK Biobank record identifiers
+        columns_scores (list<str>): names of columns with scores to include in
+            aggregation
+        table (object): Pandas data frame of a metabolite's raw genetic scores
+            across UK Biobank
+
+    raises:
+
+    returns:
+        (object): Pandas data frame of a metabolite's aggregate genetic scores
+            across UK Biobank
+
+    """
+
+    # Copy information.
+    table = table.copy(deep=True)
+    columns_keep = copy.deepcopy(columns_scores)
+    columns_keep.append(column_index)
+    # Select relevant columns.
+    table = table.loc[:, table.columns.isin(columns_keep)]
+    # Organize table.
+    table[column_index].astype("string")
+    table.set_index(
+        column_index,
+        drop=True,
+        inplace=True,
+    )
+    # Aggregate metabolite's genetic scores.
+    #pail_decomposition = organize_singular_value_decomposition()
+
+    # I need a table of principal components on the original scores... then I can "select"
+    # PC1 here.
+    # The new function should be something like... calculate majority positive PCs
+
+    # TODO: I need to consider all values simultaneously in order to determine the new column...
+    # TODO: cannot do this row-by-row
+
+    # TODO: maybe specify an index ("identifier_ukb") before passing to new function
+
+    pass
+
+
 def read_aggregate_metabolite_genetic_scores(
     metabolite=None,
     metabolites_files_paths=None,
+    report=None,
 ):
     """
     Reads a metabolite's genetic scores across the UK Biobank from file,
@@ -306,6 +400,7 @@ def read_aggregate_metabolite_genetic_scores(
         metabolite (str): identifier of a metabolite
         metabolites_files_paths (dict<list<str>>): collection of files and paths
             for metabolites
+        report (bool): whether to print reports
 
     raises:
 
@@ -317,23 +412,101 @@ def read_aggregate_metabolite_genetic_scores(
 
     # Read raw table of metabolite's genetic scores.
     metabolite_file_path = metabolites_files_paths[metabolite]["path"]
-    table_metabolite_raw = read_source_metabolite_genetic_scores(
+    table_raw = read_source_metabolite_genetic_scores(
         path_file=metabolite_file_path,
         report=True,
     )
-    table = table_metabolite_raw.loc[:, ["FID", "X1"]]
+    # Organize the raw table.
+    table_raw.drop(
+        labels=["IID",],
+        axis="columns",
+        inplace=True
+    )
     # Translate column names.
     translations = dict()
     translations["FID"] = "identifier_ukb"
-    translations["X1"] = metabolite
-    table.rename(
+    table_raw.rename(
         columns=translations,
         inplace=True,
     )
-    return table
+    # Aggregate scores.
+    table_aggregation = organize_aggregate_metabolite_genetic_scores(
+        identifier=metabolite,
+        column_index="identifier_ukb",
+        columns_scores=[
+            "X5e.08", "X1e.07", "X1e.06", "X1e.05", "X0.0001", "X0.001",
+            "X0.01", "X0.05", "X0.1", "X0.2", "X1",
+        ],
+        table=table_raw,
+    )
+    # Report.
+    if report:
+        # Column name translations.
+        utility.print_terminal_partition(level=2)
+        print("reporting from: read_aggregate_metabolite_genetic_scores()")
+        print("blah blah...")
+        print(table_aggregation)
+        utility.print_terminal_partition(level=3)
+    # Return.
+    return table_aggregation
 
 
-def read_collect_aggregate_metabolites_genetic_scores(
+def read_aggregate_test_metabolite_genetic_score(
+    metabolite=None,
+    metabolites_files_paths=None,
+    report=None,
+):
+    """
+    Reads a metabolite's genetic scores across the UK Biobank from file,
+    aggregates scores by Singular Value Decomposition (SVD), and tests this
+    method.
+
+    arguments:
+        metabolite (str): identifier of a metabolite
+        metabolites_files_paths (dict<list<str>>): collection of files and paths
+            for metabolites
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): collection of information
+
+    """
+
+    table = read_aggregate_metabolite_genetic_scores(
+        metabolite=metabolite,
+        metabolites_files_paths=metabolites_files_paths,
+        report=True,
+    )
+    table.dropna(
+        axis="index",
+        how="any",
+        subset=["identifier_ukb"],
+        inplace=True,
+    )
+    table.set_index(
+        "identifier_ukb",
+        drop=True,
+        inplace=True,
+    )
+    # Report.
+    if report:
+        # Column name translations.
+        utility.print_terminal_partition(level=2)
+        print("reporting from: read_aggregate_test_metabolite_genetic_score()")
+        print("blah blah...")
+        print(table)
+        utility.print_terminal_partition(level=3)
+    # Compile information.
+    pail = dict()
+    # Return.
+    return pail
+
+
+
+
+def read_aggregate_collect_metabolites_genetic_scores(
     metabolites_files_paths=None,
 ):
     """
@@ -374,6 +547,7 @@ def read_collect_aggregate_metabolites_genetic_scores(
         table_metabolite = read_aggregate_metabolite_genetic_scores(
             metabolite=metabolite,
             metabolites_files_paths=metabolites_files_paths,
+            report=False,
         )
         table_metabolite.dropna(
             axis="index",
@@ -401,6 +575,9 @@ def read_collect_aggregate_metabolites_genetic_scores(
     #pail = dict()
     # Return information.
     return table_collection
+
+
+
 
 
 
@@ -650,16 +827,26 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
-    #print(source["metabolites_files_paths"])
-    # Collect metabolites' genetic scores, and aggregate these by singular value
-    # decomposition (SVD).
-    # pail_metabolites_scores
-    table_scores = read_collect_aggregate_metabolites_genetic_scores(
-        metabolites_files_paths=source["metabolites_files_paths"],
-    )
-    print(table_scores)
-    # Alright... now read in the scores one metabolite at a time...
 
+    # Test the aggregation method for a single metabolite.
+    # M00599: pyruvate
+    # M32315: serine
+    # M02342: serotonin
+    # M00054: tryptophan
+    pail_test = read_aggregate_test_metabolite_genetic_scores(
+        metabolite="M00054",
+        metabolites_files_paths=source["metabolites_files_paths"],
+        report=True,
+    )
+
+    if False:
+        # Collect metabolites' genetic scores, and aggregate these by singular value
+        # decomposition (SVD).
+        # pail_metabolites_scores
+        table_scores = read_aggregate_collect_metabolites_genetic_scores(
+            metabolites_files_paths=source["metabolites_files_paths"],
+        )
+        print(table_scores)
 
     # ^^^ read in list of unique metabolite identifiers "M#####"
 
