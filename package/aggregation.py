@@ -747,13 +747,13 @@ def read_aggregate_collect_metabolites_genetic_scores(
     #for metabolite in metabolites_files_paths.keys():
     for metabolite in ["M00599", "M32315", "M02342", "M00054"]:
         # Aggregate metabolite's genetic scores.
-        pail_aggregation = read_aggregate_metabolite_genetic_scores(
+        table_aggregation = read_aggregate_metabolite_genetic_scores(
             metabolite=metabolite,
             metabolites_files_paths=metabolites_files_paths,
             report=False,
         )
         # Copy information.
-        table_metabolite = pail_aggregation["table_aggregation"].copy(deep=True)
+        table_metabolite = table_aggregation.copy(deep=True)
         # Organize information.
         table_metabolite.dropna(
             axis="index",
@@ -1020,7 +1020,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 8")
+    print("version check: 9")
 
     # Initialize directories.
     paths = initialize_directories(
