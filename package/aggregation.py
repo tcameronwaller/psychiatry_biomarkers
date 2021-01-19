@@ -28,6 +28,7 @@ import numpy
 import pandas
 import scipy.stats
 import scipy.linalg
+import statsmodels.multivariate.pca
 
 # Custom
 import promiscuity.utility as utility
@@ -304,13 +305,14 @@ def organize_singular_value_decomposition(
 
     arguments:
         table (object): Pandas data frame of variables (features) across
-            columns and samples (cases) across rows with explicit index
+            columns and samples (cases, observations) across rows with explicit
+            index
         report (bool): whether to print reports
 
     raises:
 
     returns:
-        (dict): collection of information about the singular valude
+        (dict): collection of information about the singular value
             decomposition
 
     """
@@ -343,6 +345,10 @@ def organize_singular_value_decomposition(
     # (features) across dimension 1.
     matrix = table.to_numpy()
 
+    # u: unitary matrix with left singular vectors as columns
+    # s: singular values
+    # vh: unitary matrix with right singular vectors as rows
+
     u, s, vh = scipy.linalg.svd(
         matrix,
         full_matrices=False, # Full matrices do not convey more information.
@@ -352,9 +358,20 @@ def organize_singular_value_decomposition(
         lapack_driver="gesdd",
     )
 
-    # https://stats.stackexchange.com/questions/134282/relationship-between-svd-and-pca-how-to-use-svd-to-perform-pca
+    #scipy.linalg.svdvals()
+    #scipy.linalg.diagsvd()
 
-    # Eigenvalues
+
+    # https://stats.stackexchange.com/questions/134282/relationship-between-svd-and-pca-how-to-use-svd-to-perform-pca
+    # https://towardsdatascience.com/pca-and-svd-explained-with-numpy-5d13b0d2a4d8
+    # https://towardsdatascience.com/singular-value-decomposition-and-its-applications-in-principal-component-analysis-5b7a5f08d0bd
+    # http://www.math.ucsd.edu/~gptesler/283/slides/pca_18-handout.pdf
+    # https://www.cc.gatech.edu/~lsong/teaching/CX4240spring16/pca_wall.pdf
+
+
+    # Eigenvalues: calculate from singular values
+    # Principal components: calculate from U and S
+    # Loadings: calculate from V and S
 
     # Report.
     if report:
@@ -369,6 +386,7 @@ def organize_singular_value_decomposition(
         # Matrix "u" has shape (M, K)
         print("Shape of matrix U: " + str(u.shape))
         # Matrix "s" has shape (K, )
+        # Matrix "s" is basically a one-dimensional array.
         print("Shape of matrix s: " + str(s.shape))
         print(s)
         # Matrix "vh" has shape (K, N)
@@ -383,6 +401,84 @@ def organize_singular_value_decomposition(
     pail["vh"] = vh
     # Return.
     return pail
+
+
+def organize_principal_component_aggregation(
+    table=None,
+    report=None,
+):
+    """
+    Organizes aggregation by modification of Principal Components Analysis
+    (PCA).
+
+    arguments:
+        table (object): Pandas data frame of variables (features) across
+            columns and samples (cases, observations) across rows with explicit
+            index
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): collection of information about the singular value
+            decomposition
+
+    """
+
+    # Copy information.
+    table = table.copy(deep=True)
+    # Drop any rows with null values in any columns.
+    table.dropna(
+        axis="index",
+        how="any",
+        subset=None,
+        inplace=True,
+    )
+    # Copy information.
+    index = copy.deepcopy(table_scale.index.to_list())
+
+    # Organize matrix.
+    # Matrix format has samples (cases, observations) across dimension 0 (rows)
+    # and variables (features) across dimension 1 (columns).
+    matrix = table.to_numpy()
+
+    pail = statsmodels.multivariate.pca.PCA(
+        matrix,
+        ncomp=None,
+        standardize=True,
+        gls=False,
+        weights=None,
+        method="svd",
+        missing="drop-row",
+    )
+
+    #pail.loadings
+    #pail.eigenvals
+    #pail.eigenvecs
+
+
+
+    # Eigenvalues: calculate from singular values
+    # Principal components: calculate from U and S
+    # Loadings: calculate from V and S
+
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print("Report from: organize_singular_value_decomposition()")
+        utility.print_terminal_partition(level=2)
+        print("Shape of original matrix: " + str(matrix.shape))
+        print("Shape of Principal Components: " + str(pail.factors))
+        print("Shape of loadings: " + str(pail.loadings.shape))
+        print("Shape of Eigenvalues: " + str(pail.eigenvals.shape))
+        print("Shape of Eigenvectors: " + str(pail.eigenvecs.shape))
+        pass
+
+    # Compile information.
+    #pail = dict()
+    # Return.
+    return pail
+
 
 
 
@@ -432,7 +528,13 @@ def organize_aggregate_metabolite_genetic_scores(
         inplace=True,
     )
     # Aggregate metabolite's genetic scores.
-    pail_decomposition = organize_singular_value_decomposition(
+    if False:
+        pail_decomposition = organize_singular_value_decomposition(
+            table=table,
+            report=report,
+        )
+
+    pail_aggregation = organize_principal_component_aggregation(
         table=table,
         report=report,
     )
