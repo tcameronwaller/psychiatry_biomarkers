@@ -444,17 +444,26 @@ def organize_principal_component_aggregation(
 
     pail = statsmodels.multivariate.pca.PCA(
         matrix,
-        ncomp=None,
+        ncomp=3, # None
         standardize=True,
         gls=False,
         weights=None,
         method="svd",
-        missing="drop-row",
+        missing=None, # None or "drop-row"
     )
 
     #pail.loadings
     #pail.eigenvals
     #pail.eigenvecs
+
+    columns = ["component_1", "component_2", "component_3"]
+    table_components = pandas.DataFrame(
+        data=pail.factors,
+        index=index,
+        columns=columns,
+        dtype="float32",
+        copy=True,
+    )
 
 
 
@@ -465,21 +474,23 @@ def organize_principal_component_aggregation(
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
-        print("Report from: organize_singular_value_decomposition()")
+        print("Report from: organize_principal_component_aggregation()")
         utility.print_terminal_partition(level=2)
         print("Shape of original matrix: " + str(matrix.shape))
-        print("Shape of Principal Components: " + str(pail.factors))
+        print("Shape of Principal Components: " + str(pail.factors.shape))
         print("Shape of loadings: " + str(pail.loadings.shape))
         print("Shape of Eigenvalues: " + str(pail.eigenvals.shape))
         print("Shape of Eigenvectors: " + str(pail.eigenvecs.shape))
+        utility.print_terminal_partition(level=3)
+        print("table_components")
+        utility.print_terminal_partition(level=4)
+        print(table_components)
         pass
 
     # Compile information.
     #pail = dict()
     # Return.
-    return pail
-
-
+    return table_components
 
 
 # TODO: in progress...
