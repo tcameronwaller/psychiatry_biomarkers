@@ -503,7 +503,7 @@ def organize_principal_component_aggregation(
             str(pail_components.factors.shape)
         )
         print("Shape of loadings: " + str(pail_components.loadings.shape))
-        print(pail_components.loadings.shape)
+        print(pail_components.loadings)
         print("Shape of Eigenvalues: " + str(pail_components.eigenvals.shape))
         print("Shape of Eigenvectors: " + str(pail_components.eigenvecs.shape))
         utility.print_terminal_partition(level=3)
