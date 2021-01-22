@@ -478,7 +478,7 @@ def organize_principal_component_aggregation(
     loadings_original = numpy.copy(pail_components.loadings)
     sum_original = numpy.sum(loadings_original.flatten(order="C"))
     loadings_novel = numpy.negative(numpy.copy(pail_components.loadings))
-    sum_novel = numpy.sum(loadings_original.flatten(order="C"))
+    sum_novel = numpy.sum(loadings_novel.flatten(order="C"))
 
     # Organize information.
     prefix = "component_"
@@ -1047,7 +1047,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 5")
+    print("version check: 6")
 
     # Initialize directories.
     paths = initialize_directories(
