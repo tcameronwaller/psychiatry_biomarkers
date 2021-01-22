@@ -461,9 +461,13 @@ def organize_principal_component_aggregation(
     # Matrix format has samples (cases, observations) across dimension 0 (rows)
     # and variables (features) across dimension 1 (columns).
     matrix = table.to_numpy()
+    # Calculate Principal Components.
+    # If there is specification of "ncomp", then function only returns
+    # Eigenvalues, loadings, Eigenvectors, and principal components to this
+    # count.
     pail_components = statsmodels.multivariate.pca.PCA(
         matrix,
-        ncomp=3, # None
+        ncomp=None, # None
         standardize=True,
         gls=False,
         weights=None,
@@ -504,6 +508,9 @@ def organize_principal_component_aggregation(
         )
         print("Shape of loadings: " + str(pail_components.loadings.shape))
         print(pail_components.loadings)
+        print(pail_components.loadings.flatten(order="C"))
+        print("sum of loadings...")
+        print(numpy.sum(pail_components.loadings.flatten(order="C")))
         print("Shape of Eigenvalues: " + str(pail_components.eigenvals.shape))
         print("Shape of Eigenvectors: " + str(pail_components.eigenvecs.shape))
         utility.print_terminal_partition(level=3)
@@ -1028,7 +1035,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 1")
+    print("version check: 2")
 
     # Initialize directories.
     paths = initialize_directories(
