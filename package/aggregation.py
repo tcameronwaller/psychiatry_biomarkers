@@ -420,6 +420,17 @@ def organize_principal_component_aggregation(
     Organizes aggregation by modification of Principal Components Analysis
     (PCA).
 
+    Factorize covariance or correlation into direction (eigenvectors) and scale
+    (eigenvalues).
+    The eigenvalues impart scale or weight to each eigenvector.
+    Each eigenvector has its own eigenvalue.
+
+
+
+    loadings = eigenvectors [dot] square_root(eigenvalues)
+    Loadings include aspects of both direction (eigenvectors) and scale
+    (eigenvalues).
+
     arguments:
         threshold_valid_proportion_per_column (float): proportion of rows that
             must have a valid value for a column in order to keep the column
@@ -467,7 +478,7 @@ def organize_principal_component_aggregation(
     # count.
     pail_components = statsmodels.multivariate.pca.PCA(
         matrix,
-        ncomp=None, # None
+        ncomp=3, # None # temporarily reduce count to 3
         standardize=True,
         gls=False,
         weights=None,
@@ -477,8 +488,19 @@ def organize_principal_component_aggregation(
     # Check the sum of principal component loadings.
     loadings_original = numpy.copy(pail_components.loadings)
     sum_original = numpy.sum(loadings_original.flatten(order="C"))
-    loadings_novel = numpy.negative(numpy.copy(pail_components.loadings))
-    sum_novel = numpy.sum(loadings_novel.flatten(order="C"))
+    if (sum_original <= 0):
+        loadings_novel = numpy.negative(numpy.copy(pail_components.loadings))
+        sum_novel = numpy.sum(loadings_novel.flatten(order="C"))
+        loading_sign_flip = True
+    else:
+        loadings_novel = loadings_original
+        loading_sign_flip = False
+
+    # Eigenvalues.
+
+
+    # numpy.dot
+    # PC factors = dot product of (original matrix and Eigenvectors)
 
     # Organize information.
     prefix = "component_"
@@ -524,6 +546,8 @@ def organize_principal_component_aggregation(
         print("sum of loadings novel...")
         print(sum_novel)
         print("Shape of Eigenvalues: " + str(pail_components.eigenvals.shape))
+        print("Are the Eigenvalues in decreasing order?")
+        print(pail_components.eigenvals)
         print("Shape of Eigenvectors: " + str(pail_components.eigenvecs.shape))
         utility.print_terminal_partition(level=3)
         print("table_components")
@@ -1047,7 +1071,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 6")
+    print("version check: 7")
 
     # Initialize directories.
     paths = initialize_directories(
