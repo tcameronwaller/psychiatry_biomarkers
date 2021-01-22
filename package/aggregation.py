@@ -26,6 +26,8 @@ import itertools
 
 import numpy
 import pandas
+pandas.options.mode.chained_assignment = None # default = "warn"
+
 import scipy.stats
 import scipy.linalg
 import statsmodels.multivariate.pca
@@ -404,8 +406,11 @@ def organize_singular_value_decomposition(
     return pail
 
 
+# TODO: PCA loadings adjustment...
 # TODO: organize this better...
 # TODO: give useful metrics on the PCA
+# TODO: return loadings
+# TODO: return variances (Eigenvalues?)
 def organize_principal_component_aggregation(
     threshold_valid_proportion_per_column=None,
     table=None,
@@ -498,6 +503,7 @@ def organize_principal_component_aggregation(
             str(pail_components.factors.shape)
         )
         print("Shape of loadings: " + str(pail_components.loadings.shape))
+        print(pail_components.loadings.shape)
         print("Shape of Eigenvalues: " + str(pail_components.eigenvals.shape))
         print("Shape of Eigenvectors: " + str(pail_components.eigenvecs.shape))
         utility.print_terminal_partition(level=3)
@@ -508,6 +514,8 @@ def organize_principal_component_aggregation(
 
     # Compile information.
     pail = dict()
+    pail["loadings"] = []
+    pail["variances"] = []
     pail["table_components"] = table_components
     # Return.
     return pail
@@ -617,7 +625,7 @@ def read_aggregate_metabolite_genetic_scores(
     metabolite_file_path = metabolites_files_paths[metabolite]["path"]
     table_raw = read_source_metabolite_genetic_scores(
         path_file=metabolite_file_path,
-        report=True,
+        report=report,
     )
     # Organize the raw table.
     table_raw.drop(
@@ -683,7 +691,7 @@ def read_aggregate_test_metabolite_genetic_scores(
     table_aggregation = read_aggregate_metabolite_genetic_scores(
         metabolite=metabolite,
         metabolites_files_paths=metabolites_files_paths,
-        report=True,
+        report=report,
     )
     # Copy information.
     table = table_aggregation.copy(deep=True)
@@ -1020,7 +1028,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 9")
+    print("version check: 1")
 
     # Initialize directories.
     paths = initialize_directories(
@@ -1045,14 +1053,15 @@ def execute_procedure(
         report=True,
     )
 
-    # Collect metabolites' genetic scores, and aggregate these by singular value
-    # decomposition (SVD).
-    # pail_metabolites_scores
-    table_scores = read_aggregate_collect_metabolites_genetic_scores(
-        metabolites_files_paths=source["metabolites_files_paths"],
-    )
-    print("printing after read_aggregate_collect_metabolites_genetic_scores")
-    print(table_scores)
+    if False:
+        # Collect metabolites' genetic scores, and aggregate these by singular value
+        # decomposition (SVD).
+        # pail_metabolites_scores
+        table_scores = read_aggregate_collect_metabolites_genetic_scores(
+            metabolites_files_paths=source["metabolites_files_paths"],
+        )
+        print("printing after read_aggregate_collect_metabolites_genetic_scores")
+        print(table_scores)
 
     # ^^^ read in list of unique metabolite identifiers "M#####"
 
