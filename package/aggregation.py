@@ -474,6 +474,12 @@ def organize_principal_component_aggregation(
         method="eig", # "svd", "eig", "nipals"
         missing=None, # None or "drop-row"
     )
+    # Check the sum of principal component loadings.
+    loadings_original = numpy.copy(pail_components.loadings)
+    sum_original = numpy.sum(loadings_original.flatten(order="C"))
+    loadings_novel = numpy.negative(numpy.copy(pail_components.loadings))
+    sum_novel = numpy.sum(loadings_original.flatten(order="C"))
+
     # Organize information.
     prefix = "component_"
     count = 1
@@ -482,8 +488,6 @@ def organize_principal_component_aggregation(
         column = str(prefix + str(count))
         columns.append(column)
         count += 1
-    print("here are the new column names...")
-    print(columns)
     table_components = pandas.DataFrame(
         data=pail_components.factors,
         index=index,
@@ -515,10 +519,10 @@ def organize_principal_component_aggregation(
             str(pail_components.factors.shape)
         )
         print("Shape of loadings: " + str(pail_components.loadings.shape))
-        print(pail_components.loadings)
-        print(pail_components.loadings.flatten(order="C"))
-        print("sum of loadings...")
-        print(numpy.sum(pail_components.loadings.flatten(order="C")))
+        print("sum of loadings original...")
+        print(sum_original)
+        print("sum of loadings novel...")
+        print(sum_novel)
         print("Shape of Eigenvalues: " + str(pail_components.eigenvals.shape))
         print("Shape of Eigenvectors: " + str(pail_components.eigenvecs.shape))
         utility.print_terminal_partition(level=3)
@@ -1043,7 +1047,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 4")
+    print("version check: 5")
 
     # Initialize directories.
     paths = initialize_directories(
