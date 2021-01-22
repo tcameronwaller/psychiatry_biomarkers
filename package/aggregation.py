@@ -478,7 +478,7 @@ def organize_principal_component_aggregation(
     prefix = "component_"
     count = 1
     columns = list()
-    for component in range(1, pail_components.factors.shape[1], 1):
+    for component in range(0, pail_components.factors.shape[1], 1):
         column = str(prefix + str(count))
         columns.append(column)
         count += 1
@@ -1043,7 +1043,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 3")
+    print("version check: 4")
 
     # Initialize directories.
     paths = initialize_directories(
