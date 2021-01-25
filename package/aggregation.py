@@ -434,8 +434,6 @@ def sort_eigenvectors_by_decreasing_eigenvalues(
     eigenvalues = numpy.copy(eigenvalues)
     # Calculate sort indices for Eigenvalues in decreasing order.
     # Reverse an increasing sort order with either "numpy.flip" or "[::-1]".
-    utility.print_terminal_partition(level=1)
-    print(eigenvalues)
     indices_sort_increasing = numpy.argsort(
         eigenvalues,
         axis=-1,
@@ -445,11 +443,245 @@ def sort_eigenvectors_by_decreasing_eigenvalues(
         indices_sort_increasing,
         axis=0,
     )
-    print(indices_sort)
+    # Apply sort order indices to Eigenvalues and Eigenvectors.
+    eigenvectors = eigenvectors[:,indices_sort]
+    eigenvalues = eigenvalues[:,indices_sort]
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print("Matrices before sort:")
+        print("Eigenvalues...")
+        print(eigenvalues)
+        print("Eigenvectors...")
+        print(eigenvectors)
+        utility.print_terminal_partition(level=3)
+        print("Matrices after sort:")
+        print("Eigenvalues...")
+        print(eigenvalues)
+        print("Eigenvectors...")
+        print(eigenvectors)
+    # Compile information.
+    pail = dict()
+    pail["eigenvalues"] = eigenvalues
+    pail["eigenvectors"] = eigenvectors
+    # Return.
+    return pail
+
+
+def calculate_principal_component_loadings(
+    eigenvectors=None,
+    eigenvalues=None,
+    report=None,
+):
+    """
+    Calculates Principal Components Analysis (PCA) loadings from Eigenvectors
+    and Eigenvalues.
+
+    arguments:
+        eigenvectors (object): NumPy array matrix of Eigenvectors
+        eigenvalues (object): NumPy array matrix of Eigenvalues
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): collection of information
+
+    """
+
+    # Copy information.
+    eigenvectors = numpy.copy(eigenvectors)
+    eigenvalues = numpy.copy(eigenvalues)
+    # Calculate square roots of Eigenvalues.
+    # Organize a diagonal matrix of square roots of Eigenvalues.
+    eigenvalues_square_root = numpy.sqrt(eigenvalues)
+    eigenvalues_root_diagonal = numpy.diag(eigenvalues_square_root)
+    # Calculate loadings.
+    loadings = numpy.dot(eigenvectors, eigenvalues_root_diagonal)
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print("Eigenvalues...")
+        print(eigenvalues)
+        print("Diagonal matrix of square root of Eigenvalues:")
+        print(eigenvalues_root_diagonal)
+        utility.print_terminal_partition(level=3)
+        print("Eigenvectors")
+        print(eigenvectors)
+        utility.print_terminal_partition(level=3)
+        print("Loadings = Eigenvectors [dot] square root diagonal Eigenvalues")
+        print(loadings)
+    # Return.
+    return loadings
+
+
+
+def organize_principal_component_factor_table(
+    factors=None,
+    prefix=None,
+    index=None,
+    index_name=None,
+    report=None,
+):
+    """
+    Organizes a table of factors or scores from Principal Component Analysis.
+
+    arguments:
+        factors (object): NumPy array matrix of Principal Component factors
+        prefix (str): prefix for names of component columns
+        index (object): NumPy array of indices for table
+        index_name (str): name for table's index column
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): collection of information
+
+    """
+
+    # Copy information.
+    factors = numpy.copy(factors)
+    # Organize information.
+    count = 1
+    columns = list()
+    for component in range(0, pail_components.factors.shape[1], 1):
+        column = str(prefix + str(count))
+        columns.append(column)
+        count += 1
+    table = pandas.DataFrame(
+        data=factors,
+        index=index,
+        columns=columns,
+        dtype="float32",
+        copy=True,
+    )
+    table.rename_axis(
+        index=index_name,
+        axis="index",
+        copy=False,
+        inplace=True,
+    )
+    table.reset_index(
+        level=None,
+        inplace=True
+    )
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print("Matrix before organization:")
+        print(factors)
+        utility.print_terminal_partition(level=3)
+        print("Table after organization:")
+        print(table)
+    # Return.
+    return table
+
+
+def organize_principal_component_analysis_force_loadings_positive_sum(
+    table=None,
+    report=None,
+):
+    """
+    Organizes aggregation by modification of Principal Components Analysis
+    (PCA).
+
+    Factorize a covariance or correlation matrix into direction (eigenvectors)
+    and scale (eigenvalues).
+    The eigenvalues impart scale or weight to each eigenvector.
+    Each eigenvector has its own eigenvalue, and their sort orders mush match.
+
+    loadings = eigenvectors [dot] square_root(eigenvalues)
+    Loadings include aspects of both direction (eigenvectors) and scale
+    (eigenvalues).
+
+    Singular Value Decomposition assigns Eigenvector direction (sign, positive
+    or negative) at random. To ensure consistency, flip all signs such that the
+    sum of loadings (direction and scale) is positive.
+
+    arguments:
+        table (object): Pandas data frame of variables (features) across
+            columns and samples (cases, observations) across rows with explicit
+            index
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): collection of information about the principal components
+            analysis
+
+    """
+
+    # Copy information.
+    table = table.copy(deep=True)
+    index = copy.deepcopy(table.index)
+    # Organize matrix.
+    # Matrix format has samples (cases, observations) across dimension 0 (rows)
+    # and variables (features) across dimension 1 (columns).
+    matrix = table.to_numpy()
+    # Calculate Principal Components.
+    # If there is specification of "ncomp", then function only returns
+    # Eigenvalues, loadings, Eigenvectors, and principal components to this
+    # count.
+    # Function sorts Eigenvalues in decreasing order.
+    # Sort order of Eigenvectors mush match the sort order of Eigenvalues.
+    pail_components = statsmodels.multivariate.pca.PCA(
+        matrix,
+        ncomp=3, # None # temporarily reduce count to 3
+        standardize=True,
+        gls=False,
+        weights=None,
+        method="eig", # "svd", "eig", "nipals"
+        missing=None, # None or "drop-row"
+    )
+    # Calculate loadings.
+    loadings = calculate_principal_component_loadings(
+        eigenvectors=pail_components.eigenvecs,
+        eigenvalues=pail_components.eigenvals,
+        report=True,
+    )
+    print("Statsmodels loadings...")
+    print(pail_components.loadings)
+    print("Calculated loadings...")
+    print(loadings)
+
+    if False:
+        # Match sort order of Eigenvectors and Eigenvalues, by decreasing
+        # Eigenvalues.
+        pail_sort = sort_eigenvectors_by_decreasing_eigenvalues(
+            eigenvectors=pail_components.eigenvecs,
+            eigenvalues=pail_components.eigenvals,
+            report=False,
+        )
+        # Check the sum of principal component loadings.
+        loadings_original = numpy.copy(pail_components.loadings)
+        sum_original = numpy.sum(loadings_original.flatten(order="C"))
+        if (sum_original <= 0):
+            loadings_novel = numpy.negative(numpy.copy(pail_components.loadings))
+            sum_novel = numpy.sum(loadings_novel.flatten(order="C"))
+            loading_sign_flip = True
+        else:
+            loadings_novel = loadings_original
+            loading_sign_flip = False
+
+        # Organize principal component factors within table.
+        table_components = organize_principal_component_factor_table(
+            factors=pail_components.factors, # TODO: change to factors after sign adjustment
+            prefix="component_",
+            index=index,
+            index_name="identifier_ukb",
+            report=True,
+        )
+
+
+
+
+    # numpy.dot
+    # PC factors = dot product of (original matrix and Eigenvectors)
 
 
     pass
-
 
 
 
@@ -514,80 +746,14 @@ def organize_principal_component_aggregation(
         subset=None,
         inplace=True,
     )
-    # Copy information.
-    index = copy.deepcopy(table.index.to_list())
-
-    # Organize matrix.
-    # Matrix format has samples (cases, observations) across dimension 0 (rows)
-    # and variables (features) across dimension 1 (columns).
-    matrix = table.to_numpy()
-    # Calculate Principal Components.
-    # If there is specification of "ncomp", then function only returns
-    # Eigenvalues, loadings, Eigenvectors, and principal components to this
-    # count.
-    pail_components = statsmodels.multivariate.pca.PCA(
-        matrix,
-        ncomp=3, # None # temporarily reduce count to 3
-        standardize=True,
-        gls=False,
-        weights=None,
-        method="eig", # "svd", "eig", "nipals"
-        missing=None, # None or "drop-row"
-    )
+    # Calculate principal components, forcing loadings to have positive sum.
+    pail_components = (
+        organize_principal_component_analysis_force_loadings_positive_sum(
+            table=table,
+            report=True,
+    ))
     # Eigenvalues.
-    # Function sorts Eigenvalues in decreasing order.
-    # Sort order of Eigenvectors mush match the sort order of Eigenvalues.
 
-    # Match sort order of Eigenvectors and Eigenvalues, by decreasing
-    # Eigenvalues.
-    pail_sort = sort_eigenvectors_by_decreasing_eigenvalues(
-        eigenvectors=pail_components.eigenvecs,
-        eigenvalues=pail_components.eigenvals,
-        report=True,
-    )
-
-    # Check the sum of principal component loadings.
-    loadings_original = numpy.copy(pail_components.loadings)
-    sum_original = numpy.sum(loadings_original.flatten(order="C"))
-    if (sum_original <= 0):
-        loadings_novel = numpy.negative(numpy.copy(pail_components.loadings))
-        sum_novel = numpy.sum(loadings_novel.flatten(order="C"))
-        loading_sign_flip = True
-    else:
-        loadings_novel = loadings_original
-        loading_sign_flip = False
-
-
-
-
-    # numpy.dot
-    # PC factors = dot product of (original matrix and Eigenvectors)
-
-    # Organize information.
-    prefix = "component_"
-    count = 1
-    columns = list()
-    for component in range(0, pail_components.factors.shape[1], 1):
-        column = str(prefix + str(count))
-        columns.append(column)
-        count += 1
-    table_components = pandas.DataFrame(
-        data=pail_components.factors,
-        index=index,
-        columns=columns,
-        dtype="float32",
-        copy=True,
-    )
-    table_components.rename_axis(
-        index="identifier_ukb",
-        axis="index",
-        copy=False,
-        inplace=True,
-    )
-    table_components.reset_index(
-        level=None,
-        inplace=True
-    )
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
@@ -1157,7 +1323,7 @@ def execute_procedure(
     pail_test = read_aggregate_test_metabolite_genetic_scores(
         metabolite="M00054",
         metabolites_files_paths=source["metabolites_files_paths"],
-        report=True,
+        report=False,
     )
 
     if False:
