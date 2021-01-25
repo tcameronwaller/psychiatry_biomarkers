@@ -1472,7 +1472,7 @@ def execute_procedure(
     pail_test = read_aggregate_test_metabolite_genetic_scores(
         metabolite="M00054",
         metabolites_files_paths=source["metabolites_files_paths"],
-        report=False,
+        report=True,
     )
 
     if False:
