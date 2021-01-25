@@ -433,12 +433,17 @@ def sort_eigenvectors_by_decreasing_eigenvalues(
     eigenvectors = numpy.copy(eigenvectors)
     eigenvalues = numpy.copy(eigenvalues)
     # Calculate sort indices for Eigenvalues in decreasing order.
+    # Reverse an increasing sort order with either "numpy.flip" or "[::-1]".
     utility.print_terminal_partition(level=1)
     print(eigenvalues)
-    indices_sort = numpy.argsort(
+    indices_sort_increasing = numpy.argsort(
         eigenvalues,
         axis=-1,
-        kind="quicksort",
+        kind="stable",
+    )
+    indices_sort = numpy.flip(
+        indices_sort_increasing,
+        axis=0,
     )
     print(indices_sort)
 
