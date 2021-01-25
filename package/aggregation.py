@@ -21,6 +21,7 @@ import pickle
 import copy
 import random
 import itertools
+import time
 
 # Relevant
 
@@ -406,6 +407,47 @@ def organize_singular_value_decomposition(
     return pail
 
 
+
+def sort_eigenvectors_by_decreasing_eigenvalues(
+    eigenvectors=None,
+    eigenvalues=None,
+    report=None,
+):
+    """
+    Sorts Principal Components Analysis (PCA) Eigenvectors in order of
+    decreasing Eigenvalues.
+
+    arguments:
+        eigenvectors (object): NumPy array matrix of Eigenvectors
+        eigenvalues (object): NumPy array matrix of Eigenvalues
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): collection of information
+
+    """
+
+    # Copy information.
+    eigenvectors = numpy.copy(eigenvectors)
+    eigenvalues = numpy.copy(eigenvalues)
+    # Calculate sort indices for Eigenvalues in decreasing order.
+    utility.print_terminal_partition(level=1)
+    print(eigenvalues)
+    indices_sort = numpy.argsort(
+        eigenvalues,
+        axis=-1,
+        kind="quicksort",
+    )
+    print(indices_sort)
+
+
+    pass
+
+
+
+
 # TODO: PCA loadings adjustment...
 # TODO: organize this better...
 # TODO: give useful metrics on the PCA
@@ -423,13 +465,15 @@ def organize_principal_component_aggregation(
     Factorize covariance or correlation into direction (eigenvectors) and scale
     (eigenvalues).
     The eigenvalues impart scale or weight to each eigenvector.
-    Each eigenvector has its own eigenvalue.
-
-
+    Each eigenvector has its own eigenvalue, and their sort orders mush match.
 
     loadings = eigenvectors [dot] square_root(eigenvalues)
     Loadings include aspects of both direction (eigenvectors) and scale
     (eigenvalues).
+
+    Singular Value Decomposition assigns Eigenvector direction (sign, positive
+    or negative) at random. To ensure consistency, flip all signs such that the
+    sum of loadings (direction and scale) is positive.
 
     arguments:
         threshold_valid_proportion_per_column (float): proportion of rows that
@@ -485,6 +529,18 @@ def organize_principal_component_aggregation(
         method="eig", # "svd", "eig", "nipals"
         missing=None, # None or "drop-row"
     )
+    # Eigenvalues.
+    # Function sorts Eigenvalues in decreasing order.
+    # Sort order of Eigenvectors mush match the sort order of Eigenvalues.
+
+    # Match sort order of Eigenvectors and Eigenvalues, by decreasing
+    # Eigenvalues.
+    pail_sort = sort_eigenvectors_by_decreasing_eigenvalues(
+        eigenvectors=pail_components.eigenvecs,
+        eigenvalues=pail_components.eigenvals,
+        report=True,
+    )
+
     # Check the sum of principal component loadings.
     loadings_original = numpy.copy(pail_components.loadings)
     sum_original = numpy.sum(loadings_original.flatten(order="C"))
@@ -496,7 +552,7 @@ def organize_principal_component_aggregation(
         loadings_novel = loadings_original
         loading_sign_flip = False
 
-    # Eigenvalues.
+
 
 
     # numpy.dot
@@ -1072,6 +1128,9 @@ def execute_procedure(
     utility.print_terminal_partition(level=1)
     print(path_dock)
     print("version check: 7")
+    # Pause procedure.
+    time.sleep(5.0)
+
 
     # Initialize directories.
     paths = initialize_directories(
