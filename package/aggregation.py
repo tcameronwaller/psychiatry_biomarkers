@@ -457,7 +457,7 @@ def sort_eigenvectors_by_decreasing_eigenvalues(
     )
     # Apply sort order indices to Eigenvalues and Eigenvectors.
     eigenvectors = eigenvectors[:,indices_sort]
-    eigenvalues = eigenvalues[:,indices_sort]
+    eigenvalues = eigenvalues[indices_sort]
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
@@ -1541,7 +1541,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 2")
+    print("version check: 3")
     # Pause procedure.
     time.sleep(5.0)
 
