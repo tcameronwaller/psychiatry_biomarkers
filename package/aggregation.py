@@ -297,32 +297,44 @@ def read_source_metabolite_genetic_scores(
 
 
 ##########
-# Aggregation
+# Singular Value Decomposition
 
 
-def organize_singular_value_decomposition(
+
+def copy_organize_table_matrix_for_singular_value_decomposition(
+    threshold_valid_proportion_per_column=None,
     table=None,
     report=None,
 ):
     """
-    Organizes a Singular Value Decomposition (SVD).
+    Organizes a table for Singular Value Decomposition (SVD).
 
     arguments:
+        threshold_valid_proportion_per_column (float): proportion of rows that
+            must have a valid value for a column in order to keep the column
         table (object): Pandas data frame of variables (features) across
-            columns and samples (cases, observations) across rows with explicit
-            index
+            columns and samples (cases, observations) across rows with an
+            explicit index
         report (bool): whether to print reports
 
     raises:
 
     returns:
-        (dict): collection of information about the singular value
-            decomposition
+        (dict): collection of information for the singular value decomposition
 
     """
 
     # Copy information.
     table = table.copy(deep=True)
+    # Drop any columns with inadequate valid values across rows.
+    rows = table.shape[0]
+    threshold = round(rows*threshold_valid_proportion_per_column)
+    table.dropna(
+        axis="columns",
+        thresh=threshold,
+        subset=None,
+        inplace=True,
+    )
     # Drop any rows with null values in any columns.
     table.dropna(
         axis="index",
@@ -330,7 +342,6 @@ def organize_singular_value_decomposition(
         subset=None,
         inplace=True,
     )
-
     # Principal components analysis assumptions require at least centering the
     # means (mean = 0) of variables (features).
     # Standardizing the scale of variables (features) is equivalent to
@@ -342,25 +353,130 @@ def organize_singular_value_decomposition(
         report=report,
     )
     # Copy information.
-    index = copy.deepcopy(table_scale.index.to_list())
-
+    index = copy.deepcopy(table_scale.index)
     # Organize matrix.
     # Matrix format has samples (cases) across dimension 0 and variables
     # (features) across dimension 1.
-    matrix = table.to_numpy()
+    matrix = table_scale.to_numpy()
 
+    # Compile information.
+    pail = dict()
+    pail["table_clean"] = table
+    pail["table_scale"] = table_scale
+    pail["index"] = index
+    pail["matrix"] = matrix
+    pail["count_samples"] = copy.deepcopy(matrix.shape[0])
+    pail["count_variables"] = copy.deepcopy(matrix.shape[1])
+    # Return.
+    return pail
+
+
+def calculate_principal_component_eigenvalues_from_singular_values(
+    singular_values=None,
+    count_samples=None,
+    report=None,
+):
+    """
+    Calculates Principal Components Analysis (PCA) Eigenvalues from Singular
+    Values of Singular Value Decomposition.
+
+    arguments:
+        singular_values (object): NumPy array of Singular Values
+        count_samples (float): count of samples in the original Singular Value
+            Decomposition
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): NumPy array of Eigenvalues
+
+    """
+
+    def divide_by_sample_count(value, count_samples):
+        return (value / (count_samples - 1))
+    array_divide_by_sample_count = numpy.vectorize(divide_by_sample_count)
+
+    # Copy information.
+    singular_values = numpy.copy(singular_values)
+    # Calculate Eigenvalues.
+    singular_values_square = numpy.square(singular_values)
+    eigenvalues = array_divide_by_sample_count(
+        singular_values_square, count_samples
+    )
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print("Eigenvalues...")
+        print(eigenvalues)
+    # Return.
+    return eigenvalues
+
+
+def organize_principal_components_by_singular_value_decomposition(
+    threshold_valid_proportion_per_column=None,
+    table=None,
+    report=None,
+):
+    """
+    Organizes a Singular Value Decomposition (SVD).
+
+    Reference:
+    "https://stats.stackexchange.com/questions/134282/
+    relationship-between-svd-and-pca-how-to-use-svd-to-perform-pca"
+
+    arguments:
+        threshold_valid_proportion_per_column (float): proportion of rows that
+            must have a valid value for a column in order to keep the column
+        table (object): Pandas data frame of variables (features) across
+            columns and samples (cases, observations) across rows with an
+            explicit index
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): collection of information about the singular value
+            decomposition
+
+    """
+
+    # Organize information.
+    pail_organization = (
+        copy_organize_table_matrix_for_singular_value_decomposition(
+            threshold_valid_proportion_per_column=(
+                threshold_valid_proportion_per_column
+            ),
+            table=table,
+            report=report,
+    ))
+
+    # Calculate Singular Value Decomposition (SVD).
     # u: unitary matrix with left singular vectors as columns
     # s: singular values
     # vh: unitary matrix with right singular vectors as rows
-
     u, s, vh = scipy.linalg.svd(
-        matrix,
+        pail_organization["matrix"],
         full_matrices=False, # Full matrices do not convey more information.
         compute_uv=True,
         overwrite_a=False,
         check_finite=True,
         lapack_driver="gesdd",
     )
+    # Calculate Eigenvalues.
+    eigenvalues= calculate_principal_component_eigenvalues_from_singular_values(
+        singular_values=s,
+        count_samples=pail_organization["count_samples"],
+        report=report,
+    )
+    # Calculate Eigenvectors.
+    # Eigenvectors are the right singular vectors of the original matrix.
+    eigenvectors = numpy.copy(numpy.transpose(vh))
+    # Sort Eigenvectors by Eigenvalues.
+
+    # Calculate Loadings.
+
+    # Calculate Principal Components.
 
     #scipy.linalg.svdvals()
     #scipy.linalg.diagsvd()
@@ -380,32 +496,49 @@ def organize_singular_value_decomposition(
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
-        print("Report from: organize_singular_value_decomposition()")
+        print(
+            "Report from: " +
+            "organize_principal_components_by_singular_value_decomposition()"
+        )
         utility.print_terminal_partition(level=2)
         # M: count of samples (cases)
         # N: count of variables (features)
         # K: minimum of M or N
         # Original matrix has shape (M, N)
-        print("Shape of original matrix: " + str(matrix.shape))
+        print(
+            "Shape of original matrix: " +
+            str(pail_organization["matrix"].shape)
+        )
         # Matrix "u" has shape (M, K)
         print("Shape of matrix U: " + str(u.shape))
         # Matrix "s" has shape (K, )
         # Matrix "s" is basically a one-dimensional array.
-        print("Shape of matrix s: " + str(s.shape))
+        print("Shape of matrix S: " + str(s.shape))
         print(s)
+        # Eigenvalues.
+        print("Shape of Eigenvalues: " + str(eigenvalues.shape))
         # Matrix "vh" has shape (K, N)
-        print("Shape of matrix vh: " + str(vh.shape))
+        print("Shape of matrix Vh: " + str(vh.shape))
+        # Eigenvectors.
+        print("Shape of Eigenvectors: " + str(eigenvectors.shape))
         pass
 
     # Compile information.
     pail = dict()
-    pail["table_scale"] = table_scale
+    pail["table_scale"] = pail_organization["table_scale"]
     pail["u"] = u
-    pail["s"] = s
+    pail["singular_values"] = s
     pail["vh"] = vh
+    pail["eigenvalues"] = eigenvalues
+    pail["eigenvectors"] = eigenvectors
     # Return.
     return pail
 
+
+
+
+##########
+# Aggregation
 
 
 def sort_eigenvectors_by_decreasing_eigenvalues(
@@ -476,6 +609,18 @@ def calculate_principal_component_loadings(
     """
     Calculates Principal Components Analysis (PCA) loadings from Eigenvectors
     and Eigenvalues.
+
+    Statsmodels erroneously returns "loadings" that have identical values and
+    dimensions as the Eigenvectors; however, Eigenvectors are loadings are not
+    equivalent.
+
+    loadings = eigenvectors [dot] square_root(eigenvalues)
+    Loadings include aspects of both direction (eigenvectors) and scale
+    (eigenvalues).
+
+    Reference:
+    "https://stats.stackexchange.com/questions/143905/
+    loadings-vs-eigenvectors-in-pca-when-to-use-one-or-another"
 
     arguments:
         eigenvectors (object): NumPy array matrix of Eigenvectors
@@ -626,6 +771,8 @@ def organize_principal_component_analysis_force_loadings_positive_sum(
     # count.
     # Function sorts Eigenvalues in decreasing order.
     # Sort order of Eigenvectors mush match the sort order of Eigenvalues.
+    # Statsmodels erroneously returns "loadings" that have identical values and
+    # dimensions as the Eigenvectors.
     pail_components = statsmodels.multivariate.pca.PCA(
         matrix,
         ncomp=3, # None # temporarily reduce count to 3
@@ -730,7 +877,7 @@ def organize_principal_component_aggregation(
 
     # Copy information.
     table = table.copy(deep=True)
-    # Drop any columns with inadequate null values across rows.
+    # Drop any columns with inadequate valid values across rows.
     rows = table.shape[0]
     threshold = round(rows*threshold_valid_proportion_per_column)
     table.dropna(
@@ -837,19 +984,21 @@ def organize_aggregate_metabolite_genetic_scores(
         inplace=True,
     )
     # Aggregate metabolite's genetic scores.
+    pail_decomposition = (
+        organize_principal_components_by_singular_value_decomposition(
+            threshold_valid_proportion_per_column=0.75,
+            table=table,
+            report=report,
+    ))
+
     if False:
-        pail_decomposition = organize_singular_value_decomposition(
+        pail_aggregation = organize_principal_component_aggregation(
+            threshold_valid_proportion_per_column=0.75,
             table=table,
             report=report,
         )
-
-    pail_aggregation = organize_principal_component_aggregation(
-        threshold_valid_proportion_per_column=0.75,
-        table=table,
-        report=report,
-    )
-    table_aggregation = pail_aggregation["table_components"].loc[
-        :, pail_aggregation["table_components"].columns.isin([
+    table_aggregation = pail_decomposition["table_components"].loc[
+        :, pail_decomposition["table_components"].columns.isin([
             "identifier_ukb", "component_1"
         ])
     ]
@@ -1298,7 +1447,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 7")
+    print("version check: 1")
     # Pause procedure.
     time.sleep(5.0)
 
