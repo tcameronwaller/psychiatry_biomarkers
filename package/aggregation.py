@@ -531,7 +531,6 @@ def adjust_singular_value_decomposition_factor_signs(
     #vt_y_square = numpy.dot(vt_y, vt_y)
 
 
-
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
@@ -540,14 +539,11 @@ def adjust_singular_value_decomposition_factor_signs(
             "adjust_singular_value_decomposition_factor_signs()"
         )
         utility.print_terminal_partition(level=2)
-        print(
-            "Shape of original matrix: " +
-            str(pail_organization["matrix"].shape)
-        )
+        print("Shape of original matrix: " + str(matrix.shape))
         print("rows (dimension 0): samples (cases, observations)")
         print("columns (dimension 1): variables (features)")
         utility.print_terminal_partition(level=4)
-        print("Shape of matrix S (singular values): " + str(s.shape))
+        print("Shape of matrix Sigma (singular values): " + str(s.shape))
         utility.print_terminal_partition(level=4)
         print("Shape of matrix U (left singular vectors): " + str(u.shape))
         print(
@@ -559,19 +555,10 @@ def adjust_singular_value_decomposition_factor_signs(
             "Shape of matrix VT (transpose right singular vectors): " +
             str(vt.shape)
         )
-        print(
-            "Shape of matrix V (right singular vectors): " +
-            str(v.shape)
-        )
+        print("Shape of matrix V (right singular vectors): " + str(v.shape))
         utility.print_terminal_partition(level=4)
-        print(
-            "Shape of matrix UT-Y (product): " +
-            str(ut_y.shape)
-        )
-        print(
-            "Shape of matrix VT-Y (product): " +
-            str(vt_y.shape)
-        )
+        print("Shape of matrix UT-Y (product): " + str(ut_y.shape))
+        print("Shape of matrix VT-Y (product): " + str(vt_y.shape))
         pass
     # Compile information.
     pail = dict()
@@ -1893,7 +1880,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 4")
+    print("version check: 5")
     # Pause procedure.
     time.sleep(5.0)
 
