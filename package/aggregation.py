@@ -355,9 +355,9 @@ def copy_organize_table_matrix_for_singular_value_decomposition(
     # Copy information.
     index = copy.deepcopy(table_scale.index)
     # Organize matrix.
-    # Matrix format has samples (cases) across dimension 0 and variables
-    # (features) across dimension 1.
-    matrix = table_scale.to_numpy()
+    # Matrix format has variables (features) across dimension 0 and samples
+    # (cases, observations) across dimension 1.
+    matrix = numpy.transpose(table_scale.to_numpy())
 
     # Compile information.
     pail = dict()
@@ -396,6 +396,8 @@ def calculate_initial_raw_singular_value_decomposition_factors(
     """
 
     # Organize information.
+    # Matrix format has variables (features) across dimension 0 and samples
+    # (cases, observations) across dimension 1.
     pail_organization = (
         copy_organize_table_matrix_for_singular_value_decomposition(
             threshold_valid_proportion_per_column=(
@@ -404,6 +406,8 @@ def calculate_initial_raw_singular_value_decomposition_factors(
             table=table,
             report=False,
     ))
+    # Organize original matrix.
+
     # Calculate Singular Value Decomposition (SVD).
     # u: unitary matrix with left singular vectors as columns
     # s: singular values
@@ -434,6 +438,7 @@ def calculate_initial_raw_singular_value_decomposition_factors(
             "Shape of original matrix: " +
             str(pail_organization["matrix"].shape)
         )
+        print("Shape of product matrix: " + str(matrix_product.shape))
         print("rows (dimension 0): samples (cases, observations)")
         print("columns (dimension 1): variables (features)")
         # M: count of samples (cases)
@@ -446,7 +451,7 @@ def calculate_initial_raw_singular_value_decomposition_factors(
         print("Shape of matrix S (singular values): " + str(s.shape))
         # Matrix "vt" has shape (K, N)
         print(
-            "Shape of matrix Vt (transpose right singular vectors): " +
+            "Shape of matrix VT (transpose right singular vectors): " +
             str(vt.shape)
         )
         # Compare original matrix to matrix calculation from SVD factors.
@@ -1881,7 +1886,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 1")
+    print("version check: 2")
     # Pause procedure.
     time.sleep(5.0)
 
