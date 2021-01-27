@@ -358,7 +358,7 @@ def copy_organize_table_matrix_for_singular_value_decomposition(
     # Matrix format has samples (cases, observations) across rows (dimension 0)
     # and variables (features) across columns (dimension 1).
     #matrix = numpy.transpose(table_scale.to_numpy())
-    matrix = table_scale.to_numpy()
+    matrix = numpy.copy(table_scale.to_numpy())
 
     # Compile information.
     pail = dict()
@@ -520,14 +520,15 @@ def adjust_singular_value_decomposition_factor_signs(
     u = numpy.copy(left_singular_vectors_columns)
     vt = numpy.copy(right_singular_vectors_rows)
     # Organize information.
+    matrix_transpose = numpy.transpose(matrix)
     s_diagonal = numpy.diag(s)
     ut = numpy.copy(numpy.transpose(u))
     v = numpy.copy(numpy.transpose(vt))
     # Calculate basic products by matrix multiplication.
     ut_y = numpy.dot(ut, matrix)
-    ut_y_square = numpy.dot(ut_y, ut_y)
-    vt_y = numpy.dot(vt, matrix)
-    vt_y_square = numpy.dot(vt_y, vt_y)
+    #ut_y_square = numpy.dot(ut_y, ut_y)
+    vt_y = numpy.dot(vt, matrix_transpose)
+    #vt_y_square = numpy.dot(vt_y, vt_y)
 
 
 
@@ -976,7 +977,7 @@ def organize_principal_components_by_singular_value_decomposition(
             threshold_valid_proportion_per_column
         ),
         table=table,
-        report=True,
+        report=False,
     )
     #print(pail_svd["table_valid_scale"])
     #print(pail_svd["index"])
@@ -1892,7 +1893,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 3")
+    print("version check: 4")
     # Pause procedure.
     time.sleep(5.0)
 
