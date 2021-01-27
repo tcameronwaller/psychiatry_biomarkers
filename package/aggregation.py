@@ -355,9 +355,10 @@ def copy_organize_table_matrix_for_singular_value_decomposition(
     # Copy information.
     index = copy.deepcopy(table_scale.index)
     # Organize matrix.
-    # Matrix format has variables (features) across dimension 0 and samples
-    # (cases, observations) across dimension 1.
-    matrix = numpy.transpose(table_scale.to_numpy())
+    # Matrix format has samples (cases, observations) across rows (dimension 0)
+    # and variables (features) across columns (dimension 1).
+    #matrix = numpy.transpose(table_scale.to_numpy())
+    matrix = table_scale.to_numpy()
 
     # Compile information.
     pail = dict()
@@ -396,8 +397,8 @@ def calculate_initial_raw_singular_value_decomposition_factors(
     """
 
     # Organize information.
-    # Matrix format has variables (features) across dimension 0 and samples
-    # (cases, observations) across dimension 1.
+    # Matrix format has samples (cases, observations) across rows (dimension 0)
+    # and variables (features) across columns (dimension 1).
     pail_organization = (
         copy_organize_table_matrix_for_singular_value_decomposition(
             threshold_valid_proportion_per_column=(
@@ -456,7 +457,12 @@ def calculate_initial_raw_singular_value_decomposition_factors(
         )
         # Compare original matrix to matrix calculation from SVD factors.
         print("Compare original matrix to product of SVD factors: ")
-        print(numpy.allclose(pail_organization["matrix"], matrix_product))
+        print(numpy.allclose(
+            pail_organization["matrix"], matrix_product,
+            rtol=1e-2,
+            atol=1e-3,
+            equal_nan=False,
+        ))
 
         pass
     # Compile information.
@@ -1886,7 +1892,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 2")
+    print("version check: 3")
     # Pause procedure.
     time.sleep(5.0)
 
