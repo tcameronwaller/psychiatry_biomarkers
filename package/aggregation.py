@@ -526,9 +526,19 @@ def adjust_singular_value_decomposition_factor_signs(
     v = numpy.copy(numpy.transpose(vt))
     # Calculate basic products by matrix multiplication.
     ut_y = numpy.dot(ut, matrix)
-    ut_y_square = numpy.dot(ut_y, ut_y)
     vt_y = numpy.dot(vt, matrix_transpose)
-    vt_y_square = numpy.dot(vt_y, vt_y)
+    # Reduce values to indicators of positive and negative signs.
+    ut_y_sign = numpy.sign(ut_y)
+    vt_y_sign = numpy.sign(vt_y)
+    # Calculate squares of matrices.
+    # Calculation of square by matrix multiplifcation is only possible for
+    # square matrices.
+    # Instead calculate the squares of all individual values in the matrices.
+    ut_y_square = numpy.square(ut_y)
+    vt_y_square = numpy.square(vt_y)
+    # Calculate left and right sign matrices.
+    signs_left = numpy.dot(ut_y_sign, ut_y_square)
+    signs_right = numpy.dot(vt_y_sign, vt_y_square)
 
 
     # Report.
@@ -561,6 +571,9 @@ def adjust_singular_value_decomposition_factor_signs(
         print("Shape of matrix UT-Y square: " + str(ut_y_square.shape))
         print("Shape of matrix VT-Y (product): " + str(vt_y.shape))
         print("Shape of matrix VT-Y square: " + str(vt_y_square.shape))
+        utility.print_terminal_partition(level=4)
+        print("Shape of left signs matrix: " + str(signs_left.shape))
+        print("Shape of right signs matrix: " + str(signs_right.shape))
         pass
     # Compile information.
     pail = dict()
@@ -1882,7 +1895,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 6")
+    print("version check: 7")
     # Pause procedure.
     time.sleep(5.0)
 
