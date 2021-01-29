@@ -1758,8 +1758,6 @@ def read_select_collect_metabolites_genetic_scores(
 
     """
 
-    # TODO: this merge collection strategy does work!
-
     # Initialize a table for collection.
     table_collection = pandas.DataFrame(columns=["identifier_ukb"])
     # UK Biobank identifier is in column "FID" within the metabolite tables
@@ -1776,7 +1774,7 @@ def read_select_collect_metabolites_genetic_scores(
             metabolite=metabolite,
             selection=selection,
             metabolites_files_paths=metabolites_files_paths,
-            report=True,
+            report=False,
         )
         # Copy information.
         table_metabolite = table_selection.copy(deep=True)
@@ -1906,7 +1904,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 2")
+    print("version check: 3")
     # Pause procedure.
     time.sleep(5.0)
 
