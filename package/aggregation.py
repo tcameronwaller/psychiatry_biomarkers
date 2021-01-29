@@ -69,12 +69,16 @@ def initialize_directories(
     # Define paths to directories.
     paths["dock"] = path_dock
     paths["aggregation"] = os.path.join(path_dock, "aggregation")
+    paths["selection"] = os.path.join(path_dock, "aggregation", "selection")
     # Remove previous files to avoid version or batch confusion.
     if restore:
         utility.remove_directory(path=paths["aggregation"])
     # Initialize directories.
     utility.create_directories(
         path=paths["aggregation"]
+    )
+    utility.create_directories(
+        path=paths["selection"]
     )
     # Return information.
     return paths
@@ -1817,7 +1821,7 @@ def read_select_collect_metabolites_genetic_scores(
 # Write
 
 
-def write_product_quality(
+def write_product_selection(
     information=None,
     path_parent=None,
 ):
@@ -1825,70 +1829,6 @@ def write_product_quality(
     Writes product information to file.
 
     arguments:
-        information (object): information to write to file
-        path_parent (str): path to parent directory
-
-    raises:
-
-    returns:
-
-    """
-
-    # Specify directories and files.
-    path_table_auditc = os.path.join(
-        path_parent, "table_auditc.tsv"
-    )
-    path_table_audit = os.path.join(
-        path_parent, "table_audit.tsv"
-    )
-    path_table_diagnosis = os.path.join(
-        path_parent, "table_diagnosis.tsv"
-    )
-    path_table_alcoholism = os.path.join(
-        path_parent, "table_alcoholism.tsv"
-    )
-    # Write information to file.
-    information["table_auditc"].to_csv(
-        path_or_buf=path_table_auditc,
-        sep="\t",
-        header=True,
-        index=False,
-    )
-    information["table_audit"].to_csv(
-        path_or_buf=path_table_audit,
-        sep="\t",
-        header=True,
-        index=False,
-    )
-    information["table_diagnosis"].to_csv(
-        path_or_buf=path_table_diagnosis,
-        sep="\t",
-        header=True,
-        index=False,
-    )
-    information["table_alcoholism"].to_csv(
-        path_or_buf=path_table_alcoholism,
-        sep="\t",
-        header=True,
-        index=False,
-    )
-    pass
-
-
-def write_product_cohorts_sex_alcoholism_hormone(
-    sex_text=None,
-    alcoholism=None,
-    hormone=None,
-    information=None,
-    path_parent=None,
-):
-    """
-    Writes product information to file.
-
-    arguments:
-        sex_text (str): textual representation of sex selection
-        alcoholism (str): name of column defining alcoholism cases and controls
-        hormone (str): name of column for relevant sex hormone
         information (object): information to write to file
         path_parent (str): path to parent directory
 
@@ -1900,88 +1840,20 @@ def write_product_cohorts_sex_alcoholism_hormone(
 
     # Specify directories and files.
     path_table = os.path.join(
-        path_parent[sex_text][alcoholism][hormone],
-        "table_phenotypes_covariates.tsv"
+        path_parent, "table_metabolites_scores.pickle"
+    )
+    path_table_text = os.path.join(
+        path_parent, "table_metabolites_scores.tsv"
     )
     # Write information to file.
-    information[sex_text][alcoholism][hormone].to_csv(
-        path_or_buf=path_table,
+    information["table_metabolites_scores"].to_pickle(
+        path_table
+    )
+    information["table_metabolites_scores"].to_csv(
+        path_or_buf=path_table_text,
         sep="\t",
         header=True,
-        index=False,
-    )
-    pass
-
-
-def write_product_cohorts(
-    information=None,
-    path_parent=None,
-):
-    """
-    Writes product information to file.
-
-    arguments:
-        information (object): information to write to file
-        path_parent (str): path to parent directory
-
-    raises:
-
-    returns:
-
-    """
-
-    sexes = ["female", "male",]
-    alcoholisms = [
-        "alcohol_auditc", "alcohol_audit",
-        "alcoholism_1", "alcoholism_2", "alcoholism_3", "alcoholism_4",
-    ]
-    hormones = ["oestradiol", "testosterone",]
-    for sex in sexes:
-        for alcoholism in alcoholisms:
-            for hormone in hormones:
-                write_product_cohorts_sex_alcoholism_hormone(
-                    sex_text=sex,
-                    alcoholism=alcoholism,
-                    hormone=hormone,
-                    information=information,
-                    path_parent=path_parent,
-                )
-    pass
-
-
-def write_product_trial(
-    information=None,
-    path_parent=None,
-):
-    """
-    Writes product information to file.
-
-    arguments:
-        information (object): information to write to file
-        path_parent (str): path to parent directory
-
-    raises:
-
-    returns:
-
-    """
-
-    # Specify directories and files.
-    path_table_phenotypes = os.path.join(
-        path_parent, "table_phenotypes_covariates.pickle"
-    )
-    path_table_phenotypes_text = os.path.join(
-        path_parent, "table_phenotypes_covariates.tsv"
-    )
-    # Write information to file.
-    information["table_phenotypes_covariates"].to_pickle(
-        path_table_phenotypes
-    )
-    information["table_phenotypes_covariates"].to_csv(
-        path_or_buf=path_table_phenotypes_text,
-        sep="\t",
-        header=True,
-        index=False,
+        index=True, # depends on whether index is important for identifiers
     )
     pass
 
@@ -2004,23 +1876,11 @@ def write_product(
 
     """
 
-    # Quality control reports.
-    write_product_quality(
-        information=information["quality"],
-        path_parent=paths["quality"],
+    # Simple collection table with single score for each metabolite.
+    write_product_selection(
+        information=information,
+        path_parent=paths["selection"],
     )
-    # Cohort tables in PLINK format.
-    write_product_cohorts(
-        information=information["cohorts"],
-        path_parent=paths["cohorts"],
-    )
-
-    # Trial organization.
-    if False:
-        write_product_trial(
-            information=information["trial"],
-            path_parent=paths["trial"],
-        )
     pass
 
 
@@ -2046,7 +1906,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 1")
+    print("version check: 2")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -2093,37 +1953,17 @@ def execute_procedure(
         report=True,
     )
 
-
-
-
-
-
-    # ^^^ read in list of unique metabolite identifiers "M#####"
-
-    # read all file names from directory
-    # filter to keep only the file names for scores
-    # keep this collection of file names for scores
-
-    # split file names by "."
-    # take element 0 from the split
-    # split again by "_"
-    # take element 1
-
-
-    # then iterate on that list and read in the actual data 1 metabolite at a time
-
-    # for each metabolite...
-    # ... aggregate PRS scores by PRS-PCA
-    # ... collect metabolite's PC1 PRS-PCA score with other metabolite scores
-
-    if False:
-        # Collect information.
-        information = dict()
-        # Write product information to file.
-        write_product(
-            paths=paths,
-            information=information
-        )
+    # Collect information.
+    information = dict()
+    information["table_metabolites_scores"] = table_collection
+    # TODO: eventually, include a dictionary collection of a table for each
+    # metabolite
+    #information["pail_metabolites_scores_tables"] = pail
+    # Write product information to file.
+    write_product(
+        paths=paths,
+        information=information
+    )
 
     pass
 
