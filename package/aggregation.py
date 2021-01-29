@@ -296,6 +296,13 @@ def read_source_metabolite_genetic_scores(
     return table
 
 
+################################################################################
+#####
+###
+##
+#
+
+
 ##########
 # Raw Singular Value Decomposition (SVD)
 
@@ -583,9 +590,6 @@ def adjust_singular_value_decomposition_factor_signs(
     pail["right_singular_vectors_rows"] = vt_prime
     # Return.
     return pail
-
-
-
 
 
 ##########
@@ -938,11 +942,8 @@ def calculate_principal_components_from_singular_value_decomposition(
     return pail
 
 
-
-
 ##########
 # Driver function(s)
-
 
 
 def organize_principal_components_by_singular_value_decomposition(
@@ -1102,9 +1103,6 @@ def organize_principal_components_positive_sum_loadings(
     pail["loadings"] = loadings
     # Return.
     return pail
-
-
-
 
 ##########
 # Aggregation
@@ -1278,8 +1276,6 @@ def organize_principal_component_analysis_force_loadings_positive_sum(
 
 
     pass
-
-
 
 # TODO: PCA loadings adjustment...
 # TODO: organize this better...
@@ -1657,8 +1653,163 @@ def read_aggregate_collect_metabolites_genetic_scores(
     # Return information.
     return table_collection
 
+#
+##
+###
+#####
+################################################################################
+
+##########
+# Collection
 
 
+def read_select_metabolite_genetic_scores(
+    metabolite=None,
+    selection=None,
+    metabolites_files_paths=None,
+    report=None,
+):
+    """
+    Reads a metabolite's genetic scores across the UK Biobank from file,
+    and selects the scores to keep.
+
+    This function returns a table for a single metabolite with UK Biobank
+    identifiers and a single column of selection scores for the metabolite
+    across these UK Biobank records.
+
+    arguments:
+        metabolite (str): identifier of a metabolite
+        selection (str): name of column for selection from Polygenic Score
+            thresholds
+        metabolites_files_paths (dict<list<str>>): collection of files and paths
+            for metabolites
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): Pandas data frame of a metabolite's aggregate genetic scores
+            across UK Biobank
+
+    """
+
+    # Read raw table of metabolite's genetic scores.
+    metabolite_file_path = metabolites_files_paths[metabolite]["path"]
+    table_raw = read_source_metabolite_genetic_scores(
+        path_file=metabolite_file_path,
+        report=report,
+    )
+    # Organize the raw table.
+    table_raw.drop(
+        labels=["IID",],
+        axis="columns",
+        inplace=True
+    )
+    # Select scores.
+    table_selection = table_raw.loc[
+        :, table_raw.columns.isin(["FID", selection])
+    ]
+    # Translate column names.
+    translations = dict()
+    translations["FID"] = "identifier_ukb"
+    translations[selection] = metabolite
+    table_selection.rename(
+        columns=translations,
+        inplace=True,
+    )
+    # Report.
+    if report:
+        # Column name translations.
+        utility.print_terminal_partition(level=2)
+        print("Report from: read_select_metabolite_genetic_scores()")
+        utility.print_terminal_partition(level=2)
+        print("Metabolite: " + str(metabolite))
+        print(table_selection)
+        utility.print_terminal_partition(level=3)
+    # Return.
+    return table_selection
+
+
+def read_select_collect_metabolites_genetic_scores(
+    selection=None,
+    metabolites_files_paths=None,
+    report=None,
+):
+    """
+    Reads metabolites' genetic scores across the UK Biobank from file,
+    aggregates scores by Singular Value Decomposition (SVD), and collects these
+    within a table.
+
+    arguments:
+        selection (str): name of column for selection from Polygenic Score
+            thresholds
+        metabolites_files_paths (dict<list<str>>): collection of files and paths
+            for metabolites
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): collection of information
+
+    """
+
+    # TODO: this merge collection strategy does work!
+
+    # Initialize a table for collection.
+    table_collection = pandas.DataFrame(columns=["identifier_ukb"])
+    # UK Biobank identifier is in column "FID" within the metabolite tables
+    # rename to "identifier_ukb"
+    table_collection.set_index(
+        "identifier_ukb",
+        drop=True,
+        inplace=True,
+    )
+
+    for metabolite in metabolites_files_paths.keys():
+        # Select metabolite's genetic scores.
+        table_selection = read_select_metabolite_genetic_scores(
+            metabolite=metabolite,
+            selection=selection,
+            metabolites_files_paths=metabolites_files_paths,
+            report=True,
+        )
+        # Copy information.
+        table_metabolite = table_selection.copy(deep=True)
+        # Organize information.
+        table_metabolite.dropna(
+            axis="index",
+            how="any",
+            subset=["identifier_ukb"],
+            inplace=True,
+        )
+        table_metabolite.set_index(
+            "identifier_ukb",
+            drop=True,
+            inplace=True,
+        )
+        # Collect information for metabolite.
+        table_collection = table_collection.merge(
+            table_metabolite,
+            how="outer",
+            left_on="identifier_ukb",
+            right_on="identifier_ukb",
+            suffixes=("_original", "_novel"),
+        )
+
+        pass
+    # Report.
+    if report:
+        # Column name translations.
+        utility.print_terminal_partition(level=2)
+        print("Report from: read_select_collect_metabolites_genetic_scores()")
+        utility.print_terminal_partition(level=2)
+        print(table_collection)
+        utility.print_terminal_partition(level=3)
+    # Compile information.
+    #pail = dict()
+    # Return information.
+    return table_collection
 
 
 
@@ -1895,7 +2046,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 7")
+    print("version check: 1")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -1912,18 +2063,18 @@ def execute_procedure(
         report=False,
     )
 
-    # Test the aggregation method for a single metabolite.
-    # M00599: pyruvate
-    # M32315: serine
-    # M02342: serotonin
-    # M00054: tryptophan
-    pail_test = read_aggregate_test_metabolite_genetic_scores(
-        metabolite="M00054",
-        metabolites_files_paths=source["metabolites_files_paths"],
-        report=True,
-    )
-
     if False:
+        # Test the aggregation method for a single metabolite.
+        # M00599: pyruvate
+        # M32315: serine
+        # M02342: serotonin
+        # M00054: tryptophan
+        pail_test = read_aggregate_test_metabolite_genetic_scores(
+            metabolite="M00054",
+            metabolites_files_paths=source["metabolites_files_paths"],
+            report=True,
+        )
+
         # Collect metabolites' genetic scores, and aggregate these by singular value
         # decomposition (SVD).
         # pail_metabolites_scores
@@ -1932,6 +2083,20 @@ def execute_procedure(
         )
         print("printing after read_aggregate_collect_metabolites_genetic_scores")
         print(table_scores)
+
+    # TODO: temporarily by-pass the aggregation process...
+    # TODO: instead, use a single PRS p-value threshold for all metabolites
+
+    table_collection = read_select_collect_metabolites_genetic_scores(
+        selection="X0.001",
+        metabolites_files_paths=source["metabolites_files_paths"],
+        report=True,
+    )
+
+
+
+
+
 
     # ^^^ read in list of unique metabolite identifiers "M#####"
 
