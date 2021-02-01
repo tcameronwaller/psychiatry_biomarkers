@@ -16,8 +16,9 @@ import textwrap
 
 # Custom.
 
-import aggregation
 import assembly
+import aggregation
+import organization
 #import plot
 #import utility
 
@@ -150,7 +151,14 @@ def define_main_subparser(subparsers=None):
         "-assembly", "--assembly", dest="assembly",
         action="store_true",
         help=(
-            "Assemble information from multiple sources."
+            "Assemble phenotype information from UK Biobank."
+        )
+    )
+    parser_main.add_argument(
+        "-organization", "--organization", dest="organization",
+        action="store_true",
+        help=(
+            "Organize phenotype information from UK Biobank."
         )
     )
     # Define behavior.
@@ -243,6 +251,13 @@ def evaluate_main_parameters(arguments):
         print("... executing assembly procedure ...")
         # Execute procedure.
         assembly.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.organization:
+        # Report status.
+        print("... executing organization procedure ...")
+        # Execute procedure.
+        organization.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass

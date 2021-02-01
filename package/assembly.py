@@ -35,9 +35,9 @@ import statsmodels.multivariate.pca
 
 # Custom
 import promiscuity.utility as utility
-import promiscuity.plot as plot
-
+#import promiscuity.plot as plot
 import uk_biobank.assembly
+import uk_biobank.organization
 
 ###############################################################################
 # Functionality
@@ -73,11 +73,6 @@ def execute_procedure(
     uk_biobank.assembly.execute_procedure(path_dock=path_dock)
     utility.print_terminal_partition(level=1)
     print("From package 'uk_biobank', procedure 'assembly' is complete.")
-
-    # TODO: Call the basic driver function routine from uk_biobank.assembly
-    # TODO: do I need to transfer any "interpretation" functions from
-    # TODO: sexy_alcohol.organization???
-
 
     pass
 
