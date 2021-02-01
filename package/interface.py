@@ -17,7 +17,7 @@ import textwrap
 # Custom.
 
 import aggregation
-#import assembly
+import assembly
 #import plot
 #import utility
 
@@ -146,6 +146,13 @@ def define_main_subparser(subparsers=None):
             "Aggregation of genetic scores for metabolites across UK Biobank."
         )
     )
+    parser_main.add_argument(
+        "-assembly", "--assembly", dest="assembly",
+        action="store_true",
+        help=(
+            "Assemble information from multiple sources."
+        )
+    )
     # Define behavior.
     parser_main.set_defaults(func=evaluate_main_parameters)
     # Return parser.
@@ -229,6 +236,13 @@ def evaluate_main_parameters(arguments):
         print("... executing aggregation procedure ...")
         # Execute procedure.
         aggregation.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.assembly:
+        # Report status.
+        print("... executing assembly procedure ...")
+        # Execute procedure.
+        assembly.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass

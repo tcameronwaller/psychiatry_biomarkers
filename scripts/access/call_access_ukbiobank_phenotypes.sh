@@ -21,10 +21,10 @@ project="bipolar_metabolism"
 # Read private, local file paths.
 echo "read private file path variables and organize paths..."
 cd ~/paths
-path_temporary=$(<"./temporary_${project}.txt")
+path_temporary=$(<"./processing_bipolar_metabolism.txt")
 path_dock="$path_temporary/waller/dock"
 path_variables="$path_dock/parameters/${project}/uk_biobank_access_variables.txt"
-path_access="$path_dock/access"
+path_access="$path_dock/access/ukbiobank_phenotypes"
 path_scripts="$path_temporary/waller/uk_biobank/scripts"
 
 # Echo each command to console.
