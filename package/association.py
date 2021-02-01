@@ -65,13 +65,13 @@ def initialize_directories(
     paths = dict()
     # Define paths to directories.
     paths["dock"] = path_dock
-    paths["organization"] = os.path.join(path_dock, "organization")
+    paths["association"] = os.path.join(path_dock, "association")
     # Remove previous files to avoid version or batch confusion.
     if restore:
-        utility.remove_directory(path=paths["organization"])
+        utility.remove_directory(path=paths["association"])
     # Initialize directories.
     utility.create_directories(
-        path=paths["organization"]
+        path=paths["association"]
     )
     # Return information.
     return paths
@@ -104,16 +104,23 @@ def read_source(
     """
 
     # Specify directories and files.
-    path_table_assembly = os.path.join(
-        path_dock, "assembly", "table_phenotypes.pickle"
+    path_table_phenotypes = os.path.join(
+        path_dock, "organization", "table_phenotypes.pickle"
+    )
+    path_table_metabolites = os.path.join(
+        path_dock, "aggregation", "selection", "table_metabolites_scores.pickle"
     )
     # Read information from file.
-    table_assembly = pandas.read_pickle(
-        path_table_assembly
+    table_phenotypes = pandas.read_pickle(
+        path_table_phenotypes
+    )
+    table_metabolites = pandas.read_pickle(
+        path_table_metabolites
     )
     # Compile and return information.
     return {
-        "table_assembly": table_assembly,
+        "table_phenotypes": table_phenotypes,
+        "table_metabolites": table_metabolites,
     }
 
 
@@ -200,25 +207,20 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
+    # 
 
-    # Organize variables for basic characteristics, genotypes, and hormones.
-    table_basis = uk_biobank.organization.organize_basic_characteristics(
-        table=source["table_assembly"],
-        report=True,
-    )
+    # TODO: call function to iterate on metabolites...
 
-    # TODO: Adapt the ICD9 and ICD10 functionality for depression and bipolar...
 
-    # TODO: write the organized table to file...
-
-    # Collect information.
-    information = dict()
-    information["table_phenotypes"] = table_basis
-    # Write product information to file.
-    write_product(
-        paths=paths,
-        information=information
-    )
+    if False:
+        # Collect information.
+        information = dict()
+        information["table_phenotypes"] = table_basis
+        # Write product information to file.
+        write_product(
+            paths=paths,
+            information=information
+        )
     pass
 
 

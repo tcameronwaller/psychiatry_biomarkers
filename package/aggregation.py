@@ -1843,6 +1843,9 @@ def write_product_selection(
     path_table_text = os.path.join(
         path_parent, "table_metabolites_scores.tsv"
     )
+    path_metabolites_files_paths = os.path.join(
+        path_parent, "metabolites_files_paths.pickle"
+    )
     # Write information to file.
     information["table_metabolites_scores"].to_pickle(
         path_table
@@ -1852,6 +1855,9 @@ def write_product_selection(
         sep="\t",
         header=True,
         index=True, # depends on whether index is important for identifiers
+    )
+    information["metabolites_files_paths"].to_pickle(
+        path_metabolites_files_paths
     )
     pass
 
@@ -1953,6 +1959,7 @@ def execute_procedure(
 
     # Collect information.
     information = dict()
+    information["metabolites_files_paths"] = source["metabolites_files_paths"]
     information["table_metabolites_scores"] = table_collection
     # TODO: eventually, include a dictionary collection of a table for each
     # metabolite

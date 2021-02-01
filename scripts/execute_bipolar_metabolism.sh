@@ -32,13 +32,19 @@ fi
 # Collect and aggregate genetic scores for metabolites across the UK Biobank.
 #python3 $path_package/interface.py main --path_dock $path_dock --aggregation
 
-# Assemble metabolite genetic scores with phenotype information from UK Biobank.
-python3 $path_package/interface.py main --path_dock $path_dock --assembly
+# Assemble phenotypic information from UK Biobank.
+#python3 $path_package/interface.py main --path_dock $path_dock --assembly
 
-# TODO: assembly of UK Biobank phenotypic variables with genetic metabolite scores.
+# Organize phenotypic information from UK Biobank.
+python3 $path_package/interface.py main --path_dock $path_dock --organization
 
-# TODO: integrate metabolite genetic scores with UK Biobank phenotypes...
-# ... temporary: use phenotypes from "sexy_alcohol"
-# ... temporary: use phenotype BMI
+# Regress phenotypes against metabolites' genetic scores across the UK Biobank.
+
+
+
+# TODO: new module...
+# TODO: start with function for 1 metabolite...
+# TODO: combine metabolite genetic score(s) with UK Biobank phenotypes
+# TODO: adapt regression code from "bimodality"...
 
 # TODO: organize UK Biobank phenotypes for Bipolar Disorder, Depression, etc
