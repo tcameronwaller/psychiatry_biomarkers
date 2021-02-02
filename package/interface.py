@@ -19,6 +19,7 @@ import textwrap
 import assembly
 import aggregation
 import organization
+import association
 #import plot
 #import utility
 
@@ -161,6 +162,13 @@ def define_main_subparser(subparsers=None):
             "Organize phenotype information from UK Biobank."
         )
     )
+    parser_main.add_argument(
+        "-association", "--association", dest="association",
+        action="store_true",
+        help=(
+            "Regress associations between metabolites and phenotypes."
+        )
+    )
     # Define behavior.
     parser_main.set_defaults(func=evaluate_main_parameters)
     # Return parser.
@@ -258,6 +266,13 @@ def evaluate_main_parameters(arguments):
         print("... executing organization procedure ...")
         # Execute procedure.
         organization.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.association:
+        # Report status.
+        print("... executing association procedure ...")
+        # Execute procedure.
+        association.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass
