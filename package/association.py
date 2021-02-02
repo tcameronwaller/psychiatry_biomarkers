@@ -238,7 +238,7 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
-    print(source["table_metabolites_scores"])
+    print(source["table_metabolites"])
     print(source["table_phenotypes"])
     # Regress associations between metabolites' genetic scores and phenotypes
     # accross the UK Biobank.
@@ -250,7 +250,7 @@ def execute_procedure(
         organize_regress_metabolites_genetic_scores_against_phenotypes(
             phenotype="body_mass_index",
             metabolites=["M00599", "M32315", "M02342", "M00054"],
-            table_metabolites_scores=source["table_metabolites_scores"],
+            table_metabolites_scores=source["table_metabolites"],
             table_phenotypes=source["table_phenotypes"],
             report=True,
     ))
