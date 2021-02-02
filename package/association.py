@@ -129,7 +129,7 @@ def read_source(
 # Iterate on metabolites...
 
 
-def merge_select_metabolite_phenotype_tables(
+def select_columns_merge_metabolite_phenotype_tables(
     phenotype=None,
     metabolite=None,
     covariates=None,
@@ -213,13 +213,27 @@ def merge_select_metabolite_phenotype_tables(
         drop=True,
         inplace=True,
     )
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print(
+            "Report source: select_columns_merge_metabolite_phenotype_tables()"
+        )
+        utility.print_terminal_partition(level=3)
+        print("Tables before merge:")
+        print(table_phenotypes)
+        print(table_metabolites_scores)
+        pass
+
     # Merge tables using database-style join.
     # Alternative is to use DataFrame.join().
     table_merge = table_phenotypes.merge(
         table_metabolites_scores,
         how="outer",
         left_on="IID",
+        left_index=True,
         right_on="identifier_ukb",
+        right_index=True,
         suffixes=("_phenotypes", "_metabolites"),
     )
     # Organize new index.
@@ -244,6 +258,16 @@ def merge_select_metabolite_phenotype_tables(
         drop=True,
         inplace=True,
     )
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print(
+            "Report source: select_columns_merge_metabolite_phenotype_tables()"
+        )
+        utility.print_terminal_partition(level=3)
+        print("Table after merge:")
+        print(table_merge)
+        pass
     # Return information.
     return table_merge
 
@@ -323,7 +347,7 @@ def organize_dependent_independent_variables_table(
     """
 
     # Select relevant columns and merge tables.
-    table_merge = merge_select_metabolite_phenotype_tables(
+    table_merge = select_columns_merge_metabolite_phenotype_tables(
         phenotype=phenotype,
         metabolite=metabolite,
         covariates=covariates,
@@ -524,7 +548,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 2")
+    print("version check: 3")
     # Pause procedure.
     time.sleep(5.0)
 
