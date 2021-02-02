@@ -164,9 +164,20 @@ def select_columns_merge_metabolite_phenotype_tables(
     # Copy information.
     table_metabolites_scores = table_metabolites_scores.copy(deep=True)
     table_phenotypes = table_phenotypes.copy(deep=True)
+    # Rename identifier column in metabolites table.
+    translations = dict()
+    translations["identifier_ukb"] = "IID"
+    table_metabolites_scores.reset_index(
+        level=None,
+        inplace=True
+    )
+    table_metabolites_scores.rename(
+        columns=translations,
+        inplace=True,
+    )
     # Select relevant columns from metabolites table.
     columns_metabolites = list()
-    columns_metabolites.append("identifier_ukb")
+    columns_metabolites.append("IID")
     columns_metabolites.append(metabolite)
     table_metabolites_scores.reset_index(
         level=None,
@@ -191,7 +202,7 @@ def select_columns_merge_metabolite_phenotype_tables(
     table_metabolites_scores.dropna(
         axis="index",
         how="any",
-        subset=["identifier_ukb"],
+        subset=["IID"],
         inplace=True,
     )
     table_phenotypes.dropna(
@@ -201,9 +212,9 @@ def select_columns_merge_metabolite_phenotype_tables(
         inplace=True,
     )
     # Set keys as indices.
-    table_metabolites_scores["identifier_ukb"].astype("string")
+    table_metabolites_scores["IID"].astype("string")
     table_metabolites_scores.set_index(
-        "identifier_ukb",
+        "IID",
         drop=True,
         inplace=True,
     )
@@ -224,16 +235,15 @@ def select_columns_merge_metabolite_phenotype_tables(
         print(table_phenotypes)
         print(table_metabolites_scores)
         pass
-
     # Merge tables using database-style join.
     # Alternative is to use DataFrame.join().
     table_merge = table_phenotypes.merge(
         table_metabolites_scores,
         how="outer",
-        #left_on="IID",
-        left_index=True,
-        #right_on="identifier_ukb",
-        right_index=True,
+        left_on="IID",
+        #left_index=True,
+        right_on="IID",
+        #right_index=True,
         suffixes=("_phenotypes", "_metabolites"),
     )
     # Organize new index.
@@ -242,7 +252,7 @@ def select_columns_merge_metabolite_phenotype_tables(
         inplace=True
     )
     table_merge.drop(
-        labels=["IID", "identifier_ukb",],
+        labels=["IID",],
         axis="columns",
         inplace=True
     )
@@ -548,7 +558,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 4")
+    print("version check: 5")
     # Pause procedure.
     time.sleep(5.0)
 
