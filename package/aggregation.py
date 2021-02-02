@@ -1754,7 +1754,8 @@ def read_select_collect_metabolites_genetic_scores(
     raises:
 
     returns:
-        (dict): collection of information
+        (object): Pandas data frame of metabolites' genetic scores across UK
+            Biobank cohort
 
     """
 

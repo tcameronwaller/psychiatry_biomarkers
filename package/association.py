@@ -21,6 +21,7 @@ import pickle
 import copy
 import random
 import itertools
+import time
 
 # Relevant
 
@@ -125,8 +126,38 @@ def read_source(
 
 
 ##########
-# ???
+# Iterate on metabolites...
 
+def organize_regress_metabolites_genetic_scores_against_phenotypes(
+    phenotype=None,
+    metabolites=None,
+    table_metabolites_scores=None,
+    table_phenotypes=None,
+    report=None,
+):
+    """
+    Organizes information and regresses metabolites' genetic scores against
+    phenotypes across the UK Biobank.
+
+    arguments:
+        phenotype (str): name of column in phenotype table for variable to set
+            as dependent variable in regressions
+        metabolites (list<str>): identifiers of metabolites for which to regress
+            their genetic scores against phenotypes across UK Biobank
+        table_metabolites_scores (object): Pandas data frame of metabolites'
+            genetic scores across UK Biobank cohort
+        table_phenotypes (object): Pandas data frame of phenotype variables
+            across UK Biobank cohort
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): information from regressions
+
+    """
+
+    pass
 
 
 ##########
@@ -207,9 +238,28 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
-    # 
+    print(source["table_metabolites_scores"])
+    print(source["table_phenotypes"])
+    # Regress associations between metabolites' genetic scores and phenotypes
+    # accross the UK Biobank.
+    # M00599: pyruvate
+    # M32315: serine
+    # M02342: serotonin
+    # M00054: tryptophan
+    pail_association = (
+        organize_regress_metabolites_genetic_scores_against_phenotypes(
+            phenotype="body_mass_index",
+            metabolites=["M00599", "M32315", "M02342", "M00054"],
+            table_metabolites_scores=source["table_metabolites_scores"],
+            table_phenotypes=source["table_phenotypes"],
+            report=True,
+    ))
 
     # TODO: call function to iterate on metabolites...
+    # read metabolite identifiers from table columns...
+    # merge metabolite scores with phenotype table
+    # drop rows with missing values in relevant variables...
+    # z-score standardize metabolite scores and relevant variables...
 
 
     if False:
