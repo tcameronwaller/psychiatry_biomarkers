@@ -316,6 +316,17 @@ def remove_null_records_standardize_variables_scales(
         table=table,
         report=report,
     )
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print(
+            "Report source: remove_null_records_standardize_variables_scales()"
+        )
+        utility.print_terminal_partition(level=3)
+        print("Table after removal of records with null values...")
+        print("... and after standardizing scale of each variable:")
+        print(table_scale)
+        pass
     # Return information.
     return table_scale
 
@@ -375,6 +386,7 @@ def organize_dependent_independent_variables_table(
     if report:
         utility.print_terminal_partition(level=2)
         print("Report source: organize_dependent_independent_variables_table()")
+        print("Table ready for regression...")
         print(table_scale)
         pass
     # Return.
@@ -558,7 +570,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 5")
+    print("version check: 6")
     # Pause procedure.
     time.sleep(5.0)
 
