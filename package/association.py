@@ -29,6 +29,8 @@ import numpy
 import scipy.stats
 import pandas
 pandas.options.mode.chained_assignment = None # default = "warn"
+import statsmodels.api
+import statsmodels.stats.outliers_influence
 
 # Custom
 import promiscuity.utility as utility
@@ -805,7 +807,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 7")
+    print("version check: 8")
     # Pause procedure.
     time.sleep(5.0)
 
