@@ -135,6 +135,8 @@ def select_columns_merge_metabolite_phenotype_tables(
     phenotype=None,
     metabolite=None,
     metabolite_variables=None,
+    metabolite_columns=None,
+    metabolite_translations=None,
     covariates=None,
     table_metabolites_scores=None,
     table_phenotypes=None,
@@ -148,9 +150,14 @@ def select_columns_merge_metabolite_phenotype_tables(
             as dependent variable in regressions
         metabolite (str): identifiers of a single metabolite for which to
             regress genetic scores against phenotypes across UK Biobank
-        metabolite_variables (list<str>): names of columns in metabolite table
+        metabolite_variables (list<str>): names of original columns in
+            metabolite table for variables that represent the metabolite to
+            include as independent variables in regression
+        metabolite_columns (list<str>): names of novel columns in merge table
             for variables that represent the metabolite to include as
             independent variables in regression
+        metabolite_translations (dict<str>): translations of original to novel
+            columns that represent the metabolite
         covariates (list<str>): names of columns in phenotype table for
             variables to set as covariate independent variables in regressions
         table_metabolites_scores (object): Pandas data frame of metabolites'
@@ -170,24 +177,19 @@ def select_columns_merge_metabolite_phenotype_tables(
     # Copy information.
     table_metabolites_scores = table_metabolites_scores.copy(deep=True)
     table_phenotypes = table_phenotypes.copy(deep=True)
-    # Rename identifier column in metabolites table.
-    translations = dict()
-    translations["identifier_ukb"] = "IID"
-    for name in metabolite_variables:
-        translation = str(name).replace(metabolite, "metabolite")
-        translations[name] = translation
+    # Rename columns in metabolites table.
     table_metabolites_scores.reset_index(
         level=None,
         inplace=True
     )
     table_metabolites_scores.rename(
-        columns=translations,
+        columns=metabolite_translations,
         inplace=True,
     )
     # Select relevant columns from metabolites table.
     columns_metabolites = list()
     columns_metabolites.append("IID")
-    columns_metabolites.extend(metabolite_variables)
+    columns_metabolites.extend(metabolite_columns)
     table_metabolites_scores.reset_index(
         level=None,
         inplace=True
@@ -344,6 +346,8 @@ def organize_dependent_independent_variables_table(
     phenotype=None,
     metabolite=None,
     metabolite_variables=None,
+    metabolite_columns=None,
+    metabolite_translations=None,
     covariates=None,
     table_metabolites_scores=None,
     table_phenotypes=None,
@@ -361,9 +365,14 @@ def organize_dependent_independent_variables_table(
             as dependent variable in regressions
         metabolite (str): identifiers of a single metabolite for which to
             regress genetic scores against phenotypes across UK Biobank
-        metabolite_variables (list<str>): names of columns in metabolite table
+        metabolite_variables (list<str>): names of original columns in
+            metabolite table for variables that represent the metabolite to
+            include as independent variables in regression
+        metabolite_columns (list<str>): names of novel columns in merge table
             for variables that represent the metabolite to include as
             independent variables in regression
+        metabolite_translations (dict<str>): translations of original to novel
+            columns that represent the metabolite
         covariates (list<str>): names of columns in phenotype table for
             variables to set as covariate independent variables in regressions
         table_metabolites_scores (object): Pandas data frame of metabolites'
@@ -385,6 +394,8 @@ def organize_dependent_independent_variables_table(
         phenotype=phenotype,
         metabolite=metabolite,
         metabolite_variables=metabolite_variables,
+        metabolite_columns=metabolite_columns,
+        metabolite_translations=metabolite_translations,
         covariates=covariates,
         table_metabolites_scores=table_metabolites_scores,
         table_phenotypes=table_phenotypes,
@@ -671,11 +682,22 @@ def organize_regress_metabolite_genetic_scores_against_phenotypes(
 
     """
 
+    # Determine translations for columns of metabolite variables.
+    # Rename columns in metabolites table.
+    metabolite_columns = list()
+    metabolite_translations = dict()
+    metabolite_translations["identifier_ukb"] = "IID"
+    for variable in metabolite_variables:
+        translation = str(variable).replace(metabolite, "metabolite")
+        metabolite_columns.append(translation)
+        metabolite_translations[variable] = translation
     # Organize information for regression.
     table_organization = organize_dependent_independent_variables_table(
         phenotype=phenotype,
         metabolite=metabolite,
         metabolite_variables=metabolite_variables,
+        metabolite_columns=metabolite_columns,
+        metabolite_translations=metabolite_translations,
         covariates=covariates,
         table_metabolites_scores=table_metabolites_scores,
         table_phenotypes=table_phenotypes,
@@ -684,7 +706,7 @@ def organize_regress_metabolite_genetic_scores_against_phenotypes(
 
     # Regress dependent against independent variables.
     independence = list()
-    independence.append(metabolite)
+    independence.extend(metabolite_columns)
     independence.extend(covariates)
     pail_regression = regress_dependent_independent_variables_linear_ordinary(
         dependence=phenotype,
@@ -831,7 +853,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 3")
+    print("version check: 4")
     # Pause procedure.
     time.sleep(5.0)
 
