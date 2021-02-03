@@ -688,7 +688,7 @@ def organize_regress_metabolite_genetic_scores_against_phenotypes(
         independence=independence,
         threshold_samples=1000,
         table=table_organization,
-        report=report,
+        report=False,
     )
     # Compile information.
     pail = dict()
@@ -828,7 +828,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 1")
+    print("version check: 2")
     # Pause procedure.
     time.sleep(5.0)
 
