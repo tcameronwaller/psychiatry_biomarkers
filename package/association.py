@@ -173,6 +173,9 @@ def select_columns_merge_metabolite_phenotype_tables(
     # Rename identifier column in metabolites table.
     translations = dict()
     translations["identifier_ukb"] = "IID"
+    for name in metabolite_variables:
+        translation = str(name).replace(metabolite, "metabolite")
+        translations[name] = translation
     table_metabolites_scores.reset_index(
         level=None,
         inplace=True
@@ -828,7 +831,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 2")
+    print("version check: 3")
     # Pause procedure.
     time.sleep(5.0)
 
