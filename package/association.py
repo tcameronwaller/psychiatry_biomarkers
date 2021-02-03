@@ -134,6 +134,7 @@ def read_source(
 def select_columns_merge_metabolite_phenotype_tables(
     phenotype=None,
     metabolite=None,
+    metabolite_variables=None,
     covariates=None,
     table_metabolites_scores=None,
     table_phenotypes=None,
@@ -147,6 +148,9 @@ def select_columns_merge_metabolite_phenotype_tables(
             as dependent variable in regressions
         metabolite (str): identifiers of a single metabolite for which to
             regress genetic scores against phenotypes across UK Biobank
+        metabolite_variables (list<str>): names of columns in metabolite table
+            for variables that represent the metabolite to include as
+            independent variables in regression
         covariates (list<str>): names of columns in phenotype table for
             variables to set as covariate independent variables in regressions
         table_metabolites_scores (object): Pandas data frame of metabolites'
@@ -180,7 +184,7 @@ def select_columns_merge_metabolite_phenotype_tables(
     # Select relevant columns from metabolites table.
     columns_metabolites = list()
     columns_metabolites.append("IID")
-    columns_metabolites.append(metabolite)
+    columns_metabolites.extend(metabolite_variables)
     table_metabolites_scores.reset_index(
         level=None,
         inplace=True
@@ -336,6 +340,7 @@ def remove_null_records_standardize_variables_scales(
 def organize_dependent_independent_variables_table(
     phenotype=None,
     metabolite=None,
+    metabolite_variables=None,
     covariates=None,
     table_metabolites_scores=None,
     table_phenotypes=None,
@@ -353,6 +358,9 @@ def organize_dependent_independent_variables_table(
             as dependent variable in regressions
         metabolite (str): identifiers of a single metabolite for which to
             regress genetic scores against phenotypes across UK Biobank
+        metabolite_variables (list<str>): names of columns in metabolite table
+            for variables that represent the metabolite to include as
+            independent variables in regression
         covariates (list<str>): names of columns in phenotype table for
             variables to set as covariate independent variables in regressions
         table_metabolites_scores (object): Pandas data frame of metabolites'
@@ -373,6 +381,7 @@ def organize_dependent_independent_variables_table(
     table_merge = select_columns_merge_metabolite_phenotype_tables(
         phenotype=phenotype,
         metabolite=metabolite,
+        metabolite_variables=metabolite_variables,
         covariates=covariates,
         table_metabolites_scores=table_metabolites_scores,
         table_phenotypes=table_phenotypes,
@@ -384,6 +393,8 @@ def organize_dependent_independent_variables_table(
         table=table_merge,
         report=report,
     )
+    # Change the names of columns for the metabolite.
+
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
@@ -564,6 +575,7 @@ def regress_dependent_independent_variables_linear_ordinary(
         summary = {
             "freedom": pail_raw.df_model,
             "observations": pail_raw.nobs,
+            "samples": count_samples,
             "r_square": pail_raw.rsquared,
             "r_square_adjust": pail_raw.rsquared_adj,
             "log_likelihood": pail_raw.llf,
@@ -618,6 +630,7 @@ def regress_dependent_independent_variables_linear_ordinary(
 def organize_regress_metabolite_genetic_scores_against_phenotypes(
     phenotype=None,
     metabolite=None,
+    metabolite_variables=None,
     covariates=None,
     table_metabolites_scores=None,
     table_phenotypes=None,
@@ -634,8 +647,11 @@ def organize_regress_metabolite_genetic_scores_against_phenotypes(
     arguments:
         phenotype (str): name of column in phenotype table for variable to set
             as dependent variable in regressions
-        metabolite (str): identifiers of a single metabolite for which to
+        metabolite (str): identifier of a single metabolite for which to
             regress genetic scores against phenotypes across UK Biobank
+        metabolite_variables (list<str>): names of columns in metabolite table
+            for variables that represent the metabolite to include as
+            independent variables in regression
         covariates (list<str>): names of columns in phenotype table for
             variables to set as covariate independent variables in regressions
         table_metabolites_scores (object): Pandas data frame of metabolites'
@@ -656,14 +672,12 @@ def organize_regress_metabolite_genetic_scores_against_phenotypes(
     table_organization = organize_dependent_independent_variables_table(
         phenotype=phenotype,
         metabolite=metabolite,
+        metabolite_variables=metabolite_variables,
         covariates=covariates,
         table_metabolites_scores=table_metabolites_scores,
         table_phenotypes=table_phenotypes,
         report=report,
     )
-
-    # TODO: now call a function to perform the actual regression...
-    # TODO: this function should return NAs if the data are not adequate... set a threshold...
 
     # Regress dependent against independent variables.
     independence = list()
@@ -676,13 +690,17 @@ def organize_regress_metabolite_genetic_scores_against_phenotypes(
         table=table_organization,
         report=report,
     )
+    # Compile information.
+    pail = dict()
+    pail["metabolite"] = metabolite
+    pail.update(pail_regression["summary"])
     # Return information.
     return pail_regression["summary"]
 
 
-# TODO: ... consider merging metabolite and phenotype data initially and then iterating
-# TODO: on metabolites...
-# TODO: would still need to select relevant columns, drop NAs, standardize scale for each regression...
+# Why not merge metabolite and phenotype tables all at once initially?
+# Do not do this.
+# Eventually, I want to accommodate multiple column variables for each metabolite.
 def organize_regress_metabolites_genetic_scores_against_phenotypes(
     phenotype=None,
     metabolites=None,
@@ -723,10 +741,13 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
     # Collect information for metabolites.
     records = list()
     for metabolite in metabolites:
+        # TODO: introduce function to determine how many metabolite-signal
+        # TODO: variables to include...
         record = (
             organize_regress_metabolite_genetic_scores_against_phenotypes(
                 phenotype="body_mass_index",
                 metabolite=metabolite,
+                metabolite_variables=[metabolite],
                 covariates=covariates,
                 table_metabolites_scores=table_metabolites_scores,
                 table_phenotypes=table_phenotypes,
@@ -807,7 +828,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 8")
+    print("version check: 1")
     # Pause procedure.
     time.sleep(5.0)
 
