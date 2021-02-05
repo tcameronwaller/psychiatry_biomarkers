@@ -105,22 +105,127 @@ def read_source(
     """
 
     # Specify directories and files.
-    path_table_assembly = os.path.join(
+    path_table_phenotypes = os.path.join(
         path_dock, "assembly", "table_phenotypes.pickle"
     )
+    path_table_metabolites_names = os.path.join(
+        path_dock, "access", "24816252_shin_2014", "metaboliteMap.txt"
+    )
+
     # Read information from file.
-    table_assembly = pandas.read_pickle(
-        path_table_assembly
+    table_phenotypes = pandas.read_pickle(
+        path_table_phenotypes
+    )
+    table_metabolites_names = pandas.read_csv(
+        path_table_metabolites_names,
+        sep="\t",
+        header=0,
+        dtype="string",
     )
     # Compile and return information.
     return {
-        "table_assembly": table_assembly,
+        "table_phenotypes": table_phenotypes,
+        "table_metabolites_names": table_metabolites_names,
     }
 
 
 ##########
-# ???
+# Metabolites
 
+
+def determine_metabolite_valid_identity(
+    name=None,
+):
+    """
+    Determine whether a single metabolite has a valid identity from Metabolon.
+
+    arguments:
+        name (str): name of metabolite from Metabolon reference
+
+    raises:
+
+    returns:
+        (float): ordinal representation of person's frequency of alcohol
+            consumption
+
+    """
+
+    # Determine whether the variable has a valid (non-missing) value.
+    if (len(str(name)) > 2):
+        # The variable has a valid value.
+        if (str(name).strip().lower().startswith("x-")):
+            # Metabolite has an indefinite identity.
+            identity = 0
+        else:
+            # Metabolite has a definite identity.
+            identity = 1
+    else:
+        # Name is empty.
+        #identity = float("nan")
+        identity = 0
+    # Return information.
+    return identity
+
+
+def select_metabolites_with_valid_identities(
+    table=None,
+    report=None,
+):
+    """
+    Selects identifiers of metabolites from Metabolon with valid identities.
+
+    arguments:
+        table (object): Pandas data frame of metabolite identifiers and names
+            from Metabolon
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): collection of information about metabolites, their identifiers,
+            and their names
+
+    """
+
+    # Copy information.
+    table = table.copy(deep=True)
+    # Translate column names.
+    translations = dict()
+    translations["metabolonID"] = "identifier"
+    translations["metabolonDescription"] = "name"
+    table.rename(
+        columns=translations,
+        inplace=True,
+    )
+    # Determine whether metabolite has a valid identity.
+    table["identity"] = table.apply(
+        lambda row:
+            determine_metabolite_valid_identity(
+                frequency=row["name"],
+            ),
+        axis="columns", # apply across rows
+    )
+    # Select metabolites with valid identities.
+    table_valid = table.loc[
+        (table["identity"] > 0.5), :
+    ]
+    metabolites_valid = table_valid["identifier"].to_list()
+    names_valid = table_valid["name"].to_list()
+    # Compile information.
+    pail = dict()
+    pail["table_metabolites_names"] = table
+    pail["metabolites_valid"] = list()
+    # Report.
+    if report:
+        # Column name translations.
+        utility.print_terminal_partition(level=2)
+        print("Report from select_metabolites_with_valid_identities()")
+        utility.print_terminal_partition(level=3)
+        print(names_valid)
+        utility.print_terminal_partition(level=3)
+        print(table)
+    # Return information.
+    return pail
 
 
 ##########
@@ -202,19 +307,30 @@ def execute_procedure(
         report=True,
     )
 
-    # Organize variables for basic characteristics, genotypes, and hormones.
+    # Select metabolites with valid identities.
+    metabolites_valid = select_metabolites_with_valid_identities(
+        table_metabolites_names=source["table_metabolites_names"],
+    )
+
+    # Organize variables for basic characteristics, genotypes, and hormones
+    # across the UK Biobank.
     table_basis = uk_biobank.organization.organize_basic_characteristics(
-        table=source["table_assembly"],
+        table=source["table_phenotypes"],
+        report=True,
+    )
+
+    # Organize variables for alcohol consumption across the UK Biobank.
+    table_alcohol = uk_biobank.organization.organize_alcohol_consumption(
+        table=table_basis,
         report=True,
     )
 
     # TODO: Adapt the ICD9 and ICD10 functionality for depression and bipolar...
 
-    # TODO: write the organized table to file...
-
     # Collect information.
     information = dict()
-    information["table_phenotypes"] = table_basis
+    information["metabolites_valid"] = metabolites_valid
+    information["table_phenotypes"] = table_alcohol
     # Write product information to file.
     write_product(
         paths=paths,

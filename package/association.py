@@ -647,6 +647,7 @@ def organize_regress_metabolite_genetic_scores_against_phenotypes(
     phenotype=None,
     metabolite=None,
     metabolite_variables=None,
+    metabolites=None,
     covariates=None,
     table_metabolites_scores=None,
     table_phenotypes=None,
@@ -668,6 +669,8 @@ def organize_regress_metabolite_genetic_scores_against_phenotypes(
         metabolite_variables (list<str>): names of columns in metabolite table
             for variables that represent the metabolite to include as
             independent variables in regression
+        metabolites (list<str>): identifiers of metabolites for which to regress
+            their genetic scores against phenotypes across UK Biobank
         covariates (list<str>): names of columns in phenotype table for
             variables to set as covariate independent variables in regressions
         table_metabolites_scores (object): Pandas data frame of metabolites'
@@ -765,16 +768,21 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
 
     """
 
+    # Monitor progress.
+    counter = 0
+    count_total = len(metabolites)
     # Collect information for metabolites.
     records = list()
     for metabolite in metabolites:
-        # TODO: introduce function to determine how many metabolite-signal
-        # TODO: variables to include...
+        # TODO: read in table of pre-selected variables for the metabolite...
+        # TODO: in which case I'll also need to make the re-naming of the
+        # TODO: columns a bit more sophisticated
         record = (
             organize_regress_metabolite_genetic_scores_against_phenotypes(
                 phenotype="body_mass_index",
                 metabolite=metabolite,
                 metabolite_variables=[metabolite],
+                metabolites=metabolites,
                 covariates=covariates,
                 table_metabolites_scores=table_metabolites_scores,
                 table_phenotypes=table_phenotypes,
@@ -782,6 +790,14 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
                 report=False,
         ))
         records.append(record)
+        # Monitor progress.
+        counter += 1
+        percentage = (counter / count_total) * 100
+        # Report.
+        if ((percentage % 10 == 0) and report):
+            utility.print_terminal_partition(level=4)
+            print("complete cases: " + str(round(percentage)) + "%")
+            pass
         pass
     # Organize information in a table.
     table_regression = utility.convert_records_to_dataframe(
@@ -874,7 +890,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 4")
+    print("version check: 5")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -900,10 +916,10 @@ def execute_procedure(
     metabolites = copy.deepcopy(source["table_metabolites"].columns.to_list())
     pail_association = (
         organize_regress_metabolites_genetic_scores_against_phenotypes(
-            phenotype="body_mass_index", # "testosterone"
+            phenotype="body_mass_index", # "testosterone", "audit_c",
             metabolites=metabolites,
             covariates=[
-                "sex", "age",
+                "sex", "age", # "body_mass_index",
                 "genotype_pc_1", "genotype_pc_2", "genotype_pc_3",
                 "genotype_pc_4", "genotype_pc_5", "genotype_pc_6",
                 "genotype_pc_7", "genotype_pc_8", "genotype_pc_9",
