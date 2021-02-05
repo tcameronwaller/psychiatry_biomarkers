@@ -722,7 +722,7 @@ def organize_regress_metabolite_genetic_scores_against_phenotypes(
     pail["metabolite"] = metabolite
     pail.update(pail_regression["summary"])
     # Return information.
-    return pail_regression["summary"]
+    return pail
 
 
 # Why not merge metabolite and phenotype tables all at once initially?
@@ -806,7 +806,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
             ])
         ]
         utility.print_terminal_partition(level=2)
-        print("Summary of alcohol AUDIT variables: ")
+        print("Summary of metabolite regressions: ")
         print(table_report)
     pass
 
@@ -874,7 +874,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 1")
+    print("version check: 2")
     # Pause procedure.
     time.sleep(5.0)
 
