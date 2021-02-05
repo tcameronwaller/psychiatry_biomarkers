@@ -309,7 +309,8 @@ def execute_procedure(
 
     # Select metabolites with valid identities.
     metabolites_valid = select_metabolites_with_valid_identities(
-        table_metabolites_names=source["table_metabolites_names"],
+        table=source["table_metabolites_names"],
+        report=True,
     )
 
     # Organize variables for basic characteristics, genotypes, and hormones
