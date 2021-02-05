@@ -641,6 +641,8 @@ def regress_dependent_independent_variables_linear_ordinary(
     return pail
 
 
+# I need access to the metabolite's name...
+
 def organize_regress_metabolite_genetic_scores_against_phenotypes(
     phenotype=None,
     metabolite=None,
@@ -785,8 +787,27 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
     table_regression = utility.convert_records_to_dataframe(
         records=records
     )
-    print(table_regression)
-
+    table_regression = table_regression.sort_values(
+        by=["metabolite_probability"],
+        axis="index",
+        ascending=False,
+        inplace=False,
+    )
+    # Report.
+    if report:
+        # Organize data for report.
+        table_report = table_regression.copy(deep=True)
+        table_report = table_report.loc[
+            :, table_report.columns.isin([
+                "metabolite",
+                "metabolite_parameter", "metabolite_inflation",
+                "metabolite_probability",
+                "r_square", "r_square_adjust",
+            ])
+        ]
+        utility.print_terminal_partition(level=2)
+        print("Summary of alcohol AUDIT variables: ")
+        print(table_report)
     pass
 
 
@@ -853,7 +874,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 4")
+    print("version check: 1")
     # Pause procedure.
     time.sleep(5.0)
 
