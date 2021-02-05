@@ -201,7 +201,7 @@ def select_metabolites_with_valid_identities(
     table["identity"] = table.apply(
         lambda row:
             determine_metabolite_valid_identity(
-                frequency=row["name"],
+                name=row["name"],
             ),
         axis="columns", # apply across rows
     )
