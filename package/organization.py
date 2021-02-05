@@ -213,7 +213,7 @@ def select_metabolites_with_valid_identities(
     names_valid = table_valid["name"].to_list()
     # Compile information.
     pail = dict()
-    pail["table_metabolites_names"] = table
+    pail["table"] = table
     pail["metabolites_valid"] = list()
     # Report.
     if report:
@@ -249,13 +249,26 @@ def write_product(
     """
 
     # Specify directories and files.
+
+    path_table_metabolites_names = os.path.join(
+        paths["organization"], "table_metabolites_names.pickle"
+    )
+    path_metabolites_valid = os.path.join(
+        paths["organization"], "metabolites_valid.pickle"
+    )
     path_table_phenotypes = os.path.join(
         paths["organization"], "table_phenotypes.pickle"
     )
     path_table_phenotypes_text = os.path.join(
         paths["organization"], "table_phenotypes.tsv"
     )
+
     # Write information to file.
+    information["table_metabolites_names"].to_pickle(
+        path_table_metabolites_names
+    )
+    with open(path_metabolites_valid, "wb") as file_product:
+        pickle.dump(information["metabolites_valid"], file_product)
     information["table_phenotypes"].to_pickle(
         path_table_phenotypes
     )
@@ -308,7 +321,7 @@ def execute_procedure(
     )
 
     # Select metabolites with valid identities.
-    metabolites_valid = select_metabolites_with_valid_identities(
+    pail_metabolites = select_metabolites_with_valid_identities(
         table=source["table_metabolites_names"],
         report=True,
     )
@@ -320,18 +333,13 @@ def execute_procedure(
         report=True,
     )
 
-    # Organize variables for alcohol consumption across the UK Biobank.
-    table_alcohol = uk_biobank.organization.organize_alcohol_consumption(
-        table=table_basis,
-        report=True,
-    )
-
     # TODO: Adapt the ICD9 and ICD10 functionality for depression and bipolar...
 
     # Collect information.
     information = dict()
-    information["metabolites_valid"] = metabolites_valid
-    information["table_phenotypes"] = table_alcohol
+    information["table_metabolites_names"] = pail_metabolites["table"]
+    information["metabolites_valid"] = pail_metabolites["metabolites_valid"]
+    information["table_phenotypes"] = table_basis
     # Write product information to file.
     write_product(
         paths=paths,
