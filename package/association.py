@@ -770,6 +770,10 @@ def organize_metabolites_regressions_summary_table(
         drop=True,
         inplace=True,
     )
+    table_metabolites_names.reset_index(
+        level=None,
+        inplace=True
+    )
     table_metabolites_names["identifier"].astype("string")
     table_metabolites_names.set_index(
         "identifier",
@@ -867,7 +871,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
                 table_phenotypes=table_phenotypes,
                 table_metabolites_scores=table_metabolites_scores,
                 regression=regression,
-                report=True,
+                report=False,
         ))
         records.append(record)
         # Monitor progress.
