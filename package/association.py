@@ -763,6 +763,7 @@ def organize_metabolites_regressions_summary_table(
     table = utility.convert_records_to_dataframe(
         records=records
     )
+    print(table)
     # Introduce metabolites' names.
     # Merge tables using database-style join.
     # Alternative is to use DataFrame.join().
@@ -872,6 +873,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
                 report=False,
         ))
         records.append(record)
+        print(record)
         # Monitor progress.
         counter += 1
         percentage = (counter / count_total) * 100
@@ -891,7 +893,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
         # Organize data for report.
         table_report = table_regression.copy(deep=True)
         columns_report = [
-            "metabolite", "metabolite_name",
+            "identifier", "metabolite_name",
             "metabolite_parameter", "metabolite_inflation",
             "metabolite_probability",
             "r_square",
@@ -974,7 +976,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 1")
+    print("version check: 2")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -998,6 +1000,7 @@ def execute_procedure(
     # M02342: serotonin
     # M00054: tryptophan
     metabolites = copy.deepcopy(source["metabolites_valid"])
+    print(metabolites)
     pail_association = (
         organize_regress_metabolites_genetic_scores_against_phenotypes(
             phenotype="body_mass_index", # "testosterone", "audit_c",
