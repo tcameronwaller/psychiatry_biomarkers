@@ -363,21 +363,20 @@ def execute_procedure(
         report=True,
     )
 
-    # Select metabolites with valid identities.
-    pail_metabolites = select_organize_metabolites_valid_identities_scores(
-        table_names=source["table_metabolites_names"],
-        table_scores=source["table_metabolites_scores"],
-        report=True,
-    )
-
     # Organize variables for basic characteristics, genotypes, and hormones
     # across the UK Biobank.
     table_basis = uk_biobank.organization.organize_basic_characteristics(
         table=source["table_phenotypes"],
         report=True,
     )
-
     # TODO: Adapt the ICD9 and ICD10 functionality for depression and bipolar...
+
+    # Select metabolites with valid identities.
+    pail_metabolites = select_organize_metabolites_valid_identities_scores(
+        table_names=source["table_metabolites_names"],
+        table_scores=source["table_metabolites_scores"],
+        report=True,
+    )
 
     # Collect information.
     information = dict()
