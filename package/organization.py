@@ -221,7 +221,7 @@ def select_metabolites_with_valid_identities(
     # Compile information.
     pail = dict()
     pail["table"] = table
-    pail["metabolites_valid"] = list()
+    pail["metabolites_valid"] = metabolites_valid
     # Report.
     if report:
         # Column name translations.
