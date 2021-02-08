@@ -423,8 +423,6 @@ def organize_dependent_independent_variables_table(
         table=table_merge,
         report=report,
     )
-    # Change the names of columns for the metabolite.
-
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
@@ -657,8 +655,6 @@ def regress_dependent_independent_variables_linear_ordinary(
     return pail
 
 
-# I need access to the metabolite's name...
-
 def organize_regress_metabolite_genetic_scores_against_phenotypes(
     phenotype=None,
     metabolite=None,
@@ -738,10 +734,77 @@ def organize_regress_metabolite_genetic_scores_against_phenotypes(
     )
     # Compile information.
     pail = dict()
-    pail["metabolite"] = metabolite
+    pail["identifier"] = metabolite
     pail.update(pail_regression["summary"])
     # Return information.
     return pail
+
+
+def organize_metabolites_regressions_summary_table(
+    records=None,
+    table_metabolites_names=None,
+):
+    """
+    Organizes a table to summarize information about regressions.
+
+    arguments:
+        records (list<dict>): summary information about regressions
+        table_metabolites_names (object): Pandas data frame of metabolites'
+            identifiers and names
+
+    raises:
+
+    returns:
+        (object): Pandas data frame of summary information about regressions
+
+    """
+
+    # Organize table.
+    table = utility.convert_records_to_dataframe(
+        records=records
+    )
+    # Introduce metabolites' names.
+    # Merge tables using database-style join.
+    # Alternative is to use DataFrame.join().
+    table["identifier"].astype("string")
+    table.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
+    table_metabolites_names["identifier"].astype("string")
+    table_metabolites_names.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
+    table_merge = table.merge(
+        table_metabolites_names,
+        how="left",
+        left_on="identifier",
+        #left_index=True,
+        right_on="identifier",
+        #right_index=True,
+        suffixes=("_summary", "_names"),
+    )
+    table_merge.reset_index(
+        level=None,
+        inplace=True
+    )
+    table_merge.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
+    # Sort rows.
+    table_merge.sort_values(
+        by=["metabolite_probability"],
+        axis="index",
+        ascending=True,
+        inplace=True,
+    )
+    # Return.
+    return table_merge
 
 
 # Why not merge metabolite and phenotype tables all at once initially?
@@ -751,8 +814,9 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
     phenotype=None,
     metabolites=None,
     covariates=None,
-    table_metabolites_scores=None,
     table_phenotypes=None,
+    table_metabolites_scores=None,
+    table_metabolites_names=None,
     regression=None,
     report=None,
 ):
@@ -770,17 +834,19 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
             their genetic scores against phenotypes across UK Biobank
         covariates (list<str>): names of columns in phenotype table for
             variables to set as covariate independent variables in regressions
-        table_metabolites_scores (object): Pandas data frame of metabolites'
-            genetic scores across UK Biobank cohort
         table_phenotypes (object): Pandas data frame of phenotype variables
             across UK Biobank cohort
+        table_metabolites_scores (object): Pandas data frame of metabolites'
+            genetic scores across UK Biobank cohort
+        table_metabolites_names (object): Pandas data frame of metabolites'
+            identifiers and names
         regression (str): type of regression, "linear" or "logistic"
         report (bool): whether to print reports
 
     raises:
 
     returns:
-        (object): information from regressions
+        (dict): information from regressions
 
     """
 
@@ -800,8 +866,8 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
                 metabolite_variables=[metabolite],
                 metabolites=metabolites,
                 covariates=covariates,
-                table_metabolites_scores=table_metabolites_scores,
                 table_phenotypes=table_phenotypes,
+                table_metabolites_scores=table_metabolites_scores,
                 regression=regression,
                 report=False,
         ))
@@ -816,31 +882,33 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
             pass
         pass
     # Organize information in a table.
-    table_regression = utility.convert_records_to_dataframe(
-        records=records
-    )
-    table_regression.sort_values(
-        by=["metabolite_probability"],
-        axis="index",
-        ascending=True,
-        inplace=True,
+    table_regression = organize_metabolites_regressions_summary_table(
+        records=records,
+        table_metabolites_names=table_metabolites_names,
     )
     # Report.
     if report:
         # Organize data for report.
         table_report = table_regression.copy(deep=True)
-        table_report = table_report.loc[
-            :, table_report.columns.isin([
-                "metabolite",
-                "metabolite_parameter", "metabolite_inflation",
-                "metabolite_probability",
-                "r_square", "r_square_adjust",
-            ])
+        columns_report = [
+            "metabolite", "metabolite_name",
+            "metabolite_parameter", "metabolite_inflation",
+            "metabolite_probability",
+            "r_square",
         ]
+        table_report = table_report.loc[
+            :, table_report.columns.isin(columns_report)
+        ]
+        table_report = table_report[[*columns_report]]
+
         utility.print_terminal_partition(level=2)
         print("Summary of metabolite regressions: ")
         print(table_report)
-    pass
+    # Compile information.
+    pail = dict()
+    pail["table"] = table_regression
+    # Return.
+    return pail
 
 
 ##########
@@ -906,7 +974,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 5")
+    print("version check: 1")
     # Pause procedure.
     time.sleep(5.0)
 
