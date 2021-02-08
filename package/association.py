@@ -841,7 +841,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
         table_metabolites_scores (object): Pandas data frame of metabolites'
             genetic scores across UK Biobank cohort
         table_metabolites_names (object): Pandas data frame of metabolites'
-            identifiers and names
+            identifiers and names from Metabolon
         regression (str): type of regression, "linear" or "logistic"
         report (bool): whether to print reports
 

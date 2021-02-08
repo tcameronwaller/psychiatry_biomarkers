@@ -111,6 +111,9 @@ def read_source(
     path_table_metabolites_names = os.path.join(
         path_dock, "access", "24816252_shin_2014", "metaboliteMap.txt"
     )
+    path_table_metabolites_scores = os.path.join(
+        path_dock, "aggregation", "selection", "table_metabolites_scores.pickle"
+    )
 
     # Read information from file.
     table_phenotypes = pandas.read_pickle(
@@ -122,10 +125,14 @@ def read_source(
         header=0,
         dtype="string",
     )
+    table_metabolites_scores = pandas.read_pickle(
+        path_table_metabolites_scores
+    )
     # Compile and return information.
     return {
         "table_phenotypes": table_phenotypes,
         "table_metabolites_names": table_metabolites_names,
+        "table_metabolites_scores": table_metabolites_scores,
     }
 
 
@@ -167,16 +174,19 @@ def determine_metabolite_valid_identity(
     return identity
 
 
-def select_metabolites_with_valid_identities(
-    table=None,
+def select_organize_metabolites_valid_identities_scores(
+    table_names=None,
+    table_scores=None,
     report=None,
 ):
     """
     Selects identifiers of metabolites from Metabolon with valid identities.
 
     arguments:
-        table (object): Pandas data frame of metabolite identifiers and names
-            from Metabolon
+        table_names (object): Pandas data frame of metabolites' identifiers and
+            names from Metabolon
+        table_scores (object): Pandas data frame of metabolites' genetic scores
+            across UK Biobank cohort
         report (bool): whether to print reports
 
     raises:
@@ -188,17 +198,18 @@ def select_metabolites_with_valid_identities(
     """
 
     # Copy information.
-    table = table.copy(deep=True)
+    table_names = table_names.copy(deep=True)
+    table_scores = table_scores.copy(deep=True)
     # Translate column names.
     translations = dict()
     translations["metabolonID"] = "identifier"
     translations["metabolonDescription"] = "name"
-    table.rename(
+    table_names.rename(
         columns=translations,
         inplace=True,
     )
     # Determine whether metabolite has a valid identity.
-    table["identity"] = table.apply(
+    table_names["identity"] = table_names.apply(
         lambda row:
             determine_metabolite_valid_identity(
                 name=row["name"],
@@ -206,21 +217,27 @@ def select_metabolites_with_valid_identities(
         axis="columns", # apply across rows
     )
     # Select metabolites with valid identities.
-    table_valid = table.loc[
-        (table["identity"] > 0.5), :
+    table_identity = table_names.loc[
+        (table_names["identity"] > 0.5), :
     ]
-    metabolites_valid = table_valid["identifier"].to_list()
-    names_valid = table_valid["name"].to_list()
+    metabolites_identity = table_identity["identifier"].to_list()
+    names_identity = table_identity["name"].to_list()
     # Organize table.
-    table["identifier"].astype("string")
-    table.set_index(
+    table_names["identifier"].astype("string")
+    table_names.set_index(
         "identifier",
         drop=True,
         inplace=True,
     )
+    # Select metabolites with valid identities and valid genetic scores.
+    metabolites_scores = table_scores.columns.to_list()
+    metabolites_valid = utility.filter_common_elements(
+        list_minor=metabolites_identity,
+        list_major=metabolites_scores,
+    )
     # Compile information.
     pail = dict()
-    pail["table"] = table
+    pail["table"] = table_names
     pail["metabolites_valid"] = metabolites_valid
     # Report.
     if report:
@@ -229,10 +246,15 @@ def select_metabolites_with_valid_identities(
         print("Report from select_metabolites_with_valid_identities()")
         utility.print_terminal_partition(level=3)
         print(
-            "Count of identifiable metabolites: " + str(len(metabolites_valid))
+            "Count of identifiable metabolites: " +
+            str(len(metabolites_identity))
+        )
+        print(
+            "Count of identifiable metabolites with scores: " +
+            str(len(metabolites_valid))
         )
         utility.print_terminal_partition(level=3)
-        print(table)
+        print(table_names)
     # Return information.
     return pail
 
@@ -342,8 +364,9 @@ def execute_procedure(
     )
 
     # Select metabolites with valid identities.
-    pail_metabolites = select_metabolites_with_valid_identities(
-        table=source["table_metabolites_names"],
+    pail_metabolites = select_organize_metabolites_valid_identities_scores(
+        table_names=source["table_metabolites_names"],
+        table_scores=source["table_metabolites_scores"],
         report=True,
     )
 
