@@ -893,7 +893,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
         # Organize data for report.
         table_report = table_regression.copy(deep=True)
         columns_report = [
-            "identifier", "name",
+            "name",
             "metabolite_parameter", "metabolite_inflation",
             "metabolite_probability",
             "r_square",
