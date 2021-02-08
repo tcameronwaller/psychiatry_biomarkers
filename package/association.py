@@ -976,7 +976,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 5")
+    print("version check: 6")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -999,8 +999,8 @@ def execute_procedure(
     # M32315: serine
     # M02342: serotonin
     # M00054: tryptophan
-    metabolites = ["M00599", "M32315", "M02342", "M00054"]
-    #metabolites = copy.deepcopy(source["metabolites_valid"])
+    #metabolites = ["M00599", "M32315", "M02342", "M00054"]
+    metabolites = copy.deepcopy(source["metabolites_valid"])
     pail_association = (
         organize_regress_metabolites_genetic_scores_against_phenotypes(
             phenotype="body_mass_index", # "testosterone", "audit_c",
