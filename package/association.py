@@ -130,10 +130,8 @@ def read_source(
     table_metabolites_names = pandas.read_pickle(
         path_table_metabolites_names
     )
-    metabolites_valid = pandas.read_pickle(
-        path_metabolites_valid
-    )
-
+    with open(path_metabolites_valid, "rb") as file_source:
+        metabolites_valid = pickle.load(file_source)
     # Compile and return information.
     return {
         "table_phenotypes": table_phenotypes,
@@ -976,7 +974,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 2")
+    print("version check: 3")
     # Pause procedure.
     time.sleep(5.0)
 
