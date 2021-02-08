@@ -878,7 +878,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
         counter += 1
         percentage = (counter / count_total) * 100
         # Report.
-        if ((percentage % 10 == 0) and report):
+        if (((percentage % 10) < 1) and report):
             utility.print_terminal_partition(level=4)
             print("complete cases: " + str(round(percentage)) + "%")
             pass
@@ -888,27 +888,27 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
         records=records,
         table_metabolites_names=table_metabolites_names,
     )
+    # Organize information for report.
+    table_report = table_regression.copy(deep=True)
+    columns_report = [
+        "name",
+        "metabolite_parameter", "metabolite_inflation",
+        "metabolite_probability",
+        "r_square", "r_square_adjust", "condition",
+    ]
+    table_report = table_report.loc[
+        :, table_report.columns.isin(columns_report)
+    ]
+    table_report = table_report[[*columns_report]]
     # Report.
     if report:
-        # Organize data for report.
-        table_report = table_regression.copy(deep=True)
-        columns_report = [
-            "name",
-            "metabolite_parameter", "metabolite_inflation",
-            "metabolite_probability",
-            "r_square",
-        ]
-        table_report = table_report.loc[
-            :, table_report.columns.isin(columns_report)
-        ]
-        table_report = table_report[[*columns_report]]
-
         utility.print_terminal_partition(level=2)
         print("Summary of metabolite regressions: ")
         print(table_report)
     # Compile information.
     pail = dict()
     pail["table"] = table_regression
+    pail["table_report"] = table_report
     # Return.
     return pail
 
@@ -934,18 +934,12 @@ def write_product(
     """
 
     # Specify directories and files.
-    path_table_phenotypes = os.path.join(
-        paths["organization"], "table_phenotypes.pickle"
-    )
-    path_table_phenotypes_text = os.path.join(
-        paths["organization"], "table_phenotypes.tsv"
+    path_table_phenotype_regression = os.path.join(
+        paths["association"], "table_regression_body_mass_index.tsv"
     )
     # Write information to file.
-    information["table_phenotypes"].to_pickle(
-        path_table_phenotypes
-    )
-    information["table_phenotypes"].to_csv(
-        path_or_buf=path_table_phenotypes_text,
+    information["table_phenotype_regression"].to_csv(
+        path_or_buf=path_table_phenotype_regression,
         sep="\t",
         header=True,
         index=True,
@@ -976,7 +970,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 6")
+    print("version check: 7")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -999,8 +993,8 @@ def execute_procedure(
     # M32315: serine
     # M02342: serotonin
     # M00054: tryptophan
-    #metabolites = ["M00599", "M32315", "M02342", "M00054"]
-    metabolites = copy.deepcopy(source["metabolites_valid"])
+    metabolites = ["M00599", "M32315", "M02342", "M00054"]
+    #metabolites = copy.deepcopy(source["metabolites_valid"])
     pail_association = (
         organize_regress_metabolites_genetic_scores_against_phenotypes(
             phenotype="body_mass_index", # "testosterone", "audit_c",
@@ -1019,16 +1013,14 @@ def execute_procedure(
             report=True,
     ))
 
-
-    if False:
-        # Collect information.
-        information = dict()
-        information["table_phenotypes"] = table_basis
-        # Write product information to file.
-        write_product(
-            paths=paths,
-            information=information
-        )
+    # Collect information.
+    information = dict()
+    information["table_phenotype_regression"] = pail_association["table"]
+    # Write product information to file.
+    write_product(
+        paths=paths,
+        information=information
+    )
     pass
 
 
