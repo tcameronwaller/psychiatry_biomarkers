@@ -35,10 +35,6 @@ fi
 # Assemble phenotypic information from UK Biobank.
 #python3 $path_package/interface.py main --path_dock $path_dock --assembly
 
-###########
-# TODO: I think I can make organization also organize and select the metabolites better...
-############
-
 # Organize phenotypic information from UK Biobank.
 python3 $path_package/interface.py main --path_dock $path_dock --organization
 

@@ -110,20 +110,36 @@ def read_source(
     path_table_phenotypes = os.path.join(
         path_dock, "organization", "table_phenotypes.pickle"
     )
-    path_table_metabolites = os.path.join(
+    path_table_metabolites_scores = os.path.join(
         path_dock, "aggregation", "selection", "table_metabolites_scores.pickle"
     )
+    path_table_metabolites_names = os.path.join(
+        path_dock, "organization", "table_metabolites_names.pickle"
+    )
+    path_metabolites_valid = os.path.join(
+        path_dock, "organization", "metabolites_valid.pickle"
+    )
+
     # Read information from file.
     table_phenotypes = pandas.read_pickle(
         path_table_phenotypes
     )
-    table_metabolites = pandas.read_pickle(
-        path_table_metabolites
+    table_metabolites_scores = pandas.read_pickle(
+        path_table_metabolites_scores
     )
+    table_metabolites_names = pandas.read_pickle(
+        path_table_metabolites_names
+    )
+    metabolites_valid = pandas.read_pickle(
+        path_metabolites_valid
+    )
+
     # Compile and return information.
     return {
         "table_phenotypes": table_phenotypes,
-        "table_metabolites": table_metabolites,
+        "table_metabolites_scores": table_metabolites_scores,
+        "table_metabolites_names": table_metabolites_names,
+        "metabolites_valid": metabolites_valid,
     }
 
 
@@ -905,7 +921,7 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
-    print(source["table_metabolites"])
+    print(source["table_metabolites_scores"])
     print(source["table_phenotypes"])
     # Regress associations between metabolites' genetic scores and phenotypes
     # accross the UK Biobank.
@@ -913,7 +929,7 @@ def execute_procedure(
     # M32315: serine
     # M02342: serotonin
     # M00054: tryptophan
-    metabolites = copy.deepcopy(source["table_metabolites"].columns.to_list())
+    metabolites = copy.deepcopy(source["metabolites_valid"])
     pail_association = (
         organize_regress_metabolites_genetic_scores_against_phenotypes(
             phenotype="body_mass_index", # "testosterone", "audit_c",
@@ -925,8 +941,9 @@ def execute_procedure(
                 "genotype_pc_7", "genotype_pc_8", "genotype_pc_9",
                 "genotype_pc_10",
             ],
-            table_metabolites_scores=source["table_metabolites"],
             table_phenotypes=source["table_phenotypes"],
+            table_metabolites_scores=source["table_metabolites_scores"],
+            table_metabolites_names=source["table_metabolites_names"],
             regression="linear", # "linear" or "logistic"
             report=True,
     ))

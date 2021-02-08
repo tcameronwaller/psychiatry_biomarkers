@@ -211,6 +211,13 @@ def select_metabolites_with_valid_identities(
     ]
     metabolites_valid = table_valid["identifier"].to_list()
     names_valid = table_valid["name"].to_list()
+    # Organize table.
+    table["identifier"].astype("string")
+    table.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
     # Compile information.
     pail = dict()
     pail["table"] = table
@@ -255,6 +262,9 @@ def write_product(
     path_table_metabolites_names = os.path.join(
         paths["organization"], "table_metabolites_names.pickle"
     )
+    path_table_metabolites_names_text = os.path.join(
+        paths["organization"], "table_metabolites_names.tsv"
+    )
     path_metabolites_valid = os.path.join(
         paths["organization"], "metabolites_valid.pickle"
     )
@@ -268,6 +278,12 @@ def write_product(
     # Write information to file.
     information["table_metabolites_names"].to_pickle(
         path_table_metabolites_names
+    )
+    information["table_metabolites_names"].to_csv(
+        path_or_buf=path_table_metabolites_names_text,
+        sep="\t",
+        header=True,
+        index=True,
     )
     with open(path_metabolites_valid, "wb") as file_product:
         pickle.dump(information["metabolites_valid"], file_product)
@@ -286,6 +302,9 @@ def write_product(
 
 ###############################################################################
 # Procedure
+
+
+# TODO: maybe also make sure that "metabolites_valid" have non-null genetic scores???
 
 
 def execute_procedure(
