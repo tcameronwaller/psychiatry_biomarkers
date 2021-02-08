@@ -926,6 +926,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
 
 
 def write_product(
+    phenotype=None,
     information=None,
     paths=None,
 ):
@@ -933,6 +934,7 @@ def write_product(
     Writes product information to file.
 
     arguments:
+        phenotype (str): name of phenotype as dependent variable in regressions
         information (object): information to write to file
         paths (dict<str>): collection of paths to directories for procedure's
             files
@@ -942,12 +944,21 @@ def write_product(
     """
 
     # Specify directories and files.
-    path_table_phenotype_regression = os.path.join(
-        paths["association"], "table_regression_body_mass_index.tsv"
+    path_table = os.path.join(
+        paths["association"], str("table_" + str(phenotype) + ".tsv")
+    )
+    path_table_report = os.path.join(
+        paths["association"], str("table_report_" + str(phenotype) + ".tsv")
     )
     # Write information to file.
-    information["table_phenotype_regression"].to_csv(
-        path_or_buf=path_table_phenotype_regression,
+    information["table"].to_csv(
+        path_or_buf=path_table,
+        sep="\t",
+        header=True,
+        index=True,
+    )
+    information["table_report"].to_csv(
+        path_or_buf=path_table_report,
         sep="\t",
         header=True,
         index=True,
@@ -978,7 +989,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 8")
+    print("version check: 9")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -1003,9 +1014,10 @@ def execute_procedure(
     # M00054: tryptophan
     metabolites = ["M00599", "M32315", "M02342", "M00054"]
     #metabolites = copy.deepcopy(source["metabolites_valid"])
+    phenotype="body_mass_index" # "testosterone", "audit_c",
     pail_association = (
         organize_regress_metabolites_genetic_scores_against_phenotypes(
-            phenotype="body_mass_index", # "testosterone", "audit_c",
+            phenotype=phenotype,
             metabolites=metabolites,
             covariates=[
                 "sex", "age", # "body_mass_index",
@@ -1023,11 +1035,13 @@ def execute_procedure(
 
     # Collect information.
     information = dict()
-    information["table_phenotype_regression"] = pail_association["table"]
+    information["table"] = pail_association["table"]
+    information["table_report"] = pail_association["table_report"]
     # Write product information to file.
     write_product(
+        phenotype=phenotype,
+        information=information,
         paths=paths,
-        information=information
     )
     pass
 
