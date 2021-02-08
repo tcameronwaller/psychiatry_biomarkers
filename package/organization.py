@@ -221,7 +221,9 @@ def select_metabolites_with_valid_identities(
         utility.print_terminal_partition(level=2)
         print("Report from select_metabolites_with_valid_identities()")
         utility.print_terminal_partition(level=3)
-        print(names_valid)
+        print(
+            "Count of identifiable metabolites: " + str(len(metabolites_valid))
+        )
         utility.print_terminal_partition(level=3)
         print(table)
     # Return information.
