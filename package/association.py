@@ -855,6 +855,14 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
     # Monitor progress.
     counter = 0
     count_total = len(metabolites)
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print(
+            "organize_regress_metabolites_genetic_scores_against_phenotypes()"
+        )
+        print("Count of metabolites: " + str(len(count_total)))
+        utility.print_terminal_partition(level=2)
     # Collect information for metabolites.
     records = list()
     for metabolite in metabolites:
@@ -970,7 +978,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 7")
+    print("version check: 8")
     # Pause procedure.
     time.sleep(5.0)
 
