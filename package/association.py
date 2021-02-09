@@ -871,7 +871,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
         # TODO: columns a bit more sophisticated
         record = (
             organize_regress_metabolite_genetic_scores_against_phenotypes(
-                phenotype="body_mass_index",
+                phenotype=phenotype,
                 metabolite=metabolite,
                 metabolite_variables=[metabolite],
                 metabolites=metabolites,
