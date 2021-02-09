@@ -879,7 +879,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
                 table_phenotypes=table_phenotypes,
                 table_metabolites_scores=table_metabolites_scores,
                 regression=regression,
-                report=False,
+                report=True,
         ))
         records.append(record)
         # Monitor progress.
@@ -995,7 +995,7 @@ def execute_procedure(
 
     # Initialize directories.
     paths = initialize_directories(
-        restore=True,
+        restore=False,
         path_dock=path_dock,
     )
     # Read source information from file.
