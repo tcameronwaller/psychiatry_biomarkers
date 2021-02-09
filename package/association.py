@@ -879,7 +879,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
                 table_phenotypes=table_phenotypes,
                 table_metabolites_scores=table_metabolites_scores,
                 regression=regression,
-                report=True,
+                report=False,
         ))
         records.append(record)
         # Monitor progress.
@@ -989,7 +989,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 13")
+    print("version check: 14")
     # Pause procedure.
     time.sleep(5.0)
 
