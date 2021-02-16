@@ -1873,6 +1873,26 @@ def write_product(
 
     # Simple collection table with single score for each metabolite.
     write_product_selection(
+        selection="0_00001",
+        information=information,
+        path_parent=paths["selection"],
+    )
+    write_product_selection(
+        selection="0_0001",
+        information=information,
+        path_parent=paths["selection"],
+    )
+    write_product_selection(
+        selection="0_001",
+        information=information,
+        path_parent=paths["selection"],
+    )
+    write_product_selection(
+        selection="0_01",
+        information=information,
+        path_parent=paths["selection"],
+    )
+    write_product_selection(
         selection="0_1",
         information=information,
         path_parent=paths["selection"],
@@ -1911,7 +1931,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 1")
+    print("version check: 2")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -1950,23 +1970,27 @@ def execute_procedure(
         print(table_scores)
 
     # TODO: temporarily by-pass the aggregation process...
-    # TODO: instead, use a single PRS p-value threshold for all metabolites
-    if False:
-        table_prs_0_0001 = read_select_collect_metabolites_genetic_scores(
-            selection="X0.0001",
-            metabolites_files_paths=source["metabolites_files_paths"],
-            report=True,
-        )
-        table_prs_0_001 = read_select_collect_metabolites_genetic_scores(
-            selection="X0.001",
-            metabolites_files_paths=source["metabolites_files_paths"],
-            report=True,
-        )
-        table_prs_0_01 = read_select_collect_metabolites_genetic_scores(
-            selection="X0.01",
-            metabolites_files_paths=source["metabolites_files_paths"],
-            report=True,
-        )
+    # Collect metabolites' genetic scores at multiple PRS p-value thresholds.
+    table_prs_0_00001 = read_select_collect_metabolites_genetic_scores(
+        selection="X1e.05",
+        metabolites_files_paths=source["metabolites_files_paths"],
+        report=True,
+    )
+    table_prs_0_0001 = read_select_collect_metabolites_genetic_scores(
+        selection="X0.0001",
+        metabolites_files_paths=source["metabolites_files_paths"],
+        report=True,
+    )
+    table_prs_0_001 = read_select_collect_metabolites_genetic_scores(
+        selection="X0.001",
+        metabolites_files_paths=source["metabolites_files_paths"],
+        report=True,
+    )
+    table_prs_0_01 = read_select_collect_metabolites_genetic_scores(
+        selection="X0.01",
+        metabolites_files_paths=source["metabolites_files_paths"],
+        report=True,
+    )
     table_prs_0_1 = read_select_collect_metabolites_genetic_scores(
         selection="X0.1", # "X0.001", "X0.01", "X0.1"
         metabolites_files_paths=source["metabolites_files_paths"],
@@ -1976,6 +2000,10 @@ def execute_procedure(
     # Collect information.
     information = dict()
     information["metabolites_files_paths"] = source["metabolites_files_paths"]
+    information["table_prs_0_00001"] = table_prs_0_00001
+    information["table_prs_0_0001"] = table_prs_0_0001
+    information["table_prs_0_001"] = table_prs_0_001
+    information["table_prs_0_01"] = table_prs_0_01
     information["table_prs_0_1"] = table_prs_0_1
     # TODO: eventually, include a dictionary collection of a table for each
     # metabolite

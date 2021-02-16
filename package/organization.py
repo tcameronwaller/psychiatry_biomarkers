@@ -112,7 +112,8 @@ def read_source(
         path_dock, "access", "24816252_shin_2014", "metaboliteMap.txt"
     )
     path_table_metabolites_scores = os.path.join(
-        path_dock, "aggregation", "selection", "table_metabolites_scores.pickle"
+        path_dock, "aggregation", "selection",
+        "table_metabolites_scores_prs_0_1.pickle"
     )
 
     # Read information from file.
