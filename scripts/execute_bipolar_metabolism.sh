@@ -39,7 +39,7 @@ fi
 python3 $path_package/interface.py main --path_dock $path_dock --organization
 
 # Regress phenotypes against metabolites' genetic scores across the UK Biobank.
-#python3 $path_package/interface.py main --path_dock $path_dock --association
+python3 $path_package/interface.py main --path_dock $path_dock --association
 
 
 # TODO: new module...

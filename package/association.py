@@ -83,7 +83,7 @@ def initialize_directories(
 ##########
 # Read
 
-
+# TODO: vary the PRS p-value threshold for the metabolites' genetic scores...
 def read_source(
     path_dock=None,
     report=None,
@@ -111,7 +111,8 @@ def read_source(
         path_dock, "organization", "table_phenotypes.pickle"
     )
     path_table_metabolites_scores = os.path.join(
-        path_dock, "aggregation", "selection", "table_metabolites_scores.pickle"
+        path_dock, "aggregation", "selection",
+        "table_metabolites_scores_prs_0_1.pickle"
     )
     path_table_metabolites_names = os.path.join(
         path_dock, "organization", "table_metabolites_names.pickle"
