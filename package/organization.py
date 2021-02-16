@@ -326,9 +326,6 @@ def write_product(
 # Procedure
 
 
-# TODO: maybe also make sure that "metabolites_valid" have non-null genetic scores???
-
-
 def execute_procedure(
     path_dock=None,
 ):
@@ -363,10 +360,20 @@ def execute_procedure(
         report=True,
     )
 
-    # Organize variables for basic characteristics, genotypes, and hormones
+    # Organize variables for persons' genotypes, sex, age, and body mass index
     # across the UK Biobank.
-    table_basis = uk_biobank.organization.organize_basic_characteristics(
+    table_basis = uk_biobank.organization.execute_genotype_sex_age_body(
         table=source["table_phenotypes"],
+        report=False,
+    )
+    # Organize variables for persons' alcohol consumption across the UK Biobank.
+    table_alcohol = uk_biobank.organization.execute_alcohol(
+        table=table_basis,
+        report=True,
+    )
+    # Organize variables for persons' mental health across the UK Biobank.
+    table_mental = uk_biobank.organization.execute_mental_health(
+        table=table_alcohol,
         report=True,
     )
     # TODO: Adapt the ICD9 and ICD10 functionality for depression and bipolar...
@@ -382,7 +389,7 @@ def execute_procedure(
     information = dict()
     information["table_metabolites_names"] = pail_metabolites["table"]
     information["metabolites_valid"] = pail_metabolites["metabolites_valid"]
-    information["table_phenotypes"] = table_basis
+    information["table_phenotypes"] = table_mental
     # Write product information to file.
     write_product(
         paths=paths,
