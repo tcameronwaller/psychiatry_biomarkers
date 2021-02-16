@@ -367,13 +367,14 @@ def execute_procedure(
         report=False,
     )
     # Organize variables for persons' alcohol consumption across the UK Biobank.
-    table_alcohol = uk_biobank.organization.execute_alcohol(
-        table=table_basis,
-        report=True,
-    )
+    if False:
+        table_alcohol = uk_biobank.organization.execute_alcohol(
+            table=table_basis,
+            report=True,
+        )
     # Organize variables for persons' mental health across the UK Biobank.
     table_mental = uk_biobank.organization.execute_mental_health(
-        table=table_alcohol,
+        table=table_basis,
         report=True,
     )
     # TODO: Adapt the ICD9 and ICD10 functionality for depression and bipolar...
