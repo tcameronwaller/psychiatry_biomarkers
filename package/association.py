@@ -634,6 +634,7 @@ def regress_dependent_independent_variables_linear_ordinary(
         summary = {
             "freedom": float("nan"),
             "observations": float("nan"),
+            "samples": float("nan"),
             "r_square": float("nan"),
             "r_square_adjust": float("nan"),
             "log_likelihood": float("nan"),
@@ -800,7 +801,7 @@ def organize_metabolites_regressions_summary_table(
     )
     # Sort rows.
     table_merge.sort_values(
-        by=["metabolite_probability"],
+        by=["metabolite_probability", "r_square_adjust"],
         axis="index",
         ascending=True,
         inplace=True,
@@ -901,7 +902,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
     columns_report = [
         "name",
         "metabolite_parameter", "metabolite_inflation",
-        "metabolite_probability",
+        "metabolite_probability", "samples",
         "r_square", "r_square_adjust", "condition",
     ]
     table_report = table_report.loc[
@@ -1012,8 +1013,8 @@ def execute_procedure(
     # M32315: serine
     # M02342: serotonin
     # M00054: tryptophan
-    metabolites = ["M00599", "M32315", "M02342", "M00054"]
-    #metabolites = copy.deepcopy(source["metabolites_valid"])
+    #metabolites = ["M00599", "M32315", "M02342", "M00054"]
+    metabolites = copy.deepcopy(source["metabolites_valid"])
     # "body_mass_index", "testosterone", "oestradiol", "steroid_globulin",
     # "albumin", "audit_c",
     phenotype="neuroticism_log"
