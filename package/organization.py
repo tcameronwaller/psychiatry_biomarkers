@@ -111,10 +111,18 @@ def read_source(
     path_table_metabolites_names = os.path.join(
         path_dock, "access", "24816252_shin_2014", "metaboliteMap.txt"
     )
+
+    #########################################
     path_table_metabolites_scores = os.path.join(
         path_dock, "aggregation", "selection",
         "table_metabolites_scores_prs_0_1.pickle"
     )
+    utility.print_terminal_partition(level=1)
+    print("PRS pvalue: 0.1")
+    utility.print_terminal_partition(level=2)
+    # Pause procedure.
+    time.sleep(5.0)
+    ########################################
 
     # Read information from file.
     table_phenotypes = pandas.read_pickle(
