@@ -1911,7 +1911,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 3")
+    print("version check: 1")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -1953,7 +1953,7 @@ def execute_procedure(
     # TODO: instead, use a single PRS p-value threshold for all metabolites
 
     table_collection = read_select_collect_metabolites_genetic_scores(
-        selection="X0.001",
+        selection="X0.01", # "X0.001", "X0.01", "X0.1"
         metabolites_files_paths=source["metabolites_files_paths"],
         report=True,
     )

@@ -654,7 +654,7 @@ def regress_dependent_independent_variables_linear_ordinary(
     return pail
 
 
-def organize_regress_metabolite_genetic_scores_against_phenotypes(
+def organize_regress_phenotype_against_metabolite_genetic_scores(
     phenotype=None,
     metabolite=None,
     metabolite_variables=None,
@@ -813,7 +813,7 @@ def organize_metabolites_regressions_summary_table(
 # Why not merge metabolite and phenotype tables all at once initially?
 # Do not do this.
 # Eventually, I want to accommodate multiple column variables for each metabolite.
-def organize_regress_metabolites_genetic_scores_against_phenotypes(
+def organize_regress_phenotype_against_metabolites_genetic_scores(
     phenotype=None,
     metabolites=None,
     covariates=None,
@@ -871,7 +871,7 @@ def organize_regress_metabolites_genetic_scores_against_phenotypes(
         # TODO: in which case I'll also need to make the re-naming of the
         # TODO: columns a bit more sophisticated
         record = (
-            organize_regress_metabolite_genetic_scores_against_phenotypes(
+            organize_regress_phenotype_against_metabolite_genetic_scores(
                 phenotype=phenotype,
                 metabolite=metabolite,
                 metabolite_variables=[metabolite],
@@ -1018,23 +1018,44 @@ def execute_procedure(
     # "body_mass_index", "testosterone", "oestradiol", "steroid_globulin",
     # "albumin", "audit_c",
     phenotype="neuroticism_log"
+    covariates=[
+        "sex", "age", "body_mass_index",
+        "genotype_pc_1", "genotype_pc_2", "genotype_pc_3",
+        "genotype_pc_4", "genotype_pc_5", "genotype_pc_6",
+        "genotype_pc_7", "genotype_pc_8", "genotype_pc_9",
+        "genotype_pc_10",
+    ]
     pail_association = (
-        organize_regress_metabolites_genetic_scores_against_phenotypes(
+        organize_regress_phenotype_against_metabolites_genetic_scores(
             phenotype=phenotype,
             metabolites=metabolites,
-            covariates=[
-                "sex", "age", "body_mass_index",
-                "genotype_pc_1", "genotype_pc_2", "genotype_pc_3",
-                "genotype_pc_4", "genotype_pc_5", "genotype_pc_6",
-                "genotype_pc_7", "genotype_pc_8", "genotype_pc_9",
-                "genotype_pc_10",
-            ],
+            covariates=covariates,
             table_phenotypes=source["table_phenotypes"],
             table_metabolites_scores=source["table_metabolites_scores"],
             table_metabolites_names=source["table_metabolites_names"],
             regression="linear", # "linear" or "logistic"
             report=True,
     ))
+
+    # TODO: implement low-throughput test for R^2-adjust attributable to metabolites
+    # TODO: of interest...
+    # TODO: R^2-adjust for models with and without the metabolite of interest
+
+    # Attribute regression model variance to specific metabolites of special
+    # interest.
+    metabolites_attribution = ["M00599", "M32315", "M02342", "M00054"]
+    pail_attribution = (
+        organize_regress_model_r_square_attribution_with_without_variables(
+            phenotype=phenotype,
+            variables_attribution=metabolites_attribution,
+            covariates=covariates,
+            table_phenotypes=source["table_phenotypes"],
+            table_metabolites_scores=source["table_metabolites_scores"],
+            table_metabolites_names=source["table_metabolites_names"],
+            regression="linear", # "linear" or "logistic"
+            report=True,
+        )
+    )
 
     # Collect information.
     information = dict()
