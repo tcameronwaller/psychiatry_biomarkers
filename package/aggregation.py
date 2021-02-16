@@ -1807,6 +1807,7 @@ def read_select_collect_metabolites_genetic_scores(
         utility.print_terminal_partition(level=2)
         print("Report from: read_select_collect_metabolites_genetic_scores()")
         utility.print_terminal_partition(level=2)
+        print("selection: " + str(selection))
         print(table_collection)
         utility.print_terminal_partition(level=3)
     # Compile information.
@@ -1821,6 +1822,7 @@ def read_select_collect_metabolites_genetic_scores(
 
 
 def write_product_selection(
+    selection=None,
     information=None,
     path_parent=None,
 ):
@@ -1828,6 +1830,8 @@ def write_product_selection(
     Writes product information to file.
 
     arguments:
+        selection (str): name of column for selection from Polygenic Score
+            thresholds
         information (object): information to write to file
         path_parent (str): path to parent directory
 
@@ -1839,26 +1843,12 @@ def write_product_selection(
 
     # Specify directories and files.
     path_table = os.path.join(
-        path_parent, "table_metabolites_scores.pickle"
-    )
-    path_table_text = os.path.join(
-        path_parent, "table_metabolites_scores.tsv"
-    )
-    path_metabolites_files_paths = os.path.join(
-        path_parent, "metabolites_files_paths.pickle"
+        path_parent,
+        str("table_metabolites_scores_prs_" + selection + ".pickle")
     )
     # Write information to file.
-    information["table_metabolites_scores"].to_pickle(
+    information[str("table_prs_" + selection)].to_pickle(
         path_table
-    )
-    information["table_metabolites_scores"].to_csv(
-        path_or_buf=path_table_text,
-        sep="\t",
-        header=True,
-        index=True, # depends on whether index is important for identifiers
-    )
-    information["metabolites_files_paths"].to_pickle(
-        path_metabolites_files_paths
     )
     pass
 
@@ -1883,9 +1873,19 @@ def write_product(
 
     # Simple collection table with single score for each metabolite.
     write_product_selection(
+        selection="0_1",
         information=information,
         path_parent=paths["selection"],
     )
+
+    # Specify directories and files.
+    path_metabolites_files_paths = os.path.join(
+        paths["aggregation"], "metabolites_files_paths.pickle"
+    )
+    # Write information to file.
+    with open(path_metabolites_files_paths, "wb") as file_product:
+        pickle.dump(information["metabolites_files_paths"], file_product)
+
     pass
 
 
@@ -1951,9 +1951,24 @@ def execute_procedure(
 
     # TODO: temporarily by-pass the aggregation process...
     # TODO: instead, use a single PRS p-value threshold for all metabolites
-
-    table_collection = read_select_collect_metabolites_genetic_scores(
-        selection="X0.01", # "X0.001", "X0.01", "X0.1"
+    if False:
+        table_prs_0_0001 = read_select_collect_metabolites_genetic_scores(
+            selection="X0.0001",
+            metabolites_files_paths=source["metabolites_files_paths"],
+            report=True,
+        )
+        table_prs_0_001 = read_select_collect_metabolites_genetic_scores(
+            selection="X0.001",
+            metabolites_files_paths=source["metabolites_files_paths"],
+            report=True,
+        )
+        table_prs_0_01 = read_select_collect_metabolites_genetic_scores(
+            selection="X0.01",
+            metabolites_files_paths=source["metabolites_files_paths"],
+            report=True,
+        )
+    table_prs_0_1 = read_select_collect_metabolites_genetic_scores(
+        selection="X0.1", # "X0.001", "X0.01", "X0.1"
         metabolites_files_paths=source["metabolites_files_paths"],
         report=True,
     )
@@ -1961,7 +1976,7 @@ def execute_procedure(
     # Collect information.
     information = dict()
     information["metabolites_files_paths"] = source["metabolites_files_paths"]
-    information["table_metabolites_scores"] = table_collection
+    information["table_prs_0_1"] = table_prs_0_1
     # TODO: eventually, include a dictionary collection of a table for each
     # metabolite
     #information["pail_metabolites_scores_tables"] = pail
