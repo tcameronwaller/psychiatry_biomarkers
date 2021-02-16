@@ -238,6 +238,13 @@ def select_organize_metabolites_valid_identities_scores(
         drop=True,
         inplace=True,
     )
+    # Remove table columns for metabolites with null genetic scores.
+    table_scores.dropna(
+        axis="columns",
+        how="all",
+        subset=None,
+        inplace=True,
+    )
     # Select metabolites with valid identities and valid genetic scores.
     metabolites_scores = table_scores.columns.to_list()
     metabolites_valid = utility.filter_common_elements(
