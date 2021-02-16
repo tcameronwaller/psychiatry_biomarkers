@@ -1019,7 +1019,7 @@ def execute_procedure(
     # "albumin", "audit_c",
     phenotype="neuroticism_log"
     covariates=[
-        "sex", "age", "body_mass_index",
+        "sex", "age", "body_mass_index_log",
         "genotype_pc_1", "genotype_pc_2", "genotype_pc_3",
         "genotype_pc_4", "genotype_pc_5", "genotype_pc_6",
         "genotype_pc_7", "genotype_pc_8", "genotype_pc_9",
@@ -1041,21 +1041,22 @@ def execute_procedure(
     # TODO: of interest...
     # TODO: R^2-adjust for models with and without the metabolite of interest
 
-    # Attribute regression model variance to specific metabolites of special
-    # interest.
-    metabolites_attribution = ["M00599", "M32315", "M02342", "M00054"]
-    pail_attribution = (
-        organize_regress_model_r_square_attribution_with_without_variables(
-            phenotype=phenotype,
-            variables_attribution=metabolites_attribution,
-            covariates=covariates,
-            table_phenotypes=source["table_phenotypes"],
-            table_metabolites_scores=source["table_metabolites_scores"],
-            table_metabolites_names=source["table_metabolites_names"],
-            regression="linear", # "linear" or "logistic"
-            report=True,
+    if False:
+        # Attribute regression model variance to specific metabolites of special
+        # interest.
+        metabolites_attribution = ["M00599", "M32315", "M02342", "M00054"]
+        pail_attribution = (
+            organize_regress_model_r_square_attribution_with_without_variables(
+                phenotype=phenotype,
+                variables_attribution=metabolites_attribution,
+                covariates=covariates,
+                table_phenotypes=source["table_phenotypes"],
+                table_metabolites_scores=source["table_metabolites_scores"],
+                table_metabolites_names=source["table_metabolites_names"],
+                regression="linear", # "linear" or "logistic"
+                report=True,
+            )
         )
-    )
 
     # Collect information.
     information = dict()

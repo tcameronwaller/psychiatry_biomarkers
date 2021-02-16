@@ -81,7 +81,7 @@ def initialize_directories(
 ##########
 # Read
 
-
+# TODO: vary the PRS p-value threshold for the metabolites' genetic scores...
 def read_source(
     path_dock=None,
     report=None,
