@@ -115,10 +115,10 @@ def read_source(
     #########################################
     path_table_metabolites_scores = os.path.join(
         path_dock, "aggregation", "selection",
-        "table_metabolites_scores_prs_0_1.pickle"
+        "table_metabolites_scores_prs_0_00001.pickle"
     )
     utility.print_terminal_partition(level=1)
-    print("PRS pvalue: 0.1")
+    print("PRS pvalue: 0.00001")
     utility.print_terminal_partition(level=2)
     # Pause procedure.
     time.sleep(5.0)
