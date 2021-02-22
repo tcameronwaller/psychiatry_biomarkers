@@ -7,6 +7,73 @@ https://www.nature.com/articles/mp2015205.pdf?origin=ppub
 --------------------------------------------------
 --------------------------------------------------
 --------------------------------------------------
+GWAS Summary Statsitics of metabolites across large cohorts
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed: 33414548
+journal: Nature Genetics
+date: 7 January 2021
+title: "A cross-platform approach identifies genetic regulators of human metabolism and health"
+authors: Luca A. Lotta, ..., Claudia Langenberg
+bioRxiv: https://www.biorxiv.org/content/10.1101/2020.02.03.932541v1
+data server: https://omicscience.org/apps/crossplatform/
+GWAS Catalog: https://www.ebi.ac.uk/gwas/publications/33414548
+GWAS Catalog Studies: GCST90010722–GCST90010862
+note:
+- genome-wide meta-analysis on measurements from multiple studies (70% unpublished)
+- metabolites: 174
+- persons: 8,569 to 86,507 depending on the metabolite and studies
+- GWAS summary statistics on GWAS Catalog only include columns: "chromosome", "base_pair_location", "effect_allele", "other_allele", and "p_value"
+
+
+authors: Nag...
+note:
+- summary statistics on GWAS Catalog only include SNP associations with p<0.0001 (0.05/476)
+
+
+
+
+--------------------------------------------------
+PubMed: 31636271
+journal: Nature Communications
+date: 21 October 2019
+title: "A comprehensive study of metabolite genetics reveals strong pleiotropy and heterogeneity across time and context"
+authors: Apolline Gallois, ..., Hugues Aschard
+GWAS Catalog: https://www.ebi.ac.uk/gwas/publications/31636271
+other data source: http://statgen.pasteur.fr/Download.html
+note:
+- tissue: serum
+- metabolites: 158
+- - mostly lipoprotein lipids
+- - no tryptophan, kynurenine, serotonin
+- persons: 6,496
+- - Finnish ancestry
+- - males
+
+--------------------------------------------------
+PubMed:24816252
+date: 11 May 2014
+journal: Nature Genetics
+authors: Shin, ..., Soranzo
+title: "An atlas of genetic influences on human blood metabolites"
+note:
+- persons: 7,824
+- metabolites, total: 486
+- metabolites, identifiable: 309
+- metabolites, unidentifiable: 177
+- heritability method: TwinsUK cohort and classical twin model
+
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
 Heritability of metabolite abundance
 priority
 --------------------------------------------------
@@ -20,7 +87,7 @@ priority
 PubMed: _______
 Date: _______
 Journal: MedRxiv (https://www.medrxiv.org/content/10.1101/2020.08.01.20166413v1)
-Authors: Qin, ..., Inouye
+Authors: Youwen Qin, ..., Michael Inouye
 Title: "Genome-wide association and Mendelian randomization analysis prioritizes bioactive metabolites with putative causal effects on common diseases"
 Note:
 - 8,738 persons from Finland (FINRISK) cohort
@@ -30,6 +97,7 @@ Note:
 - authors calculated and mentioned SNP heritability briefly, but this information is not readily accessible
 -- I could not find metabolite heritabilities in the supplemental tables
 - on 10 November 2020, I was unable to find a published version of this article
+- on 22 February 2020, I was unable to find a published version of this article
 
 --------------------------------------------------
 PubMed: 33031748
@@ -115,19 +183,6 @@ Title: "Whole-genome sequencing identifies common-to-rare variants associated wi
 -- separate heritability estimate for each longitudinal sample
 -- 644 metabolites had consistent heritability across longitudinal samples
 - HWESASXX heritability 
-
---------------------------------------------------
-PubMed:24816252
-Date: 11 May 2014
-Journal: Nature Genetics
-Authors: Shin, ..., Soranzo
-Title: "An atlas of genetic influences on human blood metabolites"
-persons: 7,824
-metabolites, total: 486
-metabolites, identifiable: 309
-metabolites, unidentifiable: 177
-heritability method: TwinsUK cohort and classical twin model
-
 
 --------------------------------------------------
 --------------------------------------------------
