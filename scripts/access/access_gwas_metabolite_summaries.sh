@@ -32,7 +32,7 @@ if [ ! -d $path_access ]; then
 fi
 
 # Panyard et al, Communications Biology, 2021 (PubMed:33437055)
-if true: then
+if true; then
   # Define file destination.
   path_access_study="$path_dock/access/gwas_summaries/33437055_panyard_2021"
   mkdir -p $path_access_study
