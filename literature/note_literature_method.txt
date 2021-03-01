@@ -83,6 +83,19 @@ Journal: Scientific Reports
 Title: "Pharmacological enrichment of polygenic risk for precision medicine in complex disorders"
 
 --------------------------------------------------
+PubMed: 30992449
+title: "Polygenic prediction via Bayesian regression and continuous shrinkage priors"
+journal: Nature Communications
+date: 16 April 2019
+authors: Tian Ge, ..., Jordan W. Smoller
+note:
+- PRS-CS method
+- GitHub: https://github.com/getian107/PRScs
+
+
+
+
+--------------------------------------------------
 PubMed:29789686
 Date: 22 May 2018
 Journal: Nature Reviews Genetics
