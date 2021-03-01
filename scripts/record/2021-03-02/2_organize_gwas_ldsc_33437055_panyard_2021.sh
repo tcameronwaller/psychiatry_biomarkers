@@ -17,6 +17,21 @@ path_temporary_gwas_format_zip=$4 # complete path to file for new format after c
 path_calculate_z_score=$5 # complete path to script to use for z-score standardization
 report=$6 # whether to print reports
 
+# Report.
+if [[ "$report" == "true" ]]; then
+  echo "----------"
+  echo "----------"
+  echo "----------"
+  echo "file name: " $file_name
+  echo "path to original file: " $path_file
+  echo "path to new file: " $path_temporary_gwas_format
+  echo "----------"
+  echo "----------"
+  echo "----------"
+fi
+
+
+
 # Format of GWAS summary statistics for LDSC.
 # https://github.com/bulik/ldsc/wiki/Heritability-and-Genetic-Correlation#reformatting-summary-statistics
 # description: ............................ LDSC column
@@ -42,9 +57,7 @@ rm $path_temporary_gwas_format_zip
 
 # Organize information from linear GWAS.
 echo "SNP A1 A2 N BETA P" > $path_temporary_gwas_format
-zcat $path_file | \
-awk 'BEGIN { FS=","; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), $14, $10, $12}' >> \
-$path_temporary_gwas_format
+zcat $path_file | awk 'BEGIN { FS=","; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), $14, $10, $12}' >> $path_temporary_gwas_format
 # Calculate Z-score standardization of Beta coefficients.
 /usr/bin/bash $path_calculate_z_score \
 5 \
