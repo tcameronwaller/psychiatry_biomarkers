@@ -37,17 +37,11 @@ report=$6 # whether to print reports
 # probability (p-value): ..................... "P"
 
 # Remove any previous versions of temporary files.
-rm $path_termporary_gwas_format
-rm $path_termporary_gwas_format_zip
+rm $path_temporary_gwas_format
+rm $path_temporary_gwas_format_zip
 
 # Organize information from linear GWAS.
 echo "SNP A1 A2 N BETA P" > $path_temporary_gwas_format
-# SNP: split($2,a,":"); print a[1]
-# A1: toupper($4)
-# A2: toupper($5)
-# N: (cases: 14,904; controls: 37,944; total: 52,848)
-# BETA: $6
-# P: $7
 zcat $path_file | \
 awk 'BEGIN { FS=","; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), $14, $10, $12}' >> \
 $path_temporary_gwas_format

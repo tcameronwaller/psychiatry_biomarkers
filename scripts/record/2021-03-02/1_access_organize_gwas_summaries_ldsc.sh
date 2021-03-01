@@ -45,7 +45,7 @@ path_heritability_schlosser_2021="$path_heritability/31959995_schlosser_2021"
 path_heritability_panyard_2021="$path_heritability/33437055_panyard_2021"
 
 # Initialize directories.
-#rm -r $path_gwas
+rm -r $path_heritability
 if [ ! -d $path_heritability ]; then
     # Directory does not already exist.
     # Create directory.
@@ -95,18 +95,15 @@ path_temporary_gwas_format_zip="$path_heritability_panyard_2021/temporary_gwas_f
 # Define glob pattern to recognize relevant files.
 pattern="${path_33437055_panyard_2021}/metabolite_*_meta_analysis_gwas.csv.gz"
 # Iterate on all files and directories in parent directory.
-for path in $path_33437055_panyard_2021/*; do
-  if [ -f "$path" ]; then
+for path_file in $path_33437055_panyard_2021/*; do
+  if [ -f "$path_file" ]; then
     # Current content item is a file.
     #echo $file
-    if [[ "$path" == ${pattern} ]]; then
+    if [[ "$path_file" == ${pattern} ]]; then
       # File name matches glob pattern.
-      #echo "... pattern match! ..."
-      file="$(basename -- $path)"
+      file_name="$(basename -- $path_file)"
       # Organize information in format for LDSC.
       # Parameters.
-      file_name=$file
-      path_file=$path
       path_destination="$path_access_panyard_2021"
       report="true"
       /usr/bin/bash "$path_scripts/2_organize_gwas_ldsc_33437055_panyard_2021.sh" \
