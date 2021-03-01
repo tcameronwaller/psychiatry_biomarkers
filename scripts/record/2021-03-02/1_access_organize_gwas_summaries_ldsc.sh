@@ -87,6 +87,27 @@ echo "count of file paths: " $count
 #    echo $path_file >> $path_metabolites/metabolite_files.txt
 #done
 
+# Define glob pattern to recognize relevant files.
+pattern="${path_33437055_panyard_2021}/metabolite_*_meta_analysis_gwas.csv.gz"
+# Iterate on all files and directories in parent directory.
+for file in $path_33437055_panyard_2021/*; do
+  if [ -f "$file" ]; then
+    # Current content item is a file.
+    echo $file
+    if [[ "$file" == ${pattern} ]]; then
+      # File name matches glob pattern.
+      echo "... pattern match! ..."
+      base_name="$(basename -- $file)"
+      echo "file: " $base_name
+      # Copy the file to new directory.
+      #cp $file "$path_access_metabolites/$base_name"
+    fi
+  fi
+done
+
+
+
+
 
 if false; then
   # Organize information from linear GWAS.
