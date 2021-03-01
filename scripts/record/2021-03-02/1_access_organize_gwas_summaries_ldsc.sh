@@ -34,23 +34,25 @@ path_temporary=$(<"./processing_bipolar_metabolism.txt")
 path_waller="$path_temporary/waller"
 path_bipolar_metabolism="$path_waller/bipolar_metabolism"
 path_scripts="$path_waller/bipolar_metabolism/scripts/record/2021-03-02"
-path_calculate_z_score="$path_scripts/calculate_z_score.sh"
+path_promiscuity_scripts="$path_waller/promiscuity/scripts"
+path_calculate_z_score_column_5_of_6="$path_promiscuity_scripts/calculate_z_score_column_5_of_6.sh"
+path_calculate_z_score_column_4_of_5="$path_promiscuity_scripts/calculate_z_score_column_4_of_5.sh"
 
 path_dock="$path_waller/dock"
-path_access_gwas="$path_dock/access/gwas"
-path_access_shin_2014="$path_access_gwas/24816252_shin_2014"
-path_access_schlosser_2021="$path_access_gwas/31959995_schlosser_2021"
-path_access_panyard_2021="$path_access_gwas/33437055_panyard_2021"
+path_heritability="$path_dock/heritability"
+path_heritability_shin_2014="$path_heritability/24816252_shin_2014"
+path_heritability_schlosser_2021="$path_heritability/31959995_schlosser_2021"
+path_heritability_panyard_2021="$path_heritability/33437055_panyard_2021"
 
 # Initialize directories.
 #rm -r $path_gwas
-if [ ! -d $path_access_gwas ]; then
+if [ ! -d $path_heritability ]; then
     # Directory does not already exist.
     # Create directory.
-    mkdir -p $path_access_gwas
-    mkdir -p $path_access_shin_2014
-    mkdir -p $path_access_schlosser_2021
-    mkdir -p $path_access_panyard_2021
+    mkdir -p $path_heritability
+    mkdir -p $path_heritability_shin_2014
+    mkdir -p $path_heritability_schlosser_2021
+    mkdir -p $path_heritability_panyard_2021
 fi
 
 # Format of GWAS summary statistics for LDSC.
@@ -72,6 +74,7 @@ fi
 # effect (coefficient or odds ratio): ........ "BETA" or "OR"
 # probability (p-value): ..................... "P"
 
+################################################################################
 
 # PubMed: 33437055; Author: Panyard; Year: 2021.
 echo "----------------------------------------------------------------------"
@@ -86,57 +89,35 @@ echo "count of file paths: " $count
 #for path_file in "${metabolite_files[@]}"; do
 #    echo $path_file >> $path_metabolites/metabolite_files.txt
 #done
-
+# Define paths to temporary files for each iteration.
+path_temporary_gwas_format="$path_heritability_panyard_2021/temporary_gwas_format.txt"
+path_temporary_gwas_format_zip="$path_heritability_panyard_2021/temporary_gwas_format.txt.gz"
 # Define glob pattern to recognize relevant files.
 pattern="${path_33437055_panyard_2021}/metabolite_*_meta_analysis_gwas.csv.gz"
 # Iterate on all files and directories in parent directory.
-for file in $path_33437055_panyard_2021/*; do
-  if [ -f "$file" ]; then
+for path in $path_33437055_panyard_2021/*; do
+  if [ -f "$path" ]; then
     # Current content item is a file.
-    echo $file
-    if [[ "$file" == ${pattern} ]]; then
+    #echo $file
+    if [[ "$path" == ${pattern} ]]; then
       # File name matches glob pattern.
-      echo "... pattern match! ..."
-      base_name="$(basename -- $file)"
-      echo "file: " $base_name
-      # Copy the file to new directory.
-      #cp $file "$path_access_metabolites/$base_name"
+      #echo "... pattern match! ..."
+      file="$(basename -- $path)"
+      # Organize information in format for LDSC.
+      # Parameters.
+      file_name=$file
+      path_file=$path
+      path_destination="$path_access_panyard_2021"
+      report="true"
+      /usr/bin/bash "$path_scripts/2_organize_gwas_ldsc_33437055_panyard_2021.sh" \
+      $file_name \
+      $path_file \
+      $path_temporary_gwas_format \
+      $path_temporary_gwas_format_zip \
+      $path_calculate_z_score_column_5_of_6 \
+      $report
+      # Munge.
+      # Heritability.
     fi
   fi
 done
-
-
-
-
-
-if false; then
-  # Organize information from linear GWAS.
-
-  echo "SNP A1 A2 N BETA P" > $path_gwas_alcohol_format
-  # Format of GWAS summary for LDSC.
-  # https://github.com/bulik/ldsc/wiki/Heritability-and-Genetic-Correlation#reformatting-summary-statistics
-  # description: ............................ PGC column ... LDSC column
-  # variant identifier: ....................... "SNP" ........ "SNP"
-  # alternate allele (effect allele): ......... "A1" ......... "A1"
-  # reference allele (non-effect allele): ..... "A2" ......... "A2"
-  # sample size: .............................. 52,848 ....... "N"
-  # effect (beta): ............................ "Z" .......... "BETA"
-  # probability (p-value): .................... "P" .......... "P"
-
-  # SNP: split($2,a,":"); print a[1]
-  # A1: toupper($4)
-  # A2: toupper($5)
-  # N: (cases: 14,904; controls: 37,944; total: 52,848)
-  # BETA: $6
-  # P: $7
-  zcat $path_gwas_alcohol_raw | awk 'NR > 1 {split($2,a,":"); print a[1], toupper($4), toupper($5), (52848), $6, $7}' >> $path_gwas_alcohol_format
-  # Calculate Z-score standardization of Beta coefficients.
-  #/usr/bin/bash $path_calculate_z_score 5 $path_gwas_alcohol_format $path_gwas_alcohol_format
-  gzip $path_gwas_alcohol_format
-  echo "after format..."
-  head -30 "$path_gwas_alcohol_format.gz"
-
-  echo "----------"
-  echo "----------"
-  echo "----------"
-fi
