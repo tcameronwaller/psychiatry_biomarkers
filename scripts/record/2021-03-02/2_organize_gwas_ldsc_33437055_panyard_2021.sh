@@ -69,7 +69,7 @@ $path_temporary_collection \
 $path_temporary_gwas_format \
 $report
 
-gzip $path_temporary_gwas_format
+gzip -cvf $path_temporary_gwas_format > $path_temporary_gwas_format_zip
 
 # Remove any previous versions of temporary files.
 rm $path_temporary_collection
@@ -81,6 +81,7 @@ if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "file name: " $file_name
   head -10 $path_temporary_gwas_format
+  head -10 $path_temporary_gwas_format_zip
   echo "----------"
   echo "----------"
   echo "----------"
