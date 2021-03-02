@@ -107,7 +107,7 @@ for path_file in $path_33437055_panyard_2021/*; do
       # Organize information in format for LDSC.
       # Parameters.
       report="false" # "true" or "false"
-      /usr/bin/bash "$path_scripts/2_organize_gwas_ldsc_33437055_panyard_2021.sh" \
+      /usr/bin/bash "$path_scripts/3_organize_gwas_ldsc_33437055_panyard_2021.sh" \
       $file_name \
       $path_file \
       $path_temporary_gwas_format \
