@@ -72,6 +72,8 @@ readarray -t batch_instances < $path_batch_instances
 batch_instances_count=${#batch_instances[@]}
 echo "----------"
 echo "count of batch instances: " $batch_instances_count
+echo "first batch instance: " ${batch_instances[0]}
+echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 # Submit array batch to Sun Grid Engine.
 # Array batch indices cannot start at zero.
 echo "----------------------------------------------------------------------"
