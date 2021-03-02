@@ -23,7 +23,7 @@ path_batch_instances="${path_destination_parent}/batch_instances.txt"
 path_pattern="${path_source}/${file_pattern}"
 
 # Initialize directories.
-#rm -r $path_destination_parent
+rm -r $path_destination_parent
 if [ ! -d $path_destination_parent ]; then
     # Directory does not already exist.
     # Create directory.
