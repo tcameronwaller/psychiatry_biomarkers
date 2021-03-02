@@ -73,7 +73,7 @@ if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "----------"
   echo "file name: " $file_name
-  head -10 $path_temporary_gwas_format_zip
+  head -10 $path_temporary_gwas_format
   echo "----------"
   echo "----------"
   echo "----------"
