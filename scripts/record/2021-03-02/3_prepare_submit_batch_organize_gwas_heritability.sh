@@ -16,11 +16,14 @@ path_script_gwas_organization=$4 # full path to script to use for format organiz
 path_scripts=$5 # full path to scripts for current implementation pipeline
 path_promiscuity_scripts=$6 # full path to scripts from promiscuity package
 
-path_pattern="${path_source}/${file_pattern}"
 path_batch_instances="${path_destination_parent}/batch_instances.txt"
+# Define glob pattern for file paths.
+# This definition expands to an array of all files in the path that match the
+# pattern.
+path_pattern="${path_source}/${file_pattern}"
 
 # Initialize directories.
-#rm -r $path_destination_parent
+rm -r $path_destination_parent
 if [ ! -d $path_destination_parent ]; then
     # Directory does not already exist.
     # Create directory.
@@ -33,7 +36,7 @@ echo "Report."
 echo "----------------------------------------------------------------------"
 echo "----------"
 echo "source path: " $path_source
-echo "file path pattern: " $path_pattern
+#echo "file path pattern: " $path_pattern
 echo "destination path: " $path_destination_parent
 echo "path to batch instances: " $path_batch_instances
 echo "----------"
@@ -53,18 +56,16 @@ for path_file in $path_source/*; do
   if [ -f "$path_file" ]; then
     # Current content item is a file.
     # Compare to glob pattern to recognize relevant files.
-    echo $path_file
-    echo $path_file >> $path_batch_instances
+    #echo $path_file
+    #echo $path_file >> $path_batch_instances
     if [[ "$path_file" == ${path_pattern} ]]; then
       # File name matches glob pattern.
       # Include full path to file in batch instances.
-      echo $path_file
+      #echo $path_file
       echo $path_file >> $path_batch_instances
     fi
   fi
 done
-
-#less $path_batch_instances
 
 # Read batch instances.
 readarray -t batch_instances < $path_batch_instances
@@ -87,3 +88,5 @@ if false; then
   $path_scripts \
   $path_promiscuity_scripts
 fi
+
+less $path_batch_instances
