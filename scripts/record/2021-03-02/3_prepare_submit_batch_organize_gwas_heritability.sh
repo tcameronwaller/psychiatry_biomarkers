@@ -17,19 +17,26 @@ path_scripts=$5 # full path to scripts for current implementation pipeline
 path_promiscuity_scripts=$6 # full path to scripts from promiscuity package
 
 # Initialize directories.
-rm -r $path_destination_parent
+#rm -r $path_destination_parent
 if [ ! -d $path_destination_parent ]; then
     # Directory does not already exist.
     # Create directory.
     mkdir -p $path_destination_parent
 fi
 
+# Report.
+echo "----------------------------------------------------------------------"
+echo "Report."
+echo "----------------------------------------------------------------------"
+echo "----------"
+echo "source path: " $path_source
+echo "file pattern: " $file_pattern
+echo "destination path: " $path_destination_parent
+
 # Organize instances for iteration.
 echo "----------------------------------------------------------------------"
 echo "Organize array of batch instances."
 echo "----------------------------------------------------------------------"
-echo "----------"
-echo "destination path: " $path_destination_parent
 # Collect batch instances.
 path_batch_instances="${path_destination_parent}/batch_instances.txt"
 #cd $path_source
