@@ -90,6 +90,7 @@ echo "count of file paths: " $count
 #    echo $path_file >> $path_metabolites/metabolite_files.txt
 #done
 # Define paths to temporary files for each iteration.
+path_parent="$path_heritability_panyard_2021"
 path_temporary_gwas_format="$path_heritability_panyard_2021/temporary_gwas_format.txt"
 path_temporary_gwas_format_zip="$path_heritability_panyard_2021/temporary_gwas_format.txt.gz"
 # Define glob pattern to recognize relevant files.
@@ -104,13 +105,13 @@ for path_file in $path_33437055_panyard_2021/*; do
       file_name="$(basename -- $path_file)"
       # Organize information in format for LDSC.
       # Parameters.
-      path_destination="$path_access_panyard_2021"
       report="true"
       /usr/bin/bash "$path_scripts/2_organize_gwas_ldsc_33437055_panyard_2021.sh" \
       $file_name \
       $path_file \
       $path_temporary_gwas_format \
       $path_temporary_gwas_format_zip \
+      $path_parent \
       $path_calculate_z_score_column_5_of_6 \
       $report
       # Munge.
