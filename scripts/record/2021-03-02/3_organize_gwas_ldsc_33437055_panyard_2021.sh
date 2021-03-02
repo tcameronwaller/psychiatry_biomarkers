@@ -78,5 +78,5 @@ if [[ "$report" == "true" ]]; then
   echo "----------"
 fi
 
-# Remove any previous versions of temporary files.
+# Remove previous versions of temporary files.
 rm $path_temporary_collection

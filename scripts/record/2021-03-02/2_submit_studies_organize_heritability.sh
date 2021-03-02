@@ -45,7 +45,7 @@ path_heritability_schlosser_2021="$path_heritability/31959995_schlosser_2021"
 path_heritability_panyard_2021="$path_heritability/33437055_panyard_2021"
 
 # Initialize directories.
-rm -r $path_heritability
+#rm -r $path_heritability
 if [ ! -d $path_heritability ]; then
     # Directory does not already exist.
     # Create directory.
@@ -85,6 +85,7 @@ cd $path_33437055_panyard_2021
 metabolite_files=(metabolite_*_meta_analysis_gwas.csv.gz)
 count=${#metabolite_files[@]}
 echo "count of file paths: " $count
+echo "----------"
 #rm $path_metabolites/metabolite_files.txt
 #for path_file in "${metabolite_files[@]}"; do
 #    echo $path_file >> $path_metabolites/metabolite_files.txt
@@ -102,9 +103,10 @@ for path_file in $path_33437055_panyard_2021/*; do
     if [[ "$path_file" == ${pattern} ]]; then
       # File name matches glob pattern.
       file_name="$(basename -- $path_file)"
+      echo "file_name"
       # Organize information in format for LDSC.
       # Parameters.
-      report="true"
+      report="false" # "true" or "false"
       /usr/bin/bash "$path_scripts/2_organize_gwas_ldsc_33437055_panyard_2021.sh" \
       $file_name \
       $path_file \
