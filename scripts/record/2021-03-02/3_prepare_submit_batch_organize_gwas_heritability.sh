@@ -11,12 +11,13 @@
 # Organize variables.
 path_source=$1 # full path to source directory of GWAS summary statistics
 path_destination_parent=$2 # full path to destination directory
-name_prefix=$3 # file name prefix before metabolite identifier or empty string
-name_suffix=$4 # file name suffix after metabolite identifier or empty string
-file_pattern=$5 # glob pattern by which to recognize relevant files in source directory
-path_script_gwas_organization=$6 # full path to script to use for format organization
-path_scripts=$7 # full path to scripts for current implementation pipeline
-path_promiscuity_scripts=$8 # full path to scripts from promiscuity package
+path_genetic_reference=$3 # full path to genetic reference access
+name_prefix=$4 # file name prefix before metabolite identifier or empty string
+name_suffix=$5 # file name suffix after metabolite identifier or empty string
+file_pattern=$6 # glob pattern by which to recognize relevant files in source directory
+path_script_gwas_organization=$7 # full path to script to use for format organization
+path_scripts=$8 # full path to scripts for current implementation pipeline
+path_promiscuity_scripts=$9 # full path to scripts from promiscuity package
 
 path_batch_instances="${path_destination_parent}/batch_instances.txt"
 # Define glob pattern for file paths.
@@ -77,39 +78,20 @@ echo "count of batch instances: " $batch_instances_count
 echo "first batch instance: " ${batch_instances[0]}
 echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 
-path_file=${batch_instances[0]}
-# Determine file name.
-file_name="$(basename -- $path_file)"
-echo "file: " $file_name
-
-# Determine metabolite identifier.
-# Refer to documnetation for test: https://www.freebsd.org/cgi/man.cgi?test
-metabolite=${file_name}
-if [[ ! -z "$name_prefix" ]]; then
-  metabolite=${metabolite/$name_prefix/""}
-fi
-if [[ ! -z "$name_suffix" ]]; then
-  metabolite=${metabolite/$name_suffix/""}
-fi
-echo "metabolite: " $metabolite
-
-
-
-
-
 # Submit array batch to Sun Grid Engine.
 # Array batch indices cannot start at zero.
 # Array batch indices start at one.
 echo "----------------------------------------------------------------------"
 echo "Submit array of batches to Sun Grid Engine."
 echo "----------------------------------------------------------------------"
-if false; then
+if true; then
   qsub -t 1-${batch_instances_count}:1 -o \
   "$path_destination_parent/out.txt" -e "$path_destination_parent/error.txt" \
   $path_scripts/4_run_batch_organize_gwas_ldsc_heritability.sh \
   $path_batch_instances \
   $batch_instances_count \
   $path_destination_parent \
+  $path_genetic_reference \
   $name_prefix \
   $name_suffix \
   $path_script_gwas_organization \

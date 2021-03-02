@@ -8,25 +8,28 @@
 ###########################################################################
 ###########################################################################
 
-
+################################################################################
 # Organize variables.
-file_name=$1 # name of file with GWAS summary statistics
-path_file=$2 # complete path to file with GWAS summary statistics
-path_temporary_gwas_format=$3 # complete path to file for new format
-path_parent=$4 # parent directory for files
-path_calculate_z_score=$5 # complete path to script to use for z-score standardization
-report=$6 # whether to print reports
+metabolite=$1 # unique identifier of the metabolite
+file_name=$2 # name of file with GWAS summary statistics
+path_file=$3 # complete path to file with GWAS summary statistics
+path_temporary_gwas_format=$4 # complete path to file for new format
+path_destination_parent=$5 # parent directory for files
+path_promiscuity_scripts=$6 # complete path to script to use for z-score standardization
+report=$7 # whether to print reports
+
+#path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_4_of_5.sh"
+path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_5_of_6.sh"
 
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
+  echo "metabolite: " $metabolite
   echo "file name: " $file_name
   echo "path to original file: " $path_file
   echo "path to new file: " $path_temporary_gwas_format
   echo "----------"
 fi
-
-
 
 # Format of GWAS summary statistics for LDSC.
 # https://github.com/bulik/ldsc/wiki/Heritability-and-Genetic-Correlation#reformatting-summary-statistics
@@ -51,7 +54,7 @@ fi
 rm $path_temporary_gwas_format
 
 # Define temporary file to collect table's rows.
-path_temporary_collection="$path_parent/temporary_collection.txt"
+path_temporary_collection="$path_destination_parent/temporary_collection.txt"
 
 # Organize information from linear GWAS.
 echo "SNP A1 A2 N BETA P" > $path_temporary_collection

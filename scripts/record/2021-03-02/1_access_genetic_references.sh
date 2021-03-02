@@ -9,11 +9,11 @@ path_temporary=$(<"./processing_bipolar_metabolism.txt")
 path_waller="$path_temporary/waller"
 path_dock="$path_temporary/waller/dock"
 path_genetic_reference="$path_dock/access/genetic_reference"
+path_alleles="$path_genetic_reference/alleles"
 path_disequilibrium="$path_genetic_reference/disequilibrium"
 path_baseline="$path_genetic_reference/baseline"
 path_weights="$path_genetic_reference/weights"
 path_frequencies="$path_genetic_reference/frequencies"
-path_alleles="$path_genetic_reference/alleles"
 
 ###########################################################################
 # Execute procedure.
@@ -34,7 +34,6 @@ if [ ! -d $path_genetic_reference ]; then
     # Directory does not already exist.
     # Create directory.
     mkdir -p $path_genetic_reference
-    mkdir -p $path_access
     mkdir -p $path_alleles
     mkdir -p $path_disequilibrium
     mkdir -p $path_baseline

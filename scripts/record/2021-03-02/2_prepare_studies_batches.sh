@@ -39,6 +39,7 @@ path_calculate_z_score_column_5_of_6="$path_promiscuity_scripts/calculate_z_scor
 path_calculate_z_score_column_4_of_5="$path_promiscuity_scripts/calculate_z_score_column_4_of_5.sh"
 
 path_dock="$path_waller/dock"
+path_genetic_reference="$path_dock/access/genetic_reference"
 path_heritability="$path_dock/heritability"
 path_heritability_shin_2014="$path_heritability/24816252_shin_2014"
 path_heritability_schlosser_2021="$path_heritability/31959995_schlosser_2021"
@@ -85,6 +86,7 @@ path_script_gwas_organization="${path_scripts}/5_organize_gwas_ldsc_33437055_pan
 /usr/bin/bash "$path_scripts/3_prepare_submit_batch_organize_gwas_heritability.sh" \
 $path_source \
 $path_destination_parent \
+$path_genetic_reference \
 $name_prefix \
 $name_suffix \
 $file_pattern \
