@@ -40,10 +40,11 @@ for path_file in $path_source/*; do
   if [ -f "$path_file" ]; then
     # Current content item is a file.
     # Compare to glob pattern to recognize relevant files.
+    echo $path_file >> $path_batch_instances
     if [[ "$path_file" == ${file_pattern} ]]; then
       # File name matches glob pattern.
       # Include full path to file in batch instances.
-      echo $path_file >> $path_batch_instances
+      #echo $path_file >> $path_batch_instances
     fi
   fi
 done
