@@ -44,7 +44,7 @@ for path_file in $path_source/*; do
     if [[ "$path_file" == ${file_pattern} ]]; then
       # File name matches glob pattern.
       # Include full path to file in batch instances.
-      #echo $path_file >> $path_batch_instances
+      echo $path_file >> $path_batch_instances
     fi
   fi
 done
