@@ -67,13 +67,16 @@ $report
 # No need in this situation, since each iteration replaces the previous file.
 #gzip -cvf $path_temporary_gwas_format > $path_temporary_gwas_format_zip
 
-# Remove any previous versions of temporary files.
-rm $path_temporary_collection
-
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "file name: " $file_name
+  echo "before standardization:"
+  head -10 $path_temporary_collection
+  echo "after standardization:"
   head -10 $path_temporary_gwas_format
   echo "----------"
 fi
+
+# Remove any previous versions of temporary files.
+rm $path_temporary_collection
