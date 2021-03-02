@@ -76,6 +76,13 @@ fi
 
 ################################################################################
 
+# Computational note...
+# Iteration for each metabolite...
+# organization of GWAS summary statistics: ~ 1.25 minutes
+# LDSC munge of GWAS summary statistics: ???
+# LDSC heritability: ???
+
+
 # PubMed: 33437055; Author: Panyard; Year: 2021.
 echo "----------------------------------------------------------------------"
 echo "PubMed: 33437055; Author: Panyard; Year: 2021"
@@ -103,7 +110,7 @@ for path_file in $path_33437055_panyard_2021/*; do
     if [[ "$path_file" == ${pattern} ]]; then
       # File name matches glob pattern.
       file_name="$(basename -- $path_file)"
-      echo "file_name"
+      echo "file: " $file_name
       # Organize information in format for LDSC.
       # Parameters.
       report="false" # "true" or "false"
