@@ -44,7 +44,7 @@ if true; then
   # curl -u user:password "path-to-original-file-online" -o "path-to-new-local-copy"
   cd $path_access
   wget -r -l 0 "ftp://ftp.biostat.wisc.edu/pub/lu_group/Projects/MWAS/Panyard_GWAS_sumstats_CSF_metabolites/"
-
+  wget "ftp://ftp.biostat.wisc.edu/pub/lu_group/Projects/MWAS/Panyard_GWAS_sumstats_CSF_metabolites/metabolite_X1107_meta_analysis_gwas.csv.gz"
   #cp -r "${path_access}/ftp.biostat.wisc.edu/pub/lu_group/Projects/MWAS/Panyard_GWAS_sumstats_CSF_metabolites" \
   #$path_access
 

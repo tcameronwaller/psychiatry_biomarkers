@@ -10,8 +10,8 @@
 
 # Organize variables.
 path_source=$1 # full path to source directory of GWAS summary statistics
-file_pattern=$2 # glob pattern by which to recognize relevant files in source directory
-path_destination_parent=$3 # full path to destination directory
+path_destination_parent=$2 # full path to destination directory
+file_pattern=$3 # glob pattern by which to recognize relevant files in source directory
 path_script_gwas_organization=$4 # full path to script to use for format organization
 path_scripts=$5 # full path to scripts for current implementation pipeline
 path_promiscuity_scripts=$6 # full path to scripts from promiscuity package
@@ -23,7 +23,7 @@ path_batch_instances="${path_destination_parent}/batch_instances.txt"
 path_pattern="${path_source}/${file_pattern}"
 
 # Initialize directories.
-rm -r $path_destination_parent
+#rm -r $path_destination_parent
 if [ ! -d $path_destination_parent ]; then
     # Directory does not already exist.
     # Create directory.
@@ -89,4 +89,4 @@ if false; then
   $path_promiscuity_scripts
 fi
 
-less $path_batch_instances
+#less $path_batch_instances
