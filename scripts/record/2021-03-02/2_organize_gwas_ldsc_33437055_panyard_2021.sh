@@ -13,9 +13,9 @@
 file_name=$1 # name of file with GWAS summary statistics
 path_file=$2 # complete path to file with GWAS summary statistics
 path_temporary_gwas_format=$3 # complete path to file for new format
-path_parent=$5 # parent directory for files
-path_calculate_z_score=$6 # complete path to script to use for z-score standardization
-report=$7 # whether to print reports
+path_parent=$4 # parent directory for files
+path_calculate_z_score=$5 # complete path to script to use for z-score standardization
+report=$6 # whether to print reports
 
 # Report.
 if [[ "$report" == "true" ]]; then

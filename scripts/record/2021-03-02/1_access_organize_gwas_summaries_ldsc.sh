@@ -90,7 +90,7 @@ echo "count of file paths: " $count
 #    echo $path_file >> $path_metabolites/metabolite_files.txt
 #done
 # Define paths to temporary files for each iteration.
-path_parent="$path_heritability_panyard_2021"
+path_parent=$path_heritability_panyard_2021
 path_temporary_gwas_format="$path_heritability_panyard_2021/temporary_gwas_format.txt"
 # Define glob pattern to recognize relevant files.
 pattern="${path_33437055_panyard_2021}/metabolite_*_meta_analysis_gwas.csv.gz"
