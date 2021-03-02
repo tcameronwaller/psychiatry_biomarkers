@@ -28,6 +28,8 @@ fi
 echo "----------------------------------------------------------------------"
 echo "Organize array of batch instances."
 echo "----------------------------------------------------------------------"
+echo "----------"
+echo "destination path: " $path_destination_parent
 # Collect batch instances.
 path_batch_instances="${path_destination_parent}/batch_instances.txt"
 #cd $path_source
@@ -40,14 +42,18 @@ for path_file in $path_source/*; do
   if [ -f "$path_file" ]; then
     # Current content item is a file.
     # Compare to glob pattern to recognize relevant files.
+    echo $path_file
     echo $path_file >> $path_batch_instances
     if [[ "$path_file" == ${file_pattern} ]]; then
       # File name matches glob pattern.
       # Include full path to file in batch instances.
+      echo $path_file
       echo $path_file >> $path_batch_instances
     fi
   fi
 done
+
+less $path_batch_instances
 
 # Read batch instances.
 readarray -t batch_instances < $path_batch_instances
