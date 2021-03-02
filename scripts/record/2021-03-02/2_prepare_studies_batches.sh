@@ -50,79 +50,39 @@ if [ ! -d $path_heritability ]; then
     # Directory does not already exist.
     # Create directory.
     mkdir -p $path_heritability
-    mkdir -p $path_heritability_shin_2014
-    mkdir -p $path_heritability_schlosser_2021
-    mkdir -p $path_heritability_panyard_2021
 fi
 
-# Format of GWAS summary statistics for LDSC.
-# https://github.com/bulik/ldsc/wiki/Heritability-and-Genetic-Correlation#reformatting-summary-statistics
-# description: ............................ LDSC column
-# variant identifier: ........................ "SNP"
-# alternate allele (effect allele): .......... "A1"
-# reference allele (non-effect allele): ...... "A2"
-# sample size: ............................... "N"
-# effect (coefficient or odds ratio): ........ "BETA" or "OR"
-# probability (p-value): ..................... "P"
-
-# Format of GWAS summary statistics for PRS-CS.
-# https://github.com/getian107/PRScs
-# description: ............................ LDSC column
-# variant identifier: ........................ "SNP"
-# alternate allele (effect allele): .......... "A1"
-# reference allele (non-effect allele): ...... "A2"
-# effect (coefficient or odds ratio): ........ "BETA" or "OR"
-# probability (p-value): ..................... "P"
-
 ################################################################################
-
-# Computational note...
-# Iteration for each metabolite...
-# organization of GWAS summary statistics: ~ 1.25 minutes
+# Computational time
+# Running on head node
+# Iteration for each metabolite
+# format and standardization of GWAS summary statistics: ~ 45 seconds
 # LDSC munge of GWAS summary statistics: ???
 # LDSC heritability: ???
 
+# TODO: I DEFINITELY need to parallelize this on the cluster... organize batch jobs...
+# TODO: print the format and z-score reports to log file for each metabolite...
 
+################################################################################
 # PubMed: 33437055; Author: Panyard; Year: 2021.
-echo "----------------------------------------------------------------------"
+echo "--------------------------------------------------"
+echo "--------------------------------------------------"
+echo "--------------------------------------------------"
 echo "PubMed: 33437055; Author: Panyard; Year: 2021"
 echo "Human genome version: GRCh37, hg19"
-echo "----------------------------------------------------------------------"
-cd $path_33437055_panyard_2021
-metabolite_files=(metabolite_*_meta_analysis_gwas.csv.gz)
-count=${#metabolite_files[@]}
-echo "count of file paths: " $count
-echo "----------"
-#rm $path_metabolites/metabolite_files.txt
-#for path_file in "${metabolite_files[@]}"; do
-#    echo $path_file >> $path_metabolites/metabolite_files.txt
-#done
-# Define paths to temporary files for each iteration.
-path_parent=$path_heritability_panyard_2021
-path_temporary_gwas_format="$path_heritability_panyard_2021/temporary_gwas_format.txt"
-# Define glob pattern to recognize relevant files.
-pattern="${path_33437055_panyard_2021}/metabolite_*_meta_analysis_gwas.csv.gz"
-# Iterate on all files and directories in parent directory.
-for path_file in $path_33437055_panyard_2021/*; do
-  if [ -f "$path_file" ]; then
-    # Current content item is a file.
-    #echo $file
-    if [[ "$path_file" == ${pattern} ]]; then
-      # File name matches glob pattern.
-      file_name="$(basename -- $path_file)"
-      echo "file: " $file_name
-      # Organize information in format for LDSC.
-      # Parameters.
-      report="false" # "true" or "false"
-      /usr/bin/bash "$path_scripts/3_organize_gwas_ldsc_33437055_panyard_2021.sh" \
-      $file_name \
-      $path_file \
-      $path_temporary_gwas_format \
-      $path_parent \
-      $path_calculate_z_score_column_5_of_6 \
-      $report
-      # Munge.
-      # Heritability.
-    fi
-  fi
-done
+echo "--------------------------------------------------"
+echo "--------------------------------------------------"
+echo "--------------------------------------------------"
+# Parameters.
+path_source=$path_33437055_panyard_2021
+file_pattern="${path_33437055_panyard_2021}/metabolite_*_meta_analysis_gwas.csv.gz"
+path_destination_parent=$path_heritability_panyard_2021
+path_script_gwas_organization="${path_scripts}/5_organize_gwas_ldsc_33437055_panyard_2021.sh"
+# Prepare and submit batch.
+/usr/bin/bash "$path_scripts/3_prepare_submit_batch_organize_gwas_heritability.sh" \
+$path_source \
+$file_pattern \
+$path_destination_parent \
+$path_script_gwas_organization \
+$path_scripts \
+$path_promiscuity_scripts
