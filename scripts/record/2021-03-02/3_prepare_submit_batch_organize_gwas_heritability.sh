@@ -16,6 +16,9 @@ path_script_gwas_organization=$4 # full path to script to use for format organiz
 path_scripts=$5 # full path to scripts for current implementation pipeline
 path_promiscuity_scripts=$6 # full path to scripts from promiscuity package
 
+path_pattern="${path_source}/{$file_pattern}"
+path_batch_instances="${path_destination_parent}/batch_instances.txt"
+
 # Initialize directories.
 #rm -r $path_destination_parent
 if [ ! -d $path_destination_parent ]; then
@@ -30,15 +33,16 @@ echo "Report."
 echo "----------------------------------------------------------------------"
 echo "----------"
 echo "source path: " $path_source
-echo "file pattern: " $file_pattern
+echo "file path pattern: " $path_pattern
 echo "destination path: " $path_destination_parent
+echo "path to batch instances: " $path_batch_instances
+echo "----------"
 
 # Organize instances for iteration.
 echo "----------------------------------------------------------------------"
 echo "Organize array of batch instances."
 echo "----------------------------------------------------------------------"
 # Collect batch instances.
-path_batch_instances="${path_destination_parent}/batch_instances.txt"
 #cd $path_source
 #metabolite_files=(metabolite_*_meta_analysis_gwas.csv.gz)
 #for path_file in "${metabolite_files[@]}"; do
@@ -51,7 +55,7 @@ for path_file in $path_source/*; do
     # Compare to glob pattern to recognize relevant files.
     echo $path_file
     echo $path_file >> $path_batch_instances
-    if [[ "$path_file" == ${file_pattern} ]]; then
+    if [[ "$path_file" == ${path_pattern} ]]; then
       # File name matches glob pattern.
       # Include full path to file in batch instances.
       echo $path_file
@@ -60,7 +64,7 @@ for path_file in $path_source/*; do
   fi
 done
 
-less $path_batch_instances
+#less $path_batch_instances
 
 # Read batch instances.
 readarray -t batch_instances < $path_batch_instances

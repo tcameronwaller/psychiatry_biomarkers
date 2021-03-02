@@ -70,13 +70,14 @@ echo "--------------------------------------------------"
 echo "--------------------------------------------------"
 echo "PubMed: 33437055; Author: Panyard; Year: 2021"
 echo "Human genome version: GRCh37, hg19"
+echo "destination path: " $path_heritability_panyard_2021
 echo "--------------------------------------------------"
 echo "--------------------------------------------------"
 echo "--------------------------------------------------"
 # Parameters.
 path_source=$path_33437055_panyard_2021
-file_pattern="${path_33437055_panyard_2021}/metabolite_*_meta_analysis_gwas.csv.gz"
-path_destination_parent=$path_heritability_panyard_2021
+file_pattern="metabolite_*_meta_analysis_gwas.csv.gz"
+path_destination_parent=${path_heritability_panyard_2021}
 path_script_gwas_organization="${path_scripts}/5_organize_gwas_ldsc_33437055_panyard_2021.sh"
 # Prepare and submit batch.
 /usr/bin/bash "$path_scripts/3_prepare_submit_batch_organize_gwas_heritability.sh" \
