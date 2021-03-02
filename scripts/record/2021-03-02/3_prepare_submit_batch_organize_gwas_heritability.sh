@@ -16,7 +16,7 @@ path_script_gwas_organization=$4 # full path to script to use for format organiz
 path_scripts=$5 # full path to scripts for current implementation pipeline
 path_promiscuity_scripts=$6 # full path to scripts from promiscuity package
 
-path_pattern="${path_source}/{$file_pattern}"
+path_pattern="${path_source}/${file_pattern}"
 path_batch_instances="${path_destination_parent}/batch_instances.txt"
 
 # Initialize directories.
