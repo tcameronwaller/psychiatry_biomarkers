@@ -13,7 +13,6 @@
 file_name=$1 # name of file with GWAS summary statistics
 path_file=$2 # complete path to file with GWAS summary statistics
 path_temporary_gwas_format=$3 # complete path to file for new format
-path_temporary_gwas_format_zip=$4 # complete path to file for new format after compression
 path_parent=$5 # parent directory for files
 path_calculate_z_score=$6 # complete path to script to use for z-score standardization
 report=$7 # whether to print reports
@@ -21,13 +20,9 @@ report=$7 # whether to print reports
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
-  echo "----------"
-  echo "----------"
   echo "file name: " $file_name
   echo "path to original file: " $path_file
   echo "path to new file: " $path_temporary_gwas_format
-  echo "----------"
-  echo "----------"
   echo "----------"
 fi
 
@@ -54,7 +49,6 @@ fi
 
 # Remove any previous versions of temporary files.
 rm $path_temporary_gwas_format
-rm $path_temporary_gwas_format_zip
 
 # Define temporary file to collect table's rows.
 path_temporary_collection="$path_parent/temporary_collection.txt"
@@ -69,7 +63,9 @@ $path_temporary_collection \
 $path_temporary_gwas_format \
 $report
 
-gzip -cvf $path_temporary_gwas_format > $path_temporary_gwas_format_zip
+# Compress file format.
+# No need in this situation, since each iteration replaces the previous file.
+#gzip -cvf $path_temporary_gwas_format > $path_temporary_gwas_format_zip
 
 # Remove any previous versions of temporary files.
 rm $path_temporary_collection
@@ -77,12 +73,7 @@ rm $path_temporary_collection
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
-  echo "----------"
-  echo "----------"
   echo "file name: " $file_name
   head -10 $path_temporary_gwas_format
-  head -10 $path_temporary_gwas_format_zip
-  echo "----------"
-  echo "----------"
   echo "----------"
 fi

@@ -92,7 +92,6 @@ echo "count of file paths: " $count
 # Define paths to temporary files for each iteration.
 path_parent="$path_heritability_panyard_2021"
 path_temporary_gwas_format="$path_heritability_panyard_2021/temporary_gwas_format.txt"
-path_temporary_gwas_format_zip="$path_heritability_panyard_2021/temporary_gwas_format.txt.gz"
 # Define glob pattern to recognize relevant files.
 pattern="${path_33437055_panyard_2021}/metabolite_*_meta_analysis_gwas.csv.gz"
 # Iterate on all files and directories in parent directory.
@@ -110,7 +109,6 @@ for path_file in $path_33437055_panyard_2021/*; do
       $file_name \
       $path_file \
       $path_temporary_gwas_format \
-      $path_temporary_gwas_format_zip \
       $path_parent \
       $path_calculate_z_score_column_5_of_6 \
       $report
