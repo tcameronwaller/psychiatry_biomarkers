@@ -77,12 +77,16 @@ echo "--------------------------------------------------"
 # Parameters.
 path_source=$path_33437055_panyard_2021
 path_destination_parent=${path_heritability_panyard_2021}
+name_prefix="metabolite_" # file name prefix before metabolite identifier or empty string
+name_suffix="_meta_analysis_gwas.csv.gz" # file name suffix after metabolite identifier or empty string
 file_pattern="metabolite_*_meta_analysis_gwas.csv.gz" # do not expand with full path yet
 path_script_gwas_organization="${path_scripts}/5_organize_gwas_ldsc_33437055_panyard_2021.sh"
 # Prepare and submit batch.
 /usr/bin/bash "$path_scripts/3_prepare_submit_batch_organize_gwas_heritability.sh" \
 $path_source \
 $path_destination_parent \
+$name_prefix \
+$name_suffix \
 $file_pattern \
 $path_script_gwas_organization \
 $path_scripts \

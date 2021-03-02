@@ -11,15 +11,17 @@
 # Organize variables.
 path_source=$1 # full path to source directory of GWAS summary statistics
 path_destination_parent=$2 # full path to destination directory
-file_pattern=$3 # glob pattern by which to recognize relevant files in source directory
-path_script_gwas_organization=$4 # full path to script to use for format organization
-path_scripts=$5 # full path to scripts for current implementation pipeline
-path_promiscuity_scripts=$6 # full path to scripts from promiscuity package
+name_prefix=$3 # file name prefix before metabolite identifier or empty string
+name_suffix=$4 # file name suffix after metabolite identifier or empty string
+file_pattern=$5 # glob pattern by which to recognize relevant files in source directory
+path_script_gwas_organization=$6 # full path to script to use for format organization
+path_scripts=$7 # full path to scripts for current implementation pipeline
+path_promiscuity_scripts=$8 # full path to scripts from promiscuity package
 
 path_batch_instances="${path_destination_parent}/batch_instances.txt"
 # Define glob pattern for file paths.
-# This definition expands to an array of all files in the path that match the
-# pattern.
+# This definition expands to an array of all files in the path directory that
+# match the pattern.
 path_pattern="${path_source}/${file_pattern}"
 
 # Initialize directories.
@@ -74,8 +76,30 @@ echo "----------"
 echo "count of batch instances: " $batch_instances_count
 echo "first batch instance: " ${batch_instances[0]}
 echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
+
+path_file=${batch_instances[0]}
+# Determine file name.
+file_name="$(basename -- $path_file)"
+echo "file: " $file_name
+
+# Determine metabolite identifier.
+# Refer to documnetation for test: https://www.freebsd.org/cgi/man.cgi?test
+metabolite=${file_name}
+if [[ ! -z "$name_prefix" ]]; then
+  metabolite=${metabolite/$name_prefix/""}
+fi
+if [[ ! -z "$name_suffix" ]]; then
+  metabolite=${metabolite/$name_suffix/""}
+fi
+echo "metabolite: " $metabolite
+
+
+
+
+
 # Submit array batch to Sun Grid Engine.
 # Array batch indices cannot start at zero.
+# Array batch indices start at one.
 echo "----------------------------------------------------------------------"
 echo "Submit array of batches to Sun Grid Engine."
 echo "----------------------------------------------------------------------"
@@ -86,9 +110,9 @@ if false; then
   $path_batch_instances \
   $batch_instances_count \
   $path_destination_parent \
+  $name_prefix \
+  $name_suffix \
   $path_script_gwas_organization \
   $path_scripts \
   $path_promiscuity_scripts
 fi
-
-#less $path_batch_instances

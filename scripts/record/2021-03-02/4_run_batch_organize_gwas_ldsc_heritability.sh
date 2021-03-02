@@ -40,40 +40,46 @@
 ###########################################################################
 # Organize variables.
 
-batch_index=$((SGE_TASK_ID-1))
-path_batch_instances=$1
+path_batch_instances=$1 # text list of information for each instance in batch
+batch_instances_count=$2 # count of instances in batch
+path_destination_parent=$3 # full path to destination directory
+name_prefix=$4 # file name prefix before metabolite identifier or empty string
+name_suffix=$5 # file name suffix after metabolite identifier or empty string
+path_script_gwas_organization=$6 # full path to script to use for format organization
+path_scripts=$7 # full path to scripts for current implementation pipeline
+path_promiscuity_scripts=$8 # full path to scripts from promiscuity package
 
-batch_index=$SGE_TASK_ID
-path_table_phenotypes_covariates=$1
-path_report=$2
-analysis=$3
-phenotypes=$4
-covariates=$5
-threads=$6
-maf=$7
+# Determine batch instance.
+batch_index=$((SGE_TASK_ID-1))
+readarray -t batch_instances < $path_batch_instances
+path_file=${batch_instances[$batch_index]}
+
+# Determine file name.
+file_name="$(basename -- $path_file)"
+echo "file: " $file_name
+
+# Determine metabolite identifier.
+# Refer to documnetation for test: https://www.freebsd.org/cgi/man.cgi?test
+metabolite=${file_name}
+if [[ ! -z "$name_prefix" ]]; then
+  metabolite=${metabolite/$name_prefix/""}
+fi
+if [[ ! -z "$name_suffix" ]]; then
+  metabolite=${metabolite/$name_suffix/""}
+fi
+
 
 ###########################################################################
 # Organize paths.
-
 # Read private, local file paths.
-echo "read private file path variables and organize paths..."
 cd ~/paths
-path_plink2=$(<"./tools_user_plink2.txt")
-path_ukb_genotype=$(<"./ukbiobank_genotype.txt")
-
-
-path_temporary_gwas_format="$path_destination_parent/temporary_gwas_format.txt"
+path_ldsc=$(<"./tools_ldsc.txt")
+path_temporary_gwas_format="${path_destination_parent}/temporary_gwas_format.txt"
+path_temporary_gwas_munge="${path_destination_parent}/temporary_gwas_munge.txt"
 
 ###########################################################################
 # Execute procedure.
 
-# Determine batch instance.
-readarray -t batch_instances < $path_batch_instances
-path_file=${batch_instances[$batch_index]}
-
-# Extract file name.
-file_name="$(basename -- $path_file)"
-echo "file: " $file_name
 # Organize information in format for LDSC.
 # Parameters.
 report="true" # "true" or "false"
@@ -86,15 +92,3 @@ $path_calculate_z_score_column_5_of_6 \
 $report
 # Munge.
 # Heritability.
-
-
-
-# Set directory.
-path_chromosome="$path_report/chromosome_$chromosome"
-# Determine whether the temporary directory structure already exists.
-if [ ! -d $path_chromosome ]; then
-    # Directory does not already exist.
-    # Create directory.
-    mkdir -p $path_chromosome
-fi
-cd $path_chromosome
