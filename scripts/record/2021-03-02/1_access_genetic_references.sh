@@ -48,8 +48,8 @@ cd $path_genetic_reference
 
 # Definitions of Simple Nucleotide Variant alleles.
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2
-bunzip2 "$path_access/w_hm3.snplist.bz2"
-mv "$path_access/w_hm3.snplist" "$path_alleles/w_hm3.snplist"
+bunzip2 "$path_genetic_reference/w_hm3.snplist.bz2"
+mv "$path_genetic_reference/w_hm3.snplist" "$path_alleles/w_hm3.snplist"
 # w_hm3.snplist
 
 # Linkage disequilibrium scores for European population.
