@@ -61,7 +61,8 @@ path_temporary_format="${path_destination_parent}/temporary_gwas_format_${metabo
 path_temporary_munge="${path_destination_parent}/temporary_munge_${metabolite}"
 path_temporary_munge_gwas="${path_temporary_munge}.sumstats.gz"
 path_temporary_munge_log="${path_temporary_munge}.log"
-path_metabolite_heritability="${path_destination_parent}/heritability_${metabolite}.txt"
+path_metabolite_heritability="${path_destination_parent}/heritability_${metabolite}"
+path_metabolite_heritability_log="${path_destination_parent}/heritability_${metabolite}"
 
 ###########################################################################
 # Execute procedure.
