@@ -99,7 +99,7 @@ if false; then
   $path_promiscuity_scripts
 fi
 if true; then
-  for path_file in $batch_instances; do
+  for path_file in "${batch_instances[@]}"; do
     /usr/bin/bash "$path_scripts/5_execute_procedure_metabolite.sh" \
     $path_file \
     $path_destination_parent \
