@@ -57,7 +57,7 @@ fi
 ###########################################################################
 # Execute procedure.
 
-$path_scripts/5_execute_procedure_metabolite.sh \
+/usr/bin/bash "$path_scripts/5_execute_procedure_metabolite.sh" \
 $path_file \
 $path_destination_parent \
 $path_genetic_reference \
