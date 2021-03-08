@@ -94,7 +94,7 @@ $path_ldsc/ldsc.py \
 
 ###########################################################################
 # Remove temporary files.
-#rm $path_temporary_collection
-#rm $path_temporary_format
-#rm $path_temporary_munge
-#rm $path_temporary_munge_suffix
+rm $path_temporary_collection
+rm $path_temporary_format
+rm $path_temporary_munge
+rm $path_temporary_munge_suffix

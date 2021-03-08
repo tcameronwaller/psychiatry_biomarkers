@@ -78,13 +78,13 @@ echo "count of batch instances: " $batch_instances_count
 echo "first batch instance: " ${batch_instances[0]}
 echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 
-# Submit array batch to Sun Grid Engine.
-# Array batch indices cannot start at zero.
-# Array batch indices start at one.
-echo "----------------------------------------------------------------------"
-echo "Submit array of batches to Sun Grid Engine."
-echo "----------------------------------------------------------------------"
 if false; then
+  # Submit array batch to Sun Grid Engine.
+  # Array batch indices cannot start at zero.
+  # Array batch indices start at one.
+  echo "----------------------------------------------------------------------"
+  echo "Submit array of batches to Sun Grid Engine."
+  echo "----------------------------------------------------------------------"
   qsub -t 1-${batch_instances_count}:1 -o \
   "$path_destination_parent/out.txt" -e "$path_destination_parent/error.txt" \
   $path_scripts/4_run_batch_organize_gwas_ldsc_heritability.sh \
@@ -97,4 +97,17 @@ if false; then
   $path_script_gwas_organization \
   $path_scripts \
   $path_promiscuity_scripts
+fi
+if true; then
+  for path_file in batch_instances; do
+    /usr/bin/bash "$path_scripts/5_execute_procedure_metabolite.sh" \
+    $path_file \
+    $path_destination_parent \
+    $path_genetic_reference \
+    $name_prefix \
+    $name_suffix \
+    $path_script_gwas_organization \
+    $path_scripts \
+    $path_promiscuity_scripts
+  done
 fi
