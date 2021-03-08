@@ -20,7 +20,8 @@
 # "1-hour", "1-day", "4-day", "7-day", "30-day", "lg-mem"
 #$ -q 1-day
 # Priority -1023 to 1024.
-#$ -p 1024
+# Increasing priority from default (zero) requires operator privileges.
+### -p 1024
 # Memory per iteration.
 # Segmentation errors commonly indicate a memory error.
 #$ -l h_vmem=5G

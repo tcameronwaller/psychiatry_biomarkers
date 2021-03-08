@@ -44,7 +44,7 @@ path_heritability_schlosser_2021="$path_heritability/31959995_schlosser_2021"
 path_heritability_panyard_2021="$path_heritability/33437055_panyard_2021"
 
 # Initialize directories.
-rm -r $path_heritability
+#rm -r $path_heritability
 if [ ! -d $path_heritability ]; then
     # Directory does not already exist.
     # Create directory.
