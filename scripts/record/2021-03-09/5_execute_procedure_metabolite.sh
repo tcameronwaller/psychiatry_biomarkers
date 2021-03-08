@@ -59,7 +59,8 @@ path_frequencies="$path_genetic_reference/frequencies"
 path_temporary_collection="${path_destination_parent}/temporary_gwas_collection_${metabolite}.txt"
 path_temporary_format="${path_destination_parent}/temporary_gwas_format_${metabolite}.txt"
 path_temporary_munge="${path_destination_parent}/temporary_munge_${metabolite}"
-path_temporary_munge_suffix="${path_temporary_munge}.sumstats.gz"
+path_temporary_munge_gwas="${path_temporary_munge}.sumstats.gz"
+path_temporary_munge_log="${path_temporary_munge}.log"
 path_metabolite_heritability="${path_destination_parent}/heritability_${metabolite}.txt"
 
 ###########################################################################
@@ -67,7 +68,7 @@ path_metabolite_heritability="${path_destination_parent}/heritability_${metaboli
 
 # Organize information in format for LDSC.
 # Parameters.
-report="true" # "true" or "false"
+report="false" # "true" or "false"
 /usr/bin/bash "$path_script_gwas_organization" \
 $metabolite \
 $file_name \
@@ -87,7 +88,7 @@ $path_ldsc/munge_sumstats.py \
 
 # Heritability.
 $path_ldsc/ldsc.py \
---h2 $path_temporary_munge_suffix \
+--h2 $path_temporary_munge_gwas \
 --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --out $path_metabolite_heritability
@@ -96,5 +97,5 @@ $path_ldsc/ldsc.py \
 # Remove temporary files.
 rm $path_temporary_collection
 rm $path_temporary_format
-rm $path_temporary_munge
-rm $path_temporary_munge_suffix
+rm $path_temporary_munge_gwas
+#rm $path_temporary_munge_log
