@@ -78,7 +78,7 @@ echo "count of batch instances: " $batch_instances_count
 echo "first batch instance: " ${batch_instances[0]}
 echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 
-if false; then
+if true; then
   # Submit array batch to Sun Grid Engine.
   # Array batch indices cannot start at zero.
   # Array batch indices start at one.
@@ -98,7 +98,7 @@ if false; then
   $path_scripts \
   $path_promiscuity_scripts
 fi
-if true; then
+if false; then
   for path_file in "${batch_instances[@]}"; do
     /usr/bin/bash "$path_scripts/5_execute_procedure_metabolite.sh" \
     $path_file \

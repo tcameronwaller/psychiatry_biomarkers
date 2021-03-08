@@ -19,11 +19,11 @@
 # Queue.
 # "1-hour", "1-day", "4-day", "7-day", "30-day", "lg-mem"
 #$ -q 1-day
-# Priority 0-15.
-### -p -10
+# Priority -1023 to 1024.
+#$ -p 1024
 # Memory per iteration.
 # Segmentation errors commonly indicate a memory error.
-#$ -l h_vmem=10G
+#$ -l h_vmem=5G
 # Concurrent threads; assigns value to variable NSLOTS.
 # Important to specify 32 threads to avoid inconsistency with interactive
 # calculations.
@@ -58,7 +58,7 @@ path_file=${batch_instances[$batch_index]}
 ###########################################################################
 # Execute procedure.
 
-$path_scripts/5_execute_procedure_metabolite.sh \
+/usr/bin/bash "$path_scripts/5_execute_procedure_metabolite.sh" \
 $path_file \
 $path_destination_parent \
 $path_genetic_reference \
