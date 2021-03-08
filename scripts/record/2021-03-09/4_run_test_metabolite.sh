@@ -41,13 +41,13 @@ name_suffix="_meta_analysis_gwas.csv.gz" # file name suffix after metabolite ide
 path_script_gwas_organization="${path_scripts}/6_organize_gwas_ldsc_33437055_panyard_2021.sh"
 
 # Initialize directories.
-#rm -r $path_heritability
+rm -r $path_heritability
 if [ ! -d $path_heritability ]; then
     # Directory does not already exist.
     # Create directory.
     mkdir -p $path_heritability
 fi
-#rm -r $path_destination_parent
+rm -r $path_destination_parent
 if [ ! -d $path_destination_parent ]; then
     # Directory does not already exist.
     # Create directory.
@@ -56,6 +56,11 @@ fi
 
 ###########################################################################
 # Execute procedure.
+
+# TODO: the problem is the use of a general "temporary collection" file name 6_organize_gwas_ldsc_33437055_panyard_2021.sh
+
+
+
 
 /usr/bin/bash "$path_scripts/5_execute_procedure_metabolite.sh" \
 $path_file \

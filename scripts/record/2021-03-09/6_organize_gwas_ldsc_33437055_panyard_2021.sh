@@ -54,7 +54,10 @@ fi
 rm $path_temporary_gwas_format
 
 # Define temporary file to collect table's rows.
-path_temporary_collection="$path_destination_parent/temporary_collection.txt"
+# Even temporary files need to have names specific to each metabolite.
+# During parallel processing, multiple temporary files will exist
+# simultaneously.
+path_temporary_collection="${path_destination_parent}/temporary_collection_${metabolite}.txt"
 
 # Organize information from linear GWAS.
 echo "SNP A1 A2 N BETA P" > $path_temporary_collection
@@ -82,4 +85,4 @@ if [[ "$report" == "true" ]]; then
 fi
 
 # Remove previous versions of temporary files.
-rm $path_temporary_collection
+#rm $path_temporary_collection
