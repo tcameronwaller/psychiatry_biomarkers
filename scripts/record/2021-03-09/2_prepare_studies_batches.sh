@@ -33,10 +33,8 @@ path_33437055_panyard_2021="$path_gwas_summaries/33437055_panyard_2021"
 path_temporary=$(<"./processing_bipolar_metabolism.txt")
 path_waller="$path_temporary/waller"
 path_bipolar_metabolism="$path_waller/bipolar_metabolism"
-path_scripts="$path_waller/bipolar_metabolism/scripts/record/2021-03-02"
+path_scripts="$path_waller/bipolar_metabolism/scripts/record/2021-03-09"
 path_promiscuity_scripts="$path_waller/promiscuity/scripts"
-path_calculate_z_score_column_5_of_6="$path_promiscuity_scripts/calculate_z_score_column_5_of_6.sh"
-path_calculate_z_score_column_4_of_5="$path_promiscuity_scripts/calculate_z_score_column_4_of_5.sh"
 
 path_dock="$path_waller/dock"
 path_genetic_reference="$path_dock/access/genetic_reference"
@@ -81,7 +79,7 @@ path_destination_parent=${path_heritability_panyard_2021}
 name_prefix="metabolite_" # file name prefix before metabolite identifier or empty string
 name_suffix="_meta_analysis_gwas.csv.gz" # file name suffix after metabolite identifier or empty string
 file_pattern="metabolite_*_meta_analysis_gwas.csv.gz" # do not expand with full path yet
-path_script_gwas_organization="${path_scripts}/5_organize_gwas_ldsc_33437055_panyard_2021.sh"
+path_script_gwas_organization="${path_scripts}/6_organize_gwas_ldsc_33437055_panyard_2021.sh"
 # Prepare and submit batch.
 /usr/bin/bash "$path_scripts/3_prepare_submit_batch_organize_gwas_heritability.sh" \
 $path_source \

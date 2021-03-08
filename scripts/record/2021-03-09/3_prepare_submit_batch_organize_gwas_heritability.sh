@@ -84,7 +84,7 @@ echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 echo "----------------------------------------------------------------------"
 echo "Submit array of batches to Sun Grid Engine."
 echo "----------------------------------------------------------------------"
-if true; then
+if false; then
   qsub -t 1-${batch_instances_count}:1 -o \
   "$path_destination_parent/out.txt" -e "$path_destination_parent/error.txt" \
   $path_scripts/4_run_batch_organize_gwas_ldsc_heritability.sh \
