@@ -56,7 +56,8 @@ path_frequencies="$path_genetic_reference/frequencies"
 # Even temporary files need to have names specific to each metabolite.
 # During parallel processing, multiple temporary files will exist
 # simultaneously.
-path_temporary_gwas_format="${path_destination_parent}/temporary_gwas_format_${metabolite}.txt"
+path_temporary_collection="${path_destination_parent}/temporary_gwas_collection_${metabolite}.txt"
+path_temporary_format="${path_destination_parent}/temporary_gwas_format_${metabolite}.txt"
 path_temporary_munge="${path_destination_parent}/temporary_munge_${metabolite}"
 path_temporary_munge_suffix="${path_temporary_munge}.sumstats.gz"
 path_metabolite_heritability="${path_destination_parent}/heritability_${metabolite}.txt"
@@ -71,14 +72,15 @@ report="true" # "true" or "false"
 $metabolite \
 $file_name \
 $path_file \
-$path_temporary_gwas_format \
+$path_temporary_collection \
+$path_temporary_format \
 $path_destination_parent \
 $path_promiscuity_scripts \
 $report
 
 # Munge.
 $path_ldsc/munge_sumstats.py \
---sumstats $path_temporary_gwas_format \
+--sumstats $path_temporary_format \
 --out $path_temporary_munge \
 --merge-alleles $path_alleles/w_hm3.snplist \
 #--a1-inc
@@ -92,5 +94,7 @@ $path_ldsc/ldsc.py \
 
 ###########################################################################
 # Remove temporary files.
-#rm $path_temporary_gwas_format
-#rm $path_temporary_gwas_munge
+#rm $path_temporary_collection
+#rm $path_temporary_format
+#rm $path_temporary_munge
+#rm $path_temporary_munge_suffix

@@ -13,10 +13,11 @@
 metabolite=$1 # unique identifier of the metabolite
 file_name=$2 # name of file with GWAS summary statistics
 path_file=$3 # complete path to file with GWAS summary statistics
-path_temporary_gwas_format=$4 # complete path to file for new format
-path_destination_parent=$5 # parent directory for files
-path_promiscuity_scripts=$6 # complete path to script to use for z-score standardization
-report=$7 # whether to print reports
+path_temporary_collection=$4 # full path to temporary file for collection
+path_temporary_format=$5 # full path to file for new format
+path_destination_parent=$6 # parent directory for files
+path_promiscuity_scripts=$7 # complete path to script to use for z-score standardization
+report=$8 # whether to print reports
 
 #path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_4_of_5.sh"
 path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_5_of_6.sh"
@@ -27,7 +28,7 @@ if [[ "$report" == "true" ]]; then
   echo "metabolite: " $metabolite
   echo "file name: " $file_name
   echo "path to original file: " $path_file
-  echo "path to new file: " $path_temporary_gwas_format
+  echo "path to new file: " $path_temporary_format
   echo "----------"
 fi
 
@@ -51,13 +52,7 @@ fi
 # probability (p-value): ..................... "P"
 
 # Remove any previous versions of temporary files.
-rm $path_temporary_gwas_format
-
-# Define temporary file to collect table's rows.
-# Even temporary files need to have names specific to each metabolite.
-# During parallel processing, multiple temporary files will exist
-# simultaneously.
-path_temporary_collection="${path_destination_parent}/temporary_collection_${metabolite}.txt"
+rm $path_temporary_format
 
 # Organize information from linear GWAS.
 echo "SNP A1 A2 N BETA P" > $path_temporary_collection
@@ -66,7 +61,7 @@ zcat $path_file | awk 'BEGIN { FS=","; OFS=" " } NR > 1 {print $1, toupper($4), 
 /usr/bin/bash $path_calculate_z_score \
 5 \
 $path_temporary_collection \
-$path_temporary_gwas_format \
+$path_temporary_format \
 $report
 
 # Compress file format.
@@ -80,9 +75,6 @@ if [[ "$report" == "true" ]]; then
   echo "before standardization:"
   head -10 $path_temporary_collection
   echo "after standardization:"
-  head -10 $path_temporary_gwas_format
+  head -10 $path_temporary_format
   echo "----------"
 fi
-
-# Remove previous versions of temporary files.
-#rm $path_temporary_collection

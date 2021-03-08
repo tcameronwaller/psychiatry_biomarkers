@@ -57,11 +57,6 @@ fi
 ###########################################################################
 # Execute procedure.
 
-# TODO: the problem is the use of a general "temporary collection" file name 6_organize_gwas_ldsc_33437055_panyard_2021.sh
-
-
-
-
 /usr/bin/bash "$path_scripts/5_execute_procedure_metabolite.sh" \
 $path_file \
 $path_destination_parent \
