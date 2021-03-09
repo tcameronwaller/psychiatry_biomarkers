@@ -287,18 +287,18 @@ def read_extract_metabolite_heritability(
     variants = float("nan")
     heritability = float("nan")
     standard_error = float("nan")
+    ratio = float("nan")
     # Read relevant lines from file.
     lines = utility.read_file_text_lines(
         path_file=path_file,
         start=22,
-        stop=27,
+        stop=30,
     )
     # Extract information from lines.
     prefix_variants = "After merging with regression SNP LD, "
     suffix_variants = " SNPs remain."
     prefix_heritability = "Total Observed scale h2: "
-    suffix_heritability = " ("
-    suffix_error = ")"
+    prefix_ratio = "Ratio: "
     for line in lines:
         if prefix_variants in line:
             variants = float(
@@ -312,6 +312,14 @@ def read_extract_metabolite_heritability(
                 contents[1].replace(")", "")
             )
             pass
+        elif prefix_ratio in line:
+            content = line.replace(prefix_ratio, "")
+            contents = content.split(" (")
+            ratio = float(contents[0])
+            ratio_error = float(
+                contents[1].replace(")", "")
+            )
+            pass
         pass
     # Collect information.
     record = dict()
@@ -319,6 +327,8 @@ def read_extract_metabolite_heritability(
     record["variants"] = variants
     record["heritability"] = heritability
     record["standard_error"] = standard_error
+    record["ratio"] = ratio
+    record["ratio_standard_error"] = ratio_error
     # Return information.
     return record
 
