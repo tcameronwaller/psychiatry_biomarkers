@@ -142,112 +142,6 @@ def read_source(
     }
 
 
-def extract_metabolite_file_identifiers(
-    metabolite_files=None,
-):
-    """
-    Extracts metabolite identifiers from names of files.
-
-    arguments:
-        metabolite_files (list<str>): names of files with metabolite GWAS
-            summary statistics
-
-    raises:
-
-    returns:
-        (list<str>): identifiers of metabolites
-
-    """
-
-    # Iterate across metabolite file names.
-    # Collect metabolite identifiers.
-    identifiers = list()
-    for file in metabolite_files:
-        components = file.split(".")
-        identifier = str(components[0]).strip()
-        if ((len(identifier) > 1) and (identifier[0] == "M")):
-            identifiers.append(identifier)
-            pass
-        pass
-    # Make sure that all identifiers are unique.
-    identifiers_unique = utility.collect_unique_elements(
-        elements=identifiers,
-    )
-    # Return information.
-    return identifiers_unique
-
-
-def merge_metabolite_names_heritabilities(
-    table_names=None,
-    table_heritabilities=None,
-    report=None,
-):
-    """
-    Merges tables with information about metabolite names and heritabilities.
-
-    arguments:
-        table_names (object): Pandas data frame of metabolite identifiers and
-            names
-        table_heritabilities (object): Pandas data frame of metabolite
-            heritability estimates
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (object): Pandas data frame of metabolite identifiers, names, and
-            heritability estimates
-
-    """
-
-    # Report.
-    if report:
-        utility.print_terminal_partition(level=2)
-        print(table_names)
-        utility.print_terminal_partition(level=2)
-        print(table_heritabilities)
-    # Organize data.
-    table_names.astype("string")
-    table_names.rename(
-        columns={
-            "metabolonID": "identifier",
-            "metabolonDescription": "name",
-        },
-        inplace=True,
-    )
-    table_names.set_index(
-        "identifier",
-        drop=True,
-        inplace=True,
-    )
-    table_heritabilities["identifier"].astype("string")
-    table_heritabilities.set_index(
-        "identifier",
-        drop=True,
-        inplace=True,
-    )
-    # Merge data tables using database-style join.
-    # Alternative is to use DataFrame.join().
-    table_merge = table_names.merge(
-        table_heritabilities,
-        how="outer",
-        left_on="identifier",
-        right_on="identifier",
-        suffixes=("_name", "_heritability"),
-    )
-    # Remove excess columns.
-
-    # Report.
-    if report:
-        utility.print_terminal_partition(level=2)
-        print(table_merge)
-    # Return information.
-    return table_merge
-
-
-
-
-
 def organize_metabolite_reference_table(
     table=None,
     identifier=None,
@@ -499,9 +393,40 @@ def read_collect_organize_metabolites_heritabilities_studies(
     return pail
 
 
+def write_product_study_table(
+    name=None,
+    information=None,
+    path_parent=None,
+):
+    """
+    Writes product information to file.
+
+    arguments:
+        name (str): base name for file
+        information (object): information to write to file
+        path_parent (str): path to parent directory
+
+    raises:
+
+    returns:
+
+    """
+
+    # Specify directories and files.
+    path_table = os.path.join(
+        path_parent, str(name + ".tsv")
+    )
+    # Write information to file.
+    information.to_csv(
+        path_or_buf=path_table,
+        sep="\t",
+        header=True,
+        index=False,
+    )
+    pass
 
 
-def write_product_collection(
+def write_product_studies(
     information=None,
     path_parent=None,
 ):
@@ -518,18 +443,12 @@ def write_product_collection(
 
     """
 
-    # Specify directories and files.
-    path_table_metabolite_heritabilities = os.path.join(
-        path_parent, "table_metabolite_heritabilities.tsv"
-    )
-    # Write information to file.
-    information["table_metabolite_heritabilities"].to_csv(
-        path_or_buf=path_table_metabolite_heritabilities,
-        sep="\t",
-        header=True,
-        index=True,
-    )
-
+    for name in information.keys():
+        write_product_study_table(
+            name=name,
+            information=information[name],
+            path_parent=path_parent,
+        )
     pass
 
 
@@ -551,9 +470,9 @@ def write_product(
 
     """
 
-    # Alcohol consumption.
-    write_product_collection(
-        information=information["collection"],
+    # Cohort tables in PLINK format.
+    write_product_studies(
+        information=information["studies"],
         path_parent=paths["collection"],
     )
     pass
@@ -595,42 +514,20 @@ def execute_procedure(
     )
     # Read and collect heritability estimations for metabolites from multiple
     # GWAS.
-    pail_collection = read_collect_organize_metabolites_heritabilities_studies(
+    pail_studies = read_collect_organize_metabolites_heritabilities_studies(
         table_reference_panyard_2021=source["table_reference_panyard_2021"],
         paths=paths,
         report=True,
     )
 
-    if False:
-        # Extract identifiers of metabolites with GWAS summary statistics.
-        metabolite_identifiers = extract_metabolite_file_identifiers(
-            metabolite_files=source["metabolite_files"],
-        )
-        # Collect linkage disequilibrium score regression heritability estimates
-        # for each metabolite.
-        table_heritabilities = read_collect_metabolite_heritabilities(
-            metabolite_identifiers=metabolite_identifiers,
-            path_dock=path_dock,
-            report=True,
-        )
-        # Merge metabolite heritabilities with metabolite names.
-        table_names_heritabilities = merge_metabolite_names_heritabilities(
-            table_names=source["table_metabolite_names"],
-            table_heritabilities=table_heritabilities,
-            report=True,
-        )
-
-        # Collect information.
-        information = dict()
-        information["collection"] = dict()
-        information["collection"]["table_metabolite_heritabilities"] = (
-            table_names_heritabilities
-        )
-        # Write product information to file.
-        write_product(
-            paths=paths,
-            information=information
-        )
+    # Collect information.
+    information = dict()
+    information["studies"] = pail_studies
+    # Write product information to file.
+    write_product(
+        paths=paths,
+        information=information
+    )
 
     pass
 
