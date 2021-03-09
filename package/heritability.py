@@ -359,6 +359,12 @@ def read_collect_metabolites_heritabilities(
     table = utility.convert_records_to_dataframe(
         records=records
     )
+    table.sort_values(
+        by=["heritability"],
+        axis="index",
+        ascending=False,
+        inplace=True,
+    )
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
