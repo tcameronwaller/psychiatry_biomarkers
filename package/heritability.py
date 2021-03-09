@@ -248,6 +248,56 @@ def merge_metabolite_names_heritabilities(
 
 
 
+def organize_metabolite_reference_table(
+    table=None,
+    identifier=None,
+    name=None,
+):
+    """
+    Organizes information about general attributes.
+
+    arguments:
+        table (object): Pandas data frame of phenotype variables across UK
+            Biobank cohort
+        identifier (str): name of column for metabolite identifier
+        name (str): name of column for metabolite biochemical name
+
+    raises:
+
+    returns:
+        (dict): collection of information about phenotype variables
+
+    """
+
+    # Copy data.
+    table = table.copy(deep=True)
+    # Translate column names.
+    translations = dict()
+    translations[identifier] = "identifier"
+    translations[name] = "name"
+    table.rename(
+        columns=translations,
+        inplace=True,
+    )
+    # Select relevant columns.
+    table = table.loc[
+        :, table.columns.isin(["identifier", "name"])
+    ]
+    # Organize table.
+    table.reset_index(
+        level=None,
+        inplace=True
+    )
+    table["identifier"].astype("string")
+    table.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
+    # Return information.
+    return table
+
+
 def read_extract_metabolite_heritability(
     file=None,
     path_parent=None,
@@ -328,6 +378,7 @@ def read_extract_metabolite_heritability(
 
 
 def read_collect_metabolites_heritabilities(
+    table_reference=None,
     path_parent=None,
     report=None,
 ):
@@ -335,6 +386,8 @@ def read_collect_metabolites_heritabilities(
     Reads, collects, and organizes metabolite heritability estimates.
 
     arguments:
+        table_reference (object): Pandas data frame of metabolites' identifiers
+            and names from study
         path_parent (str): path to parent directory for files with heritability
             estimations for metabolites
         report (bool): whether to print reports
@@ -345,6 +398,13 @@ def read_collect_metabolites_heritabilities(
         (object): Pandas data frame of metabolites' heritability estimates
 
     """
+
+    # Organize metabolite reference table.
+    table_reference = organize_metabolite_reference_table(
+        table=table_reference,
+        identifier="identifier_study",
+        name="name",
+    )
 
     # Collect names of files for metabolites' heritabilities.
     files = utility.extract_directory_file_names(path=path_parent)
@@ -359,7 +419,7 @@ def read_collect_metabolites_heritabilities(
         )
         records.append(record)
         pass
-    # Organize table.
+    # Organize heritability table.
     table = utility.convert_records_to_dataframe(
         records=records
     )
@@ -369,16 +429,44 @@ def read_collect_metabolites_heritabilities(
         ascending=False,
         inplace=True,
     )
+    table.reset_index(
+        level=None,
+        inplace=True
+    )
+    table["identifier"].astype("string")
+    table.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
+    # Merge data tables using database-style join.
+    # Alternative is to use DataFrame.join().
+    table_merge = table.merge(
+        table_reference,
+        how="outer",
+        left_on="identifier",
+        right_on="identifier",
+        suffixes=("_heritability", "_reference"),
+    )
+    columns_sequence = [
+        #"identifier",
+        "name",
+        "heritability", "heritability_standard_error",
+        "ratio", "ratio_standard_error",
+        "variants",
+    ]
+    table_merge = table_merge[[*columns_sequence]]
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
         print(path_parent)
-        print(table)
+        print(table_merge)
     # Return information.
-    return table
+    return table_merge
 
 
 def read_collect_organize_metabolites_heritabilities_studies(
+    table_reference_panyard_2021=None,
     paths=None,
     report=None,
 ):
@@ -386,6 +474,8 @@ def read_collect_organize_metabolites_heritabilities_studies(
     Reads, collects, and organizes metabolite heritability estimates.
 
     arguments:
+        table_reference_panyard_2021 (object): Pandas data frame of metabolites'
+            identifiers and names from study
         paths (dict<str>): collection of paths to directories for procedure's
             files
         report (bool): whether to print reports
@@ -401,6 +491,7 @@ def read_collect_organize_metabolites_heritabilities_studies(
     pail = dict()
     #pail["table_shin_2014"] =
     pail["table_panyard_2021"] = read_collect_metabolites_heritabilities(
+        table_reference=table_reference_panyard_2021,
         path_parent=paths["heritability_panyard_2021"],
         report=report,
     )
@@ -505,6 +596,7 @@ def execute_procedure(
     # Read and collect heritability estimations for metabolites from multiple
     # GWAS.
     pail_collection = read_collect_organize_metabolites_heritabilities_studies(
+        table_reference_panyard_2021=source["table_reference_panyard_2021"],
         paths=paths,
         report=True,
     )
