@@ -117,35 +117,28 @@ def read_source(
     """
 
     # Specify directories and files.
-    path_table_metabolite_names = os.path.join(
-        path_dock, "access", "metabolites", "metaboliteMap.txt"
-    )
-    path_metabolite_files = os.path.join(
-        path_dock, "access", "metabolites", "metabolite_files.txt"
+    #path_table_reference_shin_2014 = os.path.join(
+    #    path_dock, "access", "metabolites", "metaboliteMap.txt"
+    #)
+    path_table_reference_panyard_2021 = os.path.join(
+        path_dock, "parameters", "bipolar_metabolism", "metabolite_reference",
+        "33437055_panyard_2021", "table_metabolite_reference.tsv"
     )
     # Read information from file.
-    table_metabolite_names = pandas.read_csv(
-        path_table_metabolite_names,
+    table_reference_panyard_2021 = pandas.read_csv(
+        path_table_reference_panyard_2021,
         sep="\t",
         header=0,
         dtype="string",
     )
-    metabolite_files = utility.read_file_text_list(
-        delimiter="\n",
-        path_file=path_metabolite_files,
-    )
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
-        print(table_metabolite_names)
-        utility.print_terminal_partition(level=2)
-        print("count of metabolites: " + str(len(metabolite_files)))
-        print("example: " + str(metabolite_files[10]))
+        print(table_reference_panyard_2021)
         utility.print_terminal_partition(level=2)
     # Compile and return information.
     return {
-        "table_metabolite_names": table_metabolite_names,
-        "metabolite_files": metabolite_files,
+        "table_reference_panyard_2021": table_reference_panyard_2021,
     }
 
 
@@ -385,7 +378,7 @@ def read_collect_metabolites_heritabilities(
     return table
 
 
-def read_collect_metabolites_heritabilities_studies(
+def read_collect_organize_metabolites_heritabilities_studies(
     paths=None,
     report=None,
 ):
@@ -504,16 +497,14 @@ def execute_procedure(
         restore=True,
         path_dock=path_dock,
     )
-    if False:
-        # Read source information from file.
-        source = read_source(
-            path_dock=path_dock,
-            report=True,
-        )
-
+    # Read source information from file.
+    source = read_source(
+        path_dock=path_dock,
+        report=True,
+    )
     # Read and collect heritability estimations for metabolites from multiple
     # GWAS.
-    pail_collection = read_collect_metabolites_heritabilities_studies(
+    pail_collection = read_collect_organize_metabolites_heritabilities_studies(
         paths=paths,
         report=True,
     )
