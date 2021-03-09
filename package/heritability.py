@@ -286,8 +286,9 @@ def read_extract_metabolite_heritability(
     # Initialize variables.
     variants = float("nan")
     heritability = float("nan")
-    standard_error = float("nan")
+    heritability_error = float("nan")
     ratio = float("nan")
+    ratio_error = float("nan")
     # Read relevant lines from file.
     lines = utility.read_file_text_lines(
         path_file=path_file,
@@ -308,7 +309,7 @@ def read_extract_metabolite_heritability(
             content = line.replace(prefix_heritability, "")
             contents = content.split(" (")
             heritability = float(contents[0])
-            standard_error = float(
+            heritability_error = float(
                 contents[1].replace(")", "")
             )
             pass
@@ -326,7 +327,7 @@ def read_extract_metabolite_heritability(
     record["identifier"] = identifier
     record["variants"] = variants
     record["heritability"] = heritability
-    record["standard_error"] = standard_error
+    record["heritability_standard_error"] = heritability_error
     record["ratio"] = ratio
     record["ratio_standard_error"] = ratio_error
     # Return information.
