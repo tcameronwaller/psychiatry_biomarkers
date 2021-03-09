@@ -27,7 +27,7 @@ echo "read private file path variables and organize paths..."
 cd ~/paths
 path_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_24816252_shin_2014="$path_gwas_summaries/24816252_shin_2014"
-path_31959995_schlosser_2021="$path_gwas_summaries/31959995_schlosser_2021"
+path_31959995_schlosser_2020="$path_gwas_summaries/31959995_schlosser_2020"
 path_33437055_panyard_2021="$path_gwas_summaries/33437055_panyard_2021"
 
 path_temporary=$(<"./processing_bipolar_metabolism.txt")

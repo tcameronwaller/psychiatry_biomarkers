@@ -80,6 +80,9 @@ def initialize_directories(
     # Define paths to directories.
     paths["dock"] = path_dock
     paths["heritability"] = os.path.join(path_dock, "heritability")
+    paths["heritability_panyard_2021"] = os.path.join(
+        path_dock, "heritability", "33437055_panyard_2021"
+    )
     paths["collection"] = os.path.join(
         path_dock, "heritability", "collection"
     )
@@ -247,47 +250,6 @@ def read_extract_metabolite_heritability(
     return record
 
 
-def read_collect_metabolite_heritabilities(
-    metabolite_identifiers=None,
-    path_dock=None,
-    report=None,
-):
-    """
-    Reads, collects, and organizes metabolite heritability estimates.
-
-    arguments:
-        metabolite_identifiers (list<str>): identifiers of metabolites
-        path_dock (str): path to dock directory for source and product
-            directories and files
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (object): Pandas data frame of metabolite heritability estimates
-
-    """
-
-    records = list()
-    for identifier in metabolite_identifiers:
-        record = read_extract_metabolite_heritability(
-            metabolite_identifier=identifier,
-            path_dock=path_dock,
-        )
-        records.append(record)
-        pass
-    # Organize table.
-    table = utility.convert_records_to_dataframe(
-        records=records
-    )
-    # Report.
-    if report:
-        utility.print_terminal_partition(level=2)
-        print(table)
-    # Return information.
-    return table
-
-
 def merge_metabolite_names_heritabilities(
     table_names=None,
     table_heritabilities=None,
@@ -354,6 +316,88 @@ def merge_metabolite_names_heritabilities(
         print(table_merge)
     # Return information.
     return table_merge
+
+
+def read_collect_metabolites_heritabilities(
+    path_parent=None,
+    report=None,
+):
+    """
+    Reads, collects, and organizes metabolite heritability estimates.
+
+    arguments:
+        path_parent (str): path to parent directory for files with heritability
+            estimations for metabolites
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): Pandas data frame of metabolites' heritability estimates
+
+    """
+
+    # Collect names of files for metabolites' heritabilities.
+    files = utility.extract_directory_file_names(path=path_parent)
+    files_heritability = list(filter(
+        lambda content: ("heritability" in content), files
+    ))
+    for file in files_heritability:
+        print(file)
+
+    #############
+
+    if False:
+        records = list()
+        for identifier in metabolite_identifiers:
+            record = read_extract_metabolite_heritability(
+                metabolite_identifier=identifier,
+                path_dock=path_dock,
+            )
+            records.append(record)
+            pass
+        # Organize table.
+        table = utility.convert_records_to_dataframe(
+            records=records
+        )
+        # Report.
+        if report:
+            utility.print_terminal_partition(level=2)
+            print(table)
+        # Return information.
+        return table
+
+
+def read_collect_metabolites_heritabilities_studies(
+    paths=None,
+    report=None,
+):
+    """
+    Reads, collects, and organizes metabolite heritability estimates.
+
+    arguments:
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): heritability estimations for metabolites from multiple GWAS
+
+    """
+
+    # Collect metabolites' heritabilities from each GWAS.
+    pail = dict()
+    #pail["table_shin_2014"] =
+    pail["table_panyard_2021"] = read_collect_metabolites_heritabilities(
+        path_parent=paths["heritability_panyard_2021"],
+        report=report,
+    )
+    # Return information.
+    return pail
+
+
 
 
 def write_product_collection(
@@ -443,40 +487,50 @@ def execute_procedure(
         restore=True,
         path_dock=path_dock,
     )
-    # Read source information from file.
-    source = read_source(
-        path_dock=path_dock,
-        report=True,
-    )
-    # Extract identifiers of metabolites with GWAS summary statistics.
-    metabolite_identifiers = extract_metabolite_file_identifiers(
-        metabolite_files=source["metabolite_files"],
-    )
-    # Collect linkage disequilibrium score regression heritability estimates
-    # for each metabolite.
-    table_heritabilities = read_collect_metabolite_heritabilities(
-        metabolite_identifiers=metabolite_identifiers,
-        path_dock=path_dock,
-        report=True,
-    )
-    # Merge metabolite heritabilities with metabolite names.
-    table_names_heritabilities = merge_metabolite_names_heritabilities(
-        table_names=source["table_metabolite_names"],
-        table_heritabilities=table_heritabilities,
+    if False:
+        # Read source information from file.
+        source = read_source(
+            path_dock=path_dock,
+            report=True,
+        )
+
+    # Read and collect heritability estimations for metabolites from multiple
+    # GWAS.
+    pail_collection = read_collect_metabolites_heritabilities_studies(
+        paths=paths,
         report=True,
     )
 
-    # Collect information.
-    information = dict()
-    information["collection"] = dict()
-    information["collection"]["table_metabolite_heritabilities"] = (
-        table_names_heritabilities
-    )
-    # Write product information to file.
-    write_product(
-        paths=paths,
-        information=information
-    )
+    if False:
+        # Extract identifiers of metabolites with GWAS summary statistics.
+        metabolite_identifiers = extract_metabolite_file_identifiers(
+            metabolite_files=source["metabolite_files"],
+        )
+        # Collect linkage disequilibrium score regression heritability estimates
+        # for each metabolite.
+        table_heritabilities = read_collect_metabolite_heritabilities(
+            metabolite_identifiers=metabolite_identifiers,
+            path_dock=path_dock,
+            report=True,
+        )
+        # Merge metabolite heritabilities with metabolite names.
+        table_names_heritabilities = merge_metabolite_names_heritabilities(
+            table_names=source["table_metabolite_names"],
+            table_heritabilities=table_heritabilities,
+            report=True,
+        )
+
+        # Collect information.
+        information = dict()
+        information["collection"] = dict()
+        information["collection"]["table_metabolite_heritabilities"] = (
+            table_names_heritabilities
+        )
+        # Write product information to file.
+        write_product(
+            paths=paths,
+            information=information
+        )
 
     pass
 

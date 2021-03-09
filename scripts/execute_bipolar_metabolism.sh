@@ -29,6 +29,10 @@ fi
 
 # Execute procedure(s).
 
+# Collect and organize heritability estimations for metabolites from GWAS
+# summary statistics of multiple studies on the human metabolome.
+python3 $path_package/interface.py main --path_dock $path_dock --heritability
+
 # Collect and aggregate genetic scores for metabolites across the UK Biobank.
 #python3 $path_package/interface.py main --path_dock $path_dock --aggregation
 
@@ -36,10 +40,10 @@ fi
 #python3 $path_package/interface.py main --path_dock $path_dock --assembly
 
 # Organize phenotypic information from UK Biobank.
-python3 $path_package/interface.py main --path_dock $path_dock --organization
+#python3 $path_package/interface.py main --path_dock $path_dock --organization
 
 # Regress phenotypes against metabolites' genetic scores across the UK Biobank.
-python3 $path_package/interface.py main --path_dock $path_dock --association
+#python3 $path_package/interface.py main --path_dock $path_dock --association
 
 
 # TODO: new module...
