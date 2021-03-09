@@ -184,72 +184,6 @@ def extract_metabolite_file_identifiers(
     return identifiers_unique
 
 
-def read_extract_metabolite_heritability(
-    metabolite_identifier=None,
-    path_dock=None,
-):
-    """
-    Reads and extracts information from log of LDSC.
-
-    arguments:
-        metabolite_identifier (str): identifier of a metabolite
-        path_dock (str): path to dock directory for source and product
-            directories and files
-
-    raises:
-
-    returns:
-        (dict): information about estimation of a metabolite's heritability
-
-    """
-
-    # Define path to file.
-    name_file = str(metabolite_identifier + "_heritability.log")
-    path_heritability = os.path.join(
-        path_dock, "heritability", "metabolites", name_file
-    )
-    # Initialize variables.
-    variants = float("nan")
-    heritability = float("nan")
-    standard_error = float("nan")
-    # Read relevant lines from file.
-    if os.path.isfile(path_heritability):
-        lines = utility.read_file_text_lines(
-            path_file=path_heritability,
-            start=20,
-            stop=25,
-        )
-        # Extract information from lines.
-        prefix_variants = "After merging with regression SNP LD, "
-        suffix_variants = " SNPs remain."
-        prefix_heritability = "Total Observed scale h2: "
-        suffix_heritability = " ("
-        suffix_error = ")"
-        for line in lines:
-            if prefix_variants in line:
-                variants = float(
-                    line.replace(prefix_variants, "").replace(suffix_variants, "")
-                )
-            elif prefix_heritability in line:
-                content = line.replace(prefix_heritability, "")
-                contents = content.split(" (")
-                heritability = float(contents[0])
-                standard_error = float(
-                    contents[1].replace(")", "")
-                )
-                pass
-            pass
-        pass
-    # Collect information.
-    record = dict()
-    record["identifier"] = metabolite_identifier
-    record["variants"] = variants
-    record["heritability"] = heritability
-    record["standard_error"] = standard_error
-    # Return information.
-    return record
-
-
 def merge_metabolite_names_heritabilities(
     table_names=None,
     table_heritabilities=None,
@@ -318,6 +252,77 @@ def merge_metabolite_names_heritabilities(
     return table_merge
 
 
+
+
+
+def read_extract_metabolite_heritability(
+    file=None,
+    path_parent=None,
+):
+    """
+    Reads and extracts information from log of LDSC for heritability estimation
+    from GWAS summary statistics.
+
+    arguments:
+        file (str): name of a file
+        path_parent (str): path to parent directory for files with heritability
+            estimations for metabolites
+
+    raises:
+
+    returns:
+        (dict): information about estimation of a metabolite's heritability
+
+    """
+
+    # Extract metabolite's identifier.
+    identifier = str(
+        file.replace("heritability_", "").replace(".log", "")
+    )
+    # Define path to file.
+    path_file = os.path.join(
+        path_parent, file
+    )
+    # Initialize variables.
+    variants = float("nan")
+    heritability = float("nan")
+    standard_error = float("nan")
+    # Read relevant lines from file.
+    lines = utility.read_file_text_lines(
+        path_file=path_file,
+        start=22,
+        stop=27,
+    )
+    # Extract information from lines.
+    prefix_variants = "After merging with regression SNP LD, "
+    suffix_variants = " SNPs remain."
+    prefix_heritability = "Total Observed scale h2: "
+    suffix_heritability = " ("
+    suffix_error = ")"
+    for line in lines:
+        if prefix_variants in line:
+            variants = float(
+                line.replace(prefix_variants, "").replace(suffix_variants, "")
+            )
+        elif prefix_heritability in line:
+            content = line.replace(prefix_heritability, "")
+            contents = content.split(" (")
+            heritability = float(contents[0])
+            standard_error = float(
+                contents[1].replace(")", "")
+            )
+            pass
+        pass
+    # Collect information.
+    record = dict()
+    record["identifier"] = identifier
+    record["variants"] = variants
+    record["heritability"] = heritability
+    record["standard_error"] = standard_error
+    # Return information.
+    return record
+
+
 def read_collect_metabolites_heritabilities(
     path_parent=None,
     report=None,
@@ -342,30 +347,25 @@ def read_collect_metabolites_heritabilities(
     files_heritability = list(filter(
         lambda content: ("heritability" in content), files
     ))
+    records = list()
     for file in files_heritability:
-        print(file)
-
-    #############
-
-    if False:
-        records = list()
-        for identifier in metabolite_identifiers:
-            record = read_extract_metabolite_heritability(
-                metabolite_identifier=identifier,
-                path_dock=path_dock,
-            )
-            records.append(record)
-            pass
-        # Organize table.
-        table = utility.convert_records_to_dataframe(
-            records=records
+        record = read_extract_metabolite_heritability(
+            file=file,
+            path_parent=path_parent,
         )
-        # Report.
-        if report:
-            utility.print_terminal_partition(level=2)
-            print(table)
-        # Return information.
-        return table
+        records.append(record)
+        pass
+    # Organize table.
+    table = utility.convert_records_to_dataframe(
+        records=records
+    )
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print(path_parent)
+        print(table)
+    # Return information.
+    return table
 
 
 def read_collect_metabolites_heritabilities_studies(
