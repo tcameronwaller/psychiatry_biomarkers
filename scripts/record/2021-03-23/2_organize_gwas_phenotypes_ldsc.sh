@@ -8,76 +8,62 @@
 ###########################################################################
 ###########################################################################
 
-echo "----------------------------------------------------------------------"
-echo "----------------------------------------------------------------------"
-echo "----------------------------------------------------------------------"
-echo "Concatenate GWAS summary statistics across chromosomes."
-echo "Psychiatric Genetics Consortium GWAS data on alcoholism."
-echo "Human genome version: GRCh37, hg19"
-echo "version 1"
-echo "----------------------------------------------------------------------"
-echo "----------------------------------------------------------------------"
-echo "----------------------------------------------------------------------"
-echo ""
-echo ""
-echo ""
-
+################################################################################
 # Organize paths.
 # Read private, local file paths.
-echo "read private file path variables and organize paths..."
 cd ~/paths
+path_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
+path_temporary=$(<"./processing_bipolar_metabolism.txt")
 
-# Phenotype GWAS summary statistics.
-path_gwas_team_directory=$(<"./gwas_summaries_team.txt")
-
-
-path_gwas_alcohol_raw="$path_gwas_team_directory/AUD/pgc_alcdep.discovery.aug2018_release.txt.gz"
-path_gwas_bipolar_1_raw="$path_gwas_team_directory/BD/daner_bip_pgc3_nm.gz"
-path_gwas_bipolar_2_raw="$path_gwas_team_directory/BD/BD2/daner_bip_pgc3_nm.gz"
-
-path_scripts="$path_waller/sexy_alcohol/scripts/record/2021-02-25"
-path_calculate_z_score="$path_scripts/calculate_z_score.sh"
-path_temporary=$(<"./processing_sexy_alcohol.txt")
 path_waller="$path_temporary/waller"
-path_dock="$path_temporary/waller/dock"
-path_gwas="$path_dock/gwas"
-path_gwas_alcohol_format_directory="$path_temporary/waller/dock/gwas/female_male_alcoholism_pgc"
-path_gwas_alcohol_format="$path_gwas_alcohol_format_directory/gwas_format_pgc_alcoholism.txt"
+path_bipolar_metabolism="$path_waller/bipolar_metabolism"
+path_scripts_organization="$path_waller/bipolar_metabolism/scripts/organization"
+path_scripts_record="$path_waller/bipolar_metabolism/scripts/record/2021-03-23"
+path_promiscuity_scripts="$path_waller/promiscuity/scripts"
 
-# Initialize directories.
-#rm -r $path_gwas
-if [ ! -d $path_gwas_alcohol_format_directory ]; then
-    # Directory does not already exist.
-    # Create directory.
-    mkdir -p $path_gwas_alcohol_format_directory
-fi
+path_dock="$path_waller/dock"
+path_genetic_correlation="$path_dock/genetic_correlation"
 
-# Organize information from linear GWAS.
+###########################################################################
+# Execute procedure.
+# Organize information in format for LDSC.
 
-echo "SNP A1 A2 N BETA P" > $path_gwas_alcohol_format
-# Format of GWAS summary for LDSC.
-# https://github.com/bulik/ldsc/wiki/Heritability-and-Genetic-Correlation#reformatting-summary-statistics
-# description: ............................ PGC column ... LDSC column
-# variant identifier: ....................... "SNP" ........ "SNP"
-# alternate allele (effect allele): ......... "A1" ......... "A1"
-# reference allele (non-effect allele): ..... "A2" ......... "A2"
-# sample size: .............................. 52,848 ....... "N"
-# effect (beta): ............................ "Z" .......... "BETA"
-# probability (p-value): .................... "P" .......... "P"
+# Yengo et al, Human Molecular Genetics, 2018 (PubMed:30124842)
+# phenotype: body mass index
+study="30124842_yengo_2018"
+source_file="Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt.gz"
+path_source_directory="${path_gwas_summaries}/${study}"
+path_source_file="${path_source_directory}/${source_file}"
+path_product_directory="${path_genetic_correlation}/${study}"
+path_script_gwas_organization="${path_scripts_organization}/organize_gwas_ldsc_${study}.sh"
+path_gwas_format="${path_product_directory}/gwas_format_${study}.txt.gz"
+report="true" # "true" or "false"
+mkdir -p $path_product_directory
+/usr/bin/bash "$path_script_gwas_organization" \
+$study \
+$source_file \
+$path_source_file \
+$path_gwas_format \
+$path_product_directory \
+$path_promiscuity_scripts \
+$report
 
-# SNP: split($2,a,":"); print a[1]
-# A1: toupper($4)
-# A2: toupper($5)
-# N: (cases: 14,904; controls: 37,944; total: 52,848)
-# BETA: $6
-# P: $7
-zcat $path_gwas_alcohol_raw | awk 'NR > 1 {split($2,a,":"); print a[1], toupper($4), toupper($5), (52848), $6, $7}' >> $path_gwas_alcohol_format
-# Calculate Z-score standardization of Beta coefficients.
-#/usr/bin/bash $path_calculate_z_score 5 $path_gwas_alcohol_format $path_gwas_alcohol_format
-gzip $path_gwas_alcohol_format
-echo "after format..."
-head -30 "$path_gwas_alcohol_format.gz"
-
-echo "----------"
-echo "----------"
-echo "----------"
+# Pulit et al, Human Molecular Genetics, 2018 (PubMed:30239722)
+# phenotype: waist-to-hip ratio, adjusted for BMI
+study="30239722_pulit_2018"
+source_file="whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.txt.gz"
+path_source_directory="${path_gwas_summaries}/${study}"
+path_source_file="${path_source_directory}/${source_file}"
+path_product_directory="${path_genetic_correlation}/${study}"
+path_script_gwas_organization="${path_scripts_organization}/organize_gwas_ldsc_${study}.sh"
+path_gwas_format="${path_product_directory}/gwas_format_${study}.txt.gz"
+report="true" # "true" or "false"
+mkdir -p $path_product_directory
+/usr/bin/bash "$path_script_gwas_organization" \
+$study \
+$source_file \
+$path_source_file \
+$path_gwas_format \
+$path_product_directory \
+$path_promiscuity_scripts \
+$report
