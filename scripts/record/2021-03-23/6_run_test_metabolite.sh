@@ -36,14 +36,14 @@ metabolite_study="24816252_shin_2014" # "24816252_shin_2014", "31959995_schlosse
 
 # Format: 24816252_shin_2014
 source_file="M00054.metal.pos.txt.gz" # tryptophan
-name_prefix="" # file name prefix before metabolite identifier or empty string
-name_suffix=".metal.pos.txt.gz" # file name suffix after metabolite identifier or empty string
+name_prefix="null" # file name prefix before metabolite identifier or "null"
+name_suffix=".metal.pos.txt.gz" # file name suffix after metabolite identifier or "null"
 path_source_directory="${path_gwas_summaries}/${metabolite_study}/metabolites_meta" # path unique to 24816252_shin_2014
 
 # Format: 33437055_panyard_2021
 #source_file="metabolite_X57547_meta_analysis_gwas.csv.gz"
-#name_prefix="metabolite_" # file name prefix before metabolite identifier or empty string
-#name_suffix="_meta_analysis_gwas.csv.gz" # file name suffix after metabolite identifier or empty string
+#name_prefix="metabolite_" # file name prefix before metabolite identifier or "null"
+#name_suffix="_meta_analysis_gwas.csv.gz" # file name suffix after metabolite identifier or "null"
 #path_source_directory="${path_gwas_summaries}/${metabolite_study}" # path for most studies
 
 path_source_file="${path_source_directory}/${source_file}"
@@ -62,6 +62,8 @@ mkdir -p $path_study_genetic_correlation
 
 ###########################################################################
 # Execute procedure.
+
+echo "about to call metabolite procedure..."
 
 report="true" # "true" or "false"
 /usr/bin/bash "${path_scripts_record}/7_execute_procedure_metabolite.sh" \

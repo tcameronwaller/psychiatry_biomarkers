@@ -42,11 +42,12 @@ fi
 file_name="$(basename -- $path_source_file)"
 # Determine metabolite identifier.
 # Refer to documnetation for test: https://www.freebsd.org/cgi/man.cgi?test
+# if [[ ! -z "$name_prefix" ]]; then
 metabolite=${file_name}
-if [[ ! -z "$name_prefix" ]]; then
+if [[ "$name_prefix" != "null" ]]; then
   metabolite=${metabolite/$name_prefix/""}
 fi
-if [[ ! -z "$name_suffix" ]]; then
+if [[ "$name_suffix" != "null" ]]; then
   metabolite=${metabolite/$name_suffix/""}
 fi
 # Report.
