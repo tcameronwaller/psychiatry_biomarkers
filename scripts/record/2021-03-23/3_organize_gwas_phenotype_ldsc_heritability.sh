@@ -57,19 +57,6 @@ if [[ "$report" == "true" ]]; then
   echo "----------------------------------------------------------------------"
   echo "----------------------------------------------------------------------"
   echo "----------------------------------------------------------------------"
-  echo "Organize GWAS summary statistics."
-  echo "PubMed: 30124842"
-  echo "author: Yengo"
-  echo "date: 16 August 2018"
-  echo "phenotype: body mass index"
-  echo "Human genome version: GRCh37, hg19"
-  echo "variant identifier (rsID) version: dbSNP151"
-  echo "----------------------------------------------------------------------"
-  echo "----------------------------------------------------------------------"
-  echo "----------------------------------------------------------------------"
-  echo ""
-  echo ""
-  echo ""
   echo "----------"
   echo "file name: " $source_file
   echo "path to original file: " $path_source_file
@@ -105,11 +92,6 @@ $path_ldsc/ldsc.py \
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
-  echo "file name: " $source_file
-  echo "before standardization:"
-  head -10 $path_temporary_collection
-  echo "after standardization:"
-  head -10 $path_gwas_format
   echo "LDSC heritability report:"
   cat $path_heritability_report_suffix
   echo "----------"
