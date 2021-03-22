@@ -124,8 +124,6 @@ if [[ "$report" == "true" ]]; then
   head -10 $path_temporary_collection
   echo "after standardization:"
   head -10 $path_gwas_format
-  echo "after LDSC munge:"
-  head -10 $path_gwas_munge_suffix
   echo "LDSC heritability report:"
   cat $path_heritability_report
   echo "----------"
