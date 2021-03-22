@@ -89,7 +89,7 @@ path_genetic_correlation_report_suffix="${path_genetic_correlation_report}.log"
 
 # Organize information in format for LDSC.
 # Parameters.
-report="false" # "true" or "false"
+#report="false" # "true" or "false"
 /usr/bin/bash "$path_script_gwas_organization" \
 $metabolite \
 $path_source_file \
