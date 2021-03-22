@@ -46,6 +46,7 @@ path_gwas_munge="${path_study_gwas}/gwas_munge"
 path_gwas_munge_suffix="${path_gwas_munge}.sumstats.gz"
 path_gwas_munge_log="${path_gwas_munge}.log"
 path_heritability_report="${path_study_heritability}/heritability_report"
+path_heritability_report_suffix="${path_heritability_report}.log"
 
 #path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_4_of_5.sh"
 path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_5_of_6.sh"
@@ -125,7 +126,7 @@ if [[ "$report" == "true" ]]; then
   echo "after standardization:"
   head -10 $path_gwas_format
   echo "LDSC heritability report:"
-  cat $path_heritability_report
+  cat $path_heritability_report_suffix
   echo "----------"
 fi
 
