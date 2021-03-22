@@ -10,23 +10,26 @@
 
 ################################################################################
 # Organize variables.
-metabolite=${1} # unique identifier of the metabolite
-path_source_file=${2} # full path to source file with GWAS summary statistics for a single metabolite
-path_temporary_collection=${3} # full path to temporary file for collection of GWAS summary statistics for current metabolite
-path_temporary_format=${4} # full path to file for formatted GWAS summary statistics for current metabolite
-path_promiscuity_scripts=${5} # complete path to directory of scripts for z-score standardization
-report=${6} # whether to print reports
+study=${1} # unique identifier of the current GWAS study
+path_source_file=${2} # full path to source file with GWAS summary statistics
+path_gwas_collection=${3} # full path to temporary file for collection of GWAS summary statistics
+path_gwas_format=${4} # full path to file for formatted GWAS summary statistics
+path_gwas_format_compress=${5} # full path to file for formatted GWAS summary statistics after compression
+path_promiscuity_scripts=${6} # complete path to directory of scripts for z-score standardization
+report=${7} # whether to print reports
 
 #path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_4_of_5.sh"
 path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_5_of_6.sh"
 
+###########################################################################
+# Execute procedure.
+
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
-  echo "metabolite: " $metabolite
+  echo "study: " $study
   echo "path to original file: " $path_source_file
-  echo "path to new file: " $path_temporary_format
-  echo "----------"
+  echo "path to new file: " $path_gwas_format
 fi
 
 ##################
@@ -56,17 +59,17 @@ fi
 # probability (p-value): ..................... "P"
 
 # Remove any previous versions of temporary files.
-rm $path_temporary_collection
-rm $path_temporary_format
+rm $path_gwas_collection
+rm $path_gwas_format
 
 # Organize information from linear GWAS.
-echo "SNP A1 A2 N BETA P" > $path_temporary_collection
-zcat $path_source_file | awk 'BEGIN { FS=","; OFS=" " } NR > 1 {split($1,a,":"); print a[2], toupper($4), toupper($5), $10, $6, $8}' >> $path_temporary_collection
+echo "SNP A1 A2 N BETA P" > $path_gwas_collection
+zcat $path_source_file | awk 'BEGIN { FS=","; OFS=" " } NR > 1 {split($1,a,":"); print a[2], toupper($4), toupper($5), $10, $6, $8}' >> $path_gwas_collection
 # Calculate Z-score standardization of Beta coefficients.
 /usr/bin/bash $path_calculate_z_score \
 5 \
-$path_temporary_collection \
-$path_temporary_format \
+$path_gwas_collection \
+$path_gwas_format \
 $report
 
 # Compress file format.
@@ -76,10 +79,9 @@ $report
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
-  echo "metabolite: " $metabolite
   echo "before standardization:"
-  head -10 $path_temporary_collection
+  head -10 $path_gwas_collection
   echo "after standardization:"
-  head -10 $path_temporary_format
+  head -10 $path_gwas_format
   echo "----------"
 fi

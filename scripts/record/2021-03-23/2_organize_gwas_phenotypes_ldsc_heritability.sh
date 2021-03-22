@@ -60,7 +60,7 @@ path_source_directory="${path_gwas_summaries}/${study}"
 path_source_file="${path_source_directory}/${source_file}"
 path_script_gwas_organization="${path_scripts_organization}/organize_gwas_ldsc_${study}.sh"
 report="true" # "true" or "false"
-/usr/bin/bash "$path_script_gwas_organization" \
+/usr/bin/bash "$path_scripts_record/3_organize_gwas_phenotype_ldsc_heritability.sh" \
 $study \
 $source_file \
 $path_source_file \
@@ -68,6 +68,7 @@ $path_genetic_reference \
 $path_gwas \
 $path_heritability \
 $path_genetic_correlation \
+$path_script_gwas_organization \
 $path_promiscuity_scripts \
 $report
 
@@ -79,7 +80,7 @@ path_source_directory="${path_gwas_summaries}/${study}"
 path_source_file="${path_source_directory}/${source_file}"
 path_script_gwas_organization="${path_scripts_organization}/organize_gwas_ldsc_${study}.sh"
 report="true" # "true" or "false"
-/usr/bin/bash "$path_script_gwas_organization" \
+/usr/bin/bash "$path_scripts_record/3_organize_gwas_phenotype_ldsc_heritability.sh" \
 $study \
 $source_file \
 $path_source_file \
@@ -87,5 +88,6 @@ $path_genetic_reference \
 $path_gwas \
 $path_heritability \
 $path_genetic_correlation \
+$path_script_gwas_organization \
 $path_promiscuity_scripts \
 $report

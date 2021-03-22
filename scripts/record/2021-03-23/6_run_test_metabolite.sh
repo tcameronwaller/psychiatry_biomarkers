@@ -18,6 +18,7 @@ path_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_temporary=$(<"./processing_bipolar_metabolism.txt")
 path_waller="$path_temporary/waller"
 path_bipolar_metabolism="$path_waller/bipolar_metabolism"
+path_scripts_organization="$path_waller/bipolar_metabolism/scripts/organization"
 path_scripts_record="$path_waller/bipolar_metabolism/scripts/record/2021-03-23"
 path_promiscuity_scripts="$path_waller/promiscuity/scripts"
 
@@ -38,7 +39,7 @@ name_suffix="_meta_analysis_gwas.csv.gz" # file name suffix after metabolite ide
 
 path_source_directory="${path_gwas_summaries}/${metabolite_study}"
 path_source_file="${path_source_directory}/${source_file}"
-path_script_gwas_organization="${path_scripts_record}/7_organize_gwas_ldsc_${metabolite_study}.sh"
+path_script_gwas_organization="${path_scripts_organization}/organize_gwas_ldsc_${metabolite_study}.sh"
 path_phenotype_gwas="${path_gwas}/${phenotype_study}"
 path_study_gwas="${path_gwas}/${metabolite_study}"
 path_study_heritability="${path_heritability}/${metabolite_study}"

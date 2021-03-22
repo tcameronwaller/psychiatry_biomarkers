@@ -71,11 +71,12 @@ path_phenotype_gwas_munge_suffix="${path_phenotype_gwas}/gwas_munge.sumstats.gz"
 # Even temporary files need to have names specific to each metabolite.
 # During parallel processing, multiple temporary files will exist
 # simultaneously.
-path_temporary_collection="${path_study_gwas}/temporary_gwas_collection_${metabolite}.txt"
-path_temporary_format="${path_study_gwas}/temporary_gwas_format_${metabolite}.txt"
-path_temporary_munge="${path_study_gwas}/temporary_munge_${metabolite}"
-path_temporary_munge_suffix="${path_temporary_munge}.sumstats.gz"
-path_temporary_munge_log="${path_temporary_munge}.log"
+path_gwas_collection="${path_study_gwas}/gwas_collection_${metabolite}.txt"
+path_gwas_format="${path_study_gwas}/gwas_format_${metabolite}.txt"
+path_gwas_format_compress="${path_gwas_format}.gz"
+path_gwas_munge="${path_study_gwas}/gwas_munge_${metabolite}"
+path_gwas_munge_suffix="${path_gwas_munge}.sumstats.gz"
+path_gwas_munge_log="${path_gwas_munge}.log"
 
 path_heritability_report="${path_study_heritability}/heritability_${metabolite}"
 path_heritability_report_suffix="${path_heritability_report}.log"
@@ -92,35 +93,36 @@ report="false" # "true" or "false"
 /usr/bin/bash "$path_script_gwas_organization" \
 $metabolite \
 $path_source_file \
-$path_temporary_collection \
-$path_temporary_format \
+$path_gwas_collection \
+$path_gwas_format \
+$path_gwas_format_compress \
 $path_promiscuity_scripts \
 $report
 
 # Munge metabolite GWAS.
 $path_ldsc/munge_sumstats.py \
---sumstats $path_temporary_format \
---out $path_temporary_munge \
+--sumstats $path_gwas_format \
+--out $path_gwas_munge \
 --merge-alleles $path_alleles/w_hm3.snplist \
 #--a1-inc
 
 # Heritability.
 $path_ldsc/ldsc.py \
---h2 $path_temporary_munge_suffix \
+--h2 $path_gwas_munge_suffix \
 --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --out $path_heritability_report
 
 # Genetic correlation between metabolite and phenotype.
 $path_ldsc/ldsc.py \
---rg $path_phenotype_gwas_munge_suffix,$path_temporary_munge_suffix \
+--rg $path_phenotype_gwas_munge_suffix,$path_gwas_munge_suffix \
 --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --out $path_genetic_correlation_report
 
 ###########################################################################
 # Remove temporary files.
-rm $path_temporary_collection
-rm $path_temporary_format
-rm $path_temporary_munge_suffix
-rm $path_temporary_munge_log
+rm $path_gwas_collection
+rm $path_gwas_format
+rm $path_gwas_munge_suffix
+rm $path_gwas_munge_log
