@@ -59,6 +59,7 @@ fi
 # probability (p-value): ..................... "P"
 
 # Remove any previous versions of temporary files.
+rm $path_temporary_collection
 rm $path_temporary_format
 
 # Organize information from linear GWAS.

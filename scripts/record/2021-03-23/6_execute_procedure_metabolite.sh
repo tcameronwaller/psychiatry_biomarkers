@@ -80,7 +80,7 @@ $path_destination_parent \
 $path_promiscuity_scripts \
 $report
 
-# Munge.
+# Munge metabolite GWAS.
 $path_ldsc/munge_sumstats.py \
 --sumstats $path_temporary_format \
 --out $path_temporary_munge \
@@ -93,6 +93,12 @@ $path_ldsc/ldsc.py \
 --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
 --out $path_metabolite_heritability
+
+# Munge phenotype GWAS.
+
+# Genetic correlation.
+
+
 
 ###########################################################################
 # Remove temporary files.

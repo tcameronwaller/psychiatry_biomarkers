@@ -12,18 +12,42 @@
 # Organize arguments.
 study=$1 # identifier of GWAS study
 source_file=$2 # name of source file with GWAS summary statistics
-path_source_file=$3 # complete path to source file with GWAS summary statistics
-path_gwas_format=$4 # full path to file for new format
-path_product_directory=$5 # full path to parent directory for product files
-path_promiscuity_scripts=$6 # complete path to directory of scripts for z-score standardization
-report=$7 # whether to print reports
+path_source_file=$3 # full path to source file with GWAS summary statistics
+path_genetic_reference=$4 # full path to parent directory with genetic reference files for LDSC
+path_gwas=$5 # full path to parent directory for formatted GWAS summary statistics
+path_heritability=$6 # full path to parent directory for LDSC heritability estimation
+path_genetic_correlation=$7 # full path to parent directory for LDSC genetic correlation
+path_promiscuity_scripts=$8 # complete path to directory of scripts for z-score standardization
+report=$9 # whether to print reports
 
 ################################################################################
 # Organize variables.
 
+# Read private, local file paths.
+cd ~/paths
+path_ldsc=$(<"./tools_ldsc.txt")
+
+path_alleles="$path_genetic_reference/alleles"
+path_disequilibrium="$path_genetic_reference/disequilibrium"
+path_baseline="$path_genetic_reference/baseline"
+path_weights="$path_genetic_reference/weights"
+path_frequencies="$path_genetic_reference/frequencies"
+
+path_study_gwas="${path_gwas}/${study}"
+path_study_heritability="${path_heritability}/${study}"
+path_study_genetic_correlation="${path_genetic_correlation}/${study}"
+mkdir -p $path_study_gwas
+mkdir -p $path_study_heritability
+mkdir -p $path_study_genetic_correlation
+path_temporary_collection="${path_study_gwas}/temporary_gwas_collection.txt.gz"
+path_gwas_format="${path_study_gwas}/gwas_format.txt.gz"
+path_gwas_munge="${path_study_gwas}/gwas_munge"
+path_gwas_munge_suffix="${path_gwas_munge}.sumstats.gz"
+path_gwas_munge_log="${path_gwas_munge}.log"
+path_heritability_report="${path_study_heritability}/heritability_report"
+
 #path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_4_of_5.sh"
 path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_5_of_6.sh"
-path_temporary_collection="${path_product_directory}/temporary_gwas_collection.txt.gz"
 
 # Report.
 if [[ "$report" == "true" ]]; then
@@ -36,6 +60,7 @@ if [[ "$report" == "true" ]]; then
   echo "date: 16 August 2018"
   echo "phenotype: body mass index"
   echo "Human genome version: GRCh37, hg19"
+  echo "variant identifier (rsID) version: dbSNP151"
   echo "----------------------------------------------------------------------"
   echo "----------------------------------------------------------------------"
   echo "----------------------------------------------------------------------"
@@ -77,6 +102,20 @@ $report
 # No need in this situation, since each iteration replaces the previous file.
 #gzip -cvf $path_temporary_gwas_format > $path_temporary_gwas_format_zip
 
+# Munge GWAS summary statistics for use in LDSC.
+$path_ldsc/munge_sumstats.py \
+--sumstats $path_gwas_format \
+--out $path_gwas_munge \
+--merge-alleles $path_alleles/w_hm3.snplist \
+#--a1-inc
+
+# Heritability.
+$path_ldsc/ldsc.py \
+--h2 $path_gwas_munge_suffix \
+--ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+--w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+--out $path_heritability_report
+
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
@@ -85,6 +124,10 @@ if [[ "$report" == "true" ]]; then
   head -10 $path_temporary_collection
   echo "after standardization:"
   head -10 $path_gwas_format
+  echo "after LDSC munge:"
+  head -10 $path_gwas_munge_suffix
+  echo "LDSC heritability report:"
+  cat $path_heritability_report
   echo "----------"
 fi
 
