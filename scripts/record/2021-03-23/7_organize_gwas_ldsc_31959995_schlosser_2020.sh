@@ -10,14 +10,12 @@
 
 ################################################################################
 # Organize variables.
-metabolite=$1 # unique identifier of the metabolite
-file_name=$2 # name of file with GWAS summary statistics
-path_file=$3 # complete path to file with GWAS summary statistics
-path_temporary_collection=$4 # full path to temporary file for collection
-path_temporary_format=$5 # full path to file for new format
-path_destination_parent=$6 # parent directory for files
-path_promiscuity_scripts=$7 # complete path to script to use for z-score standardization
-report=$8 # whether to print reports
+metabolite=${1} # unique identifier of the metabolite
+path_source_file=${2} # full path to source file with GWAS summary statistics for a single metabolite
+path_temporary_collection=${3} # full path to temporary file for collection of GWAS summary statistics for current metabolite
+path_temporary_format=${4} # full path to file for formatted GWAS summary statistics for current metabolite
+path_promiscuity_scripts=${5} # complete path to directory of scripts for z-score standardization
+report=${6} # whether to print reports
 
 #path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_4_of_5.sh"
 path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_5_of_6.sh"
@@ -26,8 +24,7 @@ path_calculate_z_score="$path_promiscuity_scripts/calculate_z_score_column_5_of_
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "metabolite: " $metabolite
-  echo "file name: " $file_name
-  echo "path to original file: " $path_file
+  echo "path to original file: " $path_source_file
   echo "path to new file: " $path_temporary_format
   echo "----------"
 fi
@@ -64,7 +61,7 @@ rm $path_temporary_format
 
 # Organize information from linear GWAS.
 echo "SNP A1 A2 N BETA P" > $path_temporary_collection
-zcat $path_file | awk 'BEGIN { FS=","; OFS=" " } NR > 1 {split($1,a,":"); print a[2], toupper($4), toupper($5), $10, $6, $8}' >> $path_temporary_collection
+zcat $path_source_file | awk 'BEGIN { FS=","; OFS=" " } NR > 1 {split($1,a,":"); print a[2], toupper($4), toupper($5), $10, $6, $8}' >> $path_temporary_collection
 # Calculate Z-score standardization of Beta coefficients.
 /usr/bin/bash $path_calculate_z_score \
 5 \
@@ -79,7 +76,7 @@ $report
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
-  echo "file name: " $file_name
+  echo "metabolite: " $metabolite
   echo "before standardization:"
   head -10 $path_temporary_collection
   echo "after standardization:"
