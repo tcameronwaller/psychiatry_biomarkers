@@ -64,7 +64,7 @@ mkdir -p $path_study_genetic_correlation
 # Execute procedure.
 
 report="true" # "true" or "false"
-/usr/bin/bash "$path_scripts_record/7_execute_procedure_metabolite.sh" \
+/usr/bin/bash "${path_scripts_record}/7_execute_procedure_metabolite.sh" \
 $phenotype_study \
 $metabolite_study \
 $source_file \

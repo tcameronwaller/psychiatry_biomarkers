@@ -29,6 +29,14 @@ report=${14} # whether to print reports
 ################################################################################
 # Derive variables.
 
+# Report.
+if [[ "$report" == "true" ]]; then
+  echo "----------------------------------------------------------------------"
+  echo "----------------------------------------------------------------------"
+  echo "----------------------------------------------------------------------"
+  echo "7_execute_procedure_metabolite.sh"
+fi
+
 # Determine file name.
 #file_name=$source_file
 file_name="$(basename -- $path_source_file)"
