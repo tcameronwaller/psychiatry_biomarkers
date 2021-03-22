@@ -54,7 +54,7 @@ mkdir -p $path_study_genetic_correlation
 ###########################################################################
 # Execute procedure.
 
-/usr/bin/bash "$path_scripts/6_execute_procedure_metabolite.sh" \
+/usr/bin/bash "$path_scripts_record/6_execute_procedure_metabolite.sh" \
 $phenotype_study \
 $metabolite_study \
 $source_file \
