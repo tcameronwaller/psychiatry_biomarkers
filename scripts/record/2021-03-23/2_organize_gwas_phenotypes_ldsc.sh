@@ -31,9 +31,9 @@ path_genetic_correlation="$path_dock/genetic_correlation"
 # Execute procedure.
 
 # Initialize directories.
-#rm -r $path_gwas
-#rm -r $path_heritability
-#rm -r $path_genetic_correlation
+rm -r $path_gwas
+rm -r $path_heritability
+rm -r $path_genetic_correlation
 if [ ! -d $path_gwas ]; then
     # Directory does not already exist.
     # Create directory.

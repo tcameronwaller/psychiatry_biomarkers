@@ -40,7 +40,8 @@ mkdir -p $path_study_gwas
 mkdir -p $path_study_heritability
 mkdir -p $path_study_genetic_correlation
 path_temporary_collection="${path_study_gwas}/temporary_gwas_collection.txt.gz"
-path_gwas_format="${path_study_gwas}/gwas_format.txt.gz"
+path_gwas_format="${path_study_gwas}/gwas_format.txt"
+path_gwas_format_compress="${path_study_gwas}/gwas_format.txt.gz"
 path_gwas_munge="${path_study_gwas}/gwas_munge"
 path_gwas_munge_suffix="${path_gwas_munge}.sumstats.gz"
 path_gwas_munge_log="${path_gwas_munge}.log"
@@ -99,12 +100,11 @@ $path_gwas_format \
 $report
 
 # Compress file format.
-# No need in this situation, since each iteration replaces the previous file.
-#gzip -cvf $path_temporary_gwas_format > $path_temporary_gwas_format_zip
+gzip -cvf $path_gwas_format > $path_gwas_format_compress
 
 # Munge GWAS summary statistics for use in LDSC.
 $path_ldsc/munge_sumstats.py \
---sumstats $path_gwas_format \
+--sumstats $path_gwas_format_compress \
 --out $path_gwas_munge \
 --merge-alleles $path_alleles/w_hm3.snplist \
 #--a1-inc
@@ -134,3 +134,4 @@ fi
 ###########################################################################
 # Remove temporary files.
 rm $path_temporary_collection
+rm $path_gwas_format
