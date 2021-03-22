@@ -42,6 +42,7 @@ fi
 file_name="$(basename -- $path_source_file)"
 # Determine metabolite identifier.
 # Refer to documnetation for test: https://www.freebsd.org/cgi/man.cgi?test
+# Bash script more or less ignores empty string argument.
 # if [[ ! -z "$name_prefix" ]]; then
 metabolite=${file_name}
 if [[ "$name_prefix" != "null" ]]; then

@@ -35,7 +35,10 @@ phenotype_study="30239722_pulit_2018" # "30124842_yengo_2018", "30239722_pulit_2
 metabolite_study="24816252_shin_2014" # "24816252_shin_2014", "31959995_schlosser_2021", "33437055_panyard_2021"
 
 # Format: 24816252_shin_2014
-source_file="M00054.metal.pos.txt.gz" # tryptophan
+#source_file="M00053.metal.pos.txt.gz" # glutamine
+#source_file="M00054.metal.pos.txt.gz" # tryptophan
+source_file="M02342.metal.pos.txt.gz" # serotonin
+#source_file="M15140.metal.pos.txt.gz" # kynurenine
 name_prefix="null" # file name prefix before metabolite identifier or "null"
 name_suffix=".metal.pos.txt.gz" # file name suffix after metabolite identifier or "null"
 path_source_directory="${path_gwas_summaries}/${metabolite_study}/metabolites_meta" # path unique to 24816252_shin_2014
