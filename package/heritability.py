@@ -439,7 +439,7 @@ def read_collect_metabolites_heritabilities(
     """
 
     # Collect names of files for metabolites' heritabilities.
-    files = utility.extract_directory_file_names(path=path_parent)
+    files = utility.extract_directory_file_names(path=path_source_directory)
     files_relevant = list(filter(
         lambda content: ("heritability" in content), files
     ))
