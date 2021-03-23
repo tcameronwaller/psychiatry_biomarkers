@@ -406,10 +406,12 @@ def read_extract_metabolite_heritability(
         ):
             content = line.replace(prefix_ratio, "")
             contents = content.split(" (")
-            ratio = float(contents[0])
-            ratio_error = float(
-                contents[1].replace(")", "")
-            )
+            ratio_test = contents[0]
+            if (not "NA" in ratio_test):
+                ratio = float(contents[0])
+                ratio_error = float(
+                    contents[1].replace(")", "")
+                )
             pass
         pass
     # Collect information.
