@@ -395,12 +395,15 @@ def read_extract_metabolite_heritability(
         elif prefix_heritability in line:
             content = line.replace(prefix_heritability, "")
             contents = content.split(" (")
-            heritability = float(contents[0])
-            heritability_error = float(
-                contents[1].replace(")", "")
-            )
+            heritability_test = contents[0]
+            if (not "NA" in heritability_test):
+                heritability = float(contents[0])
+                heritability_error = float(contents[1].replace(")", ""))
             pass
-        elif prefix_ratio in line:
+        elif (
+            (not math.isnan(heritability)) and
+            (prefix_ratio in line)
+        ):
             content = line.replace(prefix_ratio, "")
             contents = content.split(" (")
             ratio = float(contents[0])
