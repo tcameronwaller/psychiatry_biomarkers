@@ -790,7 +790,7 @@ def execute_procedure(
     )
     # Read and collect heritability estimations for metabolites from multiple
     # GWAS.
-    if false:
+    if False:
         pail_studies = read_collect_organize_metabolites_heritabilities_studies(
             table_reference_panyard_2021=source["table_reference_panyard_2021"],
             paths=paths,
