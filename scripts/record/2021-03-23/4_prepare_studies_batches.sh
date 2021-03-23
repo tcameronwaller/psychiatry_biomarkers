@@ -41,9 +41,13 @@ path_genetic_correlation="$path_dock/genetic_correlation"
 
 ################################################################################
 # PubMed: 33437055; Author: Panyard; Year: 2021.
+
+#path_source_directory="${path_gwas_summaries}/${metabolite_study}" # path unique to 24816252_shin_2014
 #name_prefix="metabolite_" # file name prefix before metabolite identifier or "null"
 #name_suffix="_meta_analysis_gwas.csv.gz" # file name suffix after metabolite identifier or "null"
 #file_pattern="metabolite_*_meta_analysis_gwas.csv.gz" # do not expand with full path yet
+
+
 
 ################################################################################
 # PubMed: 24816252; Author: Shin; Year: 2014.
