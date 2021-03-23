@@ -916,7 +916,7 @@ def execute_procedure(
             paths=paths,
             report=True,
         )
-    pail_studies = read_collect_combine_metabolites_heritabilities_correlations(
+    pail_studies = read_collect_combine_phenotype_metabolites_studies(
         table_reference_shin_2014=source["table_reference_shin_2014"],
         table_reference_panyard_2021=source["table_reference_panyard_2021"],
         paths=paths,
