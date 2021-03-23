@@ -255,7 +255,7 @@ def organize_metabolite_reference_table(
 
 def read_extract_metabolite_heritability(
     file=None,
-    path_parent=None,
+    path_source_directory=None,
 ):
     """
     Reads and extracts information from log of LDSC for heritability estimation
@@ -263,8 +263,8 @@ def read_extract_metabolite_heritability(
 
     arguments:
         file (str): name of a file
-        path_parent (str): path to parent directory for files with heritability
-            estimations for metabolites
+        path_source_directory (str): path to source parent directory for files
+            with genetic correlation estimations for metabolites
 
     raises:
 
@@ -323,29 +323,24 @@ def read_extract_metabolite_heritability(
     # Collect information.
     record = dict()
     record["identifier"] = identifier
-    record["variants"] = variants
+    record["heritability_variants"] = variants
     record["heritability"] = heritability
     record["heritability_standard_error"] = heritability_error
-    record["ratio"] = ratio
-    record["ratio_standard_error"] = ratio_error
+    record["heritability_ratio"] = ratio
+    record["heritability_ratio_standard_error"] = ratio_error
     # Return information.
     return record
 
 
 def read_collect_metabolites_heritabilities(
-    table_reference=None,
-    path_parent=None,
-    report=None,
+    path_source_directory=None,
 ):
     """
     Reads, collects, and organizes metabolite heritability estimates.
 
     arguments:
-        table_reference (object): Pandas data frame of metabolites' identifiers
-            and names from study
-        path_parent (str): path to parent directory for files with heritability
-            estimations for metabolites
-        report (bool): whether to print reports
+        path_source_directory (str): path to source parent directory for files
+            with genetic correlation estimations for metabolites
 
     raises:
 
@@ -354,23 +349,16 @@ def read_collect_metabolites_heritabilities(
 
     """
 
-    # Organize metabolite reference table.
-    table_reference = organize_metabolite_reference_table(
-        table=table_reference,
-        identifier="identifier_study",
-        name="name",
-    )
-
     # Collect names of files for metabolites' heritabilities.
     files = utility.extract_directory_file_names(path=path_parent)
-    files_heritability = list(filter(
+    files_relevant = list(filter(
         lambda content: ("heritability" in content), files
     ))
     records = list()
-    for file in files_heritability:
+    for file in files_relevant:
         record = read_extract_metabolite_heritability(
             file=file,
-            path_parent=path_parent,
+            path_source_directory=path_source_directory,
         )
         records.append(record)
         pass
@@ -394,30 +382,8 @@ def read_collect_metabolites_heritabilities(
         drop=True,
         inplace=True,
     )
-    # Merge data tables using database-style join.
-    # Alternative is to use DataFrame.join().
-    table_merge = table.merge(
-        table_reference,
-        how="outer",
-        left_on="identifier",
-        right_on="identifier",
-        suffixes=("_heritability", "_reference"),
-    )
-    columns_sequence = [
-        #"identifier",
-        "name",
-        "heritability", "heritability_standard_error",
-        "ratio", "ratio_standard_error",
-        "variants",
-    ]
-    table_merge = table_merge[[*columns_sequence]]
-    # Report.
-    if report:
-        utility.print_terminal_partition(level=2)
-        print(path_parent)
-        print(table_merge)
     # Return information.
-    return table_merge
+    return table
 
 
 def read_collect_organize_metabolites_heritabilities_studies(
@@ -530,30 +496,25 @@ def read_extract_phenotype_metabolite_genetic_correlation(
     # Collect information.
     record = dict()
     record["identifier"] = identifier
-    record["variants"] = variants
+    record["correlation_variants"] = variants
     record["correlation"] = correlation
     record["correlation_standard_error"] = correlation_error
     record["correlation_absolute"] = correlation_absolute
-    record["probability"] = probability
+    record["correlation_probability"] = probability
     # Return information.
     return record
 
 
-
 def read_collect_metabolites_genetic_correlations(
-    table_reference=None,
     path_source_directory=None,
-    report=None,
 ):
     """
-    Reads, collects, and organizes metabolite heritability estimates.
+    Reads and collects estimations of genetic correlation between phenotype and
+        metabolites.
 
     arguments:
-        table_reference (object): Pandas data frame of metabolites' identifiers
-            and names from study
         path_source_directory (str): path to source parent directory for files
             with genetic correlation estimations for metabolites
-        report (bool): whether to print reports
 
     raises:
 
@@ -561,13 +522,6 @@ def read_collect_metabolites_genetic_correlations(
         (object): Pandas data frame of metabolites' heritability estimates
 
     """
-
-    # Organize metabolite reference table.
-    table_reference = organize_metabolite_reference_table(
-        table=table_reference,
-        identifier="identifier_study",
-        name="name",
-    )
 
     # Collect names of files for metabolites' heritabilities.
     files = utility.extract_directory_file_names(path=path_source_directory)
@@ -603,31 +557,8 @@ def read_collect_metabolites_genetic_correlations(
         drop=True,
         inplace=True,
     )
-    # Merge data tables using database-style join.
-    # Alternative is to use DataFrame.join().
-    table_merge = table.merge(
-        table_reference,
-        how="outer",
-        left_on="identifier",
-        right_on="identifier",
-        suffixes=("_correlation", "_reference"),
-    )
-    columns_sequence = [
-        #"identifier",
-        "name",
-        "correlation", "correlation_standard_error",
-        "correlation_absolute",
-        "probability",
-        "variants",
-    ]
-    table_merge = table_merge[[*columns_sequence]]
-    # Report.
-    if report:
-        utility.print_terminal_partition(level=2)
-        print(path_source_directory)
-        print(table_merge)
     # Return information.
-    return table_merge
+    return table
 
 
 def read_collect_organize_metabolites_correlations_studies(
@@ -674,6 +605,177 @@ def read_collect_organize_metabolites_correlations_studies(
     )
     # Return information.
     return pail
+
+
+# Combination
+
+
+def read_collect_combine_study(
+    table_reference=None,
+    file_phenotype_heritability=None,
+    path_phenotype_heritability=None,
+    path_metabolite_heritabilities=None,
+    path_correlations=None,
+    report=None,
+):
+    """
+    Reads, collects, and organizes metabolite heritability estimates.
+
+    arguments:
+        table_reference (object): Pandas data frame of metabolites' identifiers
+            and names from study
+        file_phenotype_heritability (str): name of file for heritability
+            estimation for phenotype
+        path_phenotype_heritability (str): path to source parent directory for
+            heritability estimation for phenotype
+        path_metabolite_heritabilities (str): path to source parent directory
+            for files with heritability estimations for metabolites
+        path_correlations (str): path to source parent directory for files with
+            genetic correlation estimations for phenotype and metabolites
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): Pandas data frame of metabolites' heritability estimates
+
+    """
+
+    # Organize metabolite reference table.
+    table_reference = organize_metabolite_reference_table(
+        table=table_reference,
+        identifier="identifier_study",
+        name="name",
+    )
+
+    pail_phenotype = read_extract_metabolite_heritability(
+        file=file_phenotype_heritability,
+        path_source_directory=path_phenotype_heritability,
+    )
+
+    table_correlations = read_collect_metabolites_genetic_correlations(
+        path_source_directory=path_correlations,
+    )
+
+    table_metabolite_heritabilities = read_collect_metabolites_heritabilities(
+        path_source_directory=path_metabolite_heritabilities,
+    )
+
+    # Merge data tables using database-style join.
+    # Alternative is to use DataFrame.join().
+    table_merge = table_reference.merge(
+        table_correlations,
+        how="outer",
+        left_on="identifier",
+        right_on="identifier",
+        suffixes=("_reference", "_correlation"),
+    )
+    table_merge = table_merge.merge(
+        table_metabolite_heritabilities,
+        how="outer",
+        left_on="identifier",
+        right_on="identifier",
+        suffixes=("_reference", "_heritability"),
+    )
+
+    table_merge.sort_values(
+        by=["correlation_absolute"],
+        axis="index",
+        ascending=False,
+        na_position="last",
+        inplace=True,
+    )
+
+    table_merge["phenotype_heritability"] = pail_phenotype["heritability"]
+    table_merge["phenotype_heritability_error"] = (
+        pail_phenotype["heritability_standard_error"]
+    )
+
+    columns_sequence = [
+        #"identifier",
+        "name",
+        "phenotype_heritability",
+        "phenotype_heritability_error",
+        "correlation", "correlation_standard_error",
+        "correlation_absolute",
+        "correlation_probability",
+        "correlation_variants",
+        "heritability",
+        "heritability_standard_error",
+        "heritability_ratio",
+        "heritability_ratio_standard_error",
+        "heritability_variants",
+    ]
+    table_merge = table_merge[[*columns_sequence]]
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print(path_source_directory)
+        print(table_merge)
+    # Return information.
+    return table_merge
+
+
+def read_collect_combine_phenotype_metabolites_studies(
+    table_reference_shin_2014=None,
+    table_reference_panyard_2021=None,
+    paths=None,
+    report=None,
+):
+    """
+    Reads, collects, combines, and organizes heritabilities and genetic
+    correlations between phenotypes and metabolites.
+
+    arguments:
+        table_reference_shin_2014 (object): Pandas data frame of metabolites'
+            identifiers and names from study
+        table_reference_panyard_2021 (object): Pandas data frame of metabolites'
+            identifiers and names from study
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): heritability estimations for metabolites from multiple GWAS
+
+    """
+
+    # Collect metabolites' heritabilities from each GWAS.
+    pail = dict()
+    #pail["table_shin_2014"] =
+    pail["table_yengo_2018_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=os.path.join(
+            path_dock, "heritability", "30124842_yengo_2018",
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_correlations=(
+            paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"]
+        ),
+        report=report,
+    )
+    pail["table_pulit_2018_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=os.path.join(
+            path_dock, "heritability", "30239722_pulit_2018",
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_source_directory=(
+            paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"]
+        ),
+        report=report,
+    )
+    # Return information.
+    return pail
+
 
 
 
@@ -807,7 +909,14 @@ def execute_procedure(
 
     # Read and collect genetic correlation estimations for metabolites from
     # multiple studies.
-    pail_correlations = read_collect_organize_metabolites_correlations_studies(
+    if False:
+        pail_correlations = read_collect_organize_metabolites_correlations_studies(
+            table_reference_shin_2014=source["table_reference_shin_2014"],
+            table_reference_panyard_2021=source["table_reference_panyard_2021"],
+            paths=paths,
+            report=True,
+        )
+    pail_studies = read_collect_combine_metabolites_heritabilities_correlations(
         table_reference_shin_2014=source["table_reference_shin_2014"],
         table_reference_panyard_2021=source["table_reference_panyard_2021"],
         paths=paths,
