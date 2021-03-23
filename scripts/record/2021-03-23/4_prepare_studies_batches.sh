@@ -66,7 +66,7 @@ path_study_gwas="${path_gwas}/${metabolite_study}"
 path_study_heritability="${path_heritability}/${metabolite_study}"
 path_study_genetic_correlation="${path_genetic_correlation}/${phenotype_study}/${metabolite_study}" # notice the directory structure for phenotype and metabolite studies
 path_script_gwas_organization="${path_scripts_organization}/organize_gwas_ldsc_${metabolite_study}.sh"
-report="true" # "true" or "false"
+report="false" # "true" or "false"
 # Prepare and submit batch.
 /usr/bin/bash "${path_scripts_record}/5_prepare_submit_batch_organize_gwas_heritability.sh" \
 $phenotype_study \
