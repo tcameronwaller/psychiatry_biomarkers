@@ -718,7 +718,7 @@ def read_collect_combine_study(
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
-        print(path_source_directory)
+        print(path_correlations)
         print(table_merge)
     # Return information.
     return table_merge
