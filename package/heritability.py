@@ -79,20 +79,73 @@ def initialize_directories(
     paths = dict()
     # Define paths to directories.
     paths["dock"] = path_dock
-    paths["heritability"] = os.path.join(path_dock, "heritability")
-    paths["heritability_panyard_2021"] = os.path.join(
+    paths["heritability"] = dict()
+    paths["heritability"]["24816252_shin_2014"] = os.path.join(
+        path_dock, "heritability", "24816252_shin_2014"
+    )
+    paths["heritability"]["33437055_panyard_2021"] = os.path.join(
         path_dock, "heritability", "33437055_panyard_2021"
     )
-    paths["collection"] = os.path.join(
-        path_dock, "heritability", "collection"
+    paths["heritability"]["24816252_shin_2014_collection"] = os.path.join(
+        path_dock, "heritability", "24816252_shin_2014", "collection"
     )
+    paths["heritability"]["33437055_panyard_2021_collection"] = os.path.join(
+        path_dock, "heritability", "33437055_panyard_2021", "collection"
+    )
+    paths["correlation"] = dict()
+    paths["correlation"]["30124842_yengo_2018"] = dict()
+    paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"] = (
+        os.path.join(
+            path_dock, "genetic_correlation",
+            "30124842_yengo_2018", "24816252_shin_2014"
+        )
+    )
+    paths["correlation"]["30124842_yengo_2018"]["collection"] = (
+        os.path.join(
+            path_dock, "genetic_correlation",
+            "30124842_yengo_2018", "collection"
+        )
+    )
+    paths["correlation"]["30239722_pulit_2018"] = dict()
+    paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"] = (
+        os.path.join(
+            path_dock, "genetic_correlation",
+            "30239722_pulit_2018", "24816252_shin_2014"
+        )
+    )
+    paths["correlation"]["30239722_pulit_2018"]["collection"] = (
+        os.path.join(
+            path_dock, "genetic_correlation",
+            "30239722_pulit_2018", "collection"
+        )
+    )
+
     # Remove previous files to avoid version or batch confusion.
     if restore:
-        utility.remove_directory(path=paths["collection"])
+        utility.remove_directory(
+            path=paths["heritability"]["24816252_shin_2014_collection"]
+        )
+        utility.remove_directory(
+            path=paths["heritability"]["33437055_panyard_2021_collection"]
+        )
     # Initialize directories.
     utility.create_directories(
-        path=paths["collection"]
+        path=paths["heritability"]["24816252_shin_2014_collection"]
     )
+    utility.create_directories(
+        path=paths["heritability"]["33437055_panyard_2021_collection"]
+    )
+    utility.create_directories(
+        path=(
+            paths["correlation"]["30124842_yengo_2018"]["collection"]
+        )
+    )
+    utility.create_directories(
+        path=(
+            paths["correlation"]["30239722_pulit_2018"]["collection"]
+        )
+    )
+
     # Return information.
     return paths
 
@@ -117,14 +170,21 @@ def read_source(
     """
 
     # Specify directories and files.
-    #path_table_reference_shin_2014 = os.path.join(
-    #    path_dock, "access", "metabolites", "metaboliteMap.txt"
-    #)
+    path_table_reference_shin_2014 = os.path.join(
+        path_dock, "parameters", "bipolar_metabolism", "metabolite_reference",
+        "24816252_shin_2014", "table_metabolite_reference.tsv"
+    )
     path_table_reference_panyard_2021 = os.path.join(
         path_dock, "parameters", "bipolar_metabolism", "metabolite_reference",
         "33437055_panyard_2021", "table_metabolite_reference.tsv"
     )
     # Read information from file.
+    table_reference_shin_2014 = pandas.read_csv(
+        path_table_reference_shin_2014,
+        sep="\t",
+        header=0,
+        dtype="string",
+    )
     table_reference_panyard_2021 = pandas.read_csv(
         path_table_reference_panyard_2021,
         sep="\t",
@@ -138,6 +198,7 @@ def read_source(
         utility.print_terminal_partition(level=2)
     # Compile and return information.
     return {
+        "table_reference_shin_2014": table_reference_shin_2014,
         "table_reference_panyard_2021": table_reference_panyard_2021,
     }
 
@@ -393,6 +454,221 @@ def read_collect_organize_metabolites_heritabilities_studies(
     return pail
 
 
+# Genetic correlation.
+
+
+def read_extract_phenotype_metabolite_genetic_correlation(
+    file=None,
+    path_source_directory=None,
+):
+    """
+    Reads and extracts information from log of LDSC for estimation of
+    genetic correlation between a phenotype of interest and a metabolite.
+
+    phenotype 1: phenotype of interest compared accross all metabolites
+    phenotype 2: single metabolite of interest
+
+    arguments:
+        file (str): name of a file
+        path_source_directory (str): path to source parent directory for files
+            with genetic correlation estimations for metabolites
+
+    raises:
+
+    returns:
+        (dict): information about estimation of a metabolite's genetic
+            correlation to phenotype
+
+    """
+
+    # Extract metabolite's identifier.
+    identifier = str(
+        file.replace("correlation_", "").replace(".log", "")
+    )
+    # Define path to file.
+    path_file = os.path.join(
+        path_source_directory, file
+    )
+    # Initialize variables.
+    variants = float("nan")
+    correlation = float("nan")
+    correlation_error = float("nan")
+    probability = float("nan")
+    # Read relevant lines from file.
+    lines = utility.read_file_text_lines(
+        path_file=path_file,
+        start=25,
+        stop=57,
+    )
+    # Extract information from lines.
+    prefix_variants = ""
+    suffix_variants = " SNPs with valid alleles."
+    prefix_correlation = "Genetic Correlation: "
+    prefix_probability = "P: "
+    for line in lines:
+        if suffix_variants in line:
+            variants = float(
+                line.replace(prefix_variants, "").replace(suffix_variants, "")
+            )
+        elif prefix_correlation in line:
+            content = line.replace(prefix_correlation, "")
+            contents = content.split(" (")
+            correlation = float(contents[0])
+            correlation_error = float(
+                contents[1].replace(")", "")
+            )
+            pass
+        elif prefix_probability in line:
+            probability = float(line.replace(prefix_probability, ""))
+            pass
+        pass
+    # Collect information.
+    record = dict()
+    record["identifier"] = identifier
+    record["variants"] = variants
+    record["correlation"] = correlation
+    record["correlation_standard_error"] = correlation_error
+    record["probability"] = probability
+    # Return information.
+    return record
+
+
+
+def read_collect_metabolites_genetic_correlations(
+    table_reference=None,
+    path_source_directory=None,
+    report=None,
+):
+    """
+    Reads, collects, and organizes metabolite heritability estimates.
+
+    arguments:
+        table_reference (object): Pandas data frame of metabolites' identifiers
+            and names from study
+        path_source_directory (str): path to source parent directory for files
+            with genetic correlation estimations for metabolites
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): Pandas data frame of metabolites' heritability estimates
+
+    """
+
+    # Organize metabolite reference table.
+    table_reference = organize_metabolite_reference_table(
+        table=table_reference,
+        identifier="identifier_study",
+        name="name",
+    )
+
+    # Collect names of files for metabolites' heritabilities.
+    files = utility.extract_directory_file_names(path=path_source_directory)
+    files_relevant = list(filter(
+        lambda content: ("correlation" in content), files
+    ))
+    records = list()
+    for file in files_relevant:
+        record = read_extract_phenotype_metabolite_genetic_correlation(
+            file=file,
+            path_source_directory=path_source_directory,
+        )
+        records.append(record)
+        pass
+    # Organize heritability table.
+    table = utility.convert_records_to_dataframe(
+        records=records
+    )
+    table.sort_values(
+        by=["correlation"],
+        axis="index",
+        ascending=False,
+        inplace=True,
+    )
+    table.reset_index(
+        level=None,
+        inplace=True
+    )
+    table["identifier"].astype("string")
+    table.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
+    # Merge data tables using database-style join.
+    # Alternative is to use DataFrame.join().
+    table_merge = table.merge(
+        table_reference,
+        how="outer",
+        left_on="identifier",
+        right_on="identifier",
+        suffixes=("_correlation", "_reference"),
+    )
+    columns_sequence = [
+        #"identifier",
+        "name",
+        "correlation", "correlation_standard_error",
+        "ratio", "ratio_standard_error",
+        "variants",
+    ]
+    table_merge = table_merge[[*columns_sequence]]
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print(path_source_directory)
+        print(table_merge)
+    # Return information.
+    return table_merge
+
+
+def read_collect_organize_metabolites_correlations_studies(
+    table_reference_shin_2014=None,
+    table_reference_panyard_2021=None,
+    paths=None,
+    report=None,
+):
+    """
+    Reads, collects, and organizes metabolite heritability estimates.
+
+    arguments:
+        table_reference_shin_2014 (object): Pandas data frame of metabolites'
+            identifiers and names from study
+        table_reference_panyard_2021 (object): Pandas data frame of metabolites'
+            identifiers and names from study
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): heritability estimations for metabolites from multiple GWAS
+
+    """
+
+    # Collect metabolites' heritabilities from each GWAS.
+    pail = dict()
+    #pail["table_shin_2014"] =
+    pail["table_yengo_2018_shin_2014"] = read_collect_metabolites_genetic_correlations(
+        table_reference=table_reference_shin_2014,
+        path_source_directory=(
+            paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"]
+        ),
+        report=report,
+    )
+    pail["table_pulit_2018_shin_2014"] = read_collect_metabolites_genetic_correlations(
+        table_reference=table_reference_shin_2014,
+        path_source_directory=(
+            paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"]
+        ),
+        report=report,
+    )
+    # Return information.
+    return pail
+
+
+
 def write_product_study_table(
     name=None,
     information=None,
@@ -514,20 +790,31 @@ def execute_procedure(
     )
     # Read and collect heritability estimations for metabolites from multiple
     # GWAS.
-    pail_studies = read_collect_organize_metabolites_heritabilities_studies(
+    if false:
+        pail_studies = read_collect_organize_metabolites_heritabilities_studies(
+            table_reference_panyard_2021=source["table_reference_panyard_2021"],
+            paths=paths,
+            report=True,
+        )
+
+    # Read and collect genetic correlation estimations for metabolites from
+    # multiple studies.
+    pail_correlations = read_collect_organize_metabolites_correlations_studies(
+        table_reference_shin_2014=source["table_reference_shin_2014"],
         table_reference_panyard_2021=source["table_reference_panyard_2021"],
         paths=paths,
         report=True,
     )
 
     # Collect information.
-    information = dict()
-    information["studies"] = pail_studies
-    # Write product information to file.
-    write_product(
-        paths=paths,
-        information=information
-    )
+    if False:
+        information = dict()
+        information["studies"] = pail_studies
+        # Write product information to file.
+        write_product(
+            paths=paths,
+            information=information
+        )
 
     pass
 
