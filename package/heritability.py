@@ -365,7 +365,7 @@ def read_extract_metabolite_heritability(
     )
     # Define path to file.
     path_file = os.path.join(
-        path_parent, file
+        path_source_directory, file
     )
     # Initialize variables.
     variants = float("nan")
