@@ -612,7 +612,7 @@ def read_collect_metabolites_genetic_correlations(
         #"identifier",
         "name",
         "correlation", "correlation_standard_error",
-        "ratio", "ratio_standard_error",
+        "probability",
         "variants",
     ]
     table_merge = table_merge[[*columns_sequence]]
