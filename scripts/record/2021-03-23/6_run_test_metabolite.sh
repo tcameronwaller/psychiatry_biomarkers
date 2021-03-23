@@ -72,7 +72,6 @@ report="true" # "true" or "false"
 /usr/bin/bash "${path_scripts_record}/7_execute_procedure_metabolite.sh" \
 $phenotype_study \
 $metabolite_study \
-$source_file \
 $path_source_file \
 $name_prefix \
 $name_suffix \

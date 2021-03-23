@@ -13,18 +13,17 @@
 
 phenotype_study=${1} # identifier of GWAS study for phenotype
 metabolite_study=${2} # identifier of GWAS study for metabolites
-source_file=${3} # name of source file with GWAS summary statistics for a single metabolite
-path_source_file=${4} # full path to source file with GWAS summary statistics for a single metabolite
-name_prefix=${5} # file name prefix before metabolite identifier or empty string
-name_suffix=${6} # file name suffix after metabolite identifier or empty string
-path_genetic_reference=${7} # full path to parent directory with genetic reference files for LDSC
-path_phenotype_gwas=${8} # full path to parent directory for formatted GWAS summary statistics for phenotype
-path_study_gwas=${9} # full path to parent directory for formatted GWAS summary statistics for metabolites in study
-path_study_heritability=${10} # full path to parent directory for LDSC heritability estimation for metabolites in study
-path_study_genetic_correlation=${11} # full path to parent directory for LDSC genetic correlation for metabolites in study
-path_script_gwas_organization=${12} # full path to script to use to organize format of GWAS summary statistics for metabolites in study
-path_promiscuity_scripts=${13} # complete path to directory of scripts for z-score standardization
-report=${14} # whether to print reports
+path_source_file=${3} # full path to source file with GWAS summary statistics for a single metabolite
+name_prefix=${4} # file name prefix before metabolite identifier or "null"
+name_suffix=${5} # file name suffix after metabolite identifier or "null"
+path_genetic_reference=${6} # full path to parent directory with genetic reference files for LDSC
+path_phenotype_gwas=${7} # full path to parent directory for formatted GWAS summary statistics for phenotype
+path_study_gwas=${8} # full path to parent directory for formatted GWAS summary statistics for metabolites in study
+path_study_heritability=${9} # full path to parent directory for LDSC heritability estimation for metabolites in study
+path_study_genetic_correlation=${10} # full path to parent directory for LDSC genetic correlation for metabolites in study
+path_script_gwas_organization=${11} # full path to script to use to organize format of GWAS summary statistics for metabolites in study
+path_promiscuity_scripts=${12} # complete path to directory of scripts for z-score standardization
+report=${13} # whether to print reports
 
 ################################################################################
 # Derive variables.

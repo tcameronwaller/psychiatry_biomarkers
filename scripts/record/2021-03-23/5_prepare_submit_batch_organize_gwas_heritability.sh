@@ -8,39 +8,50 @@
 ###########################################################################
 ###########################################################################
 
-# Organize variables.
-path_source=$1 # full path to source directory of GWAS summary statistics
-path_destination_parent=$2 # full path to destination directory
-path_genetic_reference=$3 # full path to genetic reference access
-name_prefix=$4 # file name prefix before metabolite identifier or empty string
-name_suffix=$5 # file name suffix after metabolite identifier or empty string
-file_pattern=$6 # glob pattern by which to recognize relevant files in source directory
-path_script_gwas_organization=$7 # full path to script to use for format organization
-path_scripts=$8 # full path to scripts for current implementation pipeline
-path_promiscuity_scripts=$9 # full path to scripts from promiscuity package
+################################################################################
+# Organize argument variables.
 
-path_batch_instances="${path_destination_parent}/batch_instances.txt"
+phenotype_study=${1} # identifier of GWAS study for phenotype
+metabolite_study=${2} # identifier of GWAS study for metabolites
+source_file_pattern=${3} # glob pattern by which to recognize relevant files in source directory
+path_source_directory=${4} # full path to parent directory for raw GWAS summary statistics for metabolites in study
+name_prefix=${5} # file name prefix before metabolite identifier or "null"
+name_suffix=${6} # file name suffix after metabolite identifier or "null"
+path_genetic_reference=${7} # full path to parent directory with genetic reference files for LDSC
+path_phenotype_gwas=${8} # full path to parent directory for formatted GWAS summary statistics for phenotype
+path_study_gwas=${9} # full path to parent directory for formatted GWAS summary statistics for metabolites in study
+path_study_heritability=${10} # full path to parent directory for LDSC heritability estimation for metabolites in study
+path_study_genetic_correlation=${11} # full path to parent directory for LDSC genetic correlation for metabolites in study
+path_scripts_record=${12} # full path to pipeline scripts
+path_script_gwas_organization=${13} # full path to script to use to organize format of GWAS summary statistics for metabolites in study
+path_promiscuity_scripts=${14} # complete path to directory of scripts for z-score standardization
+report=${15} # whether to print reports
+
+################################################################################
+# Organize variables.
+
+path_batch_instances="${path_study_gwas}/batch_instances.txt"
 # Define glob pattern for file paths.
 # This definition expands to an array of all files in the path directory that
 # match the pattern.
-path_pattern="${path_source}/${file_pattern}"
+path_pattern="${path_source_directory}/${source_file_pattern}"
 
 # Initialize directories.
-rm -r $path_destination_parent
-if [ ! -d $path_destination_parent ]; then
-    # Directory does not already exist.
-    # Create directory.
-    mkdir -p $path_destination_parent
-fi
+rm -r $path_study_gwas
+rm -r $path_study_heritability
+rm -r $path_study_genetic_correlation
+mkdir -p $path_study_gwas
+mkdir -p $path_study_heritability
+mkdir -p $path_study_genetic_correlation
 
 # Report.
 echo "----------------------------------------------------------------------"
 echo "Report."
 echo "----------------------------------------------------------------------"
 echo "----------"
-echo "source path: " $path_source
-#echo "file path pattern: " $path_pattern
-echo "destination path: " $path_destination_parent
+echo "phenotype study: " $phenotype_study
+echo "metabolite study: " $metabolite_study
+echo "source path directory: " $path_source_directory
 echo "path to batch instances: " $path_batch_instances
 echo "----------"
 
@@ -55,7 +66,8 @@ echo "----------------------------------------------------------------------"
 #    echo $path_file >> $path_metabolites/metabolite_files.txt
 #done
 # Iterate on all files and directories in parent directory.
-for path_file in $path_source/*; do
+rm $path_batch_instances
+for path_file in $path_source_directory/*; do
   if [ -f "$path_file" ]; then
     # Current content item is a file.
     # Compare to glob pattern to recognize relevant files.
@@ -75,39 +87,49 @@ readarray -t batch_instances < $path_batch_instances
 batch_instances_count=${#batch_instances[@]}
 echo "----------"
 echo "count of batch instances: " $batch_instances_count
-echo "first batch instance: " ${batch_instances[0]}
+echo "first batch instance: " ${batch_instances[0]} # notice base-zero indexing
 echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 
-if true; then
+if false; then
   # Submit array batch to Sun Grid Engine.
-  # Array batch indices cannot start at zero.
-  # Array batch indices start at one.
+  # Array batch indices must start at one (not zero).
   echo "----------------------------------------------------------------------"
   echo "Submit array of batches to Sun Grid Engine."
   echo "----------------------------------------------------------------------"
   qsub -t 1-${batch_instances_count}:1 -o \
-  "$path_destination_parent/out.txt" -e "$path_destination_parent/error.txt" \
-  $path_scripts/5_run_batch_organize_gwas_ldsc_heritability.sh \
+  "${path_study_gwas}/out.txt" -e "${path_study_gwas}/error.txt" \
+  "${path_scripts_record}/6_run_batch_organize_gwas_ldsc_heritability.sh" \
   $path_batch_instances \
   $batch_instances_count \
-  $path_destination_parent \
-  $path_genetic_reference \
+  $phenotype_study \
+  $metabolite_study \
   $name_prefix \
   $name_suffix \
+  $path_genetic_reference \
+  $path_phenotype_gwas \
+  $path_study_gwas \
+  $path_study_heritability \
+  $path_study_genetic_correlation \
+  $path_scripts_record \
   $path_script_gwas_organization \
-  $path_scripts \
-  $path_promiscuity_scripts
+  $path_promiscuity_scripts \
+  $report
 fi
-if false; then
-  for path_file in "${batch_instances[@]}"; do
-    /usr/bin/bash "$path_scripts/6_execute_procedure_metabolite.sh" \
-    $path_file \
-    $path_destination_parent \
-    $path_genetic_reference \
+if true; then
+  for path_source_file in "${batch_instances[@]}"; do
+    /usr/bin/bash "${path_scripts_record}/7_execute_procedure_metabolite.sh" \
+    $phenotype_study \
+    $metabolite_study \
+    $path_source_file \
     $name_prefix \
     $name_suffix \
+    $path_genetic_reference \
+    $path_phenotype_gwas \
+    $path_study_gwas \
+    $path_study_heritability \
+    $path_study_genetic_correlation \
     $path_script_gwas_organization \
-    $path_scripts \
-    $path_promiscuity_scripts
+    $path_promiscuity_scripts \
+    $report
   done
 fi
