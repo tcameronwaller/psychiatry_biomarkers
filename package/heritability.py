@@ -92,6 +92,9 @@ def initialize_directories(
     paths["heritability"]["33437055_panyard_2021_collection"] = os.path.join(
         path_dock, "heritability", "33437055_panyard_2021", "collection"
     )
+    paths["genetic_correlation"] = os.path.join(
+        path_dock, "genetic_correlation",
+    )
     paths["correlation"] = dict()
     paths["correlation"]["30124842_yengo_2018"] = dict()
     paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"] = (
@@ -859,7 +862,7 @@ def write_product(
     # Cohort tables in PLINK format.
     write_product_studies(
         information=information["studies"],
-        path_parent=paths["collection"],
+        path_parent=paths["genetic_correlation"],
     )
     pass
 
@@ -886,7 +889,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 1")
+    print("version check: 2")
 
     # Initialize directories.
     paths = initialize_directories(
@@ -898,24 +901,8 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
-    # Read and collect heritability estimations for metabolites from multiple
-    # GWAS.
-    if False:
-        pail_studies = read_collect_organize_metabolites_heritabilities_studies(
-            table_reference_panyard_2021=source["table_reference_panyard_2021"],
-            paths=paths,
-            report=True,
-        )
-
-    # Read and collect genetic correlation estimations for metabolites from
-    # multiple studies.
-    if False:
-        pail_correlations = read_collect_organize_metabolites_correlations_studies(
-            table_reference_shin_2014=source["table_reference_shin_2014"],
-            table_reference_panyard_2021=source["table_reference_panyard_2021"],
-            paths=paths,
-            report=True,
-        )
+    # Read, collect, and combine estimations of heritability and genetic
+    # correlations between phenotypes and metabolites.
     pail_studies = read_collect_combine_phenotype_metabolites_studies(
         table_reference_shin_2014=source["table_reference_shin_2014"],
         table_reference_panyard_2021=source["table_reference_panyard_2021"],
@@ -924,14 +911,13 @@ def execute_procedure(
     )
 
     # Collect information.
-    if False:
-        information = dict()
-        information["studies"] = pail_studies
-        # Write product information to file.
-        write_product(
-            paths=paths,
-            information=information
-        )
+    information = dict()
+    information["studies"] = pail_studies
+    # Write product information to file.
+    write_product(
+        paths=paths,
+        information=information
+    )
 
     pass
 
