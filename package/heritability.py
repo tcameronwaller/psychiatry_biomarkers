@@ -493,6 +493,7 @@ def read_extract_phenotype_metabolite_genetic_correlation(
     variants = float("nan")
     correlation = float("nan")
     correlation_error = float("nan")
+    correlation_absolute = float("nan")
     probability = float("nan")
     # Read relevant lines from file.
     lines = utility.read_file_text_lines(
@@ -514,8 +515,9 @@ def read_extract_phenotype_metabolite_genetic_correlation(
             content = line.replace(prefix_correlation, "")
             contents = content.split(" (")
             correlation_test = contents[0]
-            if correlation_test.isdigit():
+            if (not "nan" in correlation_test):
                 correlation = float(contents[0])
+                correlation_absolute = math.fabs(correlation)
                 correlation_error = float(contents[1].replace(")", ""))
             pass
         elif (
@@ -531,6 +533,7 @@ def read_extract_phenotype_metabolite_genetic_correlation(
     record["variants"] = variants
     record["correlation"] = correlation
     record["correlation_standard_error"] = correlation_error
+    record["correlation_absolute"] = correlation_absolute
     record["probability"] = probability
     # Return information.
     return record
@@ -584,9 +587,10 @@ def read_collect_metabolites_genetic_correlations(
         records=records
     )
     table.sort_values(
-        by=["correlation"],
+        by=["correlation_absolute"],
         axis="index",
         ascending=False,
+        na_position="last",
         inplace=True,
     )
     table.reset_index(
@@ -612,6 +616,7 @@ def read_collect_metabolites_genetic_correlations(
         #"identifier",
         "name",
         "correlation", "correlation_standard_error",
+        "correlation_absolute",
         "probability",
         "variants",
     ]
