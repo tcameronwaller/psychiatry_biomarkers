@@ -203,6 +203,92 @@ def read_source(
     }
 
 
+def read_collect_organize_metabolites_heritabilities_studies(
+    table_reference_panyard_2021=None,
+    paths=None,
+    report=None,
+):
+    """
+    Reads, collects, and organizes metabolite heritability estimates.
+
+    arguments:
+        table_reference_panyard_2021 (object): Pandas data frame of metabolites'
+            identifiers and names from study
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): heritability estimations for metabolites from multiple GWAS
+
+    """
+
+    # Collect metabolites' heritabilities from each GWAS.
+    pail = dict()
+    #pail["table_shin_2014"] =
+    pail["table_panyard_2021"] = read_collect_metabolites_heritabilities(
+        table_reference=table_reference_panyard_2021,
+        path_parent=paths["heritability_panyard_2021"],
+        report=report,
+    )
+    # Return information.
+    return pail
+
+
+# Genetic correlation.
+
+
+def read_collect_organize_metabolites_correlations_studies(
+    table_reference_shin_2014=None,
+    table_reference_panyard_2021=None,
+    paths=None,
+    report=None,
+):
+    """
+    Reads, collects, and organizes metabolite heritability estimates.
+
+    arguments:
+        table_reference_shin_2014 (object): Pandas data frame of metabolites'
+            identifiers and names from study
+        table_reference_panyard_2021 (object): Pandas data frame of metabolites'
+            identifiers and names from study
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): heritability estimations for metabolites from multiple GWAS
+
+    """
+
+    # Collect metabolites' heritabilities from each GWAS.
+    pail = dict()
+    #pail["table_shin_2014"] =
+    pail["table_yengo_2018_shin_2014"] = read_collect_metabolites_genetic_correlations(
+        table_reference=table_reference_shin_2014,
+        path_source_directory=(
+            paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"]
+        ),
+        report=report,
+    )
+    pail["table_pulit_2018_shin_2014"] = read_collect_metabolites_genetic_correlations(
+        table_reference=table_reference_shin_2014,
+        path_source_directory=(
+            paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"]
+        ),
+        report=report,
+    )
+    # Return information.
+    return pail
+
+
+# Combination
+
+
 def organize_metabolite_reference_table(
     table=None,
     identifier=None,
@@ -386,43 +472,6 @@ def read_collect_metabolites_heritabilities(
     return table
 
 
-def read_collect_organize_metabolites_heritabilities_studies(
-    table_reference_panyard_2021=None,
-    paths=None,
-    report=None,
-):
-    """
-    Reads, collects, and organizes metabolite heritability estimates.
-
-    arguments:
-        table_reference_panyard_2021 (object): Pandas data frame of metabolites'
-            identifiers and names from study
-        paths (dict<str>): collection of paths to directories for procedure's
-            files
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (dict): heritability estimations for metabolites from multiple GWAS
-
-    """
-
-    # Collect metabolites' heritabilities from each GWAS.
-    pail = dict()
-    #pail["table_shin_2014"] =
-    pail["table_panyard_2021"] = read_collect_metabolites_heritabilities(
-        table_reference=table_reference_panyard_2021,
-        path_parent=paths["heritability_panyard_2021"],
-        report=report,
-    )
-    # Return information.
-    return pail
-
-
-# Genetic correlation.
-
-
 def read_extract_phenotype_metabolite_genetic_correlation(
     file=None,
     path_source_directory=None,
@@ -559,55 +608,6 @@ def read_collect_metabolites_genetic_correlations(
     )
     # Return information.
     return table
-
-
-def read_collect_organize_metabolites_correlations_studies(
-    table_reference_shin_2014=None,
-    table_reference_panyard_2021=None,
-    paths=None,
-    report=None,
-):
-    """
-    Reads, collects, and organizes metabolite heritability estimates.
-
-    arguments:
-        table_reference_shin_2014 (object): Pandas data frame of metabolites'
-            identifiers and names from study
-        table_reference_panyard_2021 (object): Pandas data frame of metabolites'
-            identifiers and names from study
-        paths (dict<str>): collection of paths to directories for procedure's
-            files
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (dict): heritability estimations for metabolites from multiple GWAS
-
-    """
-
-    # Collect metabolites' heritabilities from each GWAS.
-    pail = dict()
-    #pail["table_shin_2014"] =
-    pail["table_yengo_2018_shin_2014"] = read_collect_metabolites_genetic_correlations(
-        table_reference=table_reference_shin_2014,
-        path_source_directory=(
-            paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"]
-        ),
-        report=report,
-    )
-    pail["table_pulit_2018_shin_2014"] = read_collect_metabolites_genetic_correlations(
-        table_reference=table_reference_shin_2014,
-        path_source_directory=(
-            paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"]
-        ),
-        report=report,
-    )
-    # Return information.
-    return pail
-
-
-# Combination
 
 
 def read_collect_combine_study(
