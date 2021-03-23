@@ -776,7 +776,7 @@ def read_collect_combine_phenotype_metabolites_studies(
         path_metabolite_heritabilities=(
             paths["heritability"]["24816252_shin_2014"]
         ),
-        path_source_directory=(
+        path_correlations=(
             paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"]
         ),
         report=report,
