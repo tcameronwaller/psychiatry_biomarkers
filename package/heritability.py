@@ -749,7 +749,7 @@ def read_collect_combine_phenotype_metabolites_studies(
         table_reference=table_reference_shin_2014,
         file_phenotype_heritability="heritability_report.log",
         path_phenotype_heritability=os.path.join(
-            path_dock, "heritability", "30124842_yengo_2018",
+            paths["dock"], "heritability", "30124842_yengo_2018",
         ),
         path_metabolite_heritabilities=(
             paths["heritability"]["24816252_shin_2014"]
@@ -763,7 +763,7 @@ def read_collect_combine_phenotype_metabolites_studies(
         table_reference=table_reference_shin_2014,
         file_phenotype_heritability="heritability_report.log",
         path_phenotype_heritability=os.path.join(
-            path_dock, "heritability", "30239722_pulit_2018",
+            paths["dock"], "heritability", "30239722_pulit_2018",
         ),
         path_metabolite_heritabilities=(
             paths["heritability"]["24816252_shin_2014"]
