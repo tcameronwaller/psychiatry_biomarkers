@@ -513,12 +513,15 @@ def read_extract_phenotype_metabolite_genetic_correlation(
         elif prefix_correlation in line:
             content = line.replace(prefix_correlation, "")
             contents = content.split(" (")
-            correlation = float(contents[0])
-            correlation_error = float(
-                contents[1].replace(")", "")
-            )
+            correlation_test = contents[0]
+            if correlation_test.isdigit():
+                correlation = float(contents[0])
+                correlation_error = float(contents[1].replace(")", ""))
             pass
-        elif prefix_probability in line:
+        elif (
+            (not math.isnan(correlation)) and
+            (prefix_probability in line)
+        ):
             probability = float(line.replace(prefix_probability, ""))
             pass
         pass
