@@ -780,7 +780,7 @@ def execute_procedure(
 
     # Initialize directories.
     paths = initialize_directories(
-        restore=True,
+        restore=False,
         path_dock=path_dock,
     )
     # Read source information from file.
