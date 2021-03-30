@@ -56,6 +56,8 @@ import promiscuity.utility as utility
 # Initialization
 
 
+# TODO: introduce for-loops to make this more concise...
+
 def initialize_directories(
     restore=None,
     path_dock=None,
@@ -95,6 +97,9 @@ def initialize_directories(
     paths["genetic_correlation"] = os.path.join(
         path_dock, "genetic_correlation",
     )
+
+    # TODO: I probably ought to use a for-loop here...
+
     paths["correlation"] = dict()
     paths["correlation"]["30124842_yengo_2018"] = dict()
     paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"] = (
@@ -109,6 +114,7 @@ def initialize_directories(
             "30124842_yengo_2018", "collection"
         )
     )
+
     paths["correlation"]["30239722_pulit_2018"] = dict()
     paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"] = (
         os.path.join(
@@ -122,6 +128,49 @@ def initialize_directories(
             "30239722_pulit_2018", "collection"
         )
     )
+
+    paths["correlation"]["31043756_stahl_2019"] = dict()
+    paths["correlation"]["31043756_stahl_2019"]["24816252_shin_2014"] = (
+        os.path.join(
+            path_dock, "genetic_correlation",
+            "31043756_stahl_2019", "24816252_shin_2014"
+        )
+    )
+    paths["correlation"]["31043756_stahl_2019"]["collection"] = (
+        os.path.join(
+            path_dock, "genetic_correlation",
+            "31043756_stahl_2019", "collection"
+        )
+    )
+
+    paths["correlation"]["30718901_howard_2019"] = dict()
+    paths["correlation"]["30718901_howard_2019"]["24816252_shin_2014"] = (
+        os.path.join(
+            path_dock, "genetic_correlation",
+            "30718901_howard_2019", "24816252_shin_2014"
+        )
+    )
+    paths["correlation"]["30718901_howard_2019"]["collection"] = (
+        os.path.join(
+            path_dock, "genetic_correlation",
+            "30718901_howard_2019", "collection"
+        )
+    )
+
+    paths["correlation"]["30482948_walters_2018"] = dict()
+    paths["correlation"]["30482948_walters_2018"]["24816252_shin_2014"] = (
+        os.path.join(
+            path_dock, "genetic_correlation",
+            "30482948_walters_2018", "24816252_shin_2014"
+        )
+    )
+    paths["correlation"]["30482948_walters_2018"]["collection"] = (
+        os.path.join(
+            path_dock, "genetic_correlation",
+            "30482948_walters_2018", "collection"
+        )
+    )
+
 
     # Remove previous files to avoid version or batch confusion.
     if restore:
@@ -148,6 +197,22 @@ def initialize_directories(
             paths["correlation"]["30239722_pulit_2018"]["collection"]
         )
     )
+    utility.create_directories(
+        path=(
+            paths["correlation"]["31043756_stahl_2019"]["collection"]
+        )
+    )
+    utility.create_directories(
+        path=(
+            paths["correlation"]["30718901_howard_2019"]["collection"]
+        )
+    )
+    utility.create_directories(
+        path=(
+            paths["correlation"]["30482948_walters_2018"]["collection"]
+        )
+    )
+
 
     # Return information.
     return paths
@@ -752,7 +817,6 @@ def read_collect_combine_phenotype_metabolites_studies(
 
     # Collect metabolites' heritabilities from each GWAS.
     pail = dict()
-    #pail["table_shin_2014"] =
     pail["table_yengo_2018_shin_2014"] = read_collect_combine_study(
         table_reference=table_reference_shin_2014,
         file_phenotype_heritability="heritability_report.log",
@@ -781,6 +845,49 @@ def read_collect_combine_phenotype_metabolites_studies(
         ),
         report=report,
     )
+    pail["table_stahl_2019_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=os.path.join(
+            paths["dock"], "heritability", "31043756_stahl_2019",
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_correlations=(
+            paths["correlation"]["31043756_stahl_2019"]["24816252_shin_2014"]
+        ),
+        report=report,
+    )
+    pail["table_howard_2019_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=os.path.join(
+            paths["dock"], "heritability", "30718901_howard_2019",
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_correlations=(
+            paths["correlation"]["30718901_howard_2019"]["24816252_shin_2014"]
+        ),
+        report=report,
+    )
+    pail["table_walters_2018_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=os.path.join(
+            paths["dock"], "heritability", "30482948_walters_2018",
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_correlations=(
+            paths["correlation"]["30482948_walters_2018"]["24816252_shin_2014"]
+        ),
+        report=report,
+    )
+
     # Return information.
     return pail
 
