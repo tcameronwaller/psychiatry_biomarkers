@@ -683,6 +683,177 @@ def read_collect_metabolites_genetic_correlations(
     return table
 
 
+# TODO: filter metabolites... identifiable, valid heritability estimates...
+
+
+
+
+def determine_metabolite_valid_identity(
+    name=None,
+):
+    """
+    Determine whether a single metabolite has a valid identity from Metabolon.
+
+    arguments:
+        name (str): name of metabolite from Metabolon reference
+
+    raises:
+
+    returns:
+        (float): ordinal representation of person's frequency of alcohol
+            consumption
+
+    """
+
+    # Determine whether the variable has a valid (non-missing) value.
+    if (len(str(name)) > 2):
+        # The variable has a valid value.
+        if (str(name).strip().lower().startswith("x-")):
+            # Metabolite has an indefinite identity.
+            identity = 0
+        else:
+            # Metabolite has a definite identity.
+            identity = 1
+    else:
+        # Name is empty.
+        #identity = float("nan")
+        identity = 0
+    # Return information.
+    return identity
+
+
+def select_table_metabolites_valid_identities_heritabilities(
+    table=None,
+    table_reference=None,
+    report=None,
+):
+    """
+    Selects identifiers of metabolites from Metabolon with valid identities.
+
+    arguments:
+        table (object): Pandas data frame of metabolites' heritability estimates
+            and genetic correlation estimates against a phenotype of interest
+        table_reference (object): Pandas data frame of metabolites' identifiers
+            and names from study
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict): collection of information about metabolites, their identifiers,
+            and their names
+
+    """
+
+    # Determine whether metabolite has a valid identity.
+    table_reference["identity"] = table_reference.apply(
+        lambda row:
+            determine_metabolite_valid_identity(scores
+                name=row["name"],
+            ),
+        axis="columns", # apply across rows
+    )
+    # Select metabolites with valid identities.
+    table_identity = table_reference.loc[
+        (table_reference["identity"] > 0.5), :
+    ]
+    metabolites_identity = table_identity.index.to_list()
+    # Select table rows for metabolites with valid identities.
+    table = table.loc[
+        table.index.isin(metabolites_identity), :
+    ]
+    # Select table rows for metabolites with valid heritability estimates.
+    table = table.loc[
+        (table["heritability"] >= 0), :
+    ]
+    metabolites_heritability = table.index.to_list()
+    # Report.
+    if report:
+        # Column name translations.
+        utility.print_terminal_partition(level=2)
+        print("select_table_metabolites_valid_identities_heritabilities()")
+        utility.print_terminal_partition(level=3)
+        print(
+            "Count of identifiable metabolites: " +
+            str(len(metabolites_identity))
+        )
+        print(
+            "Count of identifiable metabolites with valid heritability: " +
+            str(len(metabolites_heritability))
+        )
+        utility.print_terminal_partition(level=3)
+        print(table)
+    # Return information.
+    return table
+
+
+def organize_metabolites_heritabilities_correlations_table(
+    table=None,
+    table_reference=None,
+):
+    """
+    Reads, collects, and organizes metabolite heritability estimates.
+
+    arguments:
+        table (object): Pandas data frame of metabolites' heritability estimates
+            and genetic correlation estimates against a phenotype of interest
+        table_reference (object): Pandas data frame of metabolites' identifiers
+            and names from study
+
+    raises:
+
+    returns:
+        (object): Pandas data frame of metabolites' heritability estimates and
+            genetic correlation estimates against a phenotype of interest
+
+    """
+
+    # Copy information.
+    table_reference = table_reference.copy(deep=True)
+    table = table.copy(deep=True)
+    # Filter metabolites.
+    table = select_table_metabolites_valid_identities_heritabilities(
+        table=table,
+        table_reference=table_reference,
+        report=True,
+    )
+    # Sort table rows.
+    table.sort_values(
+        by=["correlation_absolute"],
+        axis="index",
+        ascending=False,
+        na_position="last",
+        inplace=True,
+    )
+    table.sort_values(
+        by=["correlation_probability",],
+        axis="index",
+        ascending=True,
+        na_position="last",
+        inplace=True,
+    )
+    # Sort table columns.
+    columns_sequence = [
+        #"identifier",
+        "name",
+        "phenotype_heritability",
+        "phenotype_heritability_error",
+        "correlation", "correlation_standard_error",
+        "correlation_absolute",
+        "correlation_probability",
+        "correlation_variants",
+        "heritability",
+        "heritability_standard_error",
+        "heritability_ratio",
+        "heritability_ratio_standard_error",
+        "heritability_variants",
+    ]
+    table = table[[*columns_sequence]]
+    # Return information.
+    return table
+
+
+
 def read_collect_combine_study(
     table_reference=None,
     file_phenotype_heritability=None,
@@ -710,7 +881,8 @@ def read_collect_combine_study(
     raises:
 
     returns:
-        (object): Pandas data frame of metabolites' heritability estimates
+        (object): Pandas data frame of metabolites' heritability estimates and
+            genetic correlation estimates against a phenotype of interest
 
     """
 
@@ -750,50 +922,23 @@ def read_collect_combine_study(
         right_on="identifier",
         suffixes=("_reference", "_heritability"),
     )
-
-    table_merge.sort_values(
-        by=["correlation_absolute"],
-        axis="index",
-        ascending=False,
-        na_position="last",
-        inplace=True,
-    )
-    table_merge.sort_values(
-        by=["correlation_probability",],
-        axis="index",
-        ascending=True,
-        na_position="last",
-        inplace=True,
-    )
-
+    # Introduce columns for phenotype heritability.
     table_merge["phenotype_heritability"] = pail_phenotype["heritability"]
     table_merge["phenotype_heritability_error"] = (
         pail_phenotype["heritability_standard_error"]
     )
-
-    columns_sequence = [
-        #"identifier",
-        "name",
-        "phenotype_heritability",
-        "phenotype_heritability_error",
-        "correlation", "correlation_standard_error",
-        "correlation_absolute",
-        "correlation_probability",
-        "correlation_variants",
-        "heritability",
-        "heritability_standard_error",
-        "heritability_ratio",
-        "heritability_ratio_standard_error",
-        "heritability_variants",
-    ]
-    table_merge = table_merge[[*columns_sequence]]
+    # Organize the summary collection table.
+    table = organize_metabolites_heritabilities_correlations_table(
+        table=table_merge,
+        table_reference=table_reference,
+    )
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
         print(path_correlations)
-        print(table_merge)
+        print(table)
     # Return information.
-    return table_merge
+    return table
 
 
 def read_collect_combine_phenotype_metabolites_studies(
