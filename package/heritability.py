@@ -271,6 +271,9 @@ def read_source(
     }
 
 
+# Heritability
+
+
 def read_collect_organize_metabolites_heritabilities_studies(
     table_reference_panyard_2021=None,
     paths=None,
@@ -361,6 +364,7 @@ def organize_metabolite_reference_table(
     table=None,
     identifier=None,
     name=None,
+    identity=None,
 ):
     """
     Organizes information about general attributes.
@@ -370,6 +374,8 @@ def organize_metabolite_reference_table(
             Biobank cohort
         identifier (str): name of column for metabolite identifier
         name (str): name of column for metabolite biochemical name
+        identity (str): name of column as binary logical indicator of whether
+            the metabolite has a known identity
 
     raises:
 
@@ -384,13 +390,14 @@ def organize_metabolite_reference_table(
     translations = dict()
     translations[identifier] = "identifier"
     translations[name] = "name"
+    translations[identity] = "identity"
     table.rename(
         columns=translations,
         inplace=True,
     )
     # Select relevant columns.
     table = table.loc[
-        :, table.columns.isin(["identifier", "name"])
+        :, table.columns.isin(["identifier", "name", "identity"])
     ]
     # Organize table.
     table.reset_index(
@@ -683,11 +690,6 @@ def read_collect_metabolites_genetic_correlations(
     return table
 
 
-# TODO: filter metabolites... identifiable, valid heritability estimates...
-
-
-
-
 def determine_metabolite_valid_identity(
     name=None,
 ):
@@ -745,14 +747,6 @@ def select_table_metabolites_valid_identities_heritabilities(
 
     """
 
-    # Determine whether metabolite has a valid identity.
-    table_reference["identity"] = table_reference.apply(
-        lambda row:
-            determine_metabolite_valid_identity(scores
-                name=row["name"],
-            ),
-        axis="columns", # apply across rows
-    )
     # Select metabolites with valid identities.
     table_identity = table_reference.loc[
         (table_reference["identity"] > 0.5), :
@@ -891,6 +885,7 @@ def read_collect_combine_study(
         table=table_reference,
         identifier="identifier_study",
         name="name",
+        identity="identity",
     )
 
     pail_phenotype = read_extract_metabolite_heritability(
