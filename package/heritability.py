@@ -848,7 +848,6 @@ def organize_metabolites_heritabilities_correlations_table(
     return table
 
 
-
 def read_collect_combine_study(
     table_reference=None,
     file_phenotype_heritability=None,
@@ -1149,7 +1148,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 4")
+    print("version check: 5")
 
     # Initialize directories.
     paths = initialize_directories(
