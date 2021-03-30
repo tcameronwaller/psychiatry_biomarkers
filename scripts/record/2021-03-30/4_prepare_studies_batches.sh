@@ -60,8 +60,8 @@ echo "--------------------------------------------------"
 echo "--------------------------------------------------"
 # Parameters.
 #"30124842_yengo_2018", "30239722_pulit_2018"
-#"31043756_stahl_2019"
-phenotype_study="31043756_stahl_2019"
+#"31043756_stahl_2019", "30718901_howard_2019", "30482948_walters_2018"
+phenotype_study="30718901_howard_2019"
 metabolite_study="24816252_shin_2014"
 path_source_directory="${path_gwas_summaries}/${metabolite_study}/metabolites_meta" # path unique to 24816252_shin_2014
 name_prefix="null" # file name prefix before metabolite identifier or "null"

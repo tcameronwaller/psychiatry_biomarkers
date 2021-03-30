@@ -11,7 +11,7 @@
 # Contact.
 # "b": beginning, "e": end, "a": abortion, "s": suspension, "n": never
 #$ -M tcameronwaller@gmail.com
-#$ -m ase
+#$ -m as
 # Standard output and error.
 # Specify as arguments when calling qsub.
 ### -o "./out"
