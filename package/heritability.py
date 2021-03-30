@@ -404,6 +404,7 @@ def organize_metabolite_reference_table(
         level=None,
         inplace=True
     )
+    table["identity"].astype("float")
     table["identifier"].astype("string")
     table.set_index(
         "identifier",
