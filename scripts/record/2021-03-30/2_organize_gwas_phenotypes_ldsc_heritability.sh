@@ -53,6 +53,29 @@ fi
 # Organize information in format for LDSC.
 
 if true; then
+  # Walters et al, Nature Neuroscience, 2018 (PubMed:30482948)
+  # phenotype: alcohol dependence
+  study="30482948_walters_2018"
+  source_file="pgc_alcdep.discovery.aug2018_release.txt.gz"
+  path_source_directory="${path_gwas_summaries}/${study}"
+  path_source_file="${path_source_directory}/${source_file}"
+  path_script_gwas_format="${path_scripts_format}/format_gwas_ldsc_${study}.sh"
+  report="true" # "true" or "false"
+  /usr/bin/bash "$path_scripts_record/3_organize_gwas_phenotype_ldsc_heritability.sh" \
+  $study \
+  $source_file \
+  $path_source_file \
+  $path_genetic_reference \
+  $path_gwas \
+  $path_heritability \
+  $path_genetic_correlation \
+  $path_script_gwas_format \
+  $path_promiscuity_scripts \
+  $report
+fi
+
+if false; then
+
   # Howard et al, Nature Neuroscience, 2019 (PubMed:30718901)
   # phenotype: major depression
   study="30718901_howard_2019"
@@ -72,9 +95,7 @@ if true; then
   $path_script_gwas_format \
   $path_promiscuity_scripts \
   $report
-fi
 
-if false; then
   # Stahl et al, Nature Genetics, 2019 (PubMed:31043756)
   # phenotype: bipolar disorder
   study="31043756_stahl_2019"
