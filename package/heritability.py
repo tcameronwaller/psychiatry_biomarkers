@@ -1158,7 +1158,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 5")
+    print("version check: 6")
 
     # Initialize directories.
     paths = initialize_directories(
