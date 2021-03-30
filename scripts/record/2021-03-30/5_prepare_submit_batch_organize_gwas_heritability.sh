@@ -23,7 +23,7 @@ path_study_gwas=${9} # full path to parent directory for formatted GWAS summary 
 path_study_heritability=${10} # full path to parent directory for LDSC heritability estimation for metabolites in study
 path_study_genetic_correlation=${11} # full path to parent directory for LDSC genetic correlation for metabolites in study
 path_scripts_record=${12} # full path to pipeline scripts
-path_script_gwas_organization=${13} # full path to script to use to organize format of GWAS summary statistics for metabolites in study
+path_script_gwas_format=${13} # full path to script to use to organize format of GWAS summary statistics for metabolites in study
 path_promiscuity_scripts=${14} # complete path to directory of scripts for z-score standardization
 report=${15} # whether to print reports
 
@@ -111,7 +111,7 @@ if true; then
   $path_study_heritability \
   $path_study_genetic_correlation \
   $path_scripts_record \
-  $path_script_gwas_organization \
+  $path_script_gwas_format \
   $path_promiscuity_scripts \
   $report
 fi
@@ -128,7 +128,7 @@ if false; then
     $path_study_gwas \
     $path_study_heritability \
     $path_study_genetic_correlation \
-    $path_script_gwas_organization \
+    $path_script_gwas_format \
     $path_promiscuity_scripts \
     $report
   done

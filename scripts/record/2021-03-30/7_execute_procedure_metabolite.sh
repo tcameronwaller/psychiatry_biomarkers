@@ -21,7 +21,7 @@ path_phenotype_gwas=${7} # full path to parent directory for formatted GWAS summ
 path_study_gwas=${8} # full path to parent directory for formatted GWAS summary statistics for metabolites in study
 path_study_heritability=${9} # full path to parent directory for LDSC heritability estimation for metabolites in study
 path_study_genetic_correlation=${10} # full path to parent directory for LDSC genetic correlation for metabolites in study
-path_script_gwas_organization=${11} # full path to script to use to organize format of GWAS summary statistics for metabolites in study
+path_script_gwas_format=${11} # full path to script to use to organize format of GWAS summary statistics for metabolites in study
 path_promiscuity_scripts=${12} # complete path to directory of scripts for z-score standardization
 report=${13} # whether to print reports
 
@@ -99,7 +99,7 @@ path_genetic_correlation_report_suffix="${path_genetic_correlation_report}.log"
 # Organize information in format for LDSC.
 # Parameters.
 #report="false" # "true" or "false"
-/usr/bin/bash "$path_script_gwas_organization" \
+/usr/bin/bash "$path_script_gwas_format" \
 $metabolite \
 $path_source_file \
 $path_gwas_collection \
