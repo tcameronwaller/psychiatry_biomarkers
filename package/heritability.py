@@ -758,6 +758,13 @@ def read_collect_combine_study(
         na_position="last",
         inplace=True,
     )
+    table_merge.sort_values(
+        by=["correlation_probability",],
+        axis="index",
+        ascending=True,
+        na_position="last",
+        inplace=True,
+    )
 
     table_merge["phenotype_heritability"] = pail_phenotype["heritability"]
     table_merge["phenotype_heritability_error"] = (
