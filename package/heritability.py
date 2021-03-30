@@ -404,7 +404,7 @@ def organize_metabolite_reference_table(
         level=None,
         inplace=True
     )
-    table["identity"].astype("int32")
+    table["identity"].astype("float32")
     table["identifier"].astype("string")
     table.set_index(
         "identifier",
@@ -1149,7 +1149,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 3")
+    print("version check: 4")
 
     # Initialize directories.
     paths = initialize_directories(
