@@ -748,9 +748,6 @@ def select_table_metabolites_valid_identities_heritabilities(
 
     """
 
-    print(table_reference)
-    print(table_reference.dtypes)
-
     # Select metabolites with valid identities.
     table_identity = table_reference.loc[
         (table_reference["identity"] > 0.5), :
