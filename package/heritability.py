@@ -812,6 +812,14 @@ def organize_metabolites_heritabilities_correlations_table(
         table_reference=table_reference,
         report=True,
     )
+    # Calculate False Discovery Rates (FDRs).
+    table = utility.calculate_table_false_discovery_rates(
+        threshold=0.05,
+        probability="correlation_probability",
+        discovery="correlation_discovery",
+        significance="correlation_significance",
+        table=table,
+    )
     # Sort table rows.
     table.sort_values(
         by=["correlation_absolute"],
@@ -836,6 +844,8 @@ def organize_metabolites_heritabilities_correlations_table(
         "correlation", "correlation_standard_error",
         "correlation_absolute",
         "correlation_probability",
+        "correlation_discovery",
+        "correlation_significance",
         "correlation_variants",
         "heritability",
         "heritability_standard_error",
