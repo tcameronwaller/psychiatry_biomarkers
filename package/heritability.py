@@ -251,13 +251,13 @@ def read_source(
         path_table_reference_shin_2014,
         sep="\t",
         header=0,
-        dtype="string",
+        #dtype="string",
     )
     table_reference_panyard_2021 = pandas.read_csv(
         path_table_reference_panyard_2021,
         sep="\t",
         header=0,
-        dtype="string",
+        #dtype="string",
     )
     # Report.
     if report:
@@ -404,7 +404,7 @@ def organize_metabolite_reference_table(
         level=None,
         inplace=True
     )
-    table["identity"].astype("float32")
+    table["identity"].astype("float")
     table["identifier"].astype("string")
     table.set_index(
         "identifier",
@@ -749,6 +749,7 @@ def select_table_metabolites_valid_identities_heritabilities(
     """
 
     print(table_reference)
+    print(table_reference.dtypes)
 
     # Select metabolites with valid identities.
     table_identity = table_reference.loc[
