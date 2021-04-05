@@ -62,7 +62,7 @@ if true; then
   #source_file="pgc-bip2021-BDII.vcf.tsv.gz" # "_bd2"
   path_source_directory="${path_gwas_summaries}/${study_source}"
   path_source_file="${path_source_directory}/${source_file}"
-  path_script_gwas_format="${path_scripts_format}/format_gwas_ldsc_${study}.sh"
+  path_script_gwas_format="${path_scripts_format}/format_gwas_ldsc_${study_source}.sh"
   report="true" # "true" or "false"
   /usr/bin/bash "$path_scripts_record/3_organize_gwas_phenotype_ldsc_heritability.sh" \
   $study \
