@@ -77,13 +77,13 @@ path_frequencies="$path_genetic_reference/frequencies"
 
 path_phenotype_gwas_munge_suffix="${path_phenotype_gwas}/gwas_munge.sumstats.gz"
 
-# Even temporary files need to have names specific to each metabolite.
+# Even temporary files need to have names specific to each phenotype and metabolite.
 # During parallel processing, multiple temporary files will exist
 # simultaneously.
-path_gwas_collection="${path_study_gwas}/gwas_collection_${metabolite}.txt"
-path_gwas_format="${path_study_gwas}/gwas_format_${metabolite}.txt"
+path_gwas_collection="${path_study_gwas}/gwas_collection_${phenotype_study}_${metabolite}.txt"
+path_gwas_format="${path_study_gwas}/gwas_format_${phenotype_study}_${metabolite}.txt"
 path_gwas_format_compress="${path_gwas_format}.gz"
-path_gwas_munge="${path_study_gwas}/gwas_munge_${metabolite}"
+path_gwas_munge="${path_study_gwas}/gwas_munge_${phenotype_study}_${metabolite}"
 path_gwas_munge_suffix="${path_gwas_munge}.sumstats.gz"
 path_gwas_munge_log="${path_gwas_munge}.log"
 

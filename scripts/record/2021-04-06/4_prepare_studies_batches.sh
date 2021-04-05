@@ -18,7 +18,7 @@ path_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_temporary=$(<"./processing_bipolar_metabolism.txt")
 path_waller="$path_temporary/waller"
 path_bipolar_metabolism="$path_waller/bipolar_metabolism"
-path_scripts_record="$path_waller/bipolar_metabolism/scripts/record/2021-03-30"
+path_scripts_record="$path_waller/bipolar_metabolism/scripts/record/2021-04-06"
 path_promiscuity_scripts="$path_waller/promiscuity/scripts"
 path_scripts_format="$path_waller/promiscuity/scripts/format_gwas_ldsc"
 
@@ -61,7 +61,8 @@ echo "--------------------------------------------------"
 # Parameters.
 #"30124842_yengo_2018", "30239722_pulit_2018"
 #"31043756_stahl_2019", "30718901_howard_2019", "30482948_walters_2018"
-phenotype_study="30482948_walters_2018"
+# "00000000_pgc3_2021_all", "00000000_pgc3_2021_bd1", "00000000_pgc3_2021_bd2"
+phenotype_study="00000000_pgc3_2021_all"
 metabolite_study="24816252_shin_2014"
 path_source_directory="${path_gwas_summaries}/${metabolite_study}/metabolites_meta" # path unique to 24816252_shin_2014
 name_prefix="null" # file name prefix before metabolite identifier or "null"
