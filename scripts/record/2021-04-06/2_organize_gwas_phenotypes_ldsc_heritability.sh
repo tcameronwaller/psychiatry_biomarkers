@@ -56,9 +56,9 @@ if true; then
   # PGC3 (pending) et al, (pending), 2021 (PubMed:pending)
   # phenotype: bipolar disorder types I and II
   study_source="00000000_pgc3_2021"
-  study="00000000_pgc3_2021_all"
-  source_file="pgc-bip2021-all.vcf.tsv.gz" # "_all"
-  #source_file="pgc-bip2021-BDI.vcf.tsv.gz" # "_bd1"
+  study="00000000_pgc3_2021_bd1"
+  #source_file="pgc-bip2021-all.vcf.tsv.gz" # "_all"
+  source_file="pgc-bip2021-BDI.vcf.tsv.gz" # "_bd1"
   #source_file="pgc-bip2021-BDII.vcf.tsv.gz" # "_bd2"
   path_source_directory="${path_gwas_summaries}/${study_source}"
   path_source_file="${path_source_directory}/${source_file}"
