@@ -59,10 +59,11 @@ echo "--------------------------------------------------"
 echo "--------------------------------------------------"
 echo "--------------------------------------------------"
 # Parameters.
-#"30124842_yengo_2018", "30239722_pulit_2018"
-#"31043756_stahl_2019", "30718901_howard_2019", "30482948_walters_2018"
-# "00000000_pgc3_2021_all", "00000000_pgc3_2021_bd1", "00000000_pgc3_2021_bd2"
-phenotype_study="00000000_pgc3_2021_bd2"
+# "30124842_yengo_2018", "30239722_pulit_2018",
+# "31043756_stahl_2019", "30718901_howard_2019", "30482948_walters_2018",
+# "00000000_pgc3_2021_all", "00000000_pgc3_2021_bd1", "00000000_pgc3_2021_bd2",
+# "29906448_ruderfer_2018_scz_vs_bpd", "29906448_ruderfer_2018_scz_bpd_vs_ctl",
+phenotype_study="29906448_ruderfer_2018_scz_vs_bpd"
 metabolite_study="24816252_shin_2014"
 path_source_directory="${path_gwas_summaries}/${metabolite_study}/metabolites_meta" # path unique to 24816252_shin_2014
 name_prefix="null" # file name prefix before metabolite identifier or "null"
