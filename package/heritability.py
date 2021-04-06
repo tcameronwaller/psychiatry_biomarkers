@@ -56,7 +56,84 @@ import promiscuity.utility as utility
 # Initialization
 
 
-# TODO: introduce for-loops to make this more concise...
+def initialize_heritability_directories(
+    heritability_studies=None,
+    paths=None,
+    path_dock=None,
+    restore=None,
+):
+    """
+    Initialize directories for procedure's product files.
+
+    arguments:
+        heritability_studies (list<str>): identifiers of studies with
+            heritability reports
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        path_dock (str): path to dock directory for source and product
+            directories and files
+        restore (bool): whether to remove previous versions of data
+
+    raises:
+
+    returns:
+        (dict<str>): collection of paths to directories for procedure's files
+
+    """
+
+    paths = copy.deepcopy(paths)
+    paths["heritability"] = dict()
+    for study in heritability_studies:
+        paths["heritability"][study] = os.path.join(
+            path_dock, "heritability", study
+        )
+    return paths
+
+
+def initialize_correlation_directories(
+    primary_studies=None,
+    secondary_studies=None,
+    paths=None,
+    path_dock=None,
+    restore=None,
+):
+    """
+    Initialize directories for procedure's product files.
+
+    arguments:
+        primary_studies (list<str>): identifiers of studies for primary
+            phenotypes, first in correlation hierarchy
+        secondary_studies (list<str>): identifiers of studies for secondary
+            phenotypes, second in correlation hierarchy
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        path_dock (str): path to dock directory for source and product
+            directories and files
+        restore (bool): whether to remove previous versions of data
+
+    raises:
+
+    returns:
+        (dict<str>): collection of paths to directories for procedure's files
+
+    """
+
+    paths = copy.deepcopy(paths)
+    paths["genetic_correlation"] = os.path.join(
+        path_dock, "genetic_correlation",
+    )
+    paths["correlation"] = dict()
+    for study_first in primary_studies:
+        for study_second in secondary_studies:
+            paths["correlation"][study_first] = dict()
+            paths["correlation"][study_first][study_second] = (
+                os.path.join(
+                    path_dock, "genetic_correlation",
+                    study_first, study_second
+                )
+            )
+    return paths
+
 
 def initialize_directories(
     restore=None,
@@ -81,139 +158,35 @@ def initialize_directories(
     paths = dict()
     # Define paths to directories.
     paths["dock"] = path_dock
-    paths["heritability"] = dict()
-    paths["heritability"]["24816252_shin_2014"] = os.path.join(
-        path_dock, "heritability", "24816252_shin_2014"
+    heritability_studies = [
+        "24816252_shin_2014", "33437055_panyard_2021",
+        "30124842_yengo_2018", "30239722_pulit_2018",
+        "30482948_walters_2018", "30718901_howard_2019", "31043756_stahl_2019",
+        "00000000_pgc3_2021_all", "00000000_pgc3_2021_bd1",
+        "00000000_pgc3_2021_bd2",
+    ]
+    primary_studies = [
+        "30124842_yengo_2018", "30239722_pulit_2018",
+        "30482948_walters_2018", "30718901_howard_2019", "31043756_stahl_2019",
+        "00000000_pgc3_2021_all", "00000000_pgc3_2021_bd1",
+        "00000000_pgc3_2021_bd2",
+    ]
+    secondary_studies = [
+        "24816252_shin_2014",
+    ]
+    paths = initialize_heritability_directories(
+        heritability_studies=heritability_studies,
+        paths=paths,
+        path_dock=path_dock,
+        restore=restore,
     )
-    paths["heritability"]["33437055_panyard_2021"] = os.path.join(
-        path_dock, "heritability", "33437055_panyard_2021"
+    paths = initialize_correlation_directories(
+        primary_studies=primary_studies,
+        secondary_studies=secondary_studies,
+        paths=paths,
+        path_dock=path_dock,
+        restore=restore,
     )
-    paths["heritability"]["24816252_shin_2014_collection"] = os.path.join(
-        path_dock, "heritability", "24816252_shin_2014", "collection"
-    )
-    paths["heritability"]["33437055_panyard_2021_collection"] = os.path.join(
-        path_dock, "heritability", "33437055_panyard_2021", "collection"
-    )
-    paths["genetic_correlation"] = os.path.join(
-        path_dock, "genetic_correlation",
-    )
-
-    # TODO: I probably ought to use a for-loop here...
-
-    paths["correlation"] = dict()
-    paths["correlation"]["30124842_yengo_2018"] = dict()
-    paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"] = (
-        os.path.join(
-            path_dock, "genetic_correlation",
-            "30124842_yengo_2018", "24816252_shin_2014"
-        )
-    )
-    paths["correlation"]["30124842_yengo_2018"]["collection"] = (
-        os.path.join(
-            path_dock, "genetic_correlation",
-            "30124842_yengo_2018", "collection"
-        )
-    )
-
-    paths["correlation"]["30239722_pulit_2018"] = dict()
-    paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"] = (
-        os.path.join(
-            path_dock, "genetic_correlation",
-            "30239722_pulit_2018", "24816252_shin_2014"
-        )
-    )
-    paths["correlation"]["30239722_pulit_2018"]["collection"] = (
-        os.path.join(
-            path_dock, "genetic_correlation",
-            "30239722_pulit_2018", "collection"
-        )
-    )
-
-    paths["correlation"]["31043756_stahl_2019"] = dict()
-    paths["correlation"]["31043756_stahl_2019"]["24816252_shin_2014"] = (
-        os.path.join(
-            path_dock, "genetic_correlation",
-            "31043756_stahl_2019", "24816252_shin_2014"
-        )
-    )
-    paths["correlation"]["31043756_stahl_2019"]["collection"] = (
-        os.path.join(
-            path_dock, "genetic_correlation",
-            "31043756_stahl_2019", "collection"
-        )
-    )
-
-    paths["correlation"]["30718901_howard_2019"] = dict()
-    paths["correlation"]["30718901_howard_2019"]["24816252_shin_2014"] = (
-        os.path.join(
-            path_dock, "genetic_correlation",
-            "30718901_howard_2019", "24816252_shin_2014"
-        )
-    )
-    paths["correlation"]["30718901_howard_2019"]["collection"] = (
-        os.path.join(
-            path_dock, "genetic_correlation",
-            "30718901_howard_2019", "collection"
-        )
-    )
-
-    paths["correlation"]["30482948_walters_2018"] = dict()
-    paths["correlation"]["30482948_walters_2018"]["24816252_shin_2014"] = (
-        os.path.join(
-            path_dock, "genetic_correlation",
-            "30482948_walters_2018", "24816252_shin_2014"
-        )
-    )
-    paths["correlation"]["30482948_walters_2018"]["collection"] = (
-        os.path.join(
-            path_dock, "genetic_correlation",
-            "30482948_walters_2018", "collection"
-        )
-    )
-
-
-    # Remove previous files to avoid version or batch confusion.
-    if restore:
-        utility.remove_directory(
-            path=paths["heritability"]["24816252_shin_2014_collection"]
-        )
-        utility.remove_directory(
-            path=paths["heritability"]["33437055_panyard_2021_collection"]
-        )
-    # Initialize directories.
-    utility.create_directories(
-        path=paths["heritability"]["24816252_shin_2014_collection"]
-    )
-    utility.create_directories(
-        path=paths["heritability"]["33437055_panyard_2021_collection"]
-    )
-    utility.create_directories(
-        path=(
-            paths["correlation"]["30124842_yengo_2018"]["collection"]
-        )
-    )
-    utility.create_directories(
-        path=(
-            paths["correlation"]["30239722_pulit_2018"]["collection"]
-        )
-    )
-    utility.create_directories(
-        path=(
-            paths["correlation"]["31043756_stahl_2019"]["collection"]
-        )
-    )
-    utility.create_directories(
-        path=(
-            paths["correlation"]["30718901_howard_2019"]["collection"]
-        )
-    )
-    utility.create_directories(
-        path=(
-            paths["correlation"]["30482948_walters_2018"]["collection"]
-        )
-    )
-
-
     # Return information.
     return paths
 
@@ -728,6 +701,7 @@ def determine_metabolite_valid_identity(
 def select_table_metabolites_valid_identities_heritabilities(
     table=None,
     table_reference=None,
+    threshold_metabolite_heritability=None,
     report=None,
 ):
     """
@@ -738,6 +712,8 @@ def select_table_metabolites_valid_identities_heritabilities(
             and genetic correlation estimates against a phenotype of interest
         table_reference (object): Pandas data frame of metabolites' identifiers
             and names from study
+        threshold_metabolite_heritability (float): threshold for metabolite
+            heritability
         report (bool): whether to print reports
 
     raises:
@@ -759,7 +735,7 @@ def select_table_metabolites_valid_identities_heritabilities(
     ]
     # Select table rows for metabolites with valid heritability estimates.
     table = table.loc[
-        (table["heritability"] >= 0), :
+        (table["heritability"] >= threshold_metabolite_heritability), :
     ]
     metabolites_heritability = table.index.to_list()
     # Report.
@@ -785,6 +761,7 @@ def select_table_metabolites_valid_identities_heritabilities(
 def organize_metabolites_heritabilities_correlations_table(
     table=None,
     table_reference=None,
+    threshold_metabolite_heritability=None,
 ):
     """
     Reads, collects, and organizes metabolite heritability estimates.
@@ -794,6 +771,8 @@ def organize_metabolites_heritabilities_correlations_table(
             and genetic correlation estimates against a phenotype of interest
         table_reference (object): Pandas data frame of metabolites' identifiers
             and names from study
+        threshold_metabolite_heritability (float): threshold for metabolite
+            heritability
 
     raises:
 
@@ -810,6 +789,7 @@ def organize_metabolites_heritabilities_correlations_table(
     table = select_table_metabolites_valid_identities_heritabilities(
         table=table,
         table_reference=table_reference,
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
         report=True,
     )
     # Calculate False Discovery Rates (FDRs).
@@ -864,6 +844,7 @@ def read_collect_combine_study(
     path_phenotype_heritability=None,
     path_metabolite_heritabilities=None,
     path_correlations=None,
+    threshold_metabolite_heritability=None,
     report=None,
 ):
     """
@@ -880,6 +861,8 @@ def read_collect_combine_study(
             for files with heritability estimations for metabolites
         path_correlations (str): path to source parent directory for files with
             genetic correlation estimations for phenotype and metabolites
+        threshold_metabolite_heritability (float): threshold for metabolite
+            heritability
         report (bool): whether to print reports
 
     raises:
@@ -936,6 +919,7 @@ def read_collect_combine_study(
     table = organize_metabolites_heritabilities_correlations_table(
         table=table_merge,
         table_reference=table_reference,
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
     )
     # Report.
     if report:
@@ -949,6 +933,7 @@ def read_collect_combine_study(
 def read_collect_combine_phenotype_metabolites_studies(
     table_reference_shin_2014=None,
     table_reference_panyard_2021=None,
+    threshold_metabolite_heritability=None,
     paths=None,
     report=None,
 ):
@@ -961,6 +946,8 @@ def read_collect_combine_phenotype_metabolites_studies(
             identifiers and names from study
         table_reference_panyard_2021 (object): Pandas data frame of metabolites'
             identifiers and names from study
+        threshold_metabolite_heritability (float): threshold for metabolite
+            heritability
         paths (dict<str>): collection of paths to directories for procedure's
             files
         report (bool): whether to print reports
@@ -986,6 +973,7 @@ def read_collect_combine_phenotype_metabolites_studies(
         path_correlations=(
             paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"]
         ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
         report=report,
     )
     pail["table_pulit_2018_shin_2014"] = read_collect_combine_study(
@@ -1000,6 +988,7 @@ def read_collect_combine_phenotype_metabolites_studies(
         path_correlations=(
             paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"]
         ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
         report=report,
     )
     pail["table_stahl_2019_shin_2014"] = read_collect_combine_study(
@@ -1014,6 +1003,7 @@ def read_collect_combine_phenotype_metabolites_studies(
         path_correlations=(
             paths["correlation"]["31043756_stahl_2019"]["24816252_shin_2014"]
         ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
         report=report,
     )
     pail["table_howard_2019_shin_2014"] = read_collect_combine_study(
@@ -1028,6 +1018,7 @@ def read_collect_combine_phenotype_metabolites_studies(
         path_correlations=(
             paths["correlation"]["30718901_howard_2019"]["24816252_shin_2014"]
         ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
         report=report,
     )
     pail["table_walters_2018_shin_2014"] = read_collect_combine_study(
@@ -1042,13 +1033,56 @@ def read_collect_combine_phenotype_metabolites_studies(
         path_correlations=(
             paths["correlation"]["30482948_walters_2018"]["24816252_shin_2014"]
         ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
         report=report,
     )
-
+    pail["table_pgc3_2021_all_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=(
+            paths["heritability"]["00000000_pgc3_2021_all"]
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_correlations=(
+            paths["correlation"]["00000000_pgc3_2021_all"]["24816252_shin_2014"]
+        ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
+        report=report,
+    )
+    pail["table_pgc3_2021_bd1_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=(
+            paths["heritability"]["00000000_pgc3_2021_bd1"]
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_correlations=(
+            paths["correlation"]["00000000_pgc3_2021_bd1"]["24816252_shin_2014"]
+        ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
+        report=report,
+    )
+    pail["table_pgc3_2021_bd2_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=(
+            paths["heritability"]["00000000_pgc3_2021_bd2"]
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_correlations=(
+            paths["correlation"]["00000000_pgc3_2021_bd2"]["24816252_shin_2014"]
+        ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
+        report=report,
+    )
     # Return information.
     return pail
-
-
 
 
 def write_product_study_table(
@@ -1175,6 +1209,7 @@ def execute_procedure(
     pail_studies = read_collect_combine_phenotype_metabolites_studies(
         table_reference_shin_2014=source["table_reference_shin_2014"],
         table_reference_panyard_2021=source["table_reference_panyard_2021"],
+        threshold_metabolite_heritability=0.05, # metabolite heritability
         paths=paths,
         report=True,
     )
