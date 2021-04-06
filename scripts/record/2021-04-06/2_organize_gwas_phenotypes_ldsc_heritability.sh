@@ -57,7 +57,7 @@ if true; then
   # phenotype: bipolar disorder and schizophrenia
   study_source="29906448_ruderfer_2018"
   study="29906448_ruderfer_2018_scz_bpd_vs_ctl"
-  #source_file="BDSCZvsCONT.sumstats.gz" # "_scz_bpd_vs_ctl"
+  source_file="BDSCZvsCONT.sumstats.gz" # "_scz_bpd_vs_ctl"
   #source_file="SCZvsBD.sumstats.gz" # "_scz_vs_bpd"
   path_source_directory="${path_gwas_summaries}/${study_source}"
   path_source_file="${path_source_directory}/${source_file}"
