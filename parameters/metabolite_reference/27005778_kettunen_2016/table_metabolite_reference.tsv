@@ -1,0 +1,124 @@
+identifier_study	name	identity
+AcAce	Acetoacetate	1
+Ace	Acetate	1
+Ala	Alanine	1
+Alb	Albumin	1
+ApoA1	ApoA1	1
+ApoB	ApoB	1
+Bis.DB.ratio	Ratio of bis-allylic bonds to double bonds in lipids	1
+Bis.FA.ratio	Ratio of bis-allylic bonds to total fatty acids in lipids	1
+bOHBut	3-hydroxybutyrate	1
+CH2.in.FA	CH2 groups in fatty acids	1
+CH2.DB.ratio	CH2 groups to double bonds ratio	1
+Cit	Citrate	1
+Crea	Creatinine	1
+DB.in.FA	Double bonds in fatty acids	1
+DHA	22:6, docosahexaenoic acid (DHA)	1
+Est.C	Esterified cholesterol	1
+FALen	Fatty acid length	1
+FAw3	Omega-3 fatty acids	1
+FAw6	Omega-6 fatty acids	1
+FAw79S	Omega-7 and -9 and saturated fatty acids	1
+Free.C	Free cholesterol	1
+Glc	Glucose	1
+Gln	Glutamine	1
+Glol	Glycerol	1
+Gly	Glycine	1
+Gp	Glycoprotein acetyls, mainly a1-acid glycoprotein	1
+HDL.C	Total cholesterol in HDL	1
+HDL.D	HDL diameter	1
+His	Histidine	1
+IDL.C	Total cholesterol in IDL	1
+IDL.FC	Free cholesterol in IDL	1
+IDL.L	Total lipids in IDL	1
+IDL.P	Concentration of IDL particles	1
+IDL.PL	Phospholipids in IDL	1
+IDL.TG	Triglycerides in IDL	1
+Ile	Isoleucine	1
+L.HDL.C	Total cholesterol in large HDL	1
+L.HDL.CE	Cholesterol esters in large HDL	1
+L.HDL.FC	Free cholesterol in large HDL	1
+L.HDL.L	Total lipids in large HDL	1
+L.HDL.P	Concentration of large HDL particles	1
+L.HDL.PL	Phospholipids in large HDL	1
+L.LDL.C	Total cholesterol in large LDL	1
+L.LDL.CE	Cholesterol esters in large LDL	1
+L.LDL.FC	Free cholesterol in large LDL	1
+L.LDL.L	Total lipids in large LDL	1
+L.LDL.P	Concentration of large LDL particles	1
+L.LDL.PL	Phospholipids in large LDL	1
+L.VLDL.C	Total cholesterol in large VLDL	1
+L.VLDL.CE	Cholesterol esters in large VLDL	1
+L.VLDL.FC	Free cholesterol in large VLDL	1
+L.VLDL.L	Total lipids in large VLDL	1
+L.VLDL.P	Concentration of large VLDL particles	1
+L.VLDL.PL	Phospholipids in large VLDL	1
+L.VLDL.TG	Triglycerides in large VLDL	1
+LA	18:2, linoleic acid (LA)	1
+Lac	Lactate	1
+LDL.C	Total cholesterol in LDL	1
+LDL.D	LDL diameter	1
+Leu	Leucine	1
+M.HDL.C	Total cholesterol in medium HDL	1
+M.HDL.CE	Cholesterol esters in medium HDL	1
+M.HDL.FC	Free cholesterol in medium HDL	1
+M.HDL.L	Total lipids in medium HDL	1
+M.HDL.P	Concentration of medium HDL particles	1
+M.HDL.PL	Phospholipids in medium HDL	1
+M.LDL.C	Total cholesterol in medium LDL	1
+M.LDL.CE	Cholesterol esters in medium LDL	1
+M.LDL.L	Total lipids in medium LDL	1
+M.LDL.P	Concentration of medium LDL particles	1
+M.LDL.PL	Phospholipids in medium LDL	1
+M.VLDL.C	Total cholesterol in medium VLDL	1
+M.VLDL.CE	Cholesterol esters in medium VLDL	1
+M.VLDL.FC	Free cholesterol in medium VLDL	1
+M.VLDL.L	Total lipids in medium VLDL	1
+M.VLDL.P	Concentration of medium VLDL particles	1
+M.VLDL.PL	Phospholipids in medium VLDL	1
+M.VLDL.TG	Triglycerides in medium VLDL	1
+MUFA	Mono-unsaturated fatty acids	1
+otPUFA	Other polyunsaturated fatty acids than 18:2	1
+PC	Phosphatidylcholine and other cholines	1
+Phe	Phenylalanine	1
+Pyr	Pyruvate	1
+S.HDL.L	Total lipids in small HDL	1
+S.HDL.P	Concentration of small HDL particles	1
+S.HDL.TG	Triglycerides in small HDL	1
+S.LDL.C	Total cholesterol in small LDL	1
+S.LDL.L	Total lipids in small LDL	1
+S.LDL.P	Concentration of small LDL particles	1
+S.VLDL.C	Total cholesterol in small VLDL	1
+S.VLDL.FC	Free cholesterol in small VLDL	1
+S.VLDL.L	Total lipids in small VLDL	1
+S.VLDL.P	Concentration of small VLDL particles	1
+S.VLDL.PL	Phospholipids in small VLDL	1
+S.VLDL.TG	Triglycerides in small VLDL	1
+Serum.C	Serum total cholesterol	1
+Serum.TG	Serum total triglycerides	1
+SM	Sphingomyelins	1
+Tot.FA	Total fatty acids	1
+TotPG	Total phosphoglycerides	1
+Tyr	Tyrosine	1
+Urea	Urea	1
+Val	Valine	1
+VLDL.D	VLDL diameter	1
+XL.HDL.C	Total cholesterol in very large HDL	1
+XL.HDL.CE	Cholesterol esters in very large HDL	1
+XL.HDL.FC	Free cholesterol in very large HDL	1
+XL.HDL.L	Total lipids in very large HDL	1
+XL.HDL.P	Concentration of very large HDL particles	1
+XL.HDL.PL	Phospholipids in very large HDL	1
+XL.HDL.TG	Triglycerides in very large HDL	1
+XL.VLDL.L	Total lipids in very large VLDL	1
+XL.VLDL.P	Concentration of very large VLDL particles	1
+XL.VLDL.PL	Phospholipids in very large VLDL	1
+XL.VLDL.TG	Triglycerides in ver large VLDL	1
+XS.VLDL.L	Total lipids in very small VLDL	1
+XS.VLDL.P	Concentration of very small VLDL particles	1
+XS.VLDL.PL	Phospholipids in very small VLDL	1
+XS.VLDL.TG	Triglycerides in very small VLDL	1
+XXL.VLDL.L	Total lipids in chylomicrons and extremely large VLDL	1
+XXL.VLDL.P	Concentration of chylomicrons and extremely large VLDL particles	1
+XXL.VLDL.PL	Phospholipids in chylomicrons and extremely large VLDL	1
+XXL.VLDL.TG	Triglycerides in chylomicrons and extremely large VLDL	1

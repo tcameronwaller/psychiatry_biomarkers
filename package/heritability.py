@@ -164,12 +164,16 @@ def initialize_directories(
         "30482948_walters_2018", "30718901_howard_2019", "31043756_stahl_2019",
         "00000000_pgc3_2021_all", "00000000_pgc3_2021_bd1",
         "00000000_pgc3_2021_bd2",
+        "29906448_ruderfer_2018_scz_bpd_vs_ctl",
+        "29906448_ruderfer_2018_scz_vs_bpd",
     ]
     primary_studies = [
         "30124842_yengo_2018", "30239722_pulit_2018",
         "30482948_walters_2018", "30718901_howard_2019", "31043756_stahl_2019",
         "00000000_pgc3_2021_all", "00000000_pgc3_2021_bd1",
         "00000000_pgc3_2021_bd2",
+        "29906448_ruderfer_2018_scz_bpd_vs_ctl",
+        "29906448_ruderfer_2018_scz_vs_bpd",
     ]
     secondary_studies = [
         "24816252_shin_2014",
@@ -1081,6 +1085,39 @@ def read_collect_combine_phenotype_metabolites_studies(
         threshold_metabolite_heritability=threshold_metabolite_heritability,
         report=report,
     )
+
+    pail["table_ruderfer_2018_scz_bpd_vs_ctl_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=(
+            paths["heritability"]["29906448_ruderfer_2018_scz_bpd_vs_ctl"]
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_correlations=(
+            paths["correlation"]["29906448_ruderfer_2018_scz_bpd_vs_ctl"]["24816252_shin_2014"]
+        ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
+        report=report,
+    )
+    pail["table_ruderfer_2018_scz_vs_bpd_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=(
+            paths["heritability"]["29906448_ruderfer_2018_scz_vs_bpd"]
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_correlations=(
+            paths["correlation"]["29906448_ruderfer_2018_scz_vs_bpd"]["24816252_shin_2014"]
+        ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
+        report=report,
+    )
+
+
     # Return information.
     return pail
 
