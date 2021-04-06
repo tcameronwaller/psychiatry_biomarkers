@@ -53,6 +53,29 @@ fi
 # Organize information in format for LDSC.
 
 if true; then
+  # Ripke et al, pending, 2021 (PubMed:pending)
+  # phenotype: schizophrenia
+  study="00000000_ripke_2021"
+  source_file="PGC3_SCZ_wave3_public.v2.tsv.gz"
+  path_source_directory="${path_gwas_summaries}/${study}"
+  path_source_file="${path_source_directory}/${source_file}"
+  path_script_gwas_format="${path_scripts_format}/format_gwas_ldsc_${study}.sh"
+  report="true" # "true" or "false"
+  /usr/bin/bash "$path_scripts_record/3_organize_gwas_phenotype_ldsc_heritability.sh" \
+  $study \
+  $source_file \
+  $path_source_file \
+  $path_genetic_reference \
+  $path_gwas \
+  $path_heritability \
+  $path_genetic_correlation \
+  $path_script_gwas_format \
+  $path_promiscuity_scripts \
+  $report
+fi
+
+if false; then
+
   # Ruderfer et al, Cell, 2018 (PubMed:29906448)
   # phenotype: bipolar disorder and schizophrenia
   study_source="29906448_ruderfer_2018"
@@ -74,9 +97,6 @@ if true; then
   $path_script_gwas_format \
   $path_promiscuity_scripts \
   $report
-fi
-
-if false; then
 
   # PGC3 (pending) et al, (pending), 2021 (PubMed:pending)
   # phenotype: bipolar disorder types I and II
