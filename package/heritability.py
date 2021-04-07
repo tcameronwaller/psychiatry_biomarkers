@@ -166,6 +166,7 @@ def initialize_directories(
         "00000000_pgc3_2021_bd2",
         "29906448_ruderfer_2018_scz_bpd_vs_ctl",
         "29906448_ruderfer_2018_scz_vs_bpd",
+        "00000000_ripke_2021",
     ]
     primary_studies = [
         "30124842_yengo_2018", "30239722_pulit_2018",
@@ -174,6 +175,7 @@ def initialize_directories(
         "00000000_pgc3_2021_bd2",
         "29906448_ruderfer_2018_scz_bpd_vs_ctl",
         "29906448_ruderfer_2018_scz_vs_bpd",
+        "00000000_ripke_2021",
     ]
     secondary_studies = [
         "24816252_shin_2014",
@@ -1117,6 +1119,21 @@ def read_collect_combine_phenotype_metabolites_studies(
         report=report,
     )
 
+    pail["table_ripke_2021_shin_2014"] = read_collect_combine_study(
+        table_reference=table_reference_shin_2014,
+        file_phenotype_heritability="heritability_report.log",
+        path_phenotype_heritability=(
+            paths["heritability"]["00000000_ripke_2021"]
+        ),
+        path_metabolite_heritabilities=(
+            paths["heritability"]["24816252_shin_2014"]
+        ),
+        path_correlations=(
+            paths["correlation"]["00000000_ripke_2021"]["24816252_shin_2014"]
+        ),
+        threshold_metabolite_heritability=threshold_metabolite_heritability,
+        report=report,
+    )
 
     # Return information.
     return pail
