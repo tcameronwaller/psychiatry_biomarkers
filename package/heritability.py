@@ -36,6 +36,7 @@ import pickle
 import copy
 import random
 import itertools
+import time
 
 # Relevant
 
@@ -1280,6 +1281,8 @@ def execute_procedure(
     utility.print_terminal_partition(level=1)
     print(path_dock)
     print("version check: 1")
+    # Pause procedure.
+    time.sleep(5.0)
 
     # Initialize directories.
     paths = initialize_directories(
@@ -1292,7 +1295,7 @@ def execute_procedure(
         report=True,
     )
     # Read, collect, and organize estimations of heritability for metabolites.
-    table_metabolites_heritabilities = (
+    table_metabolite_heritabilities = (
         read_collect_organize_metabolites_heritabilities(
             table_reference_shin_2014=source["table_reference_shin_2014"],
             path_source_directory=paths["heritability"]["24816252_shin_2014"],
