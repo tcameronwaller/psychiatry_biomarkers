@@ -65,6 +65,33 @@ if true; then
 
 fi
 
+
+# Gallois et al, Nature Communications, 2019 (PubMed:31636271)
+# https://www.ebi.ac.uk/gwas/publications/
+# Metabolite information is in Supplemental Table 1
+if true; then
+  # Define file destination.
+  path_access_study="$path_dock/access/gwas_summaries/31636271_gallois_2019/gcst009240"
+  mkdir -p $path_access_study
+
+  # Download files from server.
+  # curl -u user:password "path-to-original-file-online" -o "path-to-new-local-copy"
+  cd $path_access_study
+  #curl "sftp://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/ShinSY_24816252_GCST002443/"
+  wget --no-parent -r -l 10 "ftp://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST009001-GCST010000/GCST009240/"
+
+  # Define file destination.
+  path_access_study="$path_dock/access/gwas_summaries/31636271_gallois_2019/gcst009242"
+  mkdir -p $path_access_study
+
+  # Download files from server.
+  # curl -u user:password "path-to-original-file-online" -o "path-to-new-local-copy"
+  cd $path_access_study
+  #curl "sftp://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/ShinSY_24816252_GCST002443/"
+  wget --no-parent -r -l 10 "ftp://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST009001-GCST010000/GCST009242/"
+
+fi
+
 # Kettunen et al, Nature Communications, 2016 (PubMed:27005778)
 # https://www.ebi.ac.uk/gwas/publications/24816252
 # Metabolite information is in Supplemental Table 1
@@ -75,7 +102,7 @@ if true; then
 
   # Download files from server.
   # curl -u user:password "path-to-original-file-online" -o "path-to-new-local-copy"
-  cd $path_access
+  cd $path_access_study
   #curl "sftp://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/ShinSY_24816252_GCST002443/"
   wget --no-parent -r -l 10 "ftp://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST003001-GCST004000/GCST003664/"
 

@@ -253,19 +253,157 @@ def read_source(
 # Heritability
 
 
-def read_collect_organize_metabolites_heritabilities_studies(
-    table_reference_panyard_2021=None,
-    paths=None,
+def read_extract_phenotype_heritability(
+    file=None,
+    path_source_directory=None,
+):
+    """
+    Reads and extracts information from log of LDSC for heritability estimation
+    from GWAS summary statistics.
+
+    arguments:
+        file (str): name of a file
+        path_source_directory (str): path to source parent directory for files
+            with heritability estimations for phenotype
+
+    raises:
+
+    returns:
+        (dict): information about estimation of a metabolite's heritability
+
+    """
+
+    # Extract metabolite's identifier.
+    identifier = str(
+        file.replace("heritability_", "").replace(".log", "")
+    )
+    # Define path to file.
+    path_file = os.path.join(
+        path_source_directory, file
+    )
+    # Initialize variables.
+    variants = float("nan")
+    heritability = float("nan")
+    heritability_error = float("nan")
+    ratio = float("nan")
+    ratio_error = float("nan")
+    # Read relevant lines from file.
+    lines = utility.read_file_text_lines(
+        path_file=path_file,
+        start=22,
+        stop=30,
+    )
+    # Extract information from lines.
+    prefix_variants = "After merging with regression SNP LD, "
+    suffix_variants = " SNPs remain."
+    prefix_heritability = "Total Observed scale h2: "
+    prefix_ratio = "Ratio: "
+    for line in lines:
+        if prefix_variants in line:
+            variants = float(
+                line.replace(prefix_variants, "").replace(suffix_variants, "")
+            )
+        elif prefix_heritability in line:
+            content = line.replace(prefix_heritability, "")
+            contents = content.split(" (")
+            heritability_test = contents[0]
+            if (not "NA" in heritability_test):
+                heritability = float(contents[0])
+                heritability_error = float(contents[1].replace(")", ""))
+            pass
+        elif (
+            (not math.isnan(heritability)) and
+            (prefix_ratio in line)
+        ):
+            content = line.replace(prefix_ratio, "")
+            contents = content.split(" (")
+            ratio_test = contents[0]
+            if (not "NA" in ratio_test):
+                ratio = float(contents[0])
+                ratio_error = float(
+                    contents[1].replace(")", "")
+                )
+            pass
+        pass
+    # Collect information.
+    record = dict()
+    record["identifier"] = identifier
+    record["heritability_variants"] = variants
+    record["heritability"] = heritability
+    record["heritability_standard_error"] = heritability_error
+    record["heritability_ratio"] = ratio
+    record["heritability_ratio_standard_error"] = ratio_error
+    # Return information.
+    return record
+
+
+def read_collect_metabolites_heritabilities(
+    path_source_directory=None,
+):
+    """
+    Reads, collects, and organizes metabolite heritability estimates.
+
+    arguments:
+        path_source_directory (str): path to source parent directory for files
+            with heritability estimations for metabolites
+
+    raises:
+
+    returns:
+        (object): Pandas data frame of metabolites' heritability estimates
+
+    """
+
+    # Collect names of files for metabolites' heritabilities.
+    files = utility.extract_directory_file_names(path=path_source_directory)
+    files_relevant = list(filter(
+        lambda content: ("heritability" in content), files
+    ))
+    records = list()
+    for file in files_relevant:
+        record = read_extract_phenotype_heritability(
+            file=file,
+            path_source_directory=path_source_directory,
+        )
+        records.append(record)
+        pass
+    # Organize heritability table.
+    table = utility.convert_records_to_dataframe(
+        records=records
+    )
+    table.sort_values(
+        by=["heritability"],
+        axis="index",
+        ascending=False,
+        inplace=True,
+    )
+    table.reset_index(
+        level=None,
+        inplace=True
+    )
+    table["identifier"].astype("string")
+    table.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
+    # Return information.
+    return table
+
+
+def read_collect_organize_metabolites_heritabilities(
+    table_reference_shin_2014=None,
+    path_source_directory=None,
     report=None,
 ):
     """
     Reads, collects, and organizes metabolite heritability estimates.
 
     arguments:
-        table_reference_panyard_2021 (object): Pandas data frame of metabolites'
+        table_reference_shin_2014 (object): Pandas data frame of metabolites'
             identifiers and names from study
-        paths (dict<str>): collection of paths to directories for procedure's
-            files
+        path_source_directory (str): path to source parent directory for files
+            with heritability estimations for metabolites
         report (bool): whether to print reports
 
     raises:
@@ -275,16 +413,33 @@ def read_collect_organize_metabolites_heritabilities_studies(
 
     """
 
-    # Collect metabolites' heritabilities from each GWAS.
-    pail = dict()
-    #pail["table_shin_2014"] =
-    pail["table_panyard_2021"] = read_collect_metabolites_heritabilities(
-        table_reference=table_reference_panyard_2021,
-        path_parent=paths["heritability_panyard_2021"],
-        report=report,
+    # Organize metabolite reference table.
+    table_reference = organize_metabolite_reference_table(
+        table=table_reference_shin_2014,
+        identifier="identifier_study",
+        name="name",
+        identity="identity",
     )
+    # Collect metabolite heritabilities.
+    table_metabolite_heritabilities = read_collect_metabolites_heritabilities(
+        path_source_directory=path_source_directory,
+    )
+    # Merge data tables using database-style join.
+    # Alternative is to use DataFrame.join().
+    table = table_reference.merge(
+        table_metabolite_heritabilities,
+        how="outer",
+        left_on="identifier",
+        right_on="identifier",
+        suffixes=("_reference", "_heritability"),
+    )
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=2)
+        print(path_source_directory)
+        print(table)
     # Return information.
-    return pail
+    return table
 
 
 # Genetic correlation.
@@ -383,144 +538,11 @@ def organize_metabolite_reference_table(
         level=None,
         inplace=True
     )
-    table["identity"].astype("float")
-    table["identifier"].astype("string")
-    table.set_index(
-        "identifier",
-        drop=True,
-        inplace=True,
-    )
-    # Return information.
-    return table
-
-
-def read_extract_metabolite_heritability(
-    file=None,
-    path_source_directory=None,
-):
-    """
-    Reads and extracts information from log of LDSC for heritability estimation
-    from GWAS summary statistics.
-
-    arguments:
-        file (str): name of a file
-        path_source_directory (str): path to source parent directory for files
-            with genetic correlation estimations for metabolites
-
-    raises:
-
-    returns:
-        (dict): information about estimation of a metabolite's heritability
-
-    """
-
-    # Extract metabolite's identifier.
-    identifier = str(
-        file.replace("heritability_", "").replace(".log", "")
-    )
-    # Define path to file.
-    path_file = os.path.join(
-        path_source_directory, file
-    )
-    # Initialize variables.
-    variants = float("nan")
-    heritability = float("nan")
-    heritability_error = float("nan")
-    ratio = float("nan")
-    ratio_error = float("nan")
-    # Read relevant lines from file.
-    lines = utility.read_file_text_lines(
-        path_file=path_file,
-        start=22,
-        stop=30,
-    )
-    # Extract information from lines.
-    prefix_variants = "After merging with regression SNP LD, "
-    suffix_variants = " SNPs remain."
-    prefix_heritability = "Total Observed scale h2: "
-    prefix_ratio = "Ratio: "
-    for line in lines:
-        if prefix_variants in line:
-            variants = float(
-                line.replace(prefix_variants, "").replace(suffix_variants, "")
-            )
-        elif prefix_heritability in line:
-            content = line.replace(prefix_heritability, "")
-            contents = content.split(" (")
-            heritability_test = contents[0]
-            if (not "NA" in heritability_test):
-                heritability = float(contents[0])
-                heritability_error = float(contents[1].replace(")", ""))
-            pass
-        elif (
-            (not math.isnan(heritability)) and
-            (prefix_ratio in line)
-        ):
-            content = line.replace(prefix_ratio, "")
-            contents = content.split(" (")
-            ratio_test = contents[0]
-            if (not "NA" in ratio_test):
-                ratio = float(contents[0])
-                ratio_error = float(
-                    contents[1].replace(")", "")
-                )
-            pass
-        pass
-    # Collect information.
-    record = dict()
-    record["identifier"] = identifier
-    record["heritability_variants"] = variants
-    record["heritability"] = heritability
-    record["heritability_standard_error"] = heritability_error
-    record["heritability_ratio"] = ratio
-    record["heritability_ratio_standard_error"] = ratio_error
-    # Return information.
-    return record
-
-
-def read_collect_metabolites_heritabilities(
-    path_source_directory=None,
-):
-    """
-    Reads, collects, and organizes metabolite heritability estimates.
-
-    arguments:
-        path_source_directory (str): path to source parent directory for files
-            with genetic correlation estimations for metabolites
-
-    raises:
-
-    returns:
-        (object): Pandas data frame of metabolites' heritability estimates
-
-    """
-
-    # Collect names of files for metabolites' heritabilities.
-    files = utility.extract_directory_file_names(path=path_source_directory)
-    files_relevant = list(filter(
-        lambda content: ("heritability" in content), files
-    ))
-    records = list()
-    for file in files_relevant:
-        record = read_extract_metabolite_heritability(
-            file=file,
-            path_source_directory=path_source_directory,
-        )
-        records.append(record)
-        pass
-    # Organize heritability table.
-    table = utility.convert_records_to_dataframe(
-        records=records
-    )
-    table.sort_values(
-        by=["heritability"],
-        axis="index",
-        ascending=False,
-        inplace=True,
-    )
-    table.reset_index(
-        level=None,
-        inplace=True
+    #table["identity"].astype("float")
+    table["identity"] = pandas.to_numeric(
+        table["identity"],
+        errors="coerce", # force any invalid values to missing or null
+        downcast="float",
     )
     table["identifier"].astype("string")
     table.set_index(
@@ -887,7 +909,7 @@ def read_collect_combine_study(
         identity="identity",
     )
 
-    pail_phenotype = read_extract_metabolite_heritability(
+    pail_phenotype = read_extract_phenotype_heritability(
         file=file_phenotype_heritability,
         path_source_directory=path_phenotype_heritability,
     )
@@ -1167,7 +1189,7 @@ def write_product_study_table(
         path_or_buf=path_table,
         sep="\t",
         header=True,
-        index=False,
+        index=True,
     )
     pass
 
@@ -1221,6 +1243,17 @@ def write_product(
         information=information["studies"],
         path_parent=paths["genetic_correlation"],
     )
+    # Specify directories and files.
+    path_table = os.path.join(
+        paths["dock"], "heritability", "table_shin_2014_heritabilities.tsv"
+    )
+    # Write information to file.
+    information["table_metabolite_heritabilities"].to_csv(
+        path_or_buf=path_table,
+        sep="\t",
+        header=True,
+        index=True,
+    )
     pass
 
 
@@ -1246,7 +1279,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 6")
+    print("version check: 1")
 
     # Initialize directories.
     paths = initialize_directories(
@@ -1258,6 +1291,13 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
+    # Read, collect, and organize estimations of heritability for metabolites.
+    table_metabolites_heritabilities = (
+        read_collect_organize_metabolites_heritabilities(
+            table_reference_shin_2014=source["table_reference_shin_2014"],
+            path_source_directory=paths["heritability"]["24816252_shin_2014"],
+            report=True,
+    ))
     # Read, collect, and combine estimations of heritability and genetic
     # correlations between phenotypes and metabolites.
     pail_studies = read_collect_combine_phenotype_metabolites_studies(
@@ -1270,6 +1310,9 @@ def execute_procedure(
 
     # Collect information.
     information = dict()
+    information["table_metabolite_heritabilities"] = (
+        table_metabolite_heritabilities
+    )
     information["studies"] = pail_studies
     # Write product information to file.
     write_product(
