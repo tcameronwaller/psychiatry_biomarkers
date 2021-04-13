@@ -254,6 +254,66 @@ def read_source(
 # Heritability
 
 
+def organize_metabolite_reference_table(
+    table=None,
+    identifier=None,
+    name=None,
+    identity=None,
+):
+    """
+    Organizes information about general attributes.
+
+    arguments:
+        table (object): Pandas data frame of phenotype variables across UK
+            Biobank cohort
+        identifier (str): name of column for metabolite identifier
+        name (str): name of column for metabolite biochemical name
+        identity (str): name of column as binary logical indicator of whether
+            the metabolite has a known identity
+
+    raises:
+
+    returns:
+        (dict): collection of information about phenotype variables
+
+    """
+
+    # Copy data.
+    table = table.copy(deep=True)
+    # Translate column names.
+    translations = dict()
+    translations[identifier] = "identifier"
+    translations[name] = "name"
+    translations[identity] = "identity"
+    table.rename(
+        columns=translations,
+        inplace=True,
+    )
+    # Select relevant columns.
+    table = table.loc[
+        :, table.columns.isin(["identifier", "name", "identity"])
+    ]
+    # Organize table.
+    table.reset_index(
+        level=None,
+        inplace=True
+    )
+    #table["identity"].astype("float")
+    table["identity"] = pandas.to_numeric(
+        table["identity"],
+        errors="coerce", # force any invalid values to missing or null
+        downcast="float",
+    )
+    table["identifier"].astype("string")
+    table.set_index(
+        "identifier",
+        drop=True,
+        inplace=True,
+    )
+    # Return information.
+    return table
+
+
 def read_extract_phenotype_heritability(
     file=None,
     path_source_directory=None,
@@ -493,66 +553,6 @@ def read_collect_organize_metabolites_correlations_studies(
 
 
 # Combination
-
-
-def organize_metabolite_reference_table(
-    table=None,
-    identifier=None,
-    name=None,
-    identity=None,
-):
-    """
-    Organizes information about general attributes.
-
-    arguments:
-        table (object): Pandas data frame of phenotype variables across UK
-            Biobank cohort
-        identifier (str): name of column for metabolite identifier
-        name (str): name of column for metabolite biochemical name
-        identity (str): name of column as binary logical indicator of whether
-            the metabolite has a known identity
-
-    raises:
-
-    returns:
-        (dict): collection of information about phenotype variables
-
-    """
-
-    # Copy data.
-    table = table.copy(deep=True)
-    # Translate column names.
-    translations = dict()
-    translations[identifier] = "identifier"
-    translations[name] = "name"
-    translations[identity] = "identity"
-    table.rename(
-        columns=translations,
-        inplace=True,
-    )
-    # Select relevant columns.
-    table = table.loc[
-        :, table.columns.isin(["identifier", "name", "identity"])
-    ]
-    # Organize table.
-    table.reset_index(
-        level=None,
-        inplace=True
-    )
-    #table["identity"].astype("float")
-    table["identity"] = pandas.to_numeric(
-        table["identity"],
-        errors="coerce", # force any invalid values to missing or null
-        downcast="float",
-    )
-    table["identifier"].astype("string")
-    table.set_index(
-        "identifier",
-        drop=True,
-        inplace=True,
-    )
-    # Return information.
-    return table
 
 
 def read_extract_phenotype_metabolite_genetic_correlation(
