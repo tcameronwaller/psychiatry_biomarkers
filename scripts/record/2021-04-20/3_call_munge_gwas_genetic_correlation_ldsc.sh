@@ -34,28 +34,56 @@ path_heritability="$path_dock/heritability"
 path_genetic_correlation="$path_dock/genetic_correlation"
 
 
-# Organize variables.
-study_one="30239722_pulit_2018" # "30239722_pulit_2018", "30124842_yengo_2018"
-study_two="31043756_stahl_2019"
-phenotype_one="waist_hip_ratio" # "waist_hip_ratio", "body_mass_index"
-phenotype_two="bipolar_disorder"
-path_gwas_one="${path_gwas}/${study_one}/gwas_format.txt.gz"
-path_gwas_two="${path_gwas}/${study_two}/gwas_format.txt.gz"
-path_gwas_munge_one="${path_gwas}/${study_one}/gwas_munge"
-path_gwas_munge_two="${path_gwas}/${study_two}/gwas_munge"
-path_study_genetic_correlation="${path_genetic_correlation}/${study_one}"
-mkdir -p $path_study_genetic_correlation
-path_genetic_correlation_report="${path_study_genetic_correlation}/correlation_${study_two}"
-path_genetic_correlation_report_suffix="${path_genetic_correlation_report}.log"
-path_report=$path_genetic_correlation_report
-/usr/bin/bash "$path_promiscuity_scripts_ldsc/munge_gwas_genetic_correlation_ldsc.sh" \
-$phenotype_one \
-$phenotype_two \
-$path_gwas_one \
-$path_gwas_two \
-$path_gwas_munge_one \
-$path_gwas_munge_two \
-$path_report \
-$path_alleles \
-$path_disequilibrium \
-$path_ldsc
+# Define multi-dimensional array of cohorts and hormones.
+correlation_studies=()
+correlation_studies+=("bipolar_disorder;31043756_stahl_2019;bipolar_disorder_all;00000000_pgc3_2021_all")
+correlation_studies+=("bipolar_disorder;31043756_stahl_2019;bipolar_disorder_type1;00000000_pgc3_2021_bd1")
+correlation_studies+=("bipolar_disorder;31043756_stahl_2019;bipolar_disorder_type2;00000000_pgc3_2021_bd2")
+
+correlation_studies+=("body_mass_index;30124842_yengo_2018;bipolar_disorder;31043756_stahl_2019")
+correlation_studies+=("body_mass_index;30124842_yengo_2018;bipolar_disorder_all;00000000_pgc3_2021_all")
+correlation_studies+=("body_mass_index;30124842_yengo_2018;bipolar_disorder_type1;00000000_pgc3_2021_bd1")
+correlation_studies+=("body_mass_index;30124842_yengo_2018;bipolar_disorder_type2;00000000_pgc3_2021_bd2")
+
+correlation_studies+=("waist_hip_ratio;30239722_pulit_2018;bipolar_disorder;31043756_stahl_2019")
+correlation_studies+=("waist_hip_ratio;30239722_pulit_2018;bipolar_disorder_all;00000000_pgc3_2021_all")
+correlation_studies+=("waist_hip_ratio;30239722_pulit_2018;bipolar_disorder_type1;00000000_pgc3_2021_bd1")
+correlation_studies+=("waist_hip_ratio;30239722_pulit_2018;bipolar_disorder_type2;00000000_pgc3_2021_bd2")
+
+
+
+for pair in "${correlation_studies[@]}"; do
+  # Separate fields from pair.
+  IFS=";" read -r -a array <<< "${pair}"
+  phenotype_one="${array[0]}"
+  study_one="${array[1]}"
+  phenotype_two="${array[2]}"
+  study_two="${array[3]}"
+
+  echo "study one: " ${study_one}
+  echo "phenotype one: " ${phenotype_one}
+  echo "study two: " ${study_two}
+  echo "phenotype two: " ${phenotype_two}
+
+  # Organize variables.
+  path_gwas_one="${path_gwas}/${study_one}/gwas_format.txt.gz"
+  path_gwas_two="${path_gwas}/${study_two}/gwas_format.txt.gz"
+  path_gwas_munge_one="${path_gwas}/${study_one}/gwas_munge"
+  path_gwas_munge_two="${path_gwas}/${study_two}/gwas_munge"
+  path_study_genetic_correlation="${path_genetic_correlation}/${study_one}"
+  mkdir -p $path_study_genetic_correlation
+  path_genetic_correlation_report="${path_study_genetic_correlation}/correlation_${study_two}"
+  path_genetic_correlation_report_suffix="${path_genetic_correlation_report}.log"
+  path_report=$path_genetic_correlation_report
+  /usr/bin/bash "$path_promiscuity_scripts_ldsc/munge_gwas_genetic_correlation_ldsc.sh" \
+  $phenotype_one \
+  $phenotype_two \
+  $path_gwas_one \
+  $path_gwas_two \
+  $path_gwas_munge_one \
+  $path_gwas_munge_two \
+  $path_report \
+  $path_alleles \
+  $path_disequilibrium \
+  $path_ldsc
+done
