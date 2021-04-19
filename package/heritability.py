@@ -470,7 +470,7 @@ def read_collect_organize_metabolites_heritabilities(
     raises:
 
     returns:
-        (dict): heritability estimations for metabolites from multiple GWAS
+        (object): Pandas data frame of metabolites' heritability estimates
 
     """
 
