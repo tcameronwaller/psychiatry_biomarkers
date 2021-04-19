@@ -35,9 +35,9 @@ path_genetic_correlation="$path_dock/genetic_correlation"
 
 
 # Organize variables.
-study_one="30124842_yengo_2018"
+study_one="30239722_pulit_2018" # "30239722_pulit_2018", "30124842_yengo_2018"
 study_two="31043756_stahl_2019"
-phenotype_one="body_mass_index"
+phenotype_one="waist_hip_ratio" # "waist_hip_ratio", "body_mass_index"
 phenotype_two="bipolar_disorder"
 path_gwas_one="${path_gwas}/${study_one}/gwas_format.txt.gz"
 path_gwas_two="${path_gwas}/${study_two}/gwas_format.txt.gz"
