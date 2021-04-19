@@ -14,6 +14,7 @@
 cd ~/paths
 path_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_temporary=$(<"./processing_bipolar_metabolism.txt")
+path_ldsc=$(<"./tools_ldsc.txt")
 
 path_waller="$path_temporary/waller"
 path_bipolar_metabolism="$path_waller/bipolar_metabolism"
@@ -24,6 +25,11 @@ path_scripts_format="$path_waller/promiscuity/scripts/format_gwas_ldsc"
 
 path_dock="$path_waller/dock"
 path_genetic_reference="$path_dock/access/genetic_reference"
+path_alleles="$path_genetic_reference/alleles"
+path_disequilibrium="$path_genetic_reference/disequilibrium"
+path_baseline="$path_genetic_reference/baseline"
+path_weights="$path_genetic_reference/weights"
+path_frequencies="$path_genetic_reference/frequencies"
 path_gwas="$path_dock/gwas"
 path_heritability="$path_dock/heritability"
 path_genetic_correlation="$path_dock/genetic_correlation"
@@ -72,6 +78,7 @@ if true; then
   $path_genetic_correlation \
   $path_script_gwas_format \
   $path_promiscuity_scripts \
+  $path_ldsc \
   $report
 fi
 
@@ -97,6 +104,7 @@ if false; then
   $path_genetic_correlation \
   $path_script_gwas_format \
   $path_promiscuity_scripts \
+  $path_ldsc \
   $report
 
   # PGC3 (pending) et al, (pending), 2021 (PubMed:pending)
@@ -120,6 +128,7 @@ if false; then
   $path_genetic_correlation \
   $path_script_gwas_format \
   $path_promiscuity_scripts \
+  $path_ldsc \
   $report
 
   # Walters et al, Nature Neuroscience, 2018 (PubMed:30482948)
@@ -140,6 +149,7 @@ if false; then
   $path_genetic_correlation \
   $path_script_gwas_format \
   $path_promiscuity_scripts \
+  $path_ldsc \
   $report
 
   # Howard et al, Nature Neuroscience, 2019 (PubMed:30718901)
@@ -160,6 +170,7 @@ if false; then
   $path_genetic_correlation \
   $path_script_gwas_format \
   $path_promiscuity_scripts \
+  $path_ldsc \
   $report
 
   # Stahl et al, Nature Genetics, 2019 (PubMed:31043756)
@@ -180,6 +191,7 @@ if false; then
   $path_genetic_correlation \
   $path_script_gwas_format \
   $path_promiscuity_scripts \
+  $path_ldsc \
   $report
 
   # Yengo et al, Human Molecular Genetics, 2018 (PubMed:30124842)
@@ -200,6 +212,7 @@ if false; then
   $path_genetic_correlation \
   $path_script_gwas_format \
   $path_promiscuity_scripts \
+  $path_ldsc \
   $report
 
   # Pulit et al, Human Molecular Genetics, 2018 (PubMed:30239722)
@@ -220,5 +233,6 @@ if false; then
   $path_genetic_correlation \
   $path_script_gwas_format \
   $path_promiscuity_scripts \
+  $path_ldsc \
   $report
 fi
