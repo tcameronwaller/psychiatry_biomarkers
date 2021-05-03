@@ -30,6 +30,8 @@ path_genetic_correlation="${path_dock}/genetic_correlation"
 ###########################################################################
 # Execute procedure.
 
+# Version check...
+
 # Initialize directories.
 rm -r $path_gwas
 rm -r $path_heritability
