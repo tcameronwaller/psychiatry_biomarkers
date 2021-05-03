@@ -737,6 +737,35 @@ Animal models
 --------------------------------------------------
 --------------------------------------------------
 --------------------------------------------------
+Metabolite abundance association with Body Mass Index
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+
+--------------------------------------------------
+PubMed: 26863521
+date: 10 February 2016
+journal: PLOS One
+authors: Jennifer E. Ho, ..., Thomas J. Wang
+title: "Metabolomic Profiles of Body Mass Index in the Framingham Heart Study Reveal Distinct Cardiometabolic Phenotypes"
+note:
+- Framingham Heart Study: 2,383 persons
+- 217 metabolites in plasma
+- direct, phenotypic associations (not genetic correlation)
+- BMI association to 69 of 217 metabolites
+- - aromatic and branched chain amino acids
+- - citric acid cycle (central catabolism)
+- - kynurenine pathway
+
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
 Metabolism in Psychiatric Disorders
 --------------------------------------------------
 --------------------------------------------------
@@ -745,32 +774,50 @@ Metabolism in Psychiatric Disorders
 --------------------------------------------------
 
 --------------------------------------------------
-PubMed:31919502
+PubMed: 33079133
+date: 1 February 2021
+journal: JAMA Psychiatry
+authors: Nils Kappelmann, ..., Elisabeth B. Binder
+title: "Dissecting the Association Between Inflammation, Metabolic Dysregulation, and Specific Depressive Symptoms: A Genetic Correlation and 2-Sample Mendelian Randomization Study"
+note:
+- genetic correlation (LDSC)
+- Mendelian Randomization
+- did not evaluate genetic predispositions for individual metabolites
+- FDR significant positive genetic correlation between C-reactive protein (inflammation) and Depressive symptoms
+- MR causality of genetically greater IL6 (inflammation) for suicidality
+- BMI positive correlation to Anhedonia, Tiredness, Changes in Appetite, Feelings of Inadequacy
+- article cites many publications on immuno-metabolic associations with psychiatric disorders
+
+--------------------------------------------------
+PubMed: 31919502
 Date: 10 January 2020
 Journal: Schizophrenia Bulletin
-Authors: Yang, ..., Ma
+Authors: Jian Yang, ..., Xiancang Ma
 Title: "Assessing the Causal Effects of Human Serum Metabolites on 5 Major Psychiatric Disorders"
-Note:
+note:
 - Brandon J. Coombes shared and recommended this article on 16 September 2020.
 - Genetically determined metabotypes (GDMs)
-- This study uses the metabolomics data from Shin et al 2014 (PubMed:24816252)
+- used the metabolite GWAS summary statistics from Shin et al 2014 (PubMed:24816252)
 -- 486 metabolites, of which 309 identifiable and 177 unidentifiable
-- 486 human serum metabolites, of which ___ identifiable
-- This article's method applies Mendelian randomization, which is a little more complex and obscure than a straightforward regression type PRS.
-- Polygenic risk scores (PRSs) also utilize more genetic signal and have better statistical power, I think
+- method applied Mendelian Randomization (MR)
+- psychiatric disorders: Schizophrenia, Major Depressive Disorder, Bipolar Disorder, Autism Spectrum Disorder, Attention-Deficit Hyperactive Disorder
+- authors reported 137 "significant" metabolite associations without correction for multiple hypothesis testing (p < 0.05)
+- authors reported 2 metabolite associations after Bonferroni correction for multiple hypothesis testing (p < 1E-4)
 
 --------------------------------------------------
 PubMed:29673576
-Date: June 2018
+Date: 3 April 2018
 Journal: Molecular Metabolism
-Authors: Hebebrand, ..., Libuda
+Authors: Johannes Hebebrand, ..., Lars Libuda
 Title: "The role of genetic variation of human metabolism for BMI, mental traits and mental disorders"
 Note:
 - Brandon J. Coombes shared and recommended this article on 16 September 2020.
-- 516 SNPs (216 independent loci) GWAS association with human metabolism
-- This study used GWAS summary statistics from multiple previous analyses of metabolites
+- considered SNPs for blood and urine abundance of individual metabolites
+- looked up list of 516 SNPs (216 independent loci) from GWAS association with individual metabolites
+- statistically-significant overlap with SNPs for BMI and 13 psychiatric disorders
+- method basically a very limited (small scope) genetic correlation analysis
+- authors did not discuss (much) relevance of individual metabolite associations
 - Draisma et al, Nature Communications, 2015 only included about 150 metabolites across 7,478 persons
--
 
 --------------------------------------------------
 PubMed:26414676

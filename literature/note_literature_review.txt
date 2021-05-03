@@ -1,6 +1,27 @@
 
 
 
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+Genotype-Metabolome Studies (metabolite GWAS)
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+--------------------------------------------------
+PubMed: 29602398
+date: 2 March 2018
+journal: Seminars in Nephrology
+authors: Anna Kottgen, ..., Gabi Kastenmuller
+title: "Genome-Wide Association Studies of Metabolite Concentrations (mGWAS): Relevance for Nephrology"
+note:
+- this review describes multiple metabolite GWAS and emphasizes consistent findings from these studies relevant to nephrology
+- this review is an excellent example of how to write this type of article
 
 --------------------------------------------------
 --------------------------------------------------
@@ -63,6 +84,17 @@ Journal: Nature Reviews Neuroscience
 Title: "Gut microbial molecules in behavioural and neurodegenerative conditions"
 
 --------------------------------------------------
+PubMed: 32061259
+date: 15 February 2020
+authors: Bruno Pedraz-Petrozzi, ..., Christoph Mulert
+journal: Journal of Neuroinflammation
+title: "Effects of inflammation on the kynurenine pathway in schizophrenia - a systematic review"
+note:
+- systematic review
+- multiple studies described association between inflammation and kynurenine pathway
+- results were inconsistent and inconclusive as to the relationship between the kynurenine pathway and schizophrenia
+
+--------------------------------------------------
 PubMed: 31562625
 Date: 28 September 2019
 Authors: Shih
@@ -105,10 +137,16 @@ Title: "Biomarkers for major depressive and bipolar disorders using metabolomics
 
 --------------------------------------------------
 PubMed: 29940237
-Date: 22 June 2018
-Authors: Arnone, ..., Selvaraj
-Journal: Neuroscience and Behavioral Reviews
-Title: "Role of Kynurenine pathway and its metabolites in mood disorders: A systematic review and meta-analysis of clinical studies"
+date: 22 June 2018
+authors: Danilo Arnone, ..., Sudhakar Selvaraj
+journal: Neuroscience and Behavioral Reviews
+title: "Role of Kynurenine pathway and its metabolites in mood disorders: A systematic review and meta-analysis of clinical studies"
+note:
+- systematic review
+- meta analysis of kynurenine pathway metabolites in Unipolar Depression and in Bipolar Disorder
+- - kynurenine, kynurenic acid, tryptophan, quinolinic acid
+- decrease in kynurenine in Unipolar Major Depression
+- no significant differences in Bipolar Disorder
 
 --------------------------------------------------
 PubMed: 28947341
