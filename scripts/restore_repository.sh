@@ -5,7 +5,6 @@
 ###########################################################################
 # Organize script parameters.
 #project="sexy_alcohol"
-project_source="bipolar_metabolism"
 project="psychiatric_metabolism"
 
 # Read private, local file paths.
@@ -33,10 +32,10 @@ rm -r $path_parameters
 
 echo "access current version of the ${project} repository..."
 cd $path_process
-wget "https://github.com/tcameronwaller/${project_source}/archive/main.zip"
+wget "https://github.com/tcameronwaller/${project}/archive/main.zip"
 unzip main.zip
 rm main.zip
-mv "${project_source}-main" $path_repository
+mv "${project}-main" $path_repository
 mv "$path_repository/package" "$path_repository/${project}"
 
 ##########
