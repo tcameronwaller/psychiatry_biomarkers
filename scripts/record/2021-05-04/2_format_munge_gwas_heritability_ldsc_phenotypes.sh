@@ -82,15 +82,16 @@ for study_details in "${studies[@]}"; do
   path_source_file="${array[1]}"
   path_script_gwas_format="${path_scripts_format}/format_gwas_ldsc_${study}.sh"
   report="true" # "true" or "false"
-  /usr/bin/bash "$path_promiscuity_scripts_ldsc_heritability/organize_gwas_phenotype_ldsc_heritability.sh" \
+  /usr/bin/bash "$path_promiscuity_scripts_ldsc_heritability/format_munge_gwas_heritability_ldsc.sh" \
   $study \
   $path_source_file \
   $path_genetic_reference \
   $path_gwas \
   $path_heritability \
-  $path_genetic_correlation \
   $path_script_gwas_format \
   $path_promiscuity_scripts \
   $path_ldsc \
   $report
+
+  #path_study_genetic_correlation="${path_genetic_correlation}/${study}"
 done

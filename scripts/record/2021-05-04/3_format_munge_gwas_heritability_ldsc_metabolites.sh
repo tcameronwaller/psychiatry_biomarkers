@@ -90,13 +90,12 @@ echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 if true; then
   for path_source_file in "${batch_instances[@]}"; do
     study=${metabolite_study}
-    /usr/bin/bash "$path_promiscuity_scripts_ldsc_heritability/organize_gwas_phenotype_ldsc_heritability.sh" \
+    /usr/bin/bash "$path_promiscuity_scripts_ldsc_heritability/format_munge_gwas_heritability_ldsc.sh" \
     $study \
     $path_source_file \
     $path_genetic_reference \
     $path_gwas \
     $path_heritability \
-    $path_genetic_correlation \
     $path_script_gwas_format \
     $path_promiscuity_scripts \
     $path_ldsc \
