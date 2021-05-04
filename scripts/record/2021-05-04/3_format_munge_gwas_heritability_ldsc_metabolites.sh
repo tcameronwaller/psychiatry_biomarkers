@@ -16,16 +16,17 @@ path_ldsc=$(<"./tools_ldsc.txt")
 path_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_process=$(<"./process_psychiatric_metabolism.txt")
 
-path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-05-04"
-
 path_dock="$path_process/dock"
-
 path_genetic_reference="${path_dock}/access/genetic_reference"
-
 path_gwas="${path_dock}/gwas"
 path_heritability="${path_dock}/heritability"
-path_genetic_correlation="${path_dock}/genetic_correlation"
+#path_genetic_correlation="${path_dock}/genetic_correlation"
+
+path_promiscuity_scripts="${path_process}/promiscuity/scripts"
+path_promiscuity_scripts_ldsc_heritability="${path_promiscuity_scripts}/ldsc_genetic_heritability_correlation"
+path_scripts_format="${path_promiscuity_scripts}/format_gwas_ldsc"
+#path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-05-04"
+
 
 ################################################################################
 # Organize variables.
