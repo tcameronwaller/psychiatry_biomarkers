@@ -20,7 +20,6 @@ path_dock="$path_process/dock"
 path_genetic_reference="${path_dock}/access/genetic_reference"
 path_gwas="${path_dock}/gwas"
 path_heritability="${path_dock}/heritability"
-#path_genetic_correlation="${path_dock}/genetic_correlation"
 
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_promiscuity_scripts_ldsc_heritability="${path_promiscuity_scripts}/ldsc_genetic_heritability_correlation"
@@ -37,17 +36,17 @@ metabolite_file_pattern="Summary_statistics_MAGNETIC_*.txt.gz" # do not expand w
 metabolite_file_prefix="Summary_statistics_MAGNETIC_" # file name prefix before metabolite identifier or "null"
 metabolite_file_suffix=".txt.gz" # file name suffix after metabolite identifier or "null"
 
-path_study_gwas="${path_gwas}/${metabolite_study}"
-path_batch_instances="${path_study_gwas}/batch_instances.txt"
-path_study_heritability="${path_heritability}/${metabolite_study}"
+path_gwas_study="${path_gwas}/${metabolite_study}"
+path_batch_instances="${path_gwas_study}/batch_instances.txt"
+path_heritability_study="${path_heritability}/${metabolite_study}"
 
 path_script_gwas_format="${path_scripts_format}/format_gwas_ldsc_${metabolite_study}.sh"
 
 # Initialize directories.
-rm -r $path_study_gwas
-rm -r $path_study_heritability
-mkdir -p $path_study_gwas
-mkdir -p $path_study_heritability
+rm -r $path_gwas_study
+rm -r $path_heritability_study
+mkdir -p $path_gwas_study
+mkdir -p $path_heritability_study
 
 # Organize instances for iteration.
 echo "----------------------------------------------------------------------"
@@ -88,44 +87,50 @@ echo "count of batch instances: " $batch_instances_count
 echo "first batch instance: " ${batch_instances[0]} # notice base-zero indexing
 echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 
+report="true" # "true" or "false"
+
 if true; then
   for path_source_file in "${batch_instances[@]}"; do
+    # Determine file name.
+    #file_name=$path_source_file
+    file_name="$(basename -- $path_source_file)"
+    # Determine metabolite identifier.
+    # Refer to documnetation for test: https://www.freebsd.org/cgi/man.cgi?test
+    # Bash script more or less ignores empty string argument, so it does not
+    # work well to pass an empty string as an argument.
+    # Instead use a non-empty string, such as "null".
+    # if [[ ! -z "$name_prefix" ]]; then
+    metabolite=${file_name}
+    if [[ "$metabolite_file_prefix" != "null" ]]; then
+      metabolite=${metabolite/$metabolite_file_prefix/""}
+    fi
+    if [[ "$metabolite_file_suffix" != "null" ]]; then
+      metabolite=${metabolite/$metabolite_file_suffix/""}
+    fi
+    # Report.
+    if [[ "$report" == "true" ]]; then
+      echo "----------------------------------------------------------------------"
+      echo "----------------------------------------------------------------------"
+      echo "----------------------------------------------------------------------"
+      echo "metabolite study: " $metabolite_study
+      echo "path to metabolite file: " $path_source_file
+      echo "file: " $file_name
+      echo "metabolite: " $metabolite
+      echo "----------"
+    fi
+
     study=${metabolite_study}
-    report="true" # "true" or "false"
+    name_prefix=${metabolite} # file name prefix or "null"
     /usr/bin/bash "$path_promiscuity_scripts_ldsc_heritability/format_munge_gwas_heritability_ldsc.sh" \
     $study \
+    $name_prefix \
     $path_source_file \
     $path_genetic_reference \
-    $path_gwas \
-    $path_heritability \
+    $path_gwas_study \
+    $path_heritability_study \
     $path_script_gwas_format \
     $path_promiscuity_scripts \
     $path_ldsc \
     $report
   done
-fi
-if false; then
-  # Submit array batch to Sun Grid Engine.
-  # Array batch indices must start at one (not zero).
-  echo "----------------------------------------------------------------------"
-  echo "Submit array of batches to Sun Grid Engine."
-  echo "----------------------------------------------------------------------"
-  qsub -t 1-${batch_instances_count}:1 -o \
-  "${path_study_gwas}/out.txt" -e "${path_study_gwas}/error.txt" \
-  "${path_scripts_record}/6_run_batch_organize_gwas_ldsc_heritability.sh" \
-  $path_batch_instances \
-  $batch_instances_count \
-  $phenotype_study \
-  $metabolite_study \
-  $name_prefix \
-  $name_suffix \
-  $path_genetic_reference \
-  $path_phenotype_gwas \
-  $path_study_gwas \
-  $path_study_heritability \
-  $path_study_genetic_correlation \
-  $path_scripts_record \
-  $path_script_gwas_format \
-  $path_promiscuity_scripts \
-  $report
 fi

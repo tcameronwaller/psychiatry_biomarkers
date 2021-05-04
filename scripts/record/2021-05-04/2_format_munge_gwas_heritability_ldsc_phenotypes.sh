@@ -36,21 +36,9 @@ path_genetic_correlation="${path_dock}/genetic_correlation"
 rm -r $path_gwas
 rm -r $path_heritability
 rm -r $path_genetic_correlation
-if [ ! -d $path_gwas ]; then
-    # Directory does not already exist.
-    # Create directory.
-    mkdir -p $path_gwas
-fi
-if [ ! -d $path_heritability ]; then
-    # Directory does not already exist.
-    # Create directory.
-    mkdir -p $path_heritability
-fi
-if [ ! -d $path_genetic_correlation ]; then
-    # Directory does not already exist.
-    # Create directory.
-    mkdir -p $path_genetic_correlation
-fi
+mkdir -p $path_gwas
+mkdir -p $path_heritability
+mkdir -p $path_genetic_correlation
 
 # Organize information about studies.
 
@@ -77,21 +65,31 @@ studies+=("00000000_mullins_2021_bpd2;${path_gwas_summaries}/00000000_mullins_20
 
 # Organize information in format for LDSC.
 for study_details in "${studies[@]}"; do
+  # Read information.
   IFS=";" read -r -a array <<< "${study_details}"
   study="${array[0]}"
   path_source_file="${array[1]}"
+  # Organize paths.
+  path_gwas_study="${path_gwas}/${study}"
+  path_heritability_study="${path_heritability}/${study}"
+  path_genetic_correlation_study="${path_genetic_correlation}/${study}"
+  # Initialize directories.
+  mkdir -p $path_gwas_study
+  mkdir -p $path_heritability_study
+  mkdir -p $path_genetic_correlation_study
+  # Organize variables.
+  name_prefix="null"
   path_script_gwas_format="${path_scripts_format}/format_gwas_ldsc_${study}.sh"
   report="true" # "true" or "false"
   /usr/bin/bash "$path_promiscuity_scripts_ldsc_heritability/format_munge_gwas_heritability_ldsc.sh" \
   $study \
+  $name_prefix \
   $path_source_file \
   $path_genetic_reference \
-  $path_gwas \
-  $path_heritability \
+  $path_gwas_study \
+  $path_heritability_study \
   $path_script_gwas_format \
   $path_promiscuity_scripts \
   $path_ldsc \
   $report
-
-  #path_study_genetic_correlation="${path_genetic_correlation}/${study}"
 done
