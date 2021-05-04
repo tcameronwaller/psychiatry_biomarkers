@@ -91,6 +91,7 @@ echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 if true; then
   for path_source_file in "${batch_instances[@]}"; do
     study=${metabolite_study}
+    report="true" # "true" or "false"
     /usr/bin/bash "$path_promiscuity_scripts_ldsc_heritability/format_munge_gwas_heritability_ldsc.sh" \
     $study \
     $path_source_file \
