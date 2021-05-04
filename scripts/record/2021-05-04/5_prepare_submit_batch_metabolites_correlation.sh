@@ -39,8 +39,8 @@ path_batch_instances="${path_study_gwas}/batch_instances.txt"
 path_pattern="${path_metabolite_gwas_source_directory}/${metabolite_file_pattern}"
 
 # Initialize directories.
-rm -r $path_study_gwas
-rm -r $path_study_heritability
+#rm -r $path_study_gwas
+#rm -r $path_study_heritability
 rm -r $path_study_genetic_correlation
 mkdir -p $path_study_gwas
 mkdir -p $path_study_heritability

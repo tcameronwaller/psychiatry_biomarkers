@@ -59,9 +59,9 @@ for study in "${studies[@]}"; do
 
   # Organize paths.
   path_phenotype_gwas="${path_gwas}/${study}"
-  path_gwas_format="${path_study_gwas}/gwas_format.txt"
+  path_gwas_format="${path_phenotype_gwas}/gwas_format.txt"
   path_gwas_format_compress="${path_gwas_format}.gz"
-  path_gwas_munge="${path_study_gwas}/gwas_munge"
+  path_gwas_munge="${path_phenotype_gwas}/gwas_munge"
   path_gwas_munge_suffix="${path_gwas_munge}.sumstats.gz"
   path_gwas_munge_log="${path_gwas_munge}.log"
   #path_phenotype_genetic_correlation="${path_genetic_correlation}/${study}"
