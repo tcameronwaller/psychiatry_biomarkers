@@ -115,3 +115,6 @@ if true; then
     --out $path_genetic_correlation_report
   done
 fi
+
+# Remove temporary files.
+rm $path_batch_instances
