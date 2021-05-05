@@ -23,18 +23,37 @@ path_heritability="${path_dock}/heritability"
 
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_promiscuity_scripts_ldsc_heritability="${path_promiscuity_scripts}/ldsc_genetic_heritability_correlation"
+path_format_munge_gwas_heritability_ldsc="${path_promiscuity_scripts_ldsc_heritability}/format_munge_gwas_heritability_ldsc.sh"
 path_scripts_format="${path_promiscuity_scripts}/format_gwas_ldsc"
-#path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-05-04"
+path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-05-04"
 
 
 ################################################################################
 # Organize variables.
 
-metabolite_study="27005778_kettunen_2016"
-path_metabolite_gwas_source_directory="${path_gwas_summaries}/${metabolite_study}"
-metabolite_file_pattern="Summary_statistics_MAGNETIC_*.txt.gz" # do not expand with full path yet
-metabolite_file_prefix="Summary_statistics_MAGNETIC_" # file name prefix before metabolite identifier or "null"
-metabolite_file_suffix=".txt.gz" # file name suffix after metabolite identifier or "null"
+if false; then
+  metabolite_study="24816252_shin_2014"
+  path_metabolite_gwas_source_directory="${path_gwas_summaries}/${metabolite_study}/metabolites_meta"
+  metabolite_file_pattern="*.metal.pos.txt.gz" # do not expand with full path yet
+  metabolite_file_prefix="null" # file name prefix before metabolite identifier or "null"
+  metabolite_file_suffix=".metal.pos.txt.gz" # file name suffix after metabolite identifier or "null"
+fi
+
+if true; then
+  metabolite_study="27005778_kettunen_2016"
+  path_metabolite_gwas_source_directory="${path_gwas_summaries}/${metabolite_study}"
+  metabolite_file_pattern="Summary_statistics_MAGNETIC_*.txt.gz" # do not expand with full path yet
+  metabolite_file_prefix="Summary_statistics_MAGNETIC_" # file name prefix before metabolite identifier or "null"
+  metabolite_file_suffix=".txt.gz" # file name suffix after metabolite identifier or "null"
+fi
+
+if false; then
+  metabolite_study="33437055_panyard_2021"
+  path_metabolite_gwas_source_directory="${path_gwas_summaries}/${metabolite_study}"
+  metabolite_file_pattern="metabolite_*_meta_analysis_gwas.csv.gz" # do not expand with full path yet
+  metabolite_file_prefix="metabolite_" # file name prefix before metabolite identifier or "null"
+  metabolite_file_suffix="_meta_analysis_gwas.csv.gz" # file name suffix after metabolite identifier or "null"
+fi
 
 path_gwas_study="${path_gwas}/${metabolite_study}"
 path_batch_instances="${path_gwas_study}/batch_instances.txt"
@@ -89,7 +108,30 @@ echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 
 report="true" # "true" or "false"
 
-if true; then
+# Execute batch with grid scheduler.
+if false; then
+  # Submit array batch to Sun Grid Engine.
+  # Array batch indices must start at one (not zero).
+  qsub -t 1-${batch_instances_count}:1 -o \
+  "${path_gwas_study}/out.txt" -e "${path_gwas_study}/error.txt" \
+  "${path_scripts_record}/4_run_batch_metabolite_format_munge_gwas_heritability_ldsc.sh" \
+  $path_batch_instances \
+  $batch_instances_count \
+  $metabolite_study \
+  $metabolite_file_prefix \
+  $metabolite_file_suffix \
+  $path_genetic_reference \
+  $path_gwas_study \
+  $path_heritability_study \
+  $path_script_gwas_format \
+  $path_format_munge_gwas_heritability_ldsc \
+  $path_promiscuity_scripts \
+  $path_ldsc \
+  $report
+fi
+
+# Execute batch iteratively without grid scheduler.
+if false; then
   for path_source_file in "${batch_instances[@]}"; do
     # Determine file name.
     #file_name=$path_source_file
@@ -121,7 +163,7 @@ if true; then
 
     study=${metabolite_study}
     name_prefix=${metabolite} # file name prefix or "null"
-    /usr/bin/bash "$path_promiscuity_scripts_ldsc_heritability/format_munge_gwas_heritability_ldsc.sh" \
+    /usr/bin/bash "$path_format_munge_gwas_heritability_ldsc" \
     $study \
     $name_prefix \
     $path_source_file \
