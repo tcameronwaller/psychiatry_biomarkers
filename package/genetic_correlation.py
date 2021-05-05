@@ -44,10 +44,8 @@ import numpy
 import pandas
 import scipy.stats
 
-
 # Custom
 import promiscuity.utility as utility
-
 
 ###############################################################################
 # Functionality
@@ -222,6 +220,10 @@ def read_source(
         path_dock, "parameters", "bipolar_metabolism", "metabolite_reference",
         "24816252_shin_2014", "table_metabolite_reference.tsv"
     )
+    path_table_reference_kettunen_2016 = os.path.join(
+        path_dock, "parameters", "bipolar_metabolism", "metabolite_reference",
+        "27005778_kettunen_2016", "table_metabolite_reference.tsv"
+    )
     path_table_reference_panyard_2021 = os.path.join(
         path_dock, "parameters", "bipolar_metabolism", "metabolite_reference",
         "33437055_panyard_2021", "table_metabolite_reference.tsv"
@@ -229,6 +231,12 @@ def read_source(
     # Read information from file.
     table_reference_shin_2014 = pandas.read_csv(
         path_table_reference_shin_2014,
+        sep="\t",
+        header=0,
+        #dtype="string",
+    )
+    table_reference_kettunen_2016 = pandas.read_csv(
+        path_table_reference_kettunen_2016,
         sep="\t",
         header=0,
         #dtype="string",
@@ -248,6 +256,7 @@ def read_source(
     return {
         "table_reference_shin_2014": table_reference_shin_2014,
         "table_reference_panyard_2021": table_reference_panyard_2021,
+        "table_reference_kettunen_2016": table_reference_kettunen_2016,
     }
 
 
@@ -1258,6 +1267,35 @@ def write_product(
     pass
 
 
+##########
+# Driver
+
+
+def drive_collection_report_phenotype_metabolite_studies(
+    phenotype_study=None,
+    metabolite_study=None,
+    path_dock=None,
+):
+    """
+    Function to execute module's main behavior.
+
+    arguments:
+        phenotype_study (str): identifier of main phenotype study
+        metabolite_study (str): identifier of metabolite study
+        path_dock (str): path to dock directory for source and product
+            directories and files
+
+    raises:
+
+    returns:
+
+    """
+
+
+    pass
+
+
+
 ###############################################################################
 # Procedure
 
@@ -1285,45 +1323,86 @@ def execute_procedure(
     # Pause procedure.
     time.sleep(5.0)
 
-    # Initialize directories.
-    paths = initialize_directories(
-        restore=False,
-        path_dock=path_dock,
-    )
-    # Read source information from file.
-    source = read_source(
-        path_dock=path_dock,
-        report=True,
-    )
-    # Read, collect, and organize estimations of heritability for metabolites.
-    table_metabolite_heritabilities = (
-        read_collect_organize_metabolites_heritabilities(
-            table_reference_shin_2014=source["table_reference_shin_2014"],
-            path_source_directory=paths["heritability"]["24816252_shin_2014"],
+    # TODO: I think I need a master function...
+    # metabolite_study
+    # phenotype_study
+
+    phenotype_studies = [
+        "30124842_yengo_2018",
+        "30239722_pulit_2018",
+        "30482948_walters_2018_all",
+        "30482948_walters_2018_eur",
+        "30482948_walters_2018_eur_unrel",
+        "30718901_howard_2019",
+        "29906448_ruderfer_2018_scz_vs_ctl",
+        "29906448_ruderfer_2018_scz_bpd_vs_ctl",
+        "29906448_ruderfer_2018_scz_vs_bpd",
+        "29906448_ruderfer_2018_bpd_vs_ctl",
+        "00000000_ripke_2021",
+        "31043756_stahl_2019",
+        "00000000_mullins_2021_all",
+        "00000000_mullins_2021_bpd1",
+        "00000000_mullins_2021_bpd2",
+    ]
+
+    metabolite_studies = [
+        #"24816252_shin_2014",
+        "27005778_kettunen_2016",
+        #"33437055_panyard_2021",
+    ]
+
+    for phenotype_study in phenotype_studies:
+        for metabolite_study in metabolite_studies:
+            utility.print_terminal_partition(level=5)
+            print(phenotype_study)
+            print(metabolite_study)
+            pass
+        pass
+    print("hello world")
+
+    if False:
+        # Initialize directories.
+        paths = initialize_directories(
+            restore=False,
+            path_dock=path_dock,
+        )
+        # Read source information from file.
+        source = read_source(
+            path_dock=path_dock,
             report=True,
-    ))
-    # Read, collect, and combine estimations of heritability and genetic
-    # correlations between phenotypes and metabolites.
-    pail_studies = read_collect_combine_phenotype_metabolites_studies(
-        table_reference_shin_2014=source["table_reference_shin_2014"],
-        table_reference_panyard_2021=source["table_reference_panyard_2021"],
-        threshold_metabolite_heritability=0.05, # metabolite heritability
-        paths=paths,
-        report=True,
-    )
+        )
+        # table_reference_shin_2014,
+        # table_reference_panyard_2021,
+        # table_reference_kettunen_2016,
 
-    # Collect information.
-    information = dict()
-    information["table_metabolite_heritabilities"] = (
-        table_metabolite_heritabilities
-    )
-    information["studies"] = pail_studies
-    # Write product information to file.
-    write_product(
-        paths=paths,
-        information=information
-    )
+        # Read, collect, and organize estimations of heritability for metabolites.
+        table_metabolite_heritabilities = (
+            read_collect_organize_metabolites_heritabilities(
+                table_reference_shin_2014=source["table_reference_shin_2014"],
+                path_source_directory=paths["heritability"]["24816252_shin_2014"],
+                report=True,
+        ))
+        # Read, collect, and combine estimations of heritability and genetic
+        # correlations between phenotypes and metabolites.
+        pail_studies = read_collect_combine_phenotype_metabolites_studies(
+            table_reference_shin_2014=source["table_reference_shin_2014"],
+            table_reference_panyard_2021=source["table_reference_panyard_2021"],
+            threshold_metabolite_heritability=0.05, # metabolite heritability
+            paths=paths,
+            report=True,
+        )
 
+        # Collect information.
+        information = dict()
+        information["table_metabolite_heritabilities"] = (
+            table_metabolite_heritabilities
+        )
+        information["studies"] = pail_studies
+        # Write product information to file.
+        write_product(
+            paths=paths,
+            information=information
+        )
     pass
 
 

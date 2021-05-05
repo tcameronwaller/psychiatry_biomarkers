@@ -16,7 +16,7 @@ import textwrap
 
 # Custom.
 
-import heritability
+import genetic_correlation
 import assembly
 import aggregation
 import organization
@@ -143,10 +143,11 @@ def define_main_subparser(subparsers=None):
         )
     )
     parser_main.add_argument(
-        "-heritability", "--heritability", dest="heritability",
+        "-genetic_correlation", "--genetic_correlation",
+        dest="genetic_correlation",
         action="store_true",
         help=(
-            "Heritability estimations for metabolites from multiple GWAS."
+            "Genetic correlations for metabolites from multiple GWAS."
         )
     )
     parser_main.add_argument(
@@ -255,11 +256,11 @@ def evaluate_main_parameters(arguments):
     print("--------------------------------------------------")
     print("... call to main routine ...")
     # Execute procedure.
-    if arguments.heritability:
+    if arguments.genetic_correlation:
         # Report status.
-        print("... executing heritability procedure ...")
+        print("... executing genetic_correlation procedure ...")
         # Execute procedure.
-        heritability.execute_procedure(
+        genetic_correlation.execute_procedure(
             path_dock=arguments.path_dock
         )
     if arguments.aggregation:
