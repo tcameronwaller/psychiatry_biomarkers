@@ -1414,7 +1414,7 @@ def execute_procedure(
         "29906448_ruderfer_2018_scz_bpd_vs_ctl",
         "29906448_ruderfer_2018_scz_vs_bpd",
         "29906448_ruderfer_2018_bpd_vs_ctl",
-        #"00000000_ripke_2021",
+        "00000000_ripke_2021",
         #"31043756_stahl_2019",
         #"00000000_mullins_2021_all",
         #"00000000_mullins_2021_bpd1",
