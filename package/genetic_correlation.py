@@ -488,7 +488,7 @@ def read_collect_phenotype_metabolites_genetic_correlations(
 def read_source(
     phenotype_study=None,
     metabolite_study=None,
-    path_dock=None,
+    paths=None,
     report=None,
 ):
     """
@@ -497,8 +497,8 @@ def read_source(
     arguments:
         phenotype_study (str): identifier of main phenotype study
         metabolite_study (str): identifier of metabolite study
-        path_dock (str): path to dock directory for source and product
-            directories and files
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
         report (bool): whether to print reports
 
     raises:
@@ -1333,7 +1333,7 @@ def drive_collection_report_phenotype_metabolite_studies(
     source = read_source(
         phenotype_study=phenotype_study,
         metabolite_study=metabolite_study,
-        path_dock=path_dock,
+        paths=paths,
         report=True,
     )
 
