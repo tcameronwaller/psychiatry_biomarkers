@@ -465,9 +465,9 @@ def read_collect_phenotype_metabolites_genetic_correlations(
         records=records
     )
     table.sort_values(
-        by=["correlation_absolute"],
+        by=["correlation_probability"],
         axis="index",
-        ascending=False,
+        ascending=True,
         na_position="last",
         inplace=True,
     )
