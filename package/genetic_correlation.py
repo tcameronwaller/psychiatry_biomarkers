@@ -543,7 +543,7 @@ def read_source(
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
-        print(table_metabolite_reference)
+        print(table_correlations)
         utility.print_terminal_partition(level=2)
     # Compile and return information.
     return {
@@ -1410,10 +1410,10 @@ def execute_procedure(
         "30482948_walters_2018_eur",
         "30482948_walters_2018_eur_unrel",
         "30718901_howard_2019",
-        #"29906448_ruderfer_2018_scz_vs_ctl",
-        #"29906448_ruderfer_2018_scz_bpd_vs_ctl",
-        #"29906448_ruderfer_2018_scz_vs_bpd",
-        #"29906448_ruderfer_2018_bpd_vs_ctl",
+        "29906448_ruderfer_2018_scz_vs_ctl",
+        "29906448_ruderfer_2018_scz_bpd_vs_ctl",
+        "29906448_ruderfer_2018_scz_vs_bpd",
+        "29906448_ruderfer_2018_bpd_vs_ctl",
         #"00000000_ripke_2021",
         #"31043756_stahl_2019",
         #"00000000_mullins_2021_all",
