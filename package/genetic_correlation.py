@@ -510,7 +510,7 @@ def read_source(
 
     # Metabolite reference table.
     path_table_metabolite_reference = os.path.join(
-        path_dock, "parameters", "psychiatric_metabolism",
+        paths["dock"], "parameters", "psychiatric_metabolism",
         "metabolite_reference", metabolite_study,
         "table_metabolite_reference.tsv"
     )
