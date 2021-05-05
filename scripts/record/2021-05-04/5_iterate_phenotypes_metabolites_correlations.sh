@@ -51,7 +51,7 @@ phenotype_studies+=("00000000_mullins_2021_bpd1")
 phenotype_studies+=("00000000_mullins_2021_bpd2")
 
 # Organize information in format for LDSC.
-for phenotype_study in "${studies[@]}"; do
+for phenotype_study in "${phenotype_studies[@]}"; do
   # Organize paths.
   path_gwas_phenotype="${path_gwas}/${phenotype_study}"
   path_gwas_phenotype_format_compress="${path_gwas_phenotype}/gwas_format.txt.gz"
