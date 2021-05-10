@@ -892,7 +892,7 @@ def drive_collection_report_phenotype_metabolite_studies(
         phenotype_study=phenotype_study,
         metabolite_study=metabolite_study,
         paths=paths,
-        report=True,
+        report=False,
     )
 
     # TODO: now combine and organize the various information containers from "read_source()"
@@ -906,8 +906,13 @@ def drive_collection_report_phenotype_metabolite_studies(
         table_correlations=source["table_correlations"],
         threshold_metabolite_heritability=0.05,
         threshold_false_discovery_rate=0.05,
-        report=True,
+        report=False,
     )
+
+    # Report.
+    if report:
+        utility.print_terminal_partition(level=5)
+        print(table_summary)
 
 
     if False:
@@ -916,6 +921,8 @@ def drive_collection_report_phenotype_metabolite_studies(
         information["table_summary"] = table_summary
         # Write product information to file.
         write_product(
+            phenotype_study=phenotype_study,
+            metabolite_study=metabolite_study,
             paths=paths,
             information=information
         )
