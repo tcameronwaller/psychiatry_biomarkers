@@ -810,6 +810,8 @@ def write_product_studies(
 
 
 def write_product(
+    phenotype_study=None,
+    metabolite_study=None,
     information=None,
     paths=None,
 ):
@@ -817,6 +819,8 @@ def write_product(
     Writes product information to file.
 
     arguments:
+        phenotype_study (str): identifier of main phenotype study
+        metabolite_study (str): identifier of metabolite study
         information (object): information to write to file
         paths (dict<str>): collection of paths to directories for procedure's
             files
@@ -827,17 +831,13 @@ def write_product(
 
     """
 
-    # Cohort tables in PLINK format.
-    write_product_studies(
-        information=information["studies"],
-        path_parent=paths["genetic_correlation"],
-    )
     # Specify directories and files.
     path_table = os.path.join(
-        paths["dock"], "heritability", "table_shin_2014_heritabilities.tsv"
+        paths["genetic_correlation"],
+        str("table_" + phenotype_study + "_" + metabolite_study + ".tsv")
     )
     # Write information to file.
-    information["table_metabolite_heritabilities"].to_csv(
+    information["table_summary"].to_csv(
         path_or_buf=path_table,
         sep="\t",
         header=True,
@@ -914,18 +914,16 @@ def drive_collection_report_phenotype_metabolite_studies(
         utility.print_terminal_partition(level=5)
         print(table_summary)
 
-
-    if False:
-        # Collect information.
-        information = dict()
-        information["table_summary"] = table_summary
-        # Write product information to file.
-        write_product(
-            phenotype_study=phenotype_study,
-            metabolite_study=metabolite_study,
-            paths=paths,
-            information=information
-        )
+    # Collect information.
+    information = dict()
+    information["table_summary"] = table_summary
+    # Write product information to file.
+    write_product(
+        phenotype_study=phenotype_study,
+        metabolite_study=metabolite_study,
+        paths=paths,
+        information=information
+    )
 
     pass
 
