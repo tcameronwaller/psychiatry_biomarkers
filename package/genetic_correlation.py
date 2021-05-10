@@ -214,7 +214,7 @@ def read_extract_phenotype_heritability(
     raises:
 
     returns:
-        (dict): information about estimation of a metabolite's heritability
+        (dict): information about estimation of a phenotype's heritability
 
     """
 
@@ -554,7 +554,8 @@ def read_source(
     }
 
 
-# Heritability
+##########
+# Summary
 
 
 def organize_metabolite_reference_table(
@@ -617,220 +618,31 @@ def organize_metabolite_reference_table(
     return table
 
 
-# TODO: adapt this... pass the reference table and the metabolite heritabilities table
-# TODO: or maybe consolidate to the main combine function...
-def read_collect_organize_metabolites_heritabilities(
-    table_reference_shin_2014=None,
-    path_source_directory=None,
-    report=None,
-):
-    """
-    Reads, collects, and organizes metabolite heritability estimates.
-
-    arguments:
-        table_reference_shin_2014 (object): Pandas data frame of metabolites'
-            identifiers and names from study
-        path_source_directory (str): path to source parent directory for files
-            with heritability estimations for metabolites
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (object): Pandas data frame of metabolites' heritability estimates
-
-    """
-
-    # Organize metabolite reference table.
-    table_reference = organize_metabolite_reference_table(
-        table=table_reference_shin_2014,
-        identifier="identifier_study",
-        name="name",
-        identity="identity",
-    )
-    # Collect metabolite heritabilities.
-    table_metabolite_heritabilities = read_collect_metabolites_heritabilities(
-        path_source_directory=path_source_directory,
-    )
-    # Merge data tables using database-style join.
-    # Alternative is to use DataFrame.join().
-    table = table_reference.merge(
-        table_metabolite_heritabilities,
-        how="outer",
-        left_on="identifier",
-        right_on="identifier",
-        suffixes=("_reference", "_heritability"),
-    )
-    # Report.
-    if report:
-        utility.print_terminal_partition(level=2)
-        print(path_source_directory)
-        print(table)
-    # Return information.
-    return table
-
-
-# Genetic correlation.
-
-
-def read_collect_organize_metabolites_correlations_studies(
-    table_reference_shin_2014=None,
-    table_reference_panyard_2021=None,
-    paths=None,
-    report=None,
-):
-    """
-    Reads, collects, and organizes metabolite heritability estimates.
-
-    arguments:
-        table_reference_shin_2014 (object): Pandas data frame of metabolites'
-            identifiers and names from study
-        table_reference_panyard_2021 (object): Pandas data frame of metabolites'
-            identifiers and names from study
-        paths (dict<str>): collection of paths to directories for procedure's
-            files
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (dict): heritability estimations for metabolites from multiple GWAS
-
-    """
-
-    # Collect metabolites' heritabilities from each GWAS.
-    pail = dict()
-    #pail["table_shin_2014"] =
-    pail["table_yengo_2018_shin_2014"] = read_collect_metabolites_genetic_correlations(
-        table_reference=table_reference_shin_2014,
-        path_source_directory=(
-            paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"]
-        ),
-        report=report,
-    )
-    pail["table_pulit_2018_shin_2014"] = read_collect_metabolites_genetic_correlations(
-        table_reference=table_reference_shin_2014,
-        path_source_directory=(
-            paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"]
-        ),
-        report=report,
-    )
-    # Return information.
-    return pail
-
-
-# Combination
-
-
-def determine_metabolite_valid_identity(
-    name=None,
-):
-    """
-    Determine whether a single metabolite has a valid identity from Metabolon.
-
-    arguments:
-        name (str): name of metabolite from Metabolon reference
-
-    raises:
-
-    returns:
-        (float): ordinal representation of person's frequency of alcohol
-            consumption
-
-    """
-
-    # Determine whether the variable has a valid (non-missing) value.
-    if (len(str(name)) > 2):
-        # The variable has a valid value.
-        if (str(name).strip().lower().startswith("x-")):
-            # Metabolite has an indefinite identity.
-            identity = 0
-        else:
-            # Metabolite has a definite identity.
-            identity = 1
-    else:
-        # Name is empty.
-        #identity = float("nan")
-        identity = 0
-    # Return information.
-    return identity
-
-
-def select_table_metabolites_valid_identities_heritabilities(
-    table=None,
-    table_reference=None,
+def combine_organize_phenotype_metabolites_summary_table(
+    table_metabolite_reference=None,
+    phenotype_heritability=None,
+    table_metabolite_heritability=None,
+    table_correlations=None,
     threshold_metabolite_heritability=None,
+    threshold_false_discovery_rate=None,
     report=None,
 ):
     """
-    Selects identifiers of metabolites from Metabolon with valid identities.
+    Reads, collects, and organizes metabolite heritability estimates.
 
     arguments:
-        table (object): Pandas data frame of metabolites' heritability estimates
-            and genetic correlation estimates against a phenotype of interest
-        table_reference (object): Pandas data frame of metabolites' identifiers
-            and names from study
+        table_metabolite_reference (object): Pandas data frame of metabolites'
+            identifiers and names from study
+        phenotype_heritability (dict): information about estimation of a
+            phenotype's heritability
+        table_metabolite_heritability (object): Pandas data frame of
+            metabolites' heritability estimates
+        table_correlations (object): Pandas data frame of genetic correlations
         threshold_metabolite_heritability (float): threshold for metabolite
             heritability
+        threshold_false_discovery_rate (float): threshold for false discovery
+            rate
         report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (dict): collection of information about metabolites, their identifiers,
-            and their names
-
-    """
-
-    # Select metabolites with valid identities.
-    table_identity = table_reference.loc[
-        (table_reference["identity"] > 0.5), :
-    ]
-    metabolites_identity = table_identity.index.to_list()
-    # Select table rows for metabolites with valid identities.
-    table = table.loc[
-        table.index.isin(metabolites_identity), :
-    ]
-    # Select table rows for metabolites with valid heritability estimates.
-    table = table.loc[
-        (table["heritability"] >= threshold_metabolite_heritability), :
-    ]
-    metabolites_heritability = table.index.to_list()
-    # Report.
-    if report:
-        # Column name translations.
-        utility.print_terminal_partition(level=2)
-        print("select_table_metabolites_valid_identities_heritabilities()")
-        utility.print_terminal_partition(level=3)
-        print(
-            "Count of identifiable metabolites: " +
-            str(len(metabolites_identity))
-        )
-        print(
-            "Count of identifiable metabolites with valid heritability: " +
-            str(len(metabolites_heritability))
-        )
-        utility.print_terminal_partition(level=3)
-        print(table)
-    # Return information.
-    return table
-
-
-def organize_metabolites_heritabilities_correlations_table(
-    table=None,
-    table_reference=None,
-    threshold_metabolite_heritability=None,
-):
-    """
-    Reads, collects, and organizes metabolite heritability estimates.
-
-    arguments:
-        table (object): Pandas data frame of metabolites' heritability estimates
-            and genetic correlation estimates against a phenotype of interest
-        table_reference (object): Pandas data frame of metabolites' identifiers
-            and names from study
-        threshold_metabolite_heritability (float): threshold for metabolite
-            heritability
 
     raises:
 
@@ -840,19 +652,52 @@ def organize_metabolites_heritabilities_correlations_table(
 
     """
 
-    # Copy information.
-    table_reference = table_reference.copy(deep=True)
-    table = table.copy(deep=True)
-    # Filter metabolites.
-    table = select_table_metabolites_valid_identities_heritabilities(
-        table=table,
-        table_reference=table_reference,
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=True,
+    # Organize metabolite reference table.
+    table_metabolite_reference = organize_metabolite_reference_table(
+        table=table_metabolite_reference,
+        identifier="identifier_study",
+        name="name",
+        identity="identity",
     )
+
+    # Merge tables for metabolite references and heritabilities.
+    # Merge data tables using database-style join.
+    # Alternative is to use DataFrame.join().
+    table_heritability = table_metabolite_reference.merge(
+        table_metabolite_heritability,
+        how="outer",
+        left_on="identifier",
+        right_on="identifier",
+        suffixes=("_reference", "_heritability"),
+    )
+
+    # Merge tables for metabolite heritabilities and correlations.
+    # Merge data tables using database-style join.
+    # Alternative is to use DataFrame.join().
+    table = table_heritability.merge(
+        table_correlations,
+        how="outer",
+        left_on="identifier",
+        right_on="identifier",
+        suffixes=("_heritability", "_correlation"),
+    )
+
+    # Introduce columns for phenotype heritability.
+    table["phenotype_heritability"] = phenotype_heritability["heritability"]
+    table["phenotype_heritability_error"] = (
+        phenotype_heritability["heritability_standard_error"]
+    )
+
+    # Select table rows for metabolites with valid identities.
+    table = table.loc[(table["identity"] == 1), :]
+    # Select table rows for metabolites with valid heritability estimates.
+    table = table.loc[
+        (table["heritability"] >= threshold_metabolite_heritability), :
+    ]
+
     # Calculate False Discovery Rates (FDRs).
     table = utility.calculate_table_false_discovery_rates(
-        threshold=0.05,
+        threshold=threshold_false_discovery_rate,
         probability="correlation_probability",
         discovery="correlation_discovery",
         significance="correlation_significance",
@@ -867,7 +712,7 @@ def organize_metabolites_heritabilities_correlations_table(
         inplace=True,
     )
     table.sort_values(
-        by=["correlation_probability",],
+        by=["correlation_discovery",],
         axis="index",
         ascending=True,
         na_position="last",
@@ -877,319 +722,32 @@ def organize_metabolites_heritabilities_correlations_table(
     columns_sequence = [
         #"identifier",
         "name",
-        "phenotype_heritability",
-        "phenotype_heritability_error",
-        "correlation", "correlation_standard_error",
-        "correlation_absolute",
-        "correlation_probability",
         "correlation_discovery",
-        "correlation_significance",
-        "correlation_variants",
+        "correlation", "correlation_standard_error",
         "heritability",
         "heritability_standard_error",
+        "correlation_absolute",
+        "correlation_probability",
+        "phenotype_heritability",
+        "phenotype_heritability_error",
         "heritability_ratio",
         "heritability_ratio_standard_error",
         "heritability_variants",
+        "correlation_significance",
+        "correlation_variants",
     ]
     table = table[[*columns_sequence]]
-    # Return information.
-    return table
-
-
-def read_collect_combine_study(
-    table_reference=None,
-    file_phenotype_heritability=None,
-    path_phenotype_heritability=None,
-    path_metabolite_heritabilities=None,
-    path_correlations=None,
-    threshold_metabolite_heritability=None,
-    report=None,
-):
-    """
-    Reads, collects, and organizes metabolite heritability estimates.
-
-    arguments:
-        table_reference (object): Pandas data frame of metabolites' identifiers
-            and names from study
-        file_phenotype_heritability (str): name of file for heritability
-            estimation for phenotype
-        path_phenotype_heritability (str): path to source parent directory for
-            heritability estimation for phenotype
-        path_metabolite_heritabilities (str): path to source parent directory
-            for files with heritability estimations for metabolites
-        path_correlations (str): path to source parent directory for files with
-            genetic correlation estimations for phenotype and metabolites
-        threshold_metabolite_heritability (float): threshold for metabolite
-            heritability
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (object): Pandas data frame of metabolites' heritability estimates and
-            genetic correlation estimates against a phenotype of interest
-
-    """
-
-    # Organize metabolite reference table.
-    table_reference = organize_metabolite_reference_table(
-        table=table_reference,
-        identifier="identifier_study",
-        name="name",
-        identity="identity",
-    )
-
-    pail_phenotype = read_extract_phenotype_heritability(
-        file=file_phenotype_heritability,
-        path_source_directory=path_phenotype_heritability,
-    )
-
-    table_correlations = read_collect_metabolites_genetic_correlations(
-        path_source_directory=path_correlations,
-    )
-
-    table_metabolite_heritabilities = read_collect_metabolites_heritabilities(
-        path_source_directory=path_metabolite_heritabilities,
-    )
-
-    # Merge data tables using database-style join.
-    # Alternative is to use DataFrame.join().
-    table_merge = table_reference.merge(
-        table_correlations,
-        how="outer",
-        left_on="identifier",
-        right_on="identifier",
-        suffixes=("_reference", "_correlation"),
-    )
-    table_merge = table_merge.merge(
-        table_metabolite_heritabilities,
-        how="outer",
-        left_on="identifier",
-        right_on="identifier",
-        suffixes=("_reference", "_heritability"),
-    )
-    # Introduce columns for phenotype heritability.
-    table_merge["phenotype_heritability"] = pail_phenotype["heritability"]
-    table_merge["phenotype_heritability_error"] = (
-        pail_phenotype["heritability_standard_error"]
-    )
-    # Organize the summary collection table.
-    table = organize_metabolites_heritabilities_correlations_table(
-        table=table_merge,
-        table_reference=table_reference,
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-    )
     # Report.
     if report:
         utility.print_terminal_partition(level=2)
-        print(path_correlations)
+        print("combine_organize_phenotype_metabolites_summary_table()")
         print(table)
     # Return information.
     return table
 
 
-# TODO: I think this function is obsolete...
-def read_collect_combine_phenotype_metabolites_studies(
-    table_reference_shin_2014=None,
-    table_reference_panyard_2021=None,
-    threshold_metabolite_heritability=None,
-    paths=None,
-    report=None,
-):
-    """
-    Reads, collects, combines, and organizes heritabilities and genetic
-    correlations between phenotypes and metabolites.
-
-    arguments:
-        table_reference_shin_2014 (object): Pandas data frame of metabolites'
-            identifiers and names from study
-        table_reference_panyard_2021 (object): Pandas data frame of metabolites'
-            identifiers and names from study
-        threshold_metabolite_heritability (float): threshold for metabolite
-            heritability
-        paths (dict<str>): collection of paths to directories for procedure's
-            files
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (dict): heritability estimations for metabolites from multiple GWAS
-
-    """
-
-    # Collect metabolites' heritabilities from each GWAS.
-    pail = dict()
-    pail["table_yengo_2018_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=os.path.join(
-            paths["dock"], "heritability", "30124842_yengo_2018",
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["30124842_yengo_2018"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-    pail["table_pulit_2018_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=os.path.join(
-            paths["dock"], "heritability", "30239722_pulit_2018",
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["30239722_pulit_2018"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-    pail["table_stahl_2019_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=os.path.join(
-            paths["dock"], "heritability", "31043756_stahl_2019",
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["31043756_stahl_2019"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-    pail["table_howard_2019_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=os.path.join(
-            paths["dock"], "heritability", "30718901_howard_2019",
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["30718901_howard_2019"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-    pail["table_walters_2018_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=os.path.join(
-            paths["dock"], "heritability", "30482948_walters_2018",
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["30482948_walters_2018"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-    pail["table_pgc3_2021_all_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=(
-            paths["heritability"]["00000000_pgc3_2021_all"]
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["00000000_pgc3_2021_all"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-    pail["table_pgc3_2021_bd1_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=(
-            paths["heritability"]["00000000_pgc3_2021_bd1"]
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["00000000_pgc3_2021_bd1"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-    pail["table_pgc3_2021_bd2_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=(
-            paths["heritability"]["00000000_pgc3_2021_bd2"]
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["00000000_pgc3_2021_bd2"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-
-    pail["table_ruderfer_2018_scz_bpd_vs_ctl_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=(
-            paths["heritability"]["29906448_ruderfer_2018_scz_bpd_vs_ctl"]
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["29906448_ruderfer_2018_scz_bpd_vs_ctl"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-    pail["table_ruderfer_2018_scz_vs_bpd_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=(
-            paths["heritability"]["29906448_ruderfer_2018_scz_vs_bpd"]
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["29906448_ruderfer_2018_scz_vs_bpd"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-
-    pail["table_ripke_2021_shin_2014"] = read_collect_combine_study(
-        table_reference=table_reference_shin_2014,
-        file_phenotype_heritability="heritability_report.log",
-        path_phenotype_heritability=(
-            paths["heritability"]["00000000_ripke_2021"]
-        ),
-        path_metabolite_heritabilities=(
-            paths["heritability"]["24816252_shin_2014"]
-        ),
-        path_correlations=(
-            paths["correlation"]["00000000_ripke_2021"]["24816252_shin_2014"]
-        ),
-        threshold_metabolite_heritability=threshold_metabolite_heritability,
-        report=report,
-    )
-
-    # Return information.
-    return pail
+##########
+# Write
 
 
 def write_product_study_table(
@@ -1337,34 +895,25 @@ def drive_collection_report_phenotype_metabolite_studies(
         report=True,
     )
 
+    # TODO: now combine and organize the various information containers from "read_source()"
+    # TODO: build summary table.
+
+    # name change?
+    table_summary = combine_organize_phenotype_metabolites_summary_table(
+        table_metabolite_reference=source["table_metabolite_reference"],
+        phenotype_heritability=source["phenotype_heritability"],
+        table_metabolite_heritability=source["table_metabolite_heritability"],
+        table_correlations=source["table_correlations"],
+        threshold_metabolite_heritability=0.05,
+        threshold_false_discovery_rate=0.05,
+        report=True,
+    )
+
+
     if False:
-        # table_reference_shin_2014,
-        # table_reference_panyard_2021,
-        # table_reference_kettunen_2016,
-
-        # Read, collect, and organize estimations of heritability for metabolites.
-        table_metabolite_heritabilities = (
-            read_collect_organize_metabolites_heritabilities(
-                table_reference_shin_2014=source["table_reference_shin_2014"],
-                path_source_directory=paths["heritability"]["24816252_shin_2014"],
-                report=True,
-        ))
-        # Read, collect, and combine estimations of heritability and genetic
-        # correlations between phenotypes and metabolites.
-        pail_studies = read_collect_combine_phenotype_metabolites_studies(
-            table_reference_shin_2014=source["table_reference_shin_2014"],
-            table_reference_panyard_2021=source["table_reference_panyard_2021"],
-            threshold_metabolite_heritability=0.05, # metabolite heritability
-            paths=paths,
-            report=True,
-        )
-
         # Collect information.
         information = dict()
-        information["table_metabolite_heritabilities"] = (
-            table_metabolite_heritabilities
-        )
-        information["studies"] = pail_studies
+        information["table_summary"] = table_summary
         # Write product information to file.
         write_product(
             paths=paths,
@@ -1415,10 +964,10 @@ def execute_procedure(
         "29906448_ruderfer_2018_scz_vs_bpd",
         "29906448_ruderfer_2018_bpd_vs_ctl",
         "00000000_ripke_2021",
-        #"31043756_stahl_2019",
-        #"00000000_mullins_2021_all",
-        #"00000000_mullins_2021_bpd1",
-        #"00000000_mullins_2021_bpd2",
+        "31043756_stahl_2019",
+        "00000000_mullins_2021_all",
+        "00000000_mullins_2021_bpd1",
+        "00000000_mullins_2021_bpd2",
     ]
     # Define metabolite studies.
     metabolite_studies = [

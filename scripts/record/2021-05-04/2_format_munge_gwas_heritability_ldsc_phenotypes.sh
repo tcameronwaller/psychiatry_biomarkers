@@ -25,7 +25,6 @@ path_dock="$path_process/dock"
 path_genetic_reference="${path_dock}/access/genetic_reference"
 path_gwas="${path_dock}/gwas"
 path_heritability="${path_dock}/heritability"
-#path_genetic_correlation="${path_dock}/genetic_correlation"
 
 ###########################################################################
 # Execute procedure.
@@ -33,12 +32,10 @@ path_heritability="${path_dock}/heritability"
 # Version check...
 
 # Initialize directories.
-rm -r $path_gwas
+#rm -r $path_gwas
 rm -r $path_heritability
-#rm -r $path_genetic_correlation
 mkdir -p $path_gwas
 mkdir -p $path_heritability
-#mkdir -p $path_genetic_correlation
 
 # Organize information about studies.
 
@@ -72,11 +69,9 @@ for study_details in "${studies[@]}"; do
   # Organize paths.
   path_gwas_study="${path_gwas}/${study}"
   path_heritability_study="${path_heritability}/${study}"
-  #path_genetic_correlation_study="${path_genetic_correlation}/${study}"
   # Initialize directories.
   mkdir -p $path_gwas_study
   mkdir -p $path_heritability_study
-  #mkdir -p $path_genetic_correlation_study
   # Organize variables.
   name_prefix="null"
   path_script_gwas_format="${path_scripts_format}/format_gwas_ldsc_${study}.sh"
