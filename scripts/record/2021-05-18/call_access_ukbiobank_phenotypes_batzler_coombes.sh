@@ -35,13 +35,9 @@ path_variables="${path_import}/variables.txt"
 # Suppress echo each command to console.
 set +x
 
-# Determine whether the temporary directory structure already exists.
-if [ ! -d $path_access ]; then
-    # Directory does not already exist.
-    # Create directory.
-    mkdir -p $path_dock
-    mkdir -p $path_access
-fi
+# Initialize directories.
+rm -r $path_import
+mkdir -p $path_import
 
 # Specify UKBiobank phenotype variables of interest.
 # Only use this method if not using the file in the parameter directory.
