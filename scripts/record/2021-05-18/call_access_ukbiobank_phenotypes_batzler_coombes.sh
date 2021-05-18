@@ -24,8 +24,7 @@ path_scripts_team_uk_biobank=$(<"./ukbiobank_scripts.txt")
 path_process=$(<"./process_psychiatric_metabolism.txt")
 
 path_scripts_uk_biobank="$path_process/uk_biobank/scripts"
-path_script_batzler_access="$path_scripts_team_uk_biobank/test.sh"
-#path_script_batzler_access="${path_process}/batzler_test_2021-05-11_edit.sh"
+path_script_batzler_access="$path_scripts_team_uk_biobank/pullUKBclinical.sh"
 
 path_dock="${path_process}/dock"
 path_import="${path_dock}/access/ukbiobank_import"
@@ -47,7 +46,7 @@ echo "22009 22006 31 22001 21022 21002 50 21001 23104 30890" | tr -s " " "\n" > 
 
 # Access phenotype variables and auxiliary information from UKBiobank.
 /usr/bin/bash "$path_script_batzler_access" \
--n "waller_access" \
+-n "waller_import" \
 -f $path_variables \
 -o $path_import \
 -d "defineUKB_variables.R" \
