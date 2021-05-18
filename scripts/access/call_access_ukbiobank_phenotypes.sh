@@ -16,17 +16,21 @@
 ###########################################################################
 # Organize script parameters.
 #project="sexy_alcohol"
-project="bipolar_metabolism"
+project="psychiatric_metabolism"
 
-###########################################################################
 # Read private, local file paths.
-echo "read private file path variables and organize paths..."
+echo "read private file path variables..."
 cd ~/paths
-path_temporary=$(<"./processing_${project}.txt")
-path_dock="$path_temporary/waller/dock"
-path_variables="$path_dock/parameters/${project}/uk_biobank_access_variables.txt"
+path_process=$(<"./process_${project}.txt")
+path_repository="$path_process/${project}"
+path_uk_biobank="$path_process/uk_biobank"
+path_promiscuity="$path_process/promiscuity"
+path_parameters="$path_process/dock/parameters"
+path_scripts="$path_uk_biobank/scripts"
+
+path_variables="$path_parameters/${project}/uk_biobank_access_variables.txt"
+path_dock="$path_process/dock"
 path_access="$path_dock/access/ukbiobank_phenotypes"
-path_scripts="$path_temporary/waller/uk_biobank/scripts"
 
 # Echo each command to console.
 #set -x
@@ -37,7 +41,6 @@ set +x
 if [ ! -d $path_access ]; then
     # Directory does not already exist.
     # Create directory.
-    mkdir -p $path_dock
     mkdir -p $path_access
 fi
 
