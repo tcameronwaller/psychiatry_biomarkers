@@ -47,9 +47,6 @@ import uk_biobank.organization
 # Procedure
 
 
-# TODO: need to import and merge in the data table from Coombes...
-
-
 def execute_procedure(
     path_dock=None,
 ):

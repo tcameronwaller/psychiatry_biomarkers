@@ -67,12 +67,18 @@ def initialize_directories(
     # Define paths to directories.
     paths["dock"] = path_dock
     paths["organization"] = os.path.join(path_dock, "organization")
+    paths["cohorts"] = os.path.join(
+        path_dock, "organization", "cohorts"
+    )
     # Remove previous files to avoid version or batch confusion.
     if restore:
         utility.remove_directory(path=paths["organization"])
     # Initialize directories.
     utility.create_directories(
         path=paths["organization"]
+    )
+    utility.create_directories(
+        path=paths["cohorts"]
     )
     # Return information.
     return paths
@@ -81,7 +87,7 @@ def initialize_directories(
 ##########
 # Read
 
-# TODO: vary the PRS p-value threshold for the metabolites' genetic scores...
+
 def read_source(
     path_dock=None,
     report=None,
@@ -108,40 +114,34 @@ def read_source(
     path_table_phenotypes = os.path.join(
         path_dock, "assembly", "table_phenotypes.pickle"
     )
-    path_table_metabolites_names = os.path.join(
-        path_dock, "access", "24816252_shin_2014", "metaboliteMap.txt"
-    )
-
-    #########################################
-    path_table_metabolites_scores = os.path.join(
-        path_dock, "aggregation", "selection",
-        "table_metabolites_scores_prs_0_0001.pickle"
-    )
-    utility.print_terminal_partition(level=1)
-    print("PRS pvalue: 0.0001")
-    utility.print_terminal_partition(level=2)
-    # Pause procedure.
-    time.sleep(5.0)
-    ########################################
-
     # Read information from file.
     table_phenotypes = pandas.read_pickle(
         path_table_phenotypes
     )
-    table_metabolites_names = pandas.read_csv(
-        path_table_metabolites_names,
-        sep="\t",
-        header=0,
-        dtype="string",
-    )
-    table_metabolites_scores = pandas.read_pickle(
-        path_table_metabolites_scores
-    )
+
+    # Metabolites.
+    if False:
+        path_table_metabolites_names = os.path.join(
+            path_dock, "access", "24816252_shin_2014", "metaboliteMap.txt"
+        )
+        path_table_metabolites_scores = os.path.join(
+            path_dock, "aggregation", "selection",
+            "table_metabolites_scores_prs_0_0001.pickle"
+        )
+        table_metabolites_names = pandas.read_csv(
+            path_table_metabolites_names,
+            sep="\t",
+            header=0,
+            dtype="string",
+        )
+        table_metabolites_scores = pandas.read_pickle(
+            path_table_metabolites_scores
+        )
     # Compile and return information.
     return {
         "table_phenotypes": table_phenotypes,
-        "table_metabolites_names": table_metabolites_names,
-        "table_metabolites_scores": table_metabolites_scores,
+        #"table_metabolites_names": table_metabolites_names,
+        #"table_metabolites_scores": table_metabolites_scores,
     }
 
 
@@ -341,6 +341,9 @@ def write_product(
 ###############################################################################
 # Procedure
 
+# TODO: 1. organize BMI and log BMI
+# TODO: 2. organize tables for cohorts and covariates...
+
 
 def execute_procedure(
     path_dock=None,
@@ -375,43 +378,45 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
-
-    # Select metabolites with valid identities.
-    pail_metabolites = select_organize_metabolites_valid_identities_scores(
-        table_names=source["table_metabolites_names"],
-        table_scores=source["table_metabolites_scores"],
+    # Organize variables for persons' genotypes, sex, age, and body mass index
+    # across the UK Biobank.
+    pail_basis = ukb_organization.execute_genotype_sex_age_body(
+        table=source["table_phenotypes"],
         report=True,
     )
 
-    # Organize variables for persons' genotypes, sex, age, and body mass index
-    # across the UK Biobank.
-    table_basis = uk_biobank.organization.execute_genotype_sex_age_body(
-        table=source["table_phenotypes"],
-        report=False,
-    )
-    # Organize variables for persons' alcohol consumption across the UK Biobank.
+    ################
+    # TODO: ... maybe I can update this "execute mental health" procedure???
+
+    # Organize variables for persons' mental health across the UK Biobank.
     if False:
-        table_alcohol = uk_biobank.organization.execute_alcohol(
+        table_mental = uk_biobank.organization.execute_mental_health(
             table=table_basis,
             report=True,
         )
-    # Organize variables for persons' mental health across the UK Biobank.
-    table_mental = uk_biobank.organization.execute_mental_health(
-        table=table_basis,
-        report=True,
-    )
-    # TODO: Adapt the ICD9 and ICD10 functionality for depression and bipolar...
 
-    # Collect information.
-    information = dict()
-    information["table_metabolites_names"] = pail_metabolites["table"]
-    information["metabolites_valid"] = pail_metabolites["metabolites_valid"]
-    information["table_phenotypes"] = table_mental
-    # Write product information to file.
-    write_product(
-        paths=paths,
-        information=information
-    )
+    ###############
+    # TODO: maybe a new function to organize cohorts and covariates by case / control status...
+    # TODO: include a flag argument for "white_british"
+
+    # Select and organize variables across cohorts.
+    # Organize phenotypes and covariates in format for analysis in PLINK.
+    if False:
+        pail_cohorts = (
+            ukb_organization.select_organize_plink_cohorts_by_sex_hormones(
+                table=pail_female["table_clean"],
+                report=True,
+        ))
+
+    if False:
+        # Collect information.
+        information = dict()
+        information["table_phenotypes"] = table_mental
+        # Write product information to file.
+        write_product(
+            paths=paths,
+            information=information
+        )
     pass
 
 
