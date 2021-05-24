@@ -32,8 +32,11 @@ pandas.options.mode.chained_assignment = None # default = "warn"
 
 # Custom
 import promiscuity.utility as utility
+import promiscuity.plot as plot
 import uk_biobank.assembly
-import uk_biobank.organization
+import uk_biobank.organization as ukb_organization
+
+
 
 ###############################################################################
 # Functionality
