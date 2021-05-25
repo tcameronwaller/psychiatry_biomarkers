@@ -393,9 +393,6 @@ def execute_procedure(
         report=True,
     )
 
-    ################
-    # TODO: ... maybe I can update this "execute mental health" procedure???
-
 
     ###############
     # TODO: maybe a new function to organize cohorts and covariates by case / control status...
@@ -403,12 +400,11 @@ def execute_procedure(
 
     # Select and organize variables across cohorts.
     # Organize phenotypes and covariates in format for analysis in PLINK.
-    if False:
-        pail_cohorts = (
-            ukb_organization.select_organize_plink_cohorts_by_sex_hormones(
-                table=pail_female["table_clean"],
-                report=True,
-        ))
+    pail_cohorts = (
+        ukb_organization.organize_plink_cohorts_variables_by_case_control(
+            table=pail_psychology["table_clean"],
+            report=True,
+    ))
 
     if False:
         # Collect information.
