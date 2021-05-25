@@ -70,8 +70,8 @@ def initialize_directories(
     # Define paths to directories.
     paths["dock"] = path_dock
     paths["organization"] = os.path.join(path_dock, "organization")
-    paths["cohorts"] = os.path.join(
-        path_dock, "organization", "cohorts"
+    paths["cohorts_models"] = os.path.join(
+        path_dock, "organization", "cohorts_models"
     )
     # Remove previous files to avoid version or batch confusion.
     if restore:
@@ -81,7 +81,7 @@ def initialize_directories(
         path=paths["organization"]
     )
     utility.create_directories(
-        path=paths["cohorts"]
+        path=paths["cohorts_models"]
     )
     # Return information.
     return paths
@@ -282,7 +282,7 @@ def select_organize_metabolites_valid_identities_scores(
 # Write
 
 
-def write_product_cohort_table(
+def write_product_cohort_model_table(
     name=None,
     information=None,
     path_parent=None,
@@ -315,7 +315,7 @@ def write_product_cohort_table(
     pass
 
 
-def write_product_cohorts(
+def write_product_cohorts_models(
     information=None,
     path_parent=None,
 ):
@@ -333,7 +333,7 @@ def write_product_cohorts(
     """
 
     for name in information.keys():
-        write_product_cohort_table(
+        write_product_cohort_model_table(
             name=name,
             information=information[name],
             path_parent=path_parent,
@@ -361,9 +361,9 @@ def write_product(
 
     # Cohort tables in PLINK format.
     if True:
-        write_product_cohorts(
-            information=information["cohorts"],
-            path_parent=paths["cohorts"],
+        write_product_cohorts_models(
+            information=information["cohorts_models"],
+            path_parent=paths["cohorts_models"],
         )
     pass
 
@@ -487,7 +487,7 @@ def execute_procedure(
 
     # Collect information.
     information = dict()
-    information["cohorts"] = pail_cohorts
+    information["cohorts_models"] = pail_cohorts
     # Write product information to file.
     write_product(
         paths=paths,
