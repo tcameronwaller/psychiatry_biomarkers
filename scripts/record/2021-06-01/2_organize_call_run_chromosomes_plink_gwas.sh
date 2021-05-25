@@ -98,7 +98,7 @@ fi
 # Execute procedure.
 
 path_report=$path_study_gwas
-analysis="${cohort_phenotype}"
+analysis="${cohort_model_phenotype}"
 /usr/bin/bash "${path_scripts_record}/3_run_chromosomes_plink_gwas.sh" \
 $path_table_phenotypes_covariates \
 $path_report \
