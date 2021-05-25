@@ -393,6 +393,8 @@ def execute_procedure(
         report=True,
     )
 
+    print(pail_psychology["table_clean"].columns.to_list())
+
 
     ###############
     # TODO: maybe a new function to organize cohorts and covariates by case / control status...
