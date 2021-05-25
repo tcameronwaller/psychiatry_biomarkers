@@ -385,18 +385,17 @@ def execute_procedure(
     # across the UK Biobank.
     pail_basis = ukb_organization.execute_genotype_sex_age_body(
         table=source["table_phenotypes"],
+        report=False,
+    )
+    # Organize variables for persons' mental health across the UK Biobank.
+    pail_psychology = ukb_organization.execute_psychology_psychiatry(
+        table=pail_basis["table_clean"],
         report=True,
     )
 
     ################
     # TODO: ... maybe I can update this "execute mental health" procedure???
 
-    # Organize variables for persons' mental health across the UK Biobank.
-    if False:
-        table_mental = uk_biobank.organization.execute_mental_health(
-            table=table_basis,
-            report=True,
-        )
 
     ###############
     # TODO: maybe a new function to organize cohorts and covariates by case / control status...
