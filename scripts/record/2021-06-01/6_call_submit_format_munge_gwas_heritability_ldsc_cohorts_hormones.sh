@@ -41,6 +41,10 @@ unset IFS
 ###########################################################################
 # Execute procedure.
 
+# Initialize batch instances.
+path_batch_instances="${path_gwas_cohorts_models}/batch_instances.txt"
+rm $path_batch_instances
+
 # Iterate on directories for GWAS on cohorts and hormones.
 cd $path_gwas_cohorts_models
 for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
@@ -54,7 +58,16 @@ for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
     if [[ ! " ${exclusions[@]} " =~ "${directory}" ]]; then
 
       echo $directory
+      echo $directory >> $path_batch_instances
 
     fi
   fi
 done
+
+# Read batch instances.
+readarray -t batch_instances < $path_batch_instances
+batch_instances_count=${#batch_instances[@]}
+echo "----------"
+echo "count of batch instances: " $batch_instances_count
+echo "first batch instance: " ${batch_instances[0]} # notice base-zero indexing
+echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
