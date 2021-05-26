@@ -15,17 +15,24 @@ cd ~/paths
 path_ldsc=$(<"./tools_ldsc.txt")
 path_process=$(<"./process_psychiatric_metabolism.txt")
 
-path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_promiscuity_scripts_ldsc_heritability="${path_promiscuity_scripts}/ldsc_genetic_heritability_correlation"
-path_scripts_format="${path_promiscuity_scripts}/format_gwas_ldsc"
-#path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-05-07"
-
 path_dock="$path_process/dock"
 path_genetic_reference="${path_dock}/access/genetic_reference"
 path_gwas="${path_dock}/gwas"
-path_heritability="${path_dock}/heritability"
-
 path_gwas_cohorts_models="${path_gwas}/cohorts_models"
+path_heritability="${path_dock}/heritability"
+path_heritability_cohorts_models="${path_heritability}/cohorts_models"
+
+path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-06-01"
+path_promiscuity_scripts="${path_process}/promiscuity/scripts"
+path_script_gwas_collect_concatenate="${path_promiscuity_scripts}/collect_concatenate_gwas_chromosomes.sh"
+path_promiscuity_scripts_ldsc_heritability="${path_promiscuity_scripts}/ldsc_genetic_heritability_correlation"
+path_script_format_munge_heritability="${path_promiscuity_scripts_ldsc_heritability}/format_munge_gwas_heritability_ldsc.sh"
+path_scripts_format="${path_promiscuity_scripts}/format_gwas_ldsc"
+path_script_gwas_format="${path_scripts_format}/format_gwas_ldsc_plink_linear.sh"
+
+# Initialize directories.
+rm -r $path_heritability_cohorts_models
+mkdir -p $path_heritability_cohorts_models
 
 ###########################################################################
 # Define explicit inclusions and exclusions.
@@ -71,3 +78,25 @@ echo "----------"
 echo "count of batch instances: " $batch_instances_count
 echo "first batch instance: " ${batch_instances[0]} # notice base-zero indexing
 echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
+
+# Execute batch with grid scheduler.
+if true; then
+
+  report="true" # "true" or "false"
+  # Submit array batch to Sun Grid Engine.
+  # Array batch indices must start at one (not zero).
+  qsub -t 1-${batch_instances_count}:1 -o \
+  "${path_gwas_cohorts_models}/out.txt" -e "${path_gwas_cohorts_models}/error.txt" \
+  "${path_scripts_record}/7_format_munge_gwas_heritability_ldsc_cohorts_models_phenotypes.sh" \
+  $path_batch_instances \
+  $batch_instances_count \
+  $path_gwas_cohorts_models \
+  $path_heritability_cohorts_models \
+  $path_genetic_reference \
+  $path_script_gwas_collect_concatenate \
+  $path_script_gwas_format \
+  $path_script_format_munge_heritability \
+  $path_promiscuity_scripts \
+  $path_ldsc \
+  $report
+fi
