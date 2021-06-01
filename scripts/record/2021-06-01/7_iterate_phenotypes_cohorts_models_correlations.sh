@@ -29,7 +29,7 @@ path_genetic_correlation="${path_dock}/genetic_correlation"
 
 file_gwas_cohorts_models_munge_suffix="gwas_munge.sumstats.gz"
 
-if true; then
+if false; then
 
   # Define main phenotype studies.
   phenotype_studies=()
@@ -60,12 +60,8 @@ if true; then
   done
 fi
 
-# TODO: I still want to run these...
-# TODO: need to make specific to the BMI BD analyses...
-
-
 # Define specific pairs for genetic correlation.
-if false; then
+if true; then
 
   # Organize paths.
   path_alleles="$path_genetic_reference/alleles"
@@ -75,24 +71,14 @@ if false; then
   path_frequencies="$path_genetic_reference/frequencies"
 
   pairs=()
-  pairs+=("female_premenopause_binary_testosterone_log;female_postmenopause_binary_testosterone_log")
-  pairs+=("female_premenopause_ordinal_testosterone_log;female_postmenopause_ordinal_testosterone_log")
-  pairs+=("female_premenopause_ordinal_testosterone_log;female_perimenopause_ordinal_testosterone_log")
-  pairs+=("female_perimenopause_ordinal_testosterone_log;female_postmenopause_ordinal_testosterone_log")
+  pairs+=("white_bipolar_disorder_control_body_mass_index_log;white_bipolar_disorder_case_body_mass_index_log")
+  pairs+=("bipolar_disorder_control_body_mass_index_log;bipolar_disorder_case_body_mass_index_log")
 
-  pairs+=("female_premenopause_ordinal_testosterone_log;male_testosterone_log")
-  pairs+=("female_perimenopause_ordinal_testosterone_log;male_testosterone_log")
-  pairs+=("female_postmenopause_ordinal_testosterone_log;male_testosterone_log")
+  pairs+=("white_bipolar_disorder_control_simple_body_mass_index_log;white_bipolar_disorder_case_simple_body_mass_index_log")
+  pairs+=("bipolar_disorder_control_simple_body_mass_index_log;bipolar_disorder_case_simple_body_mass_index_log")
 
-  pairs+=("female_premenopause_ordinal_testosterone_free_log;female_postmenopause_ordinal_testosterone_free_log")
-  pairs+=("female_premenopause_ordinal_testosterone_free_log;female_perimenopause_ordinal_testosterone_free_log")
-  pairs+=("female_perimenopause_ordinal_testosterone_free_log;female_postmenopause_ordinal_testosterone_free_log")
-
-  pairs+=("female_premenopause_ordinal_steroid_globulin_log;female_postmenopause_ordinal_steroid_globulin_log")
-  pairs+=("female_premenopause_ordinal_steroid_globulin_log;female_perimenopause_ordinal_steroid_globulin_log")
-  pairs+=("female_perimenopause_ordinal_steroid_globulin_log;female_postmenopause_ordinal_steroid_globulin_log")
-
-
+  pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index_log;white_bipolar_disorder_case_unadjust_body_mass_index_log")
+  pairs+=("bipolar_disorder_control_unadjust_body_mass_index_log;bipolar_disorder_case_unadjust_body_mass_index_log")
 
   for pair in "${pairs[@]}"; do
     # Read information.
