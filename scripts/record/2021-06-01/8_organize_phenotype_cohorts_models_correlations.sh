@@ -14,8 +14,8 @@
 phenotype_study=${1} # identifier of GWAS study for main phenotype
 path_gwas_phenotype=${2} # full path to parent directory for formatted GWAS summary statistics for phenotype
 path_gwas_phenotype_munge_suffix=${3} # full path to file for formatted and munged GWAS summary statistics for phenotype
-path_gwas_cohorts_models=${4} # full path to parent directory for formatted GWAS summary statistics for cohorts and hormones
-file_gwas_cohorts_models_munge_suffix=${5} # name of file for formatted and munged GWAS summary statistics for cohorts and hormones
+path_gwas_cohorts_models=${4} # full path to parent directory for formatted GWAS summary statistics for cohorts and models
+file_gwas_cohorts_models_munge_suffix=${5} # name of file for formatted and munged GWAS summary statistics for cohorts and models
 path_genetic_correlation=${6} # full path to parent directory for LDSC genetic correlation estimation
 path_genetic_reference=${7} # full path to parent directory with genetic reference files for LDSC
 path_promiscuity_scripts=${8} # complete path to directory of general scripts
@@ -35,7 +35,7 @@ path_frequencies="$path_genetic_reference/frequencies"
 ###########################################################################
 # Execute procedure.
 
-# Iterate on directories for GWAS on cohorts and hormones.
+# Iterate on directories for GWAS on cohorts and models.
 cd $path_gwas_cohorts_models
 for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
   if [ -d "$path_directory" ]; then
@@ -55,7 +55,7 @@ for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
       if true; then
 
         # Organize paths.
-        path_genetic_correlation_comparison="${path_genetic_correlation}/${phenotype_study}/cohorts_hormones/${directory}"
+        path_genetic_correlation_comparison="${path_genetic_correlation}/${phenotype_study}/cohorts_models/${directory}"
         path_genetic_correlation_report="${path_genetic_correlation_comparison}/correlation"
         path_genetic_correlation_report_suffix="${path_genetic_correlation_report}.log"
         # Initialize directories.
@@ -73,8 +73,8 @@ for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
           echo "----------------------------------------------------------------------"
           echo "----------------------------------------------------------------------"
           echo "phenotype study: " $phenotype_study
-          echo "cohort-hormone study: " $directory
-          echo "path to cohort-hormone file: " $path_gwas_cohorts_models_munge_suffix
+          echo "cohort-model study: " $directory
+          echo "path to cohort-model file: " $path_gwas_cohorts_models_munge_suffix
           echo "----------"
         fi
       fi

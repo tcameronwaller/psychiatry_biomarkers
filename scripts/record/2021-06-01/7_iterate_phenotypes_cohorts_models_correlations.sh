@@ -45,7 +45,7 @@ if true; then
 
     # Organize variables.
     report="true" # "true" or "false"
-    /usr/bin/bash "${path_scripts_record}/8_organize_phenotype_cohorts_hormones_correlations.sh" \
+    /usr/bin/bash "${path_scripts_record}/8_organize_phenotype_cohorts_models_correlations.sh" \
     $phenotype_study \
     $path_gwas_phenotype \
     $path_gwas_phenotype_munge_suffix \
@@ -100,11 +100,11 @@ if false; then
     study_one="${array[0]}"
     study_two="${array[1]}"
     # Organize paths.
-    path_gwas_one_munge_suffix="${path_gwas_cohorts_hormones}/${study_one}/${file_gwas_cohorts_models_munge_suffix}"
-    path_gwas_two_munge_suffix="${path_gwas_cohorts_hormones}/${study_two}/${file_gwas_cohorts_models_munge_suffix}"
+    path_gwas_one_munge_suffix="${path_gwas_cohorts_models}/${study_one}/${file_gwas_cohorts_models_munge_suffix}"
+    path_gwas_two_munge_suffix="${path_gwas_cohorts_models}/${study_two}/${file_gwas_cohorts_models_munge_suffix}"
 
     # Organize paths.
-    path_genetic_correlation_comparison="${path_genetic_correlation}/cohorts_hormones_pairs/${study_one}/${study_two}"
+    path_genetic_correlation_comparison="${path_genetic_correlation}/cohorts_models_pairs/${study_one}/${study_two}"
     path_genetic_correlation_report="${path_genetic_correlation_comparison}/correlation"
     path_genetic_correlation_report_suffix="${path_genetic_correlation_report}.log"
     # Initialize directories.
