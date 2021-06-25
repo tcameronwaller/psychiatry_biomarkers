@@ -71,14 +71,14 @@ if true; then
   path_frequencies="$path_genetic_reference/frequencies"
 
   pairs=()
-  pairs+=("white_bipolar_disorder_control_body_mass_index_log;white_bipolar_disorder_case_body_mass_index_log")
   pairs+=("bipolar_disorder_control_body_mass_index_log;bipolar_disorder_case_body_mass_index_log")
+  pairs+=("white_bipolar_disorder_control_body_mass_index_log;white_bipolar_disorder_case_body_mass_index_log")
 
-  pairs+=("white_bipolar_disorder_control_simple_body_mass_index_log;white_bipolar_disorder_case_simple_body_mass_index_log")
   pairs+=("bipolar_disorder_control_simple_body_mass_index_log;bipolar_disorder_case_simple_body_mass_index_log")
+  pairs+=("white_bipolar_disorder_control_simple_body_mass_index_log;white_bipolar_disorder_case_simple_body_mass_index_log")
 
-  pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index_log;white_bipolar_disorder_case_unadjust_body_mass_index_log")
   pairs+=("bipolar_disorder_control_unadjust_body_mass_index_log;bipolar_disorder_case_unadjust_body_mass_index_log")
+  pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index_log;white_bipolar_disorder_case_unadjust_body_mass_index_log")
 
   for pair in "${pairs[@]}"; do
     # Read information.
