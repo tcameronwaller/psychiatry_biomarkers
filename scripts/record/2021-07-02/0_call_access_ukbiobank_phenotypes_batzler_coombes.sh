@@ -21,7 +21,7 @@
 echo "read private file path variables and organize paths..."
 cd ~/paths
 path_scripts_team_uk_biobank=$(<"./ukbiobank_scripts.txt")
-path_process=$(<"./process_sexy_alcohol.txt")
+path_process=$(<"./process_psychiatric_metabolism.txt")
 
 path_scripts_uk_biobank="$path_process/uk_biobank/scripts"
 path_script_batzler_access="$path_scripts_team_uk_biobank/pullUKBclinical.sh"
