@@ -449,7 +449,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 2")
+    print("version check: 1")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -470,6 +470,7 @@ def execute_procedure(
         table=source["table_phenotypes"],
         report=False,
     )
+
     # Organize variables for persons' mental health across the UK Biobank.
     pail_psychology = ukb_organization.execute_psychology_psychiatry(
         table=pail_basis["table_clean"],
@@ -479,15 +480,21 @@ def execute_procedure(
 
     # Select and organize variables across cohorts.
     # Organize phenotypes and covariates in format for analysis in PLINK.
-    pail_cohorts = (
-        ukb_organization.organize_plink_cohorts_variables_by_case_control(
-            table=pail_psychology["table_clean"],
-            report=True,
-    ))
+    if True:
+        pail_cohorts_models = (
+            ukb_organization.execute_cohorts_models_genetic_analysis(
+                table=pail_psychology["table_clean"],
+                set="bipolar_disorder_body",
+                path_dock=path_dock,
+                report=True,
+        ))
+    else:
+        pail_cohorts_models = dict()
+
 
     # Collect information.
     information = dict()
-    information["cohorts_models"] = pail_cohorts
+    information["cohorts_models"] = pail_cohorts_models
     # Write product information to file.
     write_product(
         paths=paths,
