@@ -37,7 +37,7 @@ fi
 #python3 $path_package/interface.py main --path_dock $path_dock --aggregation
 
 # Assemble phenotypic information from UK Biobank.
-#python3 $path_package/interface.py main --path_dock $path_dock --assembly
+python3 $path_package/interface.py main --path_dock $path_dock --assembly
 
 # Organize phenotypic information from UK Biobank.
 python3 $path_package/interface.py main --path_dock $path_dock --organization
