@@ -23,7 +23,7 @@
 ### -p -10
 # Memory per iteration.
 # Segmentation errors commonly indicate a memory error.
-#$ -l h_vmem=10G
+#$ -l h_vmem=5G
 # Concurrent threads; assigns value to variable NSLOTS.
 # Important to specify 32 threads to avoid inconsistency with interactive
 # calculations.
@@ -36,8 +36,8 @@
 # Allow simultaneous processes for this count of GWAS studies.
 # For large cohorts (20,000 - 500,000), limit to 10-20 total simultaneous GWAS
 # on NCSA.
-# Beyond about 15 simultaneous GWAS, PLINK2 begins to use more than 2 TB storage.
-#$ -tc 13
+# Beyond about 10-15 simultaneous GWAS, PLINK2 begins to use more than 2 TB storage.
+#$ -tc 10
 
 # http://gridscheduler.sourceforge.net/htmlman/htmlman1/qsub.html
 
