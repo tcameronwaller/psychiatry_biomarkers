@@ -18,7 +18,7 @@ chromosomes=${8} # count of sequential chromosomes
 # Read private, local file paths.
 #echo "read private file path variables and organize paths..."
 cd ~/paths
-path_plink2=$(<"./tools_user_plink2.txt")
+path_plink2=$(<"./tools_plink2.txt")
 path_ukb_genotype=$(<"./ukbiobank_genotype.txt")
 
 # Iterate on chromosomes.
