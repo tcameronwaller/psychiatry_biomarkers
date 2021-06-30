@@ -101,9 +101,9 @@ $path_ldsc/munge_sumstats.py \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
 # Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
+#--signed-sumstats BETA,0 \ # I don't think this argument is necessary.
 $path_ldsc/munge_sumstats.py \
 --sumstats gwas_pgc_bipolar_bmi_format.txt \
---signed-sumstats BETA,0 \
 --out gwas_bipolar_bmi_coombes \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
@@ -112,13 +112,13 @@ if true; then
   # Genetic correlation in LDSC.
 
   $path_ldsc/ldsc.py \
-  --rg gwas_bmi_waller.sumstats.gz,gwas_pgc_bipolar_bmi_format.sumstats.gz \
+  --rg gwas_bmi_waller.sumstats.gz,gwas_bipolar_bmi_coombes.sumstats.gz \
   --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
   --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
   --out bmi_control_waller_versus_bmi_bipolar_coombes.txt
 
   $path_ldsc/ldsc.py \
-  --rg gwas_bmi_coombes.sumstats.gz,gwas_pgc_bipolar_bmi_format.sumstats.gz \
+  --rg gwas_bmi_coombes.sumstats.gz,gwas_bipolar_bmi_coombes.sumstats.gz \
   --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
   --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
   --out bmi_control_coombes_versus_bmi_bipolar_coombes.txt
