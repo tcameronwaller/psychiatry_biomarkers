@@ -101,10 +101,9 @@ $path_ldsc/munge_sumstats.py \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
 # Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
-#--signed-sumstats BETA,0 \ # I don't think this argument is necessary.
+#--signed-sumstats BETA,0 \ # I don't think this argument is consequential.
 $path_ldsc/munge_sumstats.py \
 --sumstats gwas_pgc_bipolar_bmi_format.txt \
---signed-sumstats BETA,0 \
 --out gwas_bipolar_bmi_coombes \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
