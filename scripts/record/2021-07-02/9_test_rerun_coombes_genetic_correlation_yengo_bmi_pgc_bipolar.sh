@@ -100,6 +100,7 @@ $path_ldsc/munge_sumstats.py \
 # Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
 $path_ldsc/munge_sumstats.py \
 --sumstats gwas_pgc_bipolar_bmi_format \
+--signed-sumstats BETA,0 \
 --out gwas_bipolar_bmi_coombes \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
