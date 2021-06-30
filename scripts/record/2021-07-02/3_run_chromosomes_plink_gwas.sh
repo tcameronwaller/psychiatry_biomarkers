@@ -38,6 +38,11 @@ do
   fi
   cd $path_chromosome
 
+
+  # TODO: 29 June 2021 (TCW)
+  # - PLINK2 gave an error about designation of a newly-required argument
+  # - I think it related to specification of the reference allele...
+
   if true; then
     # Call PLINK2.
     # 90,000 Mebibytes (MiB) is 94.372 Gigabytes (GB)
