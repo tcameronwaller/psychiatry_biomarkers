@@ -68,41 +68,42 @@ cd $path_genetic_correlation
 # Waller accession of BMI GWAS summary statistics.
 echo "SNP A1 A2 N BETA P" > gwas_30124842_yengo_2018_format
 zcat $path_gwas_30124842_yengo_2018 | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $3, toupper($4), toupper($5), $10, $7, $9}' >> gwas_30124842_yengo_2018_format
+head gwas_30124842_yengo_2018_format
 
 # Coombes accession of BMI GWAS summary statistics.
 echo "SNP A1 A2 N BETA P" > gwas_30124842_yengo_2018_coombes_format
 zcat $path_gwas_30124842_yengo_2018_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($2), toupper($3), $10, $5, $4}' >> gwas_30124842_yengo_2018_coombes_format
+head gwas_30124842_yengo_2018_coombes_format
 
 # Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
 echo "SNP A1 A2 N BETA P" > gwas_pgc_bipolar_bmi_format
 zcat $path_gwas_pgc_bipolar_bmi_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), 4332, $7, $9}' >> gwas_pgc_bipolar_bmi_format
+head gwas_pgc_bipolar_bmi_format
 
+################################################################################
+# Munge GWAS summary statistics for analysis in LDSC.
+
+cd $path_genetic_correlation
+
+# Waller accession of BMI GWAS summary statistics.
+$path_ldsc/munge_sumstats.py \
+--sumstats gwas_30124842_yengo_2018_format \
+--out gwas_bmi_waller \
+--merge-alleles $path_alleles/w_hm3.snplist \
+
+# Coombes accession of BMI GWAS summary statistics.
+$path_ldsc/munge_sumstats.py \
+--sumstats gwas_30124842_yengo_2018_coombes_format \
+--out gwas_bmi_coombes \
+--merge-alleles $path_alleles/w_hm3.snplist \
+
+# Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
+$path_ldsc/munge_sumstats.py \
+--sumstats gwas_pgc_bipolar_bmi_format \
+--out gwas_bipolar_bmi_coombes \
+--merge-alleles $path_alleles/w_hm3.snplist \
 
 if false; then
-
-  ################################################################################
-  # Munge GWAS summary statistics for analysis in LDSC.
-
-  cd $path_genetic_correlation
-
-  # Waller accession of BMI GWAS summary statistics.
-  $path_ldsc/munge_sumstats.py \
-  --sumstats gwas_30124842_yengo_2018_format \
-  --out gwas_bmi_waller \
-  --merge-alleles $path_alleles/w_hm3.snplist \
-
-  # Coombes accession of BMI GWAS summary statistics.
-  $path_ldsc/munge_sumstats.py \
-  --sumstats gwas_30124842_yengo_2018_coombes_format \
-  --out gwas_bmi_coombes \
-  --merge-alleles $path_alleles/w_hm3.snplist \
-
-  # Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
-  $path_ldsc/munge_sumstats.py \
-  --sumstats gwas_pgc_bipolar_bmi_format \
-  --out gwas_bipolar_bmi_coombes \
-  --merge-alleles $path_alleles/w_hm3.snplist \
-
   ################################################################################
   # Genetic correlation in LDSC.
 
