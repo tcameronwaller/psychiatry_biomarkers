@@ -16,8 +16,9 @@ path_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_gwas_summaries_team=$(<"./gwas_summaries_team.txt")
 path_process=$(<"./process_psychiatric_metabolism.txt")
 
-path_gwas_30124842_yengo_2018="${path_gwas_summaries}/30124842_yengo_2018/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt.gz"
-path_gwas_30124842_yengo_2018_coombes="${path_gwas_summaries_team}/REFORMATTED/BMI_GIANTUKBB.txt.gz"
+# Paths to accessions of BMI GWAS (Yengo et al, 2018; PubMed:30124842).
+path_gwas_bmi_raw="${path_gwas_summaries}/30124842_yengo_2018/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt.gz"
+path_gwas_bmi_coombes="${path_gwas_summaries_team}/REFORMATTED/BMI_GIANTUKBB.txt.gz"
 path_gwas_coombes=$(<"./gwas_pgc_bipolar_bmi_coombes.txt")
 path_gwas_pgc_bipolar_bmi_coombes="${path_gwas_coombes}/ALL_BMI.pcAdj.assoc.linear_P_MAresultsFE.FUMA.txt.gz"
 
@@ -68,14 +69,14 @@ echo "test test test"
 cd $path_genetic_correlation
 
 # Waller accession of BMI GWAS summary statistics.
-echo "SNP A1 A2 N BETA P" > gwas_30124842_yengo_2018_format.txt
-zcat $path_gwas_30124842_yengo_2018 | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $3, toupper($4), toupper($5), $10, $7, $9}' >> gwas_30124842_yengo_2018_format.txt
-head gwas_30124842_yengo_2018_format.txt
+echo "SNP A1 A2 N BETA P" > gwas_bmi_raw_format.txt
+zcat $path_gwas_bmi_raw | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $3, toupper($4), toupper($5), $10, $7, $9}' >> gwas_bmi_raw_format.txt
+head gwas_bmi_raw_format.txt
 
 # Coombes accession of BMI GWAS summary statistics.
-echo "SNP A1 A2 N BETA P" > gwas_30124842_yengo_2018_coombes_format.txt
-zcat $path_gwas_30124842_yengo_2018_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($2), toupper($3), $10, $5, $4}' >> gwas_30124842_yengo_2018_coombes_format.txt
-head gwas_30124842_yengo_2018_coombes_format.txt
+echo "SNP A1 A2 N BETA P" > gwas_bmi_coombes_format.txt
+zcat $path_gwas_bmi_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($2), toupper($3), $10, $5, $4}' >> gwas_bmi_coombes_format.txt
+head gwas_bmi_coombes_format.txt
 
 # A few SNPs do not have rsIDs and instead use chromosome and position.
 # Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
@@ -90,13 +91,13 @@ cd $path_genetic_correlation
 
 # Waller accession of BMI GWAS summary statistics.
 $path_ldsc/munge_sumstats.py \
---sumstats gwas_30124842_yengo_2018_format.txt \
---out gwas_bmi_waller \
+--sumstats gwas_bmi_raw_format.txt \
+--out gwas_bmi_raw \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
 # Coombes accession of BMI GWAS summary statistics.
 $path_ldsc/munge_sumstats.py \
---sumstats gwas_30124842_yengo_2018_coombes_format.txt \
+--sumstats gwas_bmi_coombes_format.txt \
 --out gwas_bmi_coombes \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
@@ -107,20 +108,17 @@ $path_ldsc/munge_sumstats.py \
 --out gwas_bipolar_bmi_coombes \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
-if true; then
-  ################################################################################
-  # Genetic correlation in LDSC.
+################################################################################
+# Genetic correlation in LDSC.
 
-  $path_ldsc/ldsc.py \
-  --rg gwas_bmi_waller.sumstats.gz,gwas_bipolar_bmi_coombes.sumstats.gz \
-  --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
-  --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
-  --out bmi_control_waller_versus_bmi_bipolar_coombes.txt
+$path_ldsc/ldsc.py \
+--rg gwas_bmi_raw.sumstats.gz,gwas_bipolar_bmi_coombes.sumstats.gz \
+--ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+--w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+--out correlation_bmi_control_raw_versus_bmi_bipolar_coombes.txt
 
-  $path_ldsc/ldsc.py \
-  --rg gwas_bmi_coombes.sumstats.gz,gwas_bipolar_bmi_coombes.sumstats.gz \
-  --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
-  --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
-  --out bmi_control_coombes_versus_bmi_bipolar_coombes.txt
-
-fi
+$path_ldsc/ldsc.py \
+--rg gwas_bmi_coombes.sumstats.gz,gwas_bipolar_bmi_coombes.sumstats.gz \
+--ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+--w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+--out correlation_bmi_control_coombes_versus_bmi_bipolar_coombes.txt
