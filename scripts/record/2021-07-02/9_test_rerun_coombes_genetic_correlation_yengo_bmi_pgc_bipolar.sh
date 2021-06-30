@@ -77,6 +77,8 @@ echo "SNP A1 A2 N BETA P" > gwas_30124842_yengo_2018_coombes_format
 zcat $path_gwas_30124842_yengo_2018_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($2), toupper($3), $10, $5, $4}' >> gwas_30124842_yengo_2018_coombes_format
 head gwas_30124842_yengo_2018_coombes_format
 
+# TODO: The file does not have "rsIDs" for SNPs.
+# TODO: Instead, the file uses chromosome number + position and some allele designations that are NOT "T", "A", "C", or "G"...
 # Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
 echo "SNP A1 A2 N BETA P" > gwas_pgc_bipolar_bmi_format
 zcat $path_gwas_pgc_bipolar_bmi_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), 4332, $7, $9}' >> gwas_pgc_bipolar_bmi_format
