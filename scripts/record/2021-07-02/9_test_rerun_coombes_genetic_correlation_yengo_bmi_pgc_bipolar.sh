@@ -77,40 +77,45 @@ zcat $path_gwas_30124842_yengo_2018_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR 
 echo "SNP A1 A2 N BETA P" > gwas_pgc_bipolar_bmi_format
 zcat $path_gwas_pgc_bipolar_bmi_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), 4332, $7, $9}' >> gwas_pgc_bipolar_bmi_format
 
-################################################################################
-# Munge GWAS summary statistics for analysis in LDSC.
 
-cd $path_genetic_correlation
+if false; then
 
-# Waller accession of BMI GWAS summary statistics.
-$path_ldsc/munge_sumstats.py \
---sumstats gwas_30124842_yengo_2018_format \
---out gwas_bmi_waller \
---merge-alleles $path_alleles/w_hm3.snplist \
+  ################################################################################
+  # Munge GWAS summary statistics for analysis in LDSC.
 
-# Coombes accession of BMI GWAS summary statistics.
-$path_ldsc/munge_sumstats.py \
---sumstats gwas_30124842_yengo_2018_coombes_format \
---out gwas_bmi_coombes \
---merge-alleles $path_alleles/w_hm3.snplist \
+  cd $path_genetic_correlation
 
-# Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
-$path_ldsc/munge_sumstats.py \
---sumstats gwas_pgc_bipolar_bmi_format \
---out gwas_bipolar_bmi_coombes \
---merge-alleles $path_alleles/w_hm3.snplist \
+  # Waller accession of BMI GWAS summary statistics.
+  $path_ldsc/munge_sumstats.py \
+  --sumstats gwas_30124842_yengo_2018_format \
+  --out gwas_bmi_waller \
+  --merge-alleles $path_alleles/w_hm3.snplist \
 
-################################################################################
-# Genetic correlation in LDSC.
+  # Coombes accession of BMI GWAS summary statistics.
+  $path_ldsc/munge_sumstats.py \
+  --sumstats gwas_30124842_yengo_2018_coombes_format \
+  --out gwas_bmi_coombes \
+  --merge-alleles $path_alleles/w_hm3.snplist \
 
-$path_ldsc/ldsc.py \
---rg gwas_bmi_waller.sumstats.gz,gwas_pgc_bipolar_bmi_format.sumstats.gz \
---ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
---w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
---out bmi_control_waller_versus_bmi_bipolar_coombes
+  # Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
+  $path_ldsc/munge_sumstats.py \
+  --sumstats gwas_pgc_bipolar_bmi_format \
+  --out gwas_bipolar_bmi_coombes \
+  --merge-alleles $path_alleles/w_hm3.snplist \
 
-$path_ldsc/ldsc.py \
---rg gwas_bmi_coombes.sumstats.gz,gwas_pgc_bipolar_bmi_format.sumstats.gz \
---ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
---w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
---out bmi_control_coombes_versus_bmi_bipolar_coombes
+  ################################################################################
+  # Genetic correlation in LDSC.
+
+  $path_ldsc/ldsc.py \
+  --rg gwas_bmi_waller.sumstats.gz,gwas_pgc_bipolar_bmi_format.sumstats.gz \
+  --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+  --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+  --out bmi_control_waller_versus_bmi_bipolar_coombes
+
+  $path_ldsc/ldsc.py \
+  --rg gwas_bmi_coombes.sumstats.gz,gwas_pgc_bipolar_bmi_format.sumstats.gz \
+  --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+  --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
+  --out bmi_control_coombes_versus_bmi_bipolar_coombes
+
+fi
