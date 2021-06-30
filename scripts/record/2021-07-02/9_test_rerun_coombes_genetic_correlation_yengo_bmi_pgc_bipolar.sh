@@ -68,21 +68,20 @@ echo "test test test"
 cd $path_genetic_correlation
 
 # Waller accession of BMI GWAS summary statistics.
-echo "SNP A1 A2 N BETA P" > gwas_30124842_yengo_2018_format
-zcat $path_gwas_30124842_yengo_2018 | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $3, toupper($4), toupper($5), $10, $7, $9}' >> gwas_30124842_yengo_2018_format
-head gwas_30124842_yengo_2018_format
+echo "SNP A1 A2 N BETA P" > gwas_30124842_yengo_2018_format.txt
+zcat $path_gwas_30124842_yengo_2018 | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $3, toupper($4), toupper($5), $10, $7, $9}' >> gwas_30124842_yengo_2018_format.txt
+head gwas_30124842_yengo_2018_format.txt
 
 # Coombes accession of BMI GWAS summary statistics.
-echo "SNP A1 A2 N BETA P" > gwas_30124842_yengo_2018_coombes_format
-zcat $path_gwas_30124842_yengo_2018_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($2), toupper($3), $10, $5, $4}' >> gwas_30124842_yengo_2018_coombes_format
-head gwas_30124842_yengo_2018_coombes_format
+echo "SNP A1 A2 N BETA P" > gwas_30124842_yengo_2018_coombes_format.txt
+zcat $path_gwas_30124842_yengo_2018_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($2), toupper($3), $10, $5, $4}' >> gwas_30124842_yengo_2018_coombes_format.txt
+head gwas_30124842_yengo_2018_coombes_format.txt
 
-# TODO: The file does not have "rsIDs" for SNPs.
-# TODO: Instead, the file uses chromosome number + position and some allele designations that are NOT "T", "A", "C", or "G"...
+# A few SNPs do not have rsIDs and instead use chromosome and position.
 # Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
-echo "SNP A1 A2 N BETA P" > gwas_pgc_bipolar_bmi_format
-zcat $path_gwas_pgc_bipolar_bmi_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), 4332, $7, $9}' >> gwas_pgc_bipolar_bmi_format
-head gwas_pgc_bipolar_bmi_format
+echo "SNP A1 A2 N BETA P" > gwas_pgc_bipolar_bmi_format.txt
+zcat $path_gwas_pgc_bipolar_bmi_coombes | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), 4332, $7, $9}' >> gwas_pgc_bipolar_bmi_format.txt
+head gwas_pgc_bipolar_bmi_format.txt
 
 ################################################################################
 # Munge GWAS summary statistics for analysis in LDSC.
@@ -91,24 +90,24 @@ cd $path_genetic_correlation
 
 # Waller accession of BMI GWAS summary statistics.
 $path_ldsc/munge_sumstats.py \
---sumstats gwas_30124842_yengo_2018_format \
+--sumstats gwas_30124842_yengo_2018_format.txt \
 --out gwas_bmi_waller \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
 # Coombes accession of BMI GWAS summary statistics.
 $path_ldsc/munge_sumstats.py \
---sumstats gwas_30124842_yengo_2018_coombes_format \
+--sumstats gwas_30124842_yengo_2018_coombes_format.txt \
 --out gwas_bmi_coombes \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
 # Coombes BMI in Bipolar Disorder (PGC cohort) GWAS summary statistics.
 $path_ldsc/munge_sumstats.py \
---sumstats gwas_pgc_bipolar_bmi_format \
+--sumstats gwas_pgc_bipolar_bmi_format.txt \
 --signed-sumstats BETA,0 \
 --out gwas_bipolar_bmi_coombes \
 --merge-alleles $path_alleles/w_hm3.snplist \
 
-if false; then
+if true; then
   ################################################################################
   # Genetic correlation in LDSC.
 
@@ -116,12 +115,12 @@ if false; then
   --rg gwas_bmi_waller.sumstats.gz,gwas_pgc_bipolar_bmi_format.sumstats.gz \
   --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
   --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
-  --out bmi_control_waller_versus_bmi_bipolar_coombes
+  --out bmi_control_waller_versus_bmi_bipolar_coombes.txt
 
   $path_ldsc/ldsc.py \
   --rg gwas_bmi_coombes.sumstats.gz,gwas_pgc_bipolar_bmi_format.sumstats.gz \
   --ref-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
   --w-ld-chr $path_disequilibrium/eur_w_ld_chr/ \
-  --out bmi_control_coombes_versus_bmi_bipolar_coombes
+  --out bmi_control_coombes_versus_bmi_bipolar_coombes.txt
 
 fi
