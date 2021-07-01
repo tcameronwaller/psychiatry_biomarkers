@@ -64,8 +64,6 @@ tar -xjvf eur_w_ld_chr.tar.bz2 -C $path_disequilibrium
 ################################################################################
 # Format GWAS summary statistics for analysis in LDSC.
 
-echo "test test test"
-
 cd $path_genetic_correlation
 
 # Waller accession of BMI GWAS summary statistics.
