@@ -78,7 +78,7 @@ echo "covariates: " ${covariates}
 
 # General parameters.
 threads=32 # 32, needs to match the "pe threaded" argument to scheduler
-maf=0.01
+maf=0.0 # run on all SNPs and filter in subsequent analyses
 chromosomes=22 # 22 # Count of chromosomes on which to run GWAS
 
 # Echo each command to console.

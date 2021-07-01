@@ -22,7 +22,7 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-07-02"
 path_dock="$path_process/dock"
 path_cohorts_models="${path_dock}/organization/cohorts_models"
-path_gwas="${path_dock}/gwas/cohorts_models"
+path_gwas="${path_dock}/gwas/cohorts_models_maf_0" # run a few GWAS with minimal MAF 0
 
 # Initialize directories.
 #rm -r $path_gwas
@@ -38,26 +38,26 @@ covariates_common="genotype_pc_1,genotype_pc_2,genotype_pc_3,genotype_pc_4,genot
 
 cohorts_models=()
 
-cohorts_models+=("all_bipolar_disorder_case;table_all_bipolar_disorder_case;sex,age,")
+#cohorts_models+=("all_bipolar_disorder_case;table_all_bipolar_disorder_case;sex,age,")
 cohorts_models+=("white_bipolar_disorder_case;table_white_bipolar_disorder_case;sex,age,")
-cohorts_models+=("all_bipolar_disorder_control;table_all_bipolar_disorder_control;sex,age,")
+#cohorts_models+=("all_bipolar_disorder_control;table_all_bipolar_disorder_control;sex,age,")
 cohorts_models+=("white_bipolar_disorder_control;table_white_bipolar_disorder_control;sex,age,")
 
-cohorts_models+=("all_bipolar_disorder_case_simple;table_all_bipolar_disorder_case;sex,")
+#cohorts_models+=("all_bipolar_disorder_case_simple;table_all_bipolar_disorder_case;sex,")
 cohorts_models+=("white_bipolar_disorder_case_simple;table_white_bipolar_disorder_case;sex,")
-cohorts_models+=("all_bipolar_disorder_control_simple;table_all_bipolar_disorder_control;sex,")
+#cohorts_models+=("all_bipolar_disorder_control_simple;table_all_bipolar_disorder_control;sex,")
 cohorts_models+=("white_bipolar_disorder_control_simple;table_white_bipolar_disorder_control;sex,")
 
-cohorts_models+=("all_bipolar_disorder_case_unadjust;table_all_bipolar_disorder_case;")
+#cohorts_models+=("all_bipolar_disorder_case_unadjust;table_all_bipolar_disorder_case;")
 cohorts_models+=("white_bipolar_disorder_case_unadjust;table_white_bipolar_disorder_case;")
-cohorts_models+=("all_bipolar_disorder_control_unadjust;table_all_bipolar_disorder_control;")
+#cohorts_models+=("all_bipolar_disorder_control_unadjust;table_all_bipolar_disorder_control;")
 cohorts_models+=("white_bipolar_disorder_control_unadjust;table_white_bipolar_disorder_control;")
 
 
 # Define array of hormones.
 phenotypes=()
-phenotypes+=("body_mass_index")
-phenotypes+=("body_mass_index_log")
+phenotypes+=("body_mass_index") # <- start on 1 July 2021
+#phenotypes+=("body_mass_index_log")
 
 # Assemble array of batch instance details.
 path_batch_instances="${path_gwas}/batch_instances.txt"
