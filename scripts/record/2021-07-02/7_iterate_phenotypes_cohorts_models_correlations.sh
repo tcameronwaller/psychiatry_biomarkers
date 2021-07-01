@@ -29,8 +29,6 @@ path_genetic_correlation="${path_dock}/genetic_correlation"
 
 file_gwas_cohorts_models_munge_suffix="gwas_munge.sumstats.gz"
 
-echo "testy test test"
-
 if true; then
 
   # Define main phenotype studies.
@@ -72,18 +70,14 @@ if false; then
   path_weights="$path_genetic_reference/weights"
   path_frequencies="$path_genetic_reference/frequencies"
 
-  #white_bipolar_disorder_case versus controls from UK Biobank
-  #white_bipolar_disorder_case_simple versus controls from UK Biobank
-  #white_bipolar_disorder_case_unadjust versus controls from UK Biobank
-
   pairs=()
-  pairs+=("bipolar_disorder_control_body_mass_index_log;bipolar_disorder_case_body_mass_index_log")
+  # Without log transformation of Body Mass Index phenotype.
+  pairs+=("white_bipolar_disorder_control_body_mass_index;white_bipolar_disorder_case_body_mass_index")
+  pairs+=("white_bipolar_disorder_control_simple_body_mass_index;white_bipolar_disorder_case_simple_body_mass_index")
+  pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index;white_bipolar_disorder_case_unadjust_body_mass_index")
+  # With log transformation of Body Mass Index phenotype.
   pairs+=("white_bipolar_disorder_control_body_mass_index_log;white_bipolar_disorder_case_body_mass_index_log")
-
-  pairs+=("bipolar_disorder_control_simple_body_mass_index_log;bipolar_disorder_case_simple_body_mass_index_log")
   pairs+=("white_bipolar_disorder_control_simple_body_mass_index_log;white_bipolar_disorder_case_simple_body_mass_index_log")
-
-  pairs+=("bipolar_disorder_control_unadjust_body_mass_index_log;bipolar_disorder_case_unadjust_body_mass_index_log")
   pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index_log;white_bipolar_disorder_case_unadjust_body_mass_index_log")
 
   for pair in "${pairs[@]}"; do
