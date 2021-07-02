@@ -517,7 +517,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 1")
+    print("version check: 42")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -559,7 +559,7 @@ def execute_procedure(
 
     # Select and organize variables across cohorts.
     # Organize phenotypes and covariates in format for analysis in PLINK.
-    if False:
+    if True:
         pail_cohorts_models = (
             ukb_organization.execute_cohorts_models_genetic_analysis(
                 table=pail_psychology["table_clean"],
