@@ -21,7 +21,7 @@ path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-07
 path_dock="$path_process/dock"
 path_genetic_reference="${path_dock}/access/genetic_reference"
 path_gwas="${path_dock}/gwas"
-path_gwas_cohorts_models="${path_gwas}/cohorts_models"
+path_gwas_cohorts_models="${path_gwas}/cohorts_models_maf_0" # selection
 path_genetic_correlation="${path_dock}/genetic_correlation"
 
 ###########################################################################
@@ -76,9 +76,9 @@ if false; then
   pairs+=("white_bipolar_disorder_control_simple_body_mass_index;white_bipolar_disorder_case_simple_body_mass_index")
   pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index;white_bipolar_disorder_case_unadjust_body_mass_index")
   # With log transformation of Body Mass Index phenotype.
-  pairs+=("white_bipolar_disorder_control_body_mass_index_log;white_bipolar_disorder_case_body_mass_index_log")
-  pairs+=("white_bipolar_disorder_control_simple_body_mass_index_log;white_bipolar_disorder_case_simple_body_mass_index_log")
-  pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index_log;white_bipolar_disorder_case_unadjust_body_mass_index_log")
+  #pairs+=("white_bipolar_disorder_control_body_mass_index_log;white_bipolar_disorder_case_body_mass_index_log")
+  #pairs+=("white_bipolar_disorder_control_simple_body_mass_index_log;white_bipolar_disorder_case_simple_body_mass_index_log")
+  #pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index_log;white_bipolar_disorder_case_unadjust_body_mass_index_log")
 
   for pair in "${pairs[@]}"; do
     # Read information.

@@ -46,7 +46,9 @@ do
   if true; then
     # Call PLINK2.
     # 90,000 Mebibytes (MiB) is 94.372 Gigabytes (GB)
+    # --pfilter 1 \
     # --pfilter drops SNPs with null p-values and any beyond threshold (such as 1)
+    # But, maybe pfilter is actually a problem.
     $path_plink2 \
     --memory 90000 \
     --threads $threads \
@@ -55,7 +57,6 @@ do
     --keep $path_table_phenotypes_covariates \
     --maf $maf \
     --freq --glm hide-covar \
-    --pfilter 1 \
     --pheno $path_table_phenotypes_covariates \
     --pheno-name $phenotypes \
     --covar $path_table_phenotypes_covariates \
