@@ -532,16 +532,26 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
+
     # Organize variables for persons' genotypes, sex, age, and body mass index
     # across the UK Biobank.
     pail_basis = ukb_organization.execute_genotype_sex_age_body(
         table=source["table_phenotypes"],
+        report=True,
+    )
+    # Organize variables for persons' sex hormones across the UK Biobank.
+    pail_hormone = ukb_organization.execute_sex_hormones(
+        table=pail_basis["table"], # pail_basis["table_clean"]
         report=False,
     )
-
+    # Organize variables for female menstruation across the UK Biobank.
+    pail_female = ukb_organization.execute_female_menstruation(
+        table=pail_hormone["table"], # pail_hormone["table_clean"]
+        report=False,
+    )
     # Organize variables for persons' mental health across the UK Biobank.
     pail_psychology = ukb_organization.execute_psychology_psychiatry(
-        table=pail_basis["table_clean"],
+        table=pail_female["table"],
         report=True,
     )
     #print(pail_psychology["table_clean"].columns.to_list())
