@@ -517,7 +517,7 @@ def execute_procedure(
 
     utility.print_terminal_partition(level=1)
     print(path_dock)
-    print("version check: 42")
+    print("version check: 5")
     # Pause procedure.
     time.sleep(5.0)
 
@@ -583,6 +583,7 @@ def execute_procedure(
 
     # Collect information.
     information = dict()
+    information["export"] = dict()
     information["export"]["table_summary_cohorts_models_phenotypes"] = (
         pail_summary["table_summary_cohorts_models_phenotypes"]
     )
