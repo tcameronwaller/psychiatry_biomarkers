@@ -18,9 +18,9 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
 path_genetic_reference="${path_dock}/access/genetic_reference"
 path_gwas="${path_dock}/gwas"
-path_gwas_parent="${path_gwas}/cohorts_models_maf_0" # selection
+path_gwas_parent="${path_gwas}/cohorts_models_maf_0_pfilter" # selection
 path_heritability="${path_dock}/heritability"
-path_heritability_parent="${path_heritability}/cohorts_models_maf_0" # selection
+path_heritability_parent="${path_heritability}/cohorts_models_maf_0_pfilter" # selection
 
 path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-07-02"
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"

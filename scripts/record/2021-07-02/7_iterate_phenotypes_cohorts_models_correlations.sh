@@ -21,7 +21,7 @@ path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-07
 path_dock="$path_process/dock"
 path_genetic_reference="${path_dock}/access/genetic_reference"
 path_gwas="${path_dock}/gwas"
-path_gwas_cohorts_models="${path_gwas}/cohorts_models_maf_0" # selection
+path_gwas_cohorts_models="${path_gwas}/cohorts_models_maf_0_pfilter" # selection
 path_genetic_correlation="${path_dock}/genetic_correlation"
 
 ###########################################################################
