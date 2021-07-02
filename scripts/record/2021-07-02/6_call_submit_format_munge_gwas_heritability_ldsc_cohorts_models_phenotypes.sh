@@ -85,7 +85,7 @@ echo "first batch instance: " ${batch_instances[0]} # notice base-zero indexing
 echo "last batch instance: " ${batch_instances[batch_instances_count - 1]}
 
 # Execute batch with grid scheduler.
-if true; then
+if false; then
   report="true" # "true" or "false"
   # Submit array batch to Sun Grid Engine.
   # Array batch indices must start at one (not zero).
@@ -100,4 +100,66 @@ if true; then
   $path_promiscuity_scripts \
   $path_ldsc \
   $report
+fi
+
+# Execute iteratively on head node.
+if true; then
+  for directory in "${batch_instances[@]}"; do
+    ###########################################################################
+    # Organize variables.
+    path_script_gwas_collect_concatenate="${path_promiscuity_scripts}/collect_concatenate_gwas_chromosomes.sh"
+    path_promiscuity_scripts_ldsc_heritability="${path_promiscuity_scripts}/ldsc_genetic_heritability_correlation"
+    path_script_format_munge_heritability="${path_promiscuity_scripts_ldsc_heritability}/format_munge_gwas_heritability_ldsc.sh"
+    path_scripts_format="${path_promiscuity_scripts}/format_gwas_ldsc"
+    path_script_gwas_format="${path_scripts_format}/format_gwas_ldsc_plink_linear.sh"
+
+    ###########################################################################
+    # Execute procedure.
+
+    # Concatenate GWAS across chromosomes.
+    if true; then
+      # Organize variables.
+      pattern_source_file="report.*.glm.linear" # do not expand with full path yet
+      path_source_directory="${path_gwas_parent}/${directory}"
+      chromosome_start=1
+      chromosome_end=22
+      path_gwas_concatenation="${path_source_directory}/gwas_concatenation.txt"
+      path_gwas_concatenation_compress="${path_source_directory}/gwas_concatenation.txt.gz"
+      /usr/bin/bash "$path_script_gwas_collect_concatenate" \
+      $pattern_source_file \
+      $path_source_directory \
+      $chromosome_start \
+      $chromosome_end \
+      $path_gwas_concatenation \
+      $path_gwas_concatenation_compress \
+      $report
+    fi
+
+    # Format and munge GWAS summary statistics.
+    # Estimate genotype heritability.
+    if true; then
+      # Organize paths.
+      path_gwas_study="${path_gwas_parent}/${directory}"
+      path_heritability_study="${path_heritability_parent}/${directory}"
+      # Initialize directories.
+      #mkdir -p $path_gwas_study
+      mkdir -p $path_heritability_study
+      # Organize variables.
+      study="${directory}"
+      name_prefix="null"
+      path_source_file="${path_gwas_study}/gwas_concatenation.txt.gz"
+      report="true" # "true" or "false"
+      /usr/bin/bash "$path_script_format_munge_heritability" \
+      $study \
+      $name_prefix \
+      $path_source_file \
+      $path_genetic_reference \
+      $path_gwas_study \
+      $path_heritability_study \
+      $path_script_gwas_format \
+      $path_promiscuity_scripts \
+      $path_ldsc \
+      $report
+    fi
+  done
 fi

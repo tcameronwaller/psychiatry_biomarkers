@@ -17,6 +17,7 @@
 ### -o "./out"
 ### -e "./error"
 # Queue.
+# 1 hour is sufficient for process on a single chromosome.
 # "1-hour", "1-day", "4-day", "7-day", "30-day", "lg-mem"
 #$ -q 1-hour
 # Priority 0-15.

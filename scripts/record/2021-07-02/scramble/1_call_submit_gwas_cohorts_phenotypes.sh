@@ -28,11 +28,6 @@ path_gwas="${path_dock}/gwas/cohorts_models_maf_0_pfilter" # run a few GWAS with
 #rm -r $path_gwas
 mkdir -p $path_gwas
 
-# Define covariates common for all cohorts.
-covariates_common="genotype_pc_1,genotype_pc_2,genotype_pc_3,genotype_pc_4,genotype_pc_5,genotype_pc_6,genotype_pc_7,genotype_pc_8,genotype_pc_9,genotype_pc_10"
-
-# Define multi-dimensional array of cohorts and covariates.
-
 # Note:
 # Each GWAS (30,000 - 200,000 persons; 22 chromosomes) requires about 5-7 hours to run on the grid.
 
@@ -44,8 +39,14 @@ chromosomes=22 # 22 # Count of chromosomes on which to run GWAS
 #cohorts_models+=("white_bipolar_disorder_control_unadjust;table_white_bipolar_disorder_control;")
 #path_table_phenotypes_covariates="${path_cohorts_models}/table_white_bipolar_disorder_control_body_mass_index.tsv"
 
-path_table_phenotypes_covariates="${path_cohorts_models}/table_white_bipolar_disorder_case_body_mass_index.tsv"
-path_report="${path_gwas}/white_bipolar_disorder_case_unadjust_body_mass_index"
+# first priority... started at 10:22 on 2 July 2021
+#path_table_phenotypes_covariates="${path_cohorts_models}/table_white_bipolar_disorder_case_body_mass_index.tsv"
+#path_report="${path_gwas}/white_bipolar_disorder_case_unadjust_body_mass_index"
+
+# second priority... started at ___ on 2 July 2021
+path_table_phenotypes_covariates="${path_cohorts_models}/table_white_bipolar_disorder_control_body_mass_index.tsv"
+path_report="${path_gwas}/white_bipolar_disorder_control_unadjust_body_mass_index"
+
 phenotypes="body_mass_index"
 covariates="genotype_pc_1,genotype_pc_2,genotype_pc_3,genotype_pc_4,genotype_pc_5,genotype_pc_6,genotype_pc_7,genotype_pc_8,genotype_pc_9,genotype_pc_10"
 

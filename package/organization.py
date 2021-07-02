@@ -43,7 +43,7 @@ import uk_biobank.organization as ukb_organization
 ##########
 # Initialization
 
-
+# TODO: temporarily routed to "organization_test" to avoid disruption to genetic analyses in progress
 def initialize_directories(
     restore=None,
     path_dock=None,
@@ -67,9 +67,12 @@ def initialize_directories(
     paths = dict()
     # Define paths to directories.
     paths["dock"] = path_dock
-    paths["organization"] = os.path.join(path_dock, "organization")
+    paths["organization"] = os.path.join(paths["dock"], "organization_test")
+    paths["export"] = os.path.join(
+        paths["organization"], "export"
+    )
     paths["cohorts_models"] = os.path.join(
-        path_dock, "organization", "cohorts_models"
+        paths["organization"], "cohorts_models"
     )
     # Remove previous files to avoid version or batch confusion.
     if restore:
@@ -77,6 +80,9 @@ def initialize_directories(
     # Initialize directories.
     utility.create_directories(
         path=paths["organization"]
+    )
+    utility.create_directories(
+        path=paths["export"]
     )
     utility.create_directories(
         path=paths["cohorts_models"]
@@ -280,6 +286,65 @@ def select_organize_metabolites_valid_identities_scores(
 # Write
 
 
+def write_product_export_table(
+    name=None,
+    information=None,
+    path_parent=None,
+):
+    """
+    Writes product information to file.
+
+    arguments:
+        name (str): base name for file
+        information (object): information to write to file
+        path_parent (str): path to parent directory
+
+    raises:
+
+    returns:
+
+    """
+
+    # Specify directories and files.
+    path_table = os.path.join(
+        path_parent, str(name + ".tsv")
+    )
+    # Write information to file.
+    information.to_csv(
+        path_or_buf=path_table,
+        sep="\t",
+        header=True,
+        index=True,
+    )
+    pass
+
+
+def write_product_export(
+    information=None,
+    path_parent=None,
+):
+    """
+    Writes product information to file.
+
+    arguments:
+        information (object): information to write to file
+        path_parent (str): path to parent directory
+
+    raises:
+
+    returns:
+
+    """
+
+    for name in information.keys():
+        write_product_export_table(
+            name=name,
+            information=information[name],
+            path_parent=path_parent,
+        )
+    pass
+
+
 def write_product_cohort_model_table(
     name=None,
     information=None,
@@ -357,6 +422,11 @@ def write_product(
 
     """
 
+    # Export information.
+    write_product_export(
+        information=information["export"],
+        path_parent=paths["export"],
+    )
     # Cohort tables in PLINK format.
     if True:
         write_product_cohorts_models(
@@ -476,9 +546,20 @@ def execute_procedure(
     )
     #print(pail_psychology["table_clean"].columns.to_list())
 
+    # Describe variables within cohorts and models.
+    if True:
+        pail_summary = (
+            ukb_organization.execute_describe_cohorts_models_phenotypes(
+                table=pail_psychology["table"],
+                set="bipolar_disorder_body",
+                path_dock=path_dock,
+                report=True,
+        ))
+
+
     # Select and organize variables across cohorts.
     # Organize phenotypes and covariates in format for analysis in PLINK.
-    if True:
+    if False:
         pail_cohorts_models = (
             ukb_organization.execute_cohorts_models_genetic_analysis(
                 table=pail_psychology["table_clean"],
@@ -492,6 +573,12 @@ def execute_procedure(
 
     # Collect information.
     information = dict()
+    information["export"]["table_summary_cohorts_models_phenotypes"] = (
+        pail_summary["table_summary_cohorts_models_phenotypes"]
+    )
+    information["export"]["table_summary_cohorts_models_genotypes"] = (
+        pail_summary["table_summary_cohorts_models_genotypes"]
+    )
     information["cohorts_models"] = pail_cohorts_models
     # Write product information to file.
     write_product(
