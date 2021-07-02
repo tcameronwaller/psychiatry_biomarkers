@@ -56,8 +56,8 @@ cohorts_models+=("white_bipolar_disorder_control_unadjust;table_white_bipolar_di
 
 # Define array of hormones.
 phenotypes=()
-phenotypes+=("body_mass_index") # <- start on 1 July 2021
-#phenotypes+=("body_mass_index_log")
+phenotypes+=("body_mass_index") # <- start first on 1 July 2021
+#phenotypes+=("body_mass_index_log") # <- start second on 1 July 2021 ... not yet...
 
 # Assemble array of batch instance details.
 path_batch_instances="${path_gwas}/batch_instances.txt"
