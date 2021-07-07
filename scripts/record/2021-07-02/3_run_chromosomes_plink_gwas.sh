@@ -43,6 +43,9 @@ do
   # - PLINK2 gave an error about designation of a newly-required argument
   # - I think it related to specification of the reference allele...
 
+  # consider using "--keep-allele-order"
+  # consider using "--omit-ref"
+
   if true; then
     # Call PLINK2.
     # 90,000 Mebibytes (MiB) is 94.372 Gigabytes (GB)

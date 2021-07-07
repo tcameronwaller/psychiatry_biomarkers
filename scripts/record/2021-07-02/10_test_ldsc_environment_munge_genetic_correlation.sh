@@ -93,12 +93,26 @@ head gwas_bmi_format.txt
 
 # BMI GWAS in Bipolar Disorder Controls in U.K. Biobank.
 echo "SNP A1 A2 N BETA P" > gwas_ukb_bipolar_control_bmi_format.txt
-zcat $path_gwas_ukb_bipolar_control_bmi | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $3, toupper($6), toupper($4), $8, $9, $12}' >> gwas_ukb_bipolar_control_bmi_format.txt
+zcat $path_gwas_ukb_bipolar_control_bmi | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {
+  if ($6 == $5 && $6 != $4)
+    print $3, toupper($6), toupper($4), $8, $9, $12
+  else if ($6 == $4 && $6 != $5)
+    print $3, toupper($6), toupper($5), $8, $9, $12
+  else
+    print $3, toupper($6), "ERROR", $8, $9, $12
+  }' >> gwas_ukb_bipolar_control_bmi_format.txt
 head gwas_ukb_bipolar_control_bmi_format.txt
 
 # BMI GWAS in Bipolar Disorder Cases in U.K. Biobank.
 echo "SNP A1 A2 N BETA P" > gwas_ukb_bipolar_case_bmi_format.txt
-zcat $path_gwas_ukb_bipolar_case_bmi | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $3, toupper($6), toupper($4), $8, $9, $12}' >> gwas_ukb_bipolar_case_bmi_format.txt
+zcat $path_gwas_ukb_bipolar_case_bmi | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {
+  if ($6 == $5 && $6 != $4)
+    print $3, toupper($6), toupper($4), $8, $9, $12
+  else if ($6 == $4 && $6 != $5)
+    print $3, toupper($6), toupper($5), $8, $9, $12
+  else
+    print $3, toupper($6), "ERROR", $8, $9, $12
+  }' >> gwas_ukb_bipolar_case_bmi_format.txt
 head gwas_ukb_bipolar_case_bmi_format.txt
 
 # A few SNPs do not have rsIDs and instead use chromosome and position.
