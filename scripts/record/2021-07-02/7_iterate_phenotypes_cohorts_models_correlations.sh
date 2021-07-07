@@ -9,6 +9,18 @@
 ###########################################################################
 
 ################################################################################
+# Activate Virtual Environment.
+
+# Read private, local file paths.
+#echo "read private file path variables and organize paths..."
+cd ~/paths
+path_tools=$(<"./waller_tools.txt")
+path_environment_ldsc="${path_tools}/python/environments/ldsc"
+source "${path_environment_ldsc}/bin/activate"
+which python2
+sleep 5s
+
+################################################################################
 # Organize paths.
 # Read private, local file paths.
 cd ~/paths
@@ -21,7 +33,7 @@ path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-07
 path_dock="$path_process/dock"
 path_genetic_reference="${path_dock}/access/genetic_reference"
 path_gwas="${path_dock}/gwas"
-path_gwas_cohorts_models="${path_gwas}/cohorts_models_maf_0_pfilter" # selection
+path_gwas_cohorts_models="${path_gwas}/cohorts_models" # selection
 path_genetic_correlation="${path_dock}/genetic_correlation"
 
 ###########################################################################
@@ -104,3 +116,9 @@ if false; then
     --out $path_genetic_correlation_report
   done
 fi
+
+################################################################################
+# Deactivate Virtual Environment.
+
+deactivate
+which python2
