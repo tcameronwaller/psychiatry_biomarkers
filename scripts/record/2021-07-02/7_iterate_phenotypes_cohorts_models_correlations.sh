@@ -17,6 +17,7 @@ cd ~/paths
 path_tools=$(<"./waller_tools.txt")
 path_environment_ldsc="${path_tools}/python/environments/ldsc"
 source "${path_environment_ldsc}/bin/activate"
+echo "confirm Python Virtual Environment path..."
 which python2
 sleep 5s
 
@@ -41,7 +42,7 @@ path_genetic_correlation="${path_dock}/genetic_correlation"
 
 file_gwas_cohorts_models_munge_suffix="gwas_munge.sumstats.gz"
 
-if true; then
+if false; then
 
   # Define main phenotype studies.
   phenotype_studies=()
@@ -73,7 +74,7 @@ if true; then
 fi
 
 # Define specific pairs for genetic correlation.
-if false; then
+if true; then
 
   # Organize paths.
   path_alleles="$path_genetic_reference/alleles"
@@ -88,9 +89,9 @@ if false; then
   pairs+=("white_bipolar_disorder_control_simple_body_mass_index;white_bipolar_disorder_case_simple_body_mass_index")
   pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index;white_bipolar_disorder_case_unadjust_body_mass_index")
   # With log transformation of Body Mass Index phenotype.
-  #pairs+=("white_bipolar_disorder_control_body_mass_index_log;white_bipolar_disorder_case_body_mass_index_log")
-  #pairs+=("white_bipolar_disorder_control_simple_body_mass_index_log;white_bipolar_disorder_case_simple_body_mass_index_log")
-  #pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index_log;white_bipolar_disorder_case_unadjust_body_mass_index_log")
+  pairs+=("white_bipolar_disorder_control_body_mass_index_log;white_bipolar_disorder_case_body_mass_index_log")
+  pairs+=("white_bipolar_disorder_control_simple_body_mass_index_log;white_bipolar_disorder_case_simple_body_mass_index_log")
+  pairs+=("white_bipolar_disorder_control_unadjust_body_mass_index_log;white_bipolar_disorder_case_unadjust_body_mass_index_log")
 
   for pair in "${pairs[@]}"; do
     # Read information.
@@ -120,5 +121,6 @@ fi
 ################################################################################
 # Deactivate Virtual Environment.
 
+echo "confirm deactivation of Python Virtual Environment..."
 deactivate
 which python2
