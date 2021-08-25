@@ -11,7 +11,7 @@ path_dock="${path_process}/dock"
 path_genetic_reference="${path_dock}/access/genetic_reference"
 
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_promiscuity_scripts_ldsc="${path_promiscuity_scripts}/ldsc_genetic_heritability_correlation"
+path_promiscuity_scripts_ldsc="${path_promiscuity_scripts}/gwas_process/ldsc_genetic_heritability_correlation"
 
 ###########################################################################
 # Execute procedure.
