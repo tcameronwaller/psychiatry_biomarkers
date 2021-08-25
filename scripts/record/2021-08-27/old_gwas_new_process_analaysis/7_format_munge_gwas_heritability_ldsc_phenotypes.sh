@@ -79,13 +79,15 @@ for study_details in "${studies[@]}"; do
   cp ${path_gwas_source_file} ${path_gwas_concatenation_compress}
 
   # Scripts.
+  path_script_drive_gwas_format="${path_promiscuity_scripts}/gwas_process/drive_gwas_format.sh"
   path_script_gwas_format="${path_promiscuity_scripts}/gwas_process/format_gwas_ldsc/format_gwas_ldsc_${study}.sh"
+  path_script_drive_ldsc_munge_heritability="${path_promiscuity_scripts}/gwas_process/drive_ldsc_gwas_munge_heritability.sh"
 
   ##########
   # Format adjustment.
   # Parameters.
   report="true" # "true" or "false"
-  /usr/bin/bash "${path_scripts_gwas_process}/drive_gwas_format.sh" \
+  /usr/bin/bash "${path_script_drive_gwas_format}" \
   $path_gwas_concatenation_compress \
   $path_gwas_target_parent \
   $path_promiscuity_scripts \
@@ -98,7 +100,7 @@ for study_details in "${studies[@]}"; do
   path_gwas_source_parent=$path_gwas_target_parent
   effect="beta"
   report="true" # "true" or "false"
-  /usr/bin/bash "${path_scripts_gwas_process}/drive_ldsc_gwas_munge_heritability.sh" \
+  /usr/bin/bash "${path_script_drive_ldsc_munge_heritability}" \
   $path_gwas_source_parent \
   $path_gwas_target_parent \
   $path_heritability_parent \
