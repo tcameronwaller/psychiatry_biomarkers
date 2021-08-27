@@ -20,7 +20,7 @@ path_gwas_target_container=${3} # full path to parent directories of GWAS summar
 # Read private, local file paths.
 cd ~/paths
 
-path_process=$(<"./process_sexy_alcohol.txt")
+path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
 
 # General paths.
@@ -64,10 +64,12 @@ path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
 path_script_drive_ldsc_gwas_munge_heritability="${path_scripts_gwas_process}/drive_ldsc_gwas_munge_heritability.sh"
 # Parameters.
+effect="beta"
 report="true" # "true" or "false"
-/usr/bin/bash "$path_script_drive_ldsc_gwas_munge_heritability" \
+/usr/bin/bash "${path_script_drive_ldsc_gwas_munge_heritability}" \
 $path_gwas_source_parent \
 $path_gwas_target_parent \
 $path_heritability_parent \
 $path_genetic_reference \
+$effect \
 $report

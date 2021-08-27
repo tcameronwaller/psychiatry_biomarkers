@@ -12,12 +12,12 @@
 # Organize paths.
 # Read private, local file paths.
 cd ~/paths
-path_process=$(<"./process_sexy_alcohol.txt")
+path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
-path_gwas_source_container="${path_dock}/gwas_complete/cohorts_models" # selection
+path_gwas_source_container="${path_dock}/gwas/cohorts_models" # selection
 path_gwas_target_container="${path_dock}/gwas_process/cohorts_models" # selection
 
-path_scripts_record="$path_process/sexy_alcohol/scripts/record/2021-07-21"
+path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-08-27/old_gwas_new_process_analysis"
 path_batch_instances="${path_gwas_target_container}/post_process_batch_instances.txt"
 
 ###########################################################################
@@ -35,7 +35,7 @@ unset IFS
 # Execute procedure.
 
 # Initialize batch instances.
-rm -r $path_gwas_target_container
+#rm -r $path_gwas_target_container
 mkdir -p $path_gwas_target_container
 rm $path_batch_instances
 
@@ -62,7 +62,7 @@ for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
       echo "Found chromosome-22 sum stats for: ${study}"
       echo $matches_chromosome
       echo "Found match file: ${match_chromosome_file}"
-      # Determine whether directory already contains a concatenation file.
+      # Determine whether target directory already contains a concatenation file.
       mkdir -p "${path_gwas_target_container}/${study}"
       matches_concatenation=$(find "${path_gwas_target_container}/${study}" -name "$pattern_gwas_concatenation_file")
       match_concatenation_file=${matches_concatenation[0]}
