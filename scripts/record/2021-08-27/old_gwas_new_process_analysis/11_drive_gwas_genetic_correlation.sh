@@ -51,6 +51,16 @@ for primary in "${primaries[@]}"; do
   done
 done
 
+# Append custom comparisons that do not follow the same pattern.
+# Without log transformation of Body Mass Index phenotype.
+comparisons+=("white_bipolar_disorder_control_body_mass_index;${path_gwas_source_container}/white_bipolar_disorder_control_body_mass_index/${name_gwas_munge_file};white_bipolar_disorder_case_body_mass_index;${path_gwas_source_container}/white_bipolar_disorder_case_body_mass_index/${name_gwas_munge_file}")
+comparisons+=("white_bipolar_disorder_control_simple_body_mass_index;${path_gwas_source_container}/white_bipolar_disorder_control_simple_body_mass_index/${name_gwas_munge_file};white_bipolar_disorder_case_simple_body_mass_index;${path_gwas_source_container}/white_bipolar_disorder_case_simple_body_mass_index/${name_gwas_munge_file}")
+comparisons+=("white_bipolar_disorder_control_unadjust_body_mass_index;${path_gwas_source_container}/white_bipolar_disorder_control_unadjust_body_mass_index/${name_gwas_munge_file};white_bipolar_disorder_case_unadjust_body_mass_index;${path_gwas_source_container}/white_bipolar_disorder_case_unadjust_body_mass_index/${name_gwas_munge_file}")
+# With log transformation of Body Mass Index phenotype.
+comparisons+=("white_bipolar_disorder_control_body_mass_index_log;${path_gwas_source_container}/white_bipolar_disorder_control_body_mass_index_log/${name_gwas_munge_file};white_bipolar_disorder_case_body_mass_index_log;${path_gwas_source_container}/white_bipolar_disorder_case_body_mass_index_log/${name_gwas_munge_file}")
+comparisons+=("white_bipolar_disorder_control_simple_body_mass_index_log;${path_gwas_source_container}/white_bipolar_disorder_control_simple_body_mass_index_log/${name_gwas_munge_file};white_bipolar_disorder_case_simple_body_mass_index_log;${path_gwas_source_container}/white_bipolar_disorder_case_simple_body_mass_index_log/${name_gwas_munge_file}")
+comparisons+=("white_bipolar_disorder_control_unadjust_body_mass_index_log;${path_gwas_source_container}/white_bipolar_disorder_control_unadjust_body_mass_index_log/${name_gwas_munge_file};white_bipolar_disorder_case_unadjust_body_mass_index_log;${path_gwas_source_container}/white_bipolar_disorder_case_unadjust_body_mass_index_log/${name_gwas_munge_file}")
+
 ################################################################################
 # Define custom comparisons.
 
@@ -85,7 +95,7 @@ for comparison in "${comparisons[@]}"; do
     #study_secondary=""
     #path_gwas_primary_munge_suffix=""
     #path_gwas_secondary_munge_suffix=""
-    path_genetic_correlation_parent="${path_dock}/genetic_correlation/${study_primary}/cohorts_models/${study_secondary}"
+    path_genetic_correlation_parent="${path_dock}/genetic_correlation/${study_primary}/${study_secondary}"
     rm -r $path_genetic_correlation_parent
     mkdir -p $path_genetic_correlation_parent
     # Scripts.
