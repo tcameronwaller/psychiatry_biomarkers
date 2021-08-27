@@ -12,7 +12,7 @@
 # Organize paths.
 # Read private, local file paths.
 cd ~/paths
-path_process=$(<"./process_sexy_alcohol.txt")
+path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
 
 ###########################################################################
@@ -20,7 +20,7 @@ path_dock="$path_process/dock"
 
 # Define array of primary studies.
 primaries=()
-primaries+=("30482948_walters_2018_eur_unrel;${path_dock}/gwas/30482948_walters_2018_eur_unrel/gwas_munge.sumstats.gz")
+primaries+=("30124842_yengo_2018;${path_dock}/gwas_process/30124842_yengo_2018/gwas_munge.sumstats.gz")
 
 # Define array of secondary studies.
 secondaries=()
