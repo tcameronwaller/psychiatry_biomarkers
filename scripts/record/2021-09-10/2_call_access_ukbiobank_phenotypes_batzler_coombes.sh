@@ -50,4 +50,4 @@ echo "22009 22006 31 22001 21022 21002 50 21001 23104 30890" | tr -s " " "\n" > 
 -n "waller_import" \
 -f $path_variables \
 -o $path_import \
--d "defineUKB_variables.R" \
+-d "defineUKB_variables.R"
