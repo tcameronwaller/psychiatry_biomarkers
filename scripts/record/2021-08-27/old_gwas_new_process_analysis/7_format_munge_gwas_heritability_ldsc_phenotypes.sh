@@ -48,6 +48,7 @@ studies+=("30124842_yengo_2018;${path_gwas_summaries}/30124842_yengo_2018/Meta-a
 #studies+=("30239722_pulit_2018;${path_gwas_summaries}/30239722_pulit_2018/whradjbmi.giant-ukbb.meta-analysis.combined.23May2018.txt.gz")
 #studies+=("30482948_walters_2018_all;${path_gwas_summaries}/30482948_walters_2018/pgc_alcdep.discovery.aug2018_release.txt.gz")
 #studies+=("30482948_walters_2018_eur;${path_gwas_summaries}/30482948_walters_2018/pgc_alcdep.eur_discovery.aug2018_release.txt.gz")
+
 #studies+=("30482948_walters_2018_eur_unrel;${path_gwas_summaries}/30482948_walters_2018/pgc_alcdep.eur_unrelated.aug2018_release.txt.gz")
 #studies+=("30718901_howard_2019;${path_gwas_summaries}/30718901_howard_2019/PGC_UKB_depression_genome-wide.txt.gz")
 #studies+=("29906448_ruderfer_2018_scz_vs_ctl;${path_gwas_summaries}/29906448_ruderfer_2018/sczvscont-sumstat.gz")
