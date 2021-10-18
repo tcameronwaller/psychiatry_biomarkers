@@ -3,18 +3,26 @@
 #chmod u+x script.sh
 #chmod -R 777
 
+################################################################################
+# Activate Python Virtual Environment.
+# Read private, local file paths.
+#echo "read private file path variables and organize paths..."
+cd ~/paths
+path_tools=$(<"./waller_tools.txt")
+path_environment_main="${path_tools}/python/environments/main"
+source "${path_environment_main}/bin/activate"
+echo "----------"
+echo "confirm activation of Python Virtual Environment..."
+which python3
+sleep 5s
+
+################################################################################
 # Read private, local file paths.
 echo "read private file path variables and organize paths..."
 cd ~/paths
-path_python_library=$(<"./tools_python_library.txt")
 path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
-path_psychiatric_metabolism="$path_process/psychiatric_metabolism"
-path_package="$path_psychiatric_metabolism/psychiatric_metabolism"
-
-# Organize paths to custom package installations.
-PYTHONPATH=$path_python_library:$PYTHONPATH
-export PYTHONPATH
+path_package="${path_process}/psychiatric_metabolism/psychiatric_metabolism"
 
 # Echo each command to console.
 set -x
