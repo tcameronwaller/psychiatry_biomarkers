@@ -36,7 +36,8 @@ import statsmodels.multivariate.pca
 # Custom
 import promiscuity.utility as utility
 #import promiscuity.plot as plot
-import uk_biobank.assembly
+#import uk_biobank.assembly
+import uk_biobank.importation
 #import uk_biobank.organization
 
 ###############################################################################
