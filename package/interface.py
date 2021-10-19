@@ -18,6 +18,7 @@ import textwrap
 
 import genetic_correlation
 import assembly
+import importation
 import aggregation
 import organization
 import association
@@ -165,6 +166,13 @@ def define_main_subparser(subparsers=None):
         )
     )
     parser_main.add_argument(
+        "-importation", "--importation", dest="importation",
+        action="store_true",
+        help=(
+            "Assemble phenotype information from UK Biobank."
+        )
+    )
+    parser_main.add_argument(
         "-organization", "--organization", dest="organization",
         action="store_true",
         help=(
@@ -275,6 +283,13 @@ def evaluate_main_parameters(arguments):
         print("... executing assembly procedure ...")
         # Execute procedure.
         assembly.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.importation:
+        # Report status.
+        print("... executing importation procedure ...")
+        # Execute procedure.
+        importation.execute_procedure(
             path_dock=arguments.path_dock
         )
     if arguments.organization:
