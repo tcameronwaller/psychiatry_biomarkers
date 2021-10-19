@@ -44,6 +44,6 @@ fi
 # Collect and aggregate genetic scores for metabolites across the UK Biobank.
 #python3 $path_package/interface.py main --path_dock $path_dock --aggregation
 
-python3 $path_package/interface.py main --path_dock $path_dock --assembly
-#python3 $path_package/interface.py main --path_dock $path_dock --merge_import
+#python3 $path_package/interface.py main --path_dock $path_dock --assembly
+python3 $path_package/interface.py main --path_dock $path_dock --merge_import
 #python3 $path_package/interface.py main --path_dock $path_dock --organization

@@ -72,7 +72,7 @@ def execute_procedure(
     # Execute assembly procedure from uk_biobank package.
     uk_biobank.merge_import.execute_procedure(path_dock=path_dock)
     utility.print_terminal_partition(level=1)
-    print("From package 'uk_biobank', procedure 'assembly' is complete.")
+    print("From package 'uk_biobank', procedure 'merge_import' is complete.")
 
     pass
 
