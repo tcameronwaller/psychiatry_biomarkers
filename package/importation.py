@@ -37,7 +37,7 @@ import statsmodels.multivariate.pca
 import promiscuity.utility as utility
 #import promiscuity.plot as plot
 #import uk_biobank.assembly
-import uk_biobank.importation
+import uk_biobank.importation as ukb_importation
 #import uk_biobank.organization
 
 ###############################################################################
@@ -71,7 +71,7 @@ def execute_procedure(
     time.sleep(5.0)
 
     # Execute assembly procedure from uk_biobank package.
-    uk_biobank.importation.execute_procedure(path_dock=path_dock)
+    ukb_importation.execute_procedure(path_dock=path_dock)
     utility.print_terminal_partition(level=1)
     print("From package 'uk_biobank', procedure 'importation' is complete.")
 
