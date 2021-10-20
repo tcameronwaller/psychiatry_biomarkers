@@ -45,5 +45,5 @@ fi
 #python3 $path_package/interface.py main --path_dock $path_dock --aggregation
 
 #python3 $path_package/interface.py main --path_dock $path_dock --assembly
-python3 $path_package/interface.py main --path_dock $path_dock --importation
-#python3 $path_package/interface.py main --path_dock $path_dock --organization
+#python3 $path_package/interface.py main --path_dock $path_dock --importation
+python3 $path_package/interface.py main --path_dock $path_dock --organization
