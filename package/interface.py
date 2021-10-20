@@ -21,7 +21,7 @@ import assembly
 import importation
 import aggregation
 import organization
-import association
+import stratification
 #import plot
 #import utility
 
@@ -180,10 +180,12 @@ def define_main_subparser(subparsers=None):
         )
     )
     parser_main.add_argument(
-        "-association", "--association", dest="association",
+        "-stratification", "--stratification",
+        dest="stratification",
         action="store_true",
         help=(
-            "Regress associations between metabolites and phenotypes."
+            "Stratification of cohorts and formatting tables of phenotypes " +
+            "and covariates for genetic analyses (especially GWAS in PLINK2)."
         )
     )
     # Define behavior.
@@ -299,11 +301,11 @@ def evaluate_main_parameters(arguments):
         organization.execute_procedure(
             path_dock=arguments.path_dock
         )
-    if arguments.association:
+    if arguments.stratification:
         # Report status.
-        print("... executing association procedure ...")
+        print("... executing stratification procedure ...")
         # Execute procedure.
-        association.execute_procedure(
+        stratification.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass
