@@ -273,23 +273,16 @@ def execute_procedure(
     # Organize phenotypes and covariates in format for analysis in PLINK.
     # else: pail_cohorts_models = dict()
     pail_cohorts_models_linear = (
-        ukb_strat.execute_stratify_linear_genotype_analysis_set_sex_hormone(
+        ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
             table=source["table_phenotypes"],
-            set="sex_hormones",
-            path_dock=path_dock,
-            report=True,
-    ))
-    pail_cohorts_models_logistic = (
-        ukb_strat.execute_stratify_logistic_genotype_analysis_set_sex_hormone(
-            table=source["table_phenotypes"],
-            set="sex_hormones",
+            set="bipolar_body_linear",
             path_dock=path_dock,
             report=True,
     ))
     # Collect information.
     information = dict()
     information["cohorts_models_linear"] = pail_cohorts_models_linear
-    information["cohorts_models_logistic"] = pail_cohorts_models_logistic
+    information["cohorts_models_logistic"] = dict()
     # Write product information to file.
     write_product(
         paths=paths,
