@@ -28,6 +28,10 @@ path_ukb_genotype=$(<"./ukbiobank_genotype.txt")
 # TODO: I DO NOT know which accession, version, or file to use for UK Biobank
 # TODO: genotypes for Chromosome X
 
+# On 25 October 2021, Gregory Jenkins told me:
+# "I believe you are right on 'ukb22828_cX_b0_v3_s486620.sample' and 'ukb22828_cX_b0_v3.bgen'"
+# "They were missing chrom X and I asked them to download that in March/April of this year I think?  So that's why it looks different."
+
 # Iterate on chromosomes.
 chromosomes=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22)
 for chromosome in "${chromosomes[@]}"; do

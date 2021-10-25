@@ -27,7 +27,7 @@ path_dock="$path_process/dock"
 path_cohorts_models="${path_dock}/stratification_2021-10-21/cohorts_models_linear"
 
 #path_gwas="${path_dock}/gwas/body_white_bipolar_strict"          # 12 GWAS; TCW started at 13:41 on 22 October 2021
-path_gwas="${path_dock}/gwas/body_white_bipolar_loose"          # __ GWAS; TCW started at ___ on ____ 2021
+path_gwas="${path_dock}/gwas/body_white_bipolar_loose"          # 12 GWAS; TCW started at 08:39 on 25 October 2021
 
 # Initialize directories.
 #rm -r $path_gwas
