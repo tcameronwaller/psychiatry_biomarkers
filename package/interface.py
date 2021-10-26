@@ -22,6 +22,7 @@ import importation
 import aggregation
 import organization
 import stratification
+import collection
 #import plot
 #import utility
 
@@ -188,6 +189,14 @@ def define_main_subparser(subparsers=None):
             "and covariates for genetic analyses (especially GWAS in PLINK2)."
         )
     )
+    parser_main.add_argument(
+        "-collection", "--collection",
+        dest="collection",
+        action="store_true",
+        help=(
+            "Collection and summary of reports from genotypic analyses."
+        )
+    )
     # Define behavior.
     parser_main.set_defaults(func=evaluate_main_parameters)
     # Return parser.
@@ -306,6 +315,13 @@ def evaluate_main_parameters(arguments):
         print("... executing stratification procedure ...")
         # Execute procedure.
         stratification.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.collection:
+        # Report status.
+        print("... executing collection procedure ...")
+        # Execute procedure.
+        collection.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass
