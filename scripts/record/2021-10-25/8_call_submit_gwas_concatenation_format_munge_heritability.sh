@@ -12,7 +12,7 @@
 # General parameters.
 
 #cohorts_models="body_white_bipolar_strict"          # 12 GWAS; TCW started at 13:57 on 25 October 2021
-cohorts_models="body_white_bipolar_loose"          # 12 GWAS; TCW started at ___ on 25 October 2021
+cohorts_models="body_white_bipolar_loose"          # 12 GWAS; TCW started at 08:06 on 26 October 2021
 
 pattern_gwas_report_file="report.*.glm.linear" # do not expand with full path yet
 response="coefficient" # "coefficient" unless "response_standard_scale" is "yes", in which case "z_score"
