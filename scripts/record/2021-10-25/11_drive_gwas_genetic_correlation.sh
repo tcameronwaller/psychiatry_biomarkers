@@ -65,6 +65,7 @@ done
 # Strict definition of Bipolar Disorder
 if true; then
   # Body Mass Index without logarithmic transformation.
+  pairs=()
   pairs+=("white_bipolar_strict_control_unadjust_body;white_bipolar_strict_case_unadjust_body")
   pairs+=("white_bipolar_strict_control_sex_body;white_bipolar_strict_case_sex_body")
   pairs+=("white_bipolar_strict_control_sex_age_body;white_bipolar_strict_case_sex_age_body")
@@ -86,6 +87,7 @@ fi
 if true; then
   # Loose definition of Bipolar Disorder.
   # Body Mass Index without logarithmic transformation.
+  pairs=()
   pairs+=("white_bipolar_loose_control_unadjust_body;white_bipolar_loose_case_unadjust_body")
   pairs+=("white_bipolar_loose_control_sex_body;white_bipolar_loose_case_sex_body")
   pairs+=("white_bipolar_loose_control_sex_age_body;white_bipolar_loose_case_sex_age_body")
