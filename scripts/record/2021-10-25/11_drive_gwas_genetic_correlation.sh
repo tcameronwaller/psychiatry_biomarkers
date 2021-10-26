@@ -11,20 +11,8 @@
 ################################################################################
 # General parameters.
 
-#cohorts_models="cohorts_models_linear_measurement" # 8 September 2021
-#cohorts_models="cohorts_models_linear_measurement_unadjust"
-#cohorts_models="cohorts_models_linear_imputation"
-#cohorts_models="cohorts_models_linear_imputation_unadjust"
-
-cohorts_models="cohorts_models_linear_measurement_z" # <-- I think I ran this...
-#cohorts_models="cohorts_models_linear_measurement_unadjust_z"
-#cohorts_models="cohorts_models_linear_imputation_z" # 9 September 2021
-#cohorts_models="cohorts_models_linear_imputation_unadjust_z"
-
-#cohorts_models="cohorts_models_linear_order"
-#cohorts_models="cohorts_models_linear_order_unadjust"
-#cohorts_models="cohorts_models_logistic_detection"
-#cohorts_models="cohorts_models_logistic_detection_unadjust"
+cohorts_models="body_white_bipolar_strict"
+#cohorts_models="body_white_bipolar_loose"
 
 name_gwas_munge_file="gwas_munge.sumstats.gz"
 
@@ -42,12 +30,8 @@ path_gwas_source_container="${path_dock}/gwas_process/${cohorts_models}"
 
 # Define array of primary studies.
 primaries=()
-#primaries+=("30482948_walters_2018_eur_unrel;${path_dock}/gwas_process/30482948_walters_2018_eur_unrel/${name_gwas_munge_file}")
-###primaries+=("30482948_walters_2018_female;${path_dock}/gwas_process/30482948_walters_2018_female/${name_gwas_munge_file}") # heritability < 0
-#primaries+=("30482948_walters_2018_male;${path_dock}/gwas_process/30482948_walters_2018_male/${name_gwas_munge_file}")
-#primaries+=("34002096_mullins_2021_all;${path_dock}/gwas_process/34002096_mullins_2021_all/${name_gwas_munge_file}")
-#primaries+=("34002096_mullins_2021_bpd1;${path_dock}/gwas_process/34002096_mullins_2021_bpd1/${name_gwas_munge_file}")
-primaries+=("34002096_mullins_2021_bpd2;${path_dock}/gwas_process/34002096_mullins_2021_bpd2/${name_gwas_munge_file}")
+
+primaries+=("30124842_yengo_2018;${path_dock}/gwas_process/30124842_yengo_2018/${name_gwas_munge_file}")
 
 # Define array of secondary studies.
 secondaries=()
