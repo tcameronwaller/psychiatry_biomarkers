@@ -16,12 +16,15 @@ import textwrap
 
 # Custom.
 
-import genetic_correlation
+#import genetic_correlation
+#import aggregation
+
+
 import assembly
 import importation
-import aggregation
 import organization
 import stratification
+import regression
 import collection
 #import plot
 #import utility
@@ -190,6 +193,14 @@ def define_main_subparser(subparsers=None):
         )
     )
     parser_main.add_argument(
+        "-regression", "--regression",
+        dest="regression",
+        action="store_true",
+        help=(
+            "Regression analyses of phenotypes within cohorts."
+        )
+    )
+    parser_main.add_argument(
         "-collection", "--collection",
         dest="collection",
         action="store_true",
@@ -289,6 +300,7 @@ def evaluate_main_parameters(arguments):
         aggregation.execute_procedure(
             path_dock=arguments.path_dock
         )
+
     if arguments.assembly:
         # Report status.
         print("... executing assembly procedure ...")
@@ -315,6 +327,13 @@ def evaluate_main_parameters(arguments):
         print("... executing stratification procedure ...")
         # Execute procedure.
         stratification.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.regression:
+        # Report status.
+        print("... executing regression procedure ...")
+        # Execute procedure.
+        regression.execute_procedure(
             path_dock=arguments.path_dock
         )
     if arguments.collection:
