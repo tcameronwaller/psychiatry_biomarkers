@@ -141,7 +141,6 @@ def read_source(
 # Write
 
 
-
 def write_product_cohort_model_table(
     name=None,
     information=None,
@@ -279,10 +278,17 @@ def execute_procedure(
             path_dock=path_dock,
             report=True,
     ))
+    pail_cohorts_models_logistic = (
+        ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
+            table=source["table_phenotypes"],
+            set="bipolar_body_logistic",
+            path_dock=path_dock,
+            report=True,
+    ))
     # Collect information.
     information = dict()
     information["cohorts_models_linear"] = pail_cohorts_models_linear
-    information["cohorts_models_logistic"] = dict()
+    information["cohorts_models_logistic"] = pail_cohorts_models_logistic
     # Write product information to file.
     write_product(
         paths=paths,
