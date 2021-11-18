@@ -191,6 +191,21 @@ def execute_procedure(
 
     print(source["table_phenotypes"])
 
+    table_cases = source["table_phenotypes"].loc[
+        (
+            (source["table_phenotypes"]["bipolar_control_case_strict"] == 1)
+        ), :
+    ]
+    print("CASES!!!")
+    print(table_cases.shape[0])
+    table_controls = source["table_phenotypes"].loc[
+        (
+            (source["table_phenotypes"]["bipolar_control_case_strict"] == 0)
+        ), :
+    ]
+    print("CONTROLS!!!")
+    print(table_controls.shape[0])
+
     pass
 
 
