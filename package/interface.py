@@ -26,6 +26,7 @@ import organization
 import stratification
 import regression
 import collection
+import scratch
 #import plot
 #import utility
 
@@ -208,6 +209,14 @@ def define_main_subparser(subparsers=None):
             "Collection and summary of reports from genotypic analyses."
         )
     )
+    parser_main.add_argument(
+        "-scratch", "--scratch",
+        dest="scratch",
+        action="store_true",
+        help=(
+            "Scratch analyses."
+        )
+    )
     # Define behavior.
     parser_main.set_defaults(func=evaluate_main_parameters)
     # Return parser.
@@ -341,6 +350,13 @@ def evaluate_main_parameters(arguments):
         print("... executing collection procedure ...")
         # Execute procedure.
         collection.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.scratch:
+        # Report status.
+        print("... executing scratch procedure ...")
+        # Execute procedure.
+        scratch.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass
