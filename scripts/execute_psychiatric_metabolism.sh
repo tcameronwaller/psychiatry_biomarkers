@@ -56,3 +56,10 @@ fi
 #python3 $path_package/interface.py main --path_dock $path_dock --collection
 
 python3 $path_package/interface.py main --path_dock $path_dock --scratch
+
+################################################################################
+# Deactivate Python Virtual Environment.
+deactivate
+echo "----------"
+echo "confirm deactivation of Python Virtual Environment..."
+which python3
