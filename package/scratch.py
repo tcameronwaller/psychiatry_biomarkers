@@ -110,6 +110,26 @@ def read_source(
 
     """
 
+    # Scrap...
+
+    #####################
+    table_cases = source["table_phenotypes"].loc[
+        (
+            (source["table_phenotypes"]["bipolar_control_case_strict"] == 1)
+        ), :
+    ]
+    print("CASES!!!")
+    print(table_cases.shape[0])
+    table_controls = source["table_phenotypes"].loc[
+        (
+            (source["table_phenotypes"]["bipolar_control_case_strict"] == 0)
+        ), :
+    ]
+    print("CONTROLS!!!")
+    print(table_controls.shape[0])
+    #######################3
+
+
     # Specify directories and files.
     path_table = os.path.join(
         path_dock, "stratification", "cohorts_models_logistic",
@@ -182,29 +202,47 @@ def execute_procedure(
         restore=True,
         path_dock=path_dock,
     )
-    # Read source information from file.
-    # Exclusion identifiers are "eid".
-    source = read_source(
-        path_dock=path_dock,
-        report=False,
+
+    path_table_kinship_pairs = os.path.join(
+        path_dock, "access", "ukbiobank_phenotypes",
+        "table_kinship_pairs.dat"
+    )
+    table_kinship_pairs = pandas.read_csv(
+        path_table_kinship_pairs,
+        sep="\s+",
+        header=0,
+        dtype={
+            "ID1": "string",
+            "ID2": "string",
+            "HetHet": "float32",
+            "IBS0": "float32",
+            "Kinship": "float32",
+        },
+    )
+    path_table_kinship_pairs = os.path.join(
+        path_dock, "assembly", "table_kinship_pairs.pickle"
+    )
+    path_table_kinship_pairs_text = os.path.join(
+        path_dock, "assembly", "table_kinship_pairs.tsv"
+    )
+    table_kinship_pairs.to_pickle(
+        path_table_kinship_pairs
+    )
+    table_kinship_pairs.to_csv(
+        path_or_buf=path_table_kinship_pairs_text,
+        sep="\t",
+        header=True,
+        index=False,
     )
 
-    print(source["table_phenotypes"])
+    # Read source information from file.
+    # Read source information from file.
+    table_kinship_pairs = ukb_strat.read_source_table_kinship_pairs(
+        path_dock=path_dock,
+        report=True,
+    )
+    print(table_kinship_pairs)
 
-    table_cases = source["table_phenotypes"].loc[
-        (
-            (source["table_phenotypes"]["bipolar_control_case_strict"] == 1)
-        ), :
-    ]
-    print("CASES!!!")
-    print(table_cases.shape[0])
-    table_controls = source["table_phenotypes"].loc[
-        (
-            (source["table_phenotypes"]["bipolar_control_case_strict"] == 0)
-        ), :
-    ]
-    print("CONTROLS!!!")
-    print(table_controls.shape[0])
 
     pass
 
