@@ -234,6 +234,10 @@ def write_product(
 # Procedure
 
 
+# TODO: TCW 21 November 2021
+# TODO: set up new cohort for Bipolar Disorder Cases-Controls with BMI and with
+# TODO: or without priority for Cases in the Kinship Filter.
+
 def execute_procedure(
     path_dock=None,
 ):
@@ -271,20 +275,48 @@ def execute_procedure(
     # Select and organize variables across cohorts.
     # Organize phenotypes and covariates in format for analysis in PLINK.
     # else: pail_cohorts_models = dict()
-    pail_cohorts_models_linear = (
-        ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
-            table=source["table_phenotypes"],
-            set="bipolar_body_linear",
-            path_dock=path_dock,
-            report=True,
-    ))
-    pail_cohorts_models_logistic = (
-        ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
-            table=source["table_phenotypes"],
-            set="bipolar_body_logistic",
-            path_dock=path_dock,
-            report=True,
-    ))
+    if False:
+        pail_cohorts_models_linear = (
+            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
+                table=source["table_phenotypes"],
+                set="bipolar_body_linear",
+                path_dock=path_dock,
+                report=True,
+        ))
+    else:
+        pail_cohorts_models_linear = dict()
+        pass
+    if True:
+        pail_cohorts_models_logistic = (
+            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
+                table=source["table_phenotypes"],
+                set="bipolar_body_logistic",
+                path_dock=path_dock,
+                report=True,
+        ))
+    else:
+        pail_cohorts_models_logistic = dict()
+        pass
+
+    #####################
+    table_cases_simple = pail_cohorts_models_logistic["table_white_bipolar_control_case_strict"].loc[
+        (
+            (pail_cohorts_models_logistic["table_white_bipolar_control_case_strict"]["bipolar_control_case_strict"] == 1)
+        ), :
+    ]
+    print("Bipolar Disorder Cases in the simple cohort!!!")
+    print(table_cases_simple.shape[0])
+    table_cases_priority = pail_cohorts_models_logistic["table_white_bipolar_control_case_strict_priority_case"].loc[
+        (
+            (pail_cohorts_models_logistic["table_white_bipolar_control_case_strict_priority_case"]["bipolar_control_case_strict"] == 1)
+        ), :
+    ]
+    print("Bipolar Disorder Cases in the Cases priority cohort!!!")
+    print(table_cases_priority.shape[0])
+    #######################3
+
+
+
     # Collect information.
     information = dict()
     information["cohorts_models_linear"] = pail_cohorts_models_linear
