@@ -298,24 +298,30 @@ def execute_procedure(
         pail_cohorts_models_logistic = dict()
         pass
 
+    # TODO: TCW 21 November 2021
+    # TODO: organize this reporting within a distinct function... maybe in the uk_biobank.stratification module
+    # TODO: that function can accept the sampe "priority_values" and "priority_variable" arguments
+    # TODO: for versatility
+
+    #"report_kinship_filter_priority_selection()"
+
     #####################
-    table_cases_simple = pail_cohorts_models_logistic["table_white_bipolar_control_case_strict"].loc[
+    print()
+    table_cases_simple = pail_cohorts_models_logistic["table_white_bipolar_control_case_loose"].loc[
         (
-            (pail_cohorts_models_logistic["table_white_bipolar_control_case_strict"]["bipolar_control_case_strict"] == 1)
+            (pail_cohorts_models_logistic["table_white_bipolar_control_case_loose"]["bipolar_control_case_loose"] == 1)
         ), :
     ]
     print("Bipolar Disorder Cases in the simple cohort!!!")
     print(table_cases_simple.shape[0])
-    table_cases_priority = pail_cohorts_models_logistic["table_white_bipolar_control_case_strict_priority_case"].loc[
+    table_cases_priority = pail_cohorts_models_logistic["table_white_bipolar_control_case_loose_priority_case"].loc[
         (
-            (pail_cohorts_models_logistic["table_white_bipolar_control_case_strict_priority_case"]["bipolar_control_case_strict"] == 1)
+            (pail_cohorts_models_logistic["table_white_bipolar_control_case_loose_priority_case"]["bipolar_control_case_loose"] == 1)
         ), :
     ]
     print("Bipolar Disorder Cases in the Cases priority cohort!!!")
     print(table_cases_priority.shape[0])
     #######################3
-
-
 
     # Collect information.
     information = dict()
