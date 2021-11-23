@@ -304,7 +304,7 @@ def execute_procedure(
         pail_logistic["table_white_bipolar_control_case_strict"]
     )
     table_priority = (
-        pail_logistic["table_white_bipolar_control_case_loose_priority_case"]
+        pail_logistic["table_white_bipolar_control_case_strict_priority_case"]
     )
     ukb_strat.report_kinship_filter_priority_selection(
         name="... Comparison of case priority for Strict Bipolar Disorder ...",
