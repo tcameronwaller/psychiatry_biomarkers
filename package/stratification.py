@@ -287,7 +287,7 @@ def execute_procedure(
         pail_cohorts_models_linear = dict()
         pass
     if True:
-        pail_cohorts_models_logistic = (
+        pail_logistic = (
             ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
                 table=source["table_phenotypes"],
                 set="bipolar_body_logistic",
@@ -295,38 +295,30 @@ def execute_procedure(
                 report=True,
         ))
     else:
-        pail_cohorts_models_logistic = dict()
+        pail_logistic = dict()
         pass
 
-    # TODO: TCW 21 November 2021
-    # TODO: organize this reporting within a distinct function... maybe in the uk_biobank.stratification module
-    # TODO: that function can accept the sampe "priority_values" and "priority_variable" arguments
-    # TODO: for versatility
-
-    #"report_kinship_filter_priority_selection()"
-
-    #####################
-    print()
-    table_cases_simple = pail_cohorts_models_logistic["table_white_bipolar_control_case_loose"].loc[
-        (
-            (pail_cohorts_models_logistic["table_white_bipolar_control_case_loose"]["bipolar_control_case_loose"] == 1)
-        ), :
-    ]
-    print("Bipolar Disorder Cases in the simple cohort!!!")
-    print(table_cases_simple.shape[0])
-    table_cases_priority = pail_cohorts_models_logistic["table_white_bipolar_control_case_loose_priority_case"].loc[
-        (
-            (pail_cohorts_models_logistic["table_white_bipolar_control_case_loose_priority_case"]["bipolar_control_case_loose"] == 1)
-        ), :
-    ]
-    print("Bipolar Disorder Cases in the Cases priority cohort!!!")
-    print(table_cases_priority.shape[0])
-    #######################3
+    # Describe effect of preferential selection of Bipolar Disorder cases in the
+    # Kinship Filter for genetic analyses.
+    table_simple = (
+        pail_logistic["table_white_bipolar_control_case_strict"]
+    )
+    table_priority = (
+        pail_logistic["table_white_bipolar_control_case_loose_priority_case"]
+    )
+    ukb_strat.report_kinship_filter_priority_selection(
+        name="... Comparison of case priority for Strict Bipolar Disorder ...",
+        priority_values=[1,],
+        priority_variable="bipolar_control_case_strict",
+        table_full=source["table_phenotypes"],
+        table_simple=table_simple,
+        table_priority=table_priority,
+    )
 
     # Collect information.
     information = dict()
     information["cohorts_models_linear"] = pail_cohorts_models_linear
-    information["cohorts_models_logistic"] = pail_cohorts_models_logistic
+    information["cohorts_models_logistic"] = pail_logistic
     # Write product information to file.
     write_product(
         paths=paths,
