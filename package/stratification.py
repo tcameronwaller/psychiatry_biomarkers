@@ -300,6 +300,7 @@ def execute_procedure(
 
     # Describe effect of preferential selection of Bipolar Disorder cases in the
     # Kinship Filter for genetic analyses.
+    # Strict Bipolar Disorder.
     table_simple = (
         pail_logistic["table_white_bipolar_control_case_strict"]
     )
@@ -313,6 +314,23 @@ def execute_procedure(
         table_full=source["table_phenotypes"],
         table_simple=table_simple,
         table_priority=table_priority,
+        report=True,
+    )
+    # Loose Bipolar Disorder.
+    table_simple = (
+        pail_logistic["table_white_bipolar_control_case_loose"]
+    )
+    table_priority = (
+        pail_logistic["table_white_bipolar_control_case_loose_priority_case"]
+    )
+    ukb_strat.report_kinship_filter_priority_selection(
+        name="... Comparison of case priority for Loose Bipolar Disorder ...",
+        priority_values=[1,],
+        priority_variable="bipolar_control_case_loose",
+        table_full=source["table_phenotypes"],
+        table_simple=table_simple,
+        table_priority=table_priority,
+        report=True,
     )
 
     # Collect information.
