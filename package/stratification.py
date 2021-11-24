@@ -219,6 +219,41 @@ def execute_procedure(
         pail_logistic = dict()
         pass
 
+    # Describe effect of preferential selection of females and males in the
+    # Kinship Filter for genetic analyses.
+    # Priority for female persons.
+    table_simple = (
+        pail_population["table_white_unrelated_female_male"]
+    )
+    table_priority = (
+        pail_population["table_white_unrelated_female_male_priority_female"]
+    )
+    ukb_strat.report_kinship_filter_priority_selection(
+        name="... Comparison of priority to female persons in population ...",
+        priority_values=["female",],
+        priority_variable="sex_text",
+        table_full=source["table_phenotypes"],
+        table_simple=table_simple,
+        table_priority=table_priority,
+        report=True,
+    )
+    # Priority for male persons.
+    table_simple = (
+        pail_population["table_white_unrelated_female_male"]
+    )
+    table_priority = (
+        pail_population["table_white_unrelated_female_male_priority_male"]
+    )
+    ukb_strat.report_kinship_filter_priority_selection(
+        name="... Comparison of priority to male persons in population ...",
+        priority_values=["male",],
+        priority_variable="sex_text",
+        table_full=source["table_phenotypes"],
+        table_simple=table_simple,
+        table_priority=table_priority,
+        report=True,
+    )
+
     # Describe effect of preferential selection of Bipolar Disorder cases in the
     # Kinship Filter for genetic analyses.
     # Strict Bipolar Disorder.
