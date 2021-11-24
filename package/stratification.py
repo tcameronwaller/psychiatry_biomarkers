@@ -36,7 +36,6 @@ import promiscuity.plot as plot
 import uk_biobank.stratification as ukb_strat
 
 
-
 ###############################################################################
 # Functionality
 
@@ -70,6 +69,9 @@ def initialize_directories(
     # Define paths to directories.
     paths["dock"] = path_dock
     paths["stratification"] = os.path.join(path_dock, "stratification")
+    paths["reference_population"] = os.path.join(
+        path_dock, "stratification", "reference_population"
+    )
     paths["cohorts_models_linear"] = os.path.join(
         path_dock, "stratification", "cohorts_models_linear"
     )
@@ -83,6 +85,9 @@ def initialize_directories(
     # Initialize directories.
     utility.create_directories(
         path=paths["stratification"]
+    )
+    utility.create_directories(
+        path=paths["reference_population"]
     )
     utility.create_directories(
         path=paths["cohorts_models_linear"]
@@ -137,106 +142,9 @@ def read_source(
     }
 
 
-##########
-# Write
-
-
-def write_product_cohort_model_table(
-    name=None,
-    information=None,
-    path_parent=None,
-):
-    """
-    Writes product information to file.
-
-    arguments:
-        name (str): base name for file
-        information (object): information to write to file
-        path_parent (str): path to parent directory
-
-    raises:
-
-    returns:
-
-    """
-
-    # Specify directories and files.
-    path_table = os.path.join(
-        path_parent, str(name + ".tsv")
-    )
-    # Write information to file.
-    information.to_csv(
-        path_or_buf=path_table,
-        sep="\t",
-        header=True,
-        index=False,
-    )
-    pass
-
-
-def write_product_cohorts_models(
-    information=None,
-    path_parent=None,
-):
-    """
-    Writes product information to file.
-
-    arguments:
-        information (object): information to write to file
-        path_parent (str): path to parent directory
-
-    raises:
-
-    returns:
-
-    """
-
-    for name in information.keys():
-        write_product_cohort_model_table(
-            name=name,
-            information=information[name],
-            path_parent=path_parent,
-        )
-    pass
-
-
-def write_product(
-    information=None,
-    paths=None,
-):
-    """
-    Writes product information to file.
-
-    arguments:
-        information (object): information to write to file
-        paths (dict<str>): collection of paths to directories for procedure's
-            files
-
-    raises:
-
-    returns:
-
-    """
-
-    # Cohort tables in PLINK format.
-    write_product_cohorts_models(
-        information=information["cohorts_models_linear"],
-        path_parent=paths["cohorts_models_linear"],
-    )
-    write_product_cohorts_models(
-        information=information["cohorts_models_logistic"],
-        path_parent=paths["cohorts_models_logistic"],
-    )
-    pass
-
-
 ###############################################################################
 # Procedure
 
-
-# TODO: TCW 21 November 2021
-# TODO: set up new cohort for Bipolar Disorder Cases-Controls with BMI and with
-# TODO: or without priority for Cases in the Kinship Filter.
 
 def execute_procedure(
     path_dock=None,
@@ -274,9 +182,21 @@ def execute_procedure(
 
     # Select and organize variables across cohorts.
     # Organize phenotypes and covariates in format for analysis in PLINK.
-    # else: pail_cohorts_models = dict()
-    if False:
-        pail_cohorts_models_linear = (
+    # Reference population.
+    if True:
+        pail_population = (
+            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
+                table=source["table_phenotypes"],
+                set="reference_population",
+                path_dock=path_dock,
+                report=True,
+        ))
+    else:
+        pail_population = dict()
+        pass
+    # Cohorts and models for linear genetic analyses.
+    if True:
+        pail_linear = (
             ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
                 table=source["table_phenotypes"],
                 set="bipolar_body_linear",
@@ -284,8 +204,9 @@ def execute_procedure(
                 report=True,
         ))
     else:
-        pail_cohorts_models_linear = dict()
+        pail_linear = dict()
         pass
+    # Cohorts and models for logistic genetic analyses.
     if True:
         pail_logistic = (
             ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
@@ -335,10 +256,11 @@ def execute_procedure(
 
     # Collect information.
     information = dict()
-    information["cohorts_models_linear"] = pail_cohorts_models_linear
+    information["reference_population"] = pail_population
+    information["cohorts_models_linear"] = pail_linear
     information["cohorts_models_logistic"] = pail_logistic
     # Write product information to file.
-    write_product(
+    ukb_strat.write_genotype_product(
         paths=paths,
         information=information
     )
