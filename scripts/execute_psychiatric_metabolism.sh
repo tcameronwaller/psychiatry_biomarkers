@@ -37,8 +37,8 @@ fi
 
 # Execute procedure(s).
 
-python3 $path_package/interface.py main --path_dock $path_dock --assembly
-#python3 $path_package/interface.py main --path_dock $path_dock --importation
+#python3 $path_package/interface.py main --path_dock $path_dock --assembly # TCW 23 November 2021
+python3 $path_package/interface.py main --path_dock $path_dock --importation
 #python3 $path_package/interface.py main --path_dock $path_dock --organization
 #python3 $path_package/interface.py main --path_dock $path_dock --stratification
 
