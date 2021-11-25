@@ -25,8 +25,8 @@ path_dock="$path_process/dock"
 
 path_cohorts_models="${path_dock}/stratification_2021-11-24/cohorts_models_linear"
 
-path_gwas="${path_dock}/gwas_raw/body_white_bipolar_strict"          # 12 GWAS; TCW started at ___ on 24 November 2021
-#path_gwas="${path_dock}/gwas_raw/body_white_bipolar_loose"          # 12 GWAS; TCW started at ___ on 24 November 2021
+#path_gwas="${path_dock}/gwas_raw/body_white_bipolar_strict"          # 12 GWAS; TCW started at 21:40 on 24 November 2021
+path_gwas="${path_dock}/gwas_raw/body_white_bipolar_loose"          # 12 GWAS; TCW started at ___ on 24 November 2021
 
 # Initialize directories.
 rm -r $path_gwas
@@ -55,20 +55,20 @@ covariates_common="genotype_pc_1,genotype_pc_2,genotype_pc_3,genotype_pc_4,genot
 cohorts_models=()
 
 ### body_white_bipolar_strict
-cohorts_models+=("white_bipolar_strict_control_unadjust;table_white_bipolar_strict_control_body.tsv;")
-cohorts_models+=("white_bipolar_strict_control_sex;table_white_bipolar_strict_control_body.tsv;sex,")
-cohorts_models+=("white_bipolar_strict_control_sex_age;table_white_bipolar_strict_control_body.tsv;sex,age,")
-cohorts_models+=("white_bipolar_strict_case_unadjust;table_white_bipolar_strict_case_body.tsv;")
-cohorts_models+=("white_bipolar_strict_case_sex;table_white_bipolar_strict_case_body.tsv;sex,")
-cohorts_models+=("white_bipolar_strict_case_sex_age;table_white_bipolar_strict_case_body.tsv;sex,age,")
+#cohorts_models+=("white_bipolar_strict_control_unadjust;table_white_bipolar_strict_control_body.tsv;")
+#cohorts_models+=("white_bipolar_strict_control_sex;table_white_bipolar_strict_control_body.tsv;sex,")
+#cohorts_models+=("white_bipolar_strict_control_sex_age;table_white_bipolar_strict_control_body.tsv;sex,age,")
+#cohorts_models+=("white_bipolar_strict_case_unadjust;table_white_bipolar_strict_case_body.tsv;")
+#cohorts_models+=("white_bipolar_strict_case_sex;table_white_bipolar_strict_case_body.tsv;sex,")
+#cohorts_models+=("white_bipolar_strict_case_sex_age;table_white_bipolar_strict_case_body.tsv;sex,age,")
 
 ### body_white_bipolar_loose
-#cohorts_models+=("white_bipolar_loose_control_unadjust;table_white_bipolar_loose_control_body.tsv;")
-#cohorts_models+=("white_bipolar_loose_control_sex;table_white_bipolar_loose_control_body.tsv;sex,")
-#cohorts_models+=("white_bipolar_loose_control_sex_age;table_white_bipolar_loose_control_body.tsv;sex,age,")
-#cohorts_models+=("white_bipolar_loose_case_unadjust;table_white_bipolar_loose_case_body.tsv;")
-#cohorts_models+=("white_bipolar_loose_case_sex;table_white_bipolar_loose_case_body.tsv;sex,")
-#cohorts_models+=("white_bipolar_loose_case_sex_age;table_white_bipolar_loose_case_body.tsv;sex,age,")
+cohorts_models+=("white_bipolar_loose_control_unadjust;table_white_bipolar_loose_control_body.tsv;")
+cohorts_models+=("white_bipolar_loose_control_sex;table_white_bipolar_loose_control_body.tsv;sex,")
+cohorts_models+=("white_bipolar_loose_control_sex_age;table_white_bipolar_loose_control_body.tsv;sex,age,")
+cohorts_models+=("white_bipolar_loose_case_unadjust;table_white_bipolar_loose_case_body.tsv;")
+cohorts_models+=("white_bipolar_loose_case_sex;table_white_bipolar_loose_case_body.tsv;sex,")
+cohorts_models+=("white_bipolar_loose_case_sex_age;table_white_bipolar_loose_case_body.tsv;sex,age,")
 
 # Define array of phenotypes.
 phenotypes=()
