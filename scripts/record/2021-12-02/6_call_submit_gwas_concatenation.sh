@@ -11,8 +11,8 @@
 ################################################################################
 # General parameters.
 
-cohorts_models="body_white_bipolar_strict"          # 12 GWAS; TCW started at ___ on 30 November 2021
-#cohorts_models="body_white_bipolar_loose"          # 12 GWAS; TCW started at ___ on 30 November 2021
+#cohorts_models="body_white_bipolar_strict"          # 12 GWAS; TCW started at 09:20 on 30 November 2021
+cohorts_models="body_white_bipolar_loose"          # 12 GWAS; TCW started at ___ on 30 November 2021
 
 pattern_gwas_report_file="report.*.glm.linear" # do not expand with full path yet
 chromosome_x="false" # whether to collect GWAS summary statistics report for Chromosome X
