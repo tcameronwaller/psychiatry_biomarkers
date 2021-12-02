@@ -54,7 +54,7 @@ path_genetic_reference="${path_dock}/access/genetic_reference"
 path_gwas_source_parent="${path_gwas_format_container}/${study}"
 path_gwas_target_parent="${path_gwas_munge_container}/${study}"
 path_heritability_parent="${path_heritability_container}/${study}"
-#rm -r $path_gwas_target_parent # do not remove if same as format directory
+rm -r $path_gwas_target_parent # do not remove if same as format directory
 rm -r $path_heritability_parent
 mkdir -p $path_gwas_target_parent
 mkdir -p $path_heritability_parent
