@@ -11,8 +11,8 @@
 ################################################################################
 # General parameters.
 
-cohorts_models="body_white_bipolar_strict"          # 12 GWAS; TCW started at ___ on 2 December 2021
-#cohorts_models="body_white_bipolar_loose"          # 12 GWAS; TCW started at ___ on 2 December 2021
+#cohorts_models="body_white_bipolar_strict"          # 12 GWAS; TCW started at 11:20 on 2 December 2021
+cohorts_models="body_white_bipolar_loose"          # 12 GWAS; TCW started at ___ on 2 December 2021
 
 response="coefficient" # "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
 response_standard_scale="false" # whether to convert reponse (effect, coefficient) to z-score standard scale ("true" or "false")
