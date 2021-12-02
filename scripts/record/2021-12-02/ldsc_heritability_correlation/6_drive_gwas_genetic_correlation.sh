@@ -18,14 +18,14 @@ cd ~/paths
 path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
 
-path_genetic_correlation_container="${path_dock}/genetic_correlation_body_bipolar_strict"
-#path_genetic_correlation_container="${path_dock}/genetic_correlation_body_bipolar_loose"
+#path_genetic_correlation_container="${path_dock}/genetic_correlation_body_bipolar_strict"
+path_genetic_correlation_container="${path_dock}/genetic_correlation_body_bipolar_loose"
 
 ###########################################################################
 # Define main comparisons.
 
-cohorts_models="body_white_bipolar_strict" # TCW started at 13:04 on 2 December 2021
-#cohorts_models="body_white_bipolar_loose"
+#cohorts_models="body_white_bipolar_strict" # TCW started at 13:14 on 2 December 2021
+cohorts_models="body_white_bipolar_loose"
 
 name_gwas_munge_file="gwas_munge.sumstats.gz"
 path_primary_gwas_munge_container="${path_dock}/gwas_ldsc_format_munge"
@@ -55,8 +55,8 @@ for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
 done
 
 # Assemble array of batch instance details.
-comparison_container="community_control_versus_strict_case"
-#comparison_container="community_control_versus_loose_case"
+#comparison_container="community_control_versus_strict_case"
+comparison_container="community_control_versus_loose_case"
 comparisons=()
 for primary in "${primaries[@]}"; do
   for secondary in "${secondaries[@]}"; do
@@ -69,7 +69,7 @@ done
 
 ##########
 # Strict definition of Bipolar Disorder
-if true; then
+if false; then
   # Body Mass Index without logarithmic transformation.
   pairs=()
   pairs+=("white_bipolar_strict_control_unadjust_body;white_bipolar_strict_case_unadjust_body")
@@ -90,7 +90,7 @@ fi
 
 ##########
 # Loose definition of Bipolar Disorder
-if false; then
+if true; then
   # Loose definition of Bipolar Disorder.
   # Body Mass Index without logarithmic transformation.
   pairs=()
