@@ -66,7 +66,7 @@ for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
     match_file=${matches[0]}
     if [[ -n $matches && -f $match_file ]]; then
       instance="$study;${path_gwas_source_container}/${study}/${name_gwas_concatenation_file}"
-      echo $study >> $path_batch_instances
+      echo $instance >> $path_batch_instances
     fi
   fi
 done
