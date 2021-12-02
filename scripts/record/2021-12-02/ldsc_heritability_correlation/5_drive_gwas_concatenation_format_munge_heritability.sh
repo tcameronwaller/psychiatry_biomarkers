@@ -19,6 +19,7 @@ path_gwas_format_container=${5} # full path to container directory of format GWA
 path_gwas_munge_container=${6} # full path to container directory of munge GWAS summary statistics for each study
 path_heritability_container=${7} # full path to parent directory for heritability reports
 path_process=${8} # full path to directory for all processes relevant to current project
+restore_target_study_directories=${9} # whether to delete any previous directories for each study's format and munge GWAS ("true" or "false")
 
 ###########################################################################
 # Execute procedure.
@@ -27,7 +28,9 @@ path_process=${8} # full path to directory for all processes relevant to current
 # Format GWAS summary statistics for analysis in LDSC.
 # Paths.
 path_gwas_target_parent="${path_gwas_format_container}/${study}"
-rm -r $path_gwas_target_parent
+if [[ "$restore_target_study_directories" == "true" ]]; then
+  rm -r $path_gwas_target_parent
+fi
 mkdir -p $path_gwas_target_parent
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
@@ -54,8 +57,10 @@ path_genetic_reference="${path_dock}/access/genetic_reference"
 path_gwas_source_parent="${path_gwas_format_container}/${study}"
 path_gwas_target_parent="${path_gwas_munge_container}/${study}"
 path_heritability_parent="${path_heritability_container}/${study}"
-rm -r $path_gwas_target_parent # do not remove if same as format directory
-rm -r $path_heritability_parent
+if [[ "$restore_target_study_directories" == "true" ]]; then
+  rm -r $path_gwas_target_parent # do not remove if same as format directory
+  rm -r $path_heritability_parent
+fi
 mkdir -p $path_gwas_target_parent
 mkdir -p $path_heritability_parent
 # Scripts.

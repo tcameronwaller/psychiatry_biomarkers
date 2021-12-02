@@ -58,6 +58,7 @@ path_gwas_munge_container=${6} # full path to parent directories of GWAS summary
 path_heritability_container=${7} # full path to parent directory for heritability reports
 path_scripts_record=${8} # full path to directory of scripts for a specific analysis report date
 path_process=${9} # full path to directory for all processes relevant to current project
+restore_target_study_directories=${10} # whether to delete any previous directories for each study's format and munge GWAS ("true" or "false")
 
 ###########################################################################
 # Organize variables.
@@ -84,4 +85,5 @@ $response_standard_scale \
 $path_gwas_format_container \
 $path_gwas_munge_container \
 $path_heritability_container \
-$path_process
+$path_process \
+$restore_target_study_directories

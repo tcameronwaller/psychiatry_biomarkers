@@ -18,22 +18,27 @@ cd ~/paths
 path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
 
+path_genetic_correlation_container="${path_dock}/genetic_correlation_body_bipolar_strict"
+#path_genetic_correlation_container="${path_dock}/genetic_correlation_body_bipolar_loose"
+
 ###########################################################################
 # Define main comparisons.
 
 cohorts_models="body_white_bipolar_strict"
 #cohorts_models="body_white_bipolar_loose"
+
 name_gwas_munge_file="gwas_munge.sumstats.gz"
-path_gwas_source_container="${path_dock}/gwas_process/${cohorts_models}"
+path_primary_gwas_munge_container="${path_dock}/gwas_ldsc_format_munge"
+path_secondary_gwas_munge_container="${path_dock}/gwas_ldsc_munge/${cohorts_models}"
 
 # Define array of primary studies.
 primaries=()
-primaries+=("30124842_yengo_2018;${path_dock}/gwas_process/30124842_yengo_2018/${name_gwas_munge_file}")
+primaries+=("30124842_yengo_2018;${path_primary_gwas_munge_container}/30124842_yengo_2018/${name_gwas_munge_file}")
 
 # Define array of secondary studies.
 secondaries=()
 # Iterate on directories for GWAS on cohorts and hormones.
-cd $path_gwas_source_container
+cd $path_secondary_gwas_munge_container
 for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
   if [ -d "$path_directory" ]; then
     # Current content item is a directory.
@@ -41,16 +46,17 @@ for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
     study="$(basename -- $path_directory)"
     #echo $directory
     # Determine whether directory contains valid GWAS summary statistics.
-    matches=$(find "${path_gwas_source_container}/${study}" -name "$name_gwas_munge_file")
+    matches=$(find "${path_secondary_gwas_munge_container}/${study}" -name "$name_gwas_munge_file")
     match_file=${matches[0]}
     if [[ -n $matches && -f $match_file ]]; then
-      secondaries+=("$study;${path_gwas_source_container}/${study}/${name_gwas_munge_file}")
+      secondaries+=("$study;${path_secondary_gwas_munge_container}/${study}/${name_gwas_munge_file}")
     fi
   fi
 done
 
 # Assemble array of batch instance details.
 comparison_container="community_control_versus_strict_case"
+#comparison_container="community_control_versus_loose_case"
 comparisons=()
 for primary in "${primaries[@]}"; do
   for secondary in "${secondaries[@]}"; do
@@ -72,19 +78,19 @@ if true; then
   # Construct paths.
   comparison_container="strict_control_versus_strict_case"
   cohorts_models="body_white_bipolar_strict"
-  name_gwas_munge_file="gwas_munge.sumstats.gz"
-  path_gwas_source_container="${path_dock}/gwas_process/${cohorts_models}"
+  #name_gwas_munge_file="gwas_munge.sumstats.gz"
+  path_gwas_munge_container="${path_secondary_gwas_munge_container}"
   for pair in "${pairs[@]}"; do
     IFS=";" read -r -a array <<< "${pair}"
     study_primary="${array[0]}"
     study_secondary="${array[1]}"
-    comparisons+=("${comparison_container};${study_primary};${path_gwas_source_container}/${study_primary}/${name_gwas_munge_file};${study_secondary};${path_gwas_source_container}/${study_secondary}/${name_gwas_munge_file}")
+    comparisons+=("${comparison_container};${study_primary};${path_gwas_munge_container}/${study_primary}/${name_gwas_munge_file};${study_secondary};${path_gwas_munge_container}/${study_secondary}/${name_gwas_munge_file}")
   done
 fi
 
 ##########
 # Loose definition of Bipolar Disorder
-if true; then
+if false; then
   # Loose definition of Bipolar Disorder.
   # Body Mass Index without logarithmic transformation.
   pairs=()
@@ -94,22 +100,22 @@ if true; then
   # Construct paths.
   comparison_container="loose_control_versus_loose_case"
   cohorts_models="body_white_bipolar_loose"
-  name_gwas_munge_file="gwas_munge.sumstats.gz"
-  path_gwas_source_container="${path_dock}/gwas_process/${cohorts_models}"
+  #name_gwas_munge_file="gwas_munge.sumstats.gz"
+  path_gwas_munge_container="${path_secondary_gwas_munge_container}"
   for pair in "${pairs[@]}"; do
     IFS=";" read -r -a array <<< "${pair}"
     study_primary="${array[0]}"
     study_secondary="${array[1]}"
-    comparisons+=("${comparison_container};${study_primary};${path_gwas_source_container}/${study_primary}/${name_gwas_munge_file};${study_secondary};${path_gwas_source_container}/${study_secondary}/${name_gwas_munge_file}")
+    comparisons+=("${comparison_container};${study_primary};${path_gwas_munge_container}/${study_primary}/${name_gwas_munge_file};${study_secondary};${path_gwas_munge_container}/${study_secondary}/${name_gwas_munge_file}")
   done
 fi
 
 ##########
 # Explicit comparison pairs that do not follow previous patterns.
 comparison_container="strict_case_versus_loose_case"
-path_strict="${path_dock}/gwas_process/body_white_bipolar_strict"
-path_loose="${path_dock}/gwas_process/body_white_bipolar_loose"
-name_gwas_munge_file="gwas_munge.sumstats.gz"
+path_strict="${path_dock}/gwas_ldsc_munge/body_white_bipolar_strict"
+path_loose="${path_dock}/gwas_ldsc_munge/body_white_bipolar_loose"
+#name_gwas_munge_file="gwas_munge.sumstats.gz"
 comparisons+=("${comparison_container};white_bipolar_strict_case_unadjust_body;${path_strict}/white_bipolar_strict_case_unadjust_body/${name_gwas_munge_file};white_bipolar_loose_case_unadjust_body;${path_loose}/white_bipolar_loose_case_unadjust_body/${name_gwas_munge_file}")
 comparisons+=("${comparison_container};white_bipolar_strict_case_sex_body;${path_strict}/white_bipolar_strict_case_sex_body/${name_gwas_munge_file};white_bipolar_loose_case_sex_body;${path_loose}/white_bipolar_loose_case_sex_body/${name_gwas_munge_file}")
 comparisons+=("${comparison_container};white_bipolar_strict_case_sex_age_body;${path_strict}/white_bipolar_strict_case_sex_age_body/${name_gwas_munge_file};white_bipolar_loose_case_sex_age_body;${path_loose}/white_bipolar_loose_case_sex_age_body/${name_gwas_munge_file}")
@@ -141,11 +147,7 @@ for comparison in "${comparisons[@]}"; do
     # LDSC Genetic Correlation.
     # Paths.
     path_genetic_reference="${path_dock}/access/genetic_reference"
-    #study_primary=""
-    #study_secondary=""
-    #path_gwas_primary_munge_suffix=""
-    #path_gwas_secondary_munge_suffix=""
-    path_genetic_correlation_parent="${path_dock}/genetic_correlation/${comparison_container}/${study_primary}/${study_secondary}"
+    path_genetic_correlation_parent="${path_genetic_correlation_container}/${comparison_container}/${study_primary}/${study_secondary}"
     rm -r $path_genetic_correlation_parent
     mkdir -p $path_genetic_correlation_parent
     # Scripts.

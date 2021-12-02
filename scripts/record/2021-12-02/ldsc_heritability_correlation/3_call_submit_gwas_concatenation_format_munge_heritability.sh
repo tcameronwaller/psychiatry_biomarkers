@@ -12,10 +12,12 @@
 # General parameters.
 
 #cohorts_models="body_white_bipolar_strict"          # 12 GWAS; TCW started at 11:20 on 2 December 2021
-cohorts_models="body_white_bipolar_loose"          # 12 GWAS; TCW started at ___ on 2 December 2021
+cohorts_models="body_white_bipolar_loose"          # 12 GWAS; TCW started at 11:21 on 2 December 2021
 
 response="coefficient" # "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
 response_standard_scale="false" # whether to convert reponse (effect, coefficient) to z-score standard scale ("true" or "false")
+
+restore_target_study_directories="true" # whether to delete any previous directories for each study's format and munge GWAS ("true" or "false")
 
 ################################################################################
 # Organize paths.
@@ -97,5 +99,6 @@ if true; then
   $path_gwas_munge_container \
   $path_heritability_container \
   $path_scripts_record \
-  $path_process
+  $path_process \
+  $restore_target_study_directories
 fi
