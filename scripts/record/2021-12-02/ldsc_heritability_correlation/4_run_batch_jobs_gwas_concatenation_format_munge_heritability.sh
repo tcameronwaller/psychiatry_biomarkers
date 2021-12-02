@@ -40,10 +40,6 @@
 ################################################################################
 # Note.
 
-# Collection and concatenation of GWAS summary statistics runs with 4 thread
-# slots ("-pe threaded 4") and 1 Gigabyte of memory ("-l h_vmem=1G"), even for
-# GWAS on > 300,000 persons.
-
 # LDSC Munge of GWAS summary statistics throws a memory error with 4 thread
 # slots ("-pe threaded 4") and 1 Gigabyte of memory ("-l h_vmem=1G").
 
@@ -53,15 +49,15 @@
 ################################################################################
 # Organize argument variables.
 
-pattern_gwas_report_file=${1} # string glob pattern by which to recognize PLINK2 GWAS report files
-response=${2} # whether GWAS response is beta coefficient ("coefficient"), odds ratio ("odds_ratio"), or z-scores ("z_score")
-response_standard_scale=${3} # whether to convert response (coefficient) to z-score standard scale
-path_batch_instances=${4} # text list of information for each instance in batch
-batch_instances_count=${5} # count of instances in batch
-path_gwas_source_container=${6} # full path to parent directories of GWAS summary statistics for each study
-path_gwas_target_container=${7} # full path to parent directories of GWAS summary statistics for each study
-path_heritability_container=${8} # full path to parent directory for heritability reports
-path_scripts_record=${9} # full path to directory of scripts for a specific analysis report date
+path_batch_instances=${1} # text list of information for each instance in batch
+batch_instances_count=${2} # count of instances in batch
+response=${3} # whether GWAS response is beta coefficient ("coefficient"), odds ratio ("odds_ratio"), or z-scores ("z_score")
+response_standard_scale=${4} # whether to convert response (coefficient) to z-score standard scale
+path_gwas_format_container=${5} # full path to parent directories of GWAS summary statistics for each study
+path_gwas_munge_container=${6} # full path to parent directories of GWAS summary statistics for each study
+path_heritability_container=${7} # full path to parent directory for heritability reports
+path_scripts_record=${8} # full path to directory of scripts for a specific analysis report date
+path_process=${9} # full path to directory for all processes relevant to current project
 
 ###########################################################################
 # Organize variables.
@@ -69,17 +65,23 @@ path_scripts_record=${9} # full path to directory of scripts for a specific anal
 # Determine batch instance.
 batch_index=$((SGE_TASK_ID-1))
 readarray -t batch_instances < $path_batch_instances
-study=${batch_instances[$batch_index]}
+instance=${batch_instances[$batch_index]}
+
+# Separate fields from instance.
+IFS=";" read -r -a array <<< "${instance}"
+study="${array[0]}"
+path_gwas_concatenation_compress="${array[1]}"
 
 ###########################################################################
 # Execute procedure.
 
 # Concatenate GWAS across chromosomes.
-/usr/bin/bash "${path_scripts_record}/10_drive_gwas_concatenation_format_munge_heritability.sh" \
+/usr/bin/bash "${path_scripts_record}/5_drive_gwas_concatenation_format_munge_heritability.sh" \
 $study \
-$pattern_gwas_report_file \
+$path_gwas_concatenation_compress \
 $response \
 $response_standard_scale \
-$path_gwas_source_container \
-$path_gwas_target_container \
-$path_heritability_container
+$path_gwas_format_container \
+$path_gwas_munge_container \
+$path_heritability_container \
+$path_process

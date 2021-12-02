@@ -25,6 +25,10 @@ path_gwas_target="${path_dock}/gwas_ldsc_format_munge" # selection
 
 path_heritability="${path_dock}/heritability/community_studies" # store in container to parallel "cohorts_models" containers
 
+# TODO: TCW 2 December 2021
+# TODO: I might need to make this specific to each GWAS
+response_standard_scale="false" # whether to convert reponse (effect, coefficient) to z-score standard scale ("true" or "false")
+
 ###########################################################################
 # Execute procedure.
 
@@ -93,6 +97,7 @@ for study_details in "${studies[@]}"; do
   $path_gwas_target_parent \
   $path_promiscuity_scripts \
   $path_script_gwas_format \
+  $response_standard_scale \
   $report
 
   ##########
