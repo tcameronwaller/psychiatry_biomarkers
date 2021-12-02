@@ -24,7 +24,7 @@ path_genetic_correlation_container="${path_dock}/genetic_correlation_body_bipola
 ###########################################################################
 # Define main comparisons.
 
-cohorts_models="body_white_bipolar_strict"
+cohorts_models="body_white_bipolar_strict" # TCW started at 13:04 on 2 December 2021
 #cohorts_models="body_white_bipolar_loose"
 
 name_gwas_munge_file="gwas_munge.sumstats.gz"
