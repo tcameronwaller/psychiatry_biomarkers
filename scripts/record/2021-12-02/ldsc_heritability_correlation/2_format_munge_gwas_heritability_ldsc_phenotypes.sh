@@ -41,8 +41,6 @@ response_standard_scale="false" # whether to convert reponse (effect, coefficien
 # Organize information about studies.
 
 # Define multi-dimensional array of cohorts and covariates.
-# Review:
-# 3 May 2021: TCW reviewed study README's, confirmed source files, and confirmed format scripts
 
 studies=()
 studies+=("30124842_yengo_2018;coefficient;${path_gwas_summaries}/30124842_yengo_2018/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt.gz")
