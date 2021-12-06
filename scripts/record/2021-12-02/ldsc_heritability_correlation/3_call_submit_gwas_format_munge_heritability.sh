@@ -11,8 +11,8 @@
 ################################################################################
 # General parameters.
 
-cohorts_models="body_white_bipolar_strict"          # 12 GWAS; TCW started at 11:20 on 2 December 2021 and at __ on 6 December 2021
-#cohorts_models="body_white_bipolar_loose"          # 12 GWAS; TCW started at 11:21 on 2 December 2021 and at __ on 6 December 2021
+#cohorts_models="body_white_bipolar_strict"          # 12 GWAS; TCW started at 11:20 on 2 December 2021 and at 13:52 on 6 December 2021
+cohorts_models="body_white_bipolar_loose"          # 12 GWAS; TCW started at 11:21 on 2 December 2021 and at __ on 6 December 2021
 
 response="coefficient" # "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
 response_standard_scale="false" # whether to convert reponse (effect, coefficient) to z-score standard scale ("true" or "false")
@@ -90,7 +90,7 @@ if true; then
   # Array batch indices must start at one (not zero).
   qsub -t 1-${batch_instances_count}:1 -o \
   "${path_gwas_munge_container}/post_process_out.txt" -e "${path_gwas_munge_container}/post_process_error.txt" \
-  "${path_scripts_record}/4_run_batch_jobs_gwas_concatenation_format_munge_heritability.sh" \
+  "${path_scripts_record}/4_run_batch_jobs_gwas_format_munge_heritability.sh" \
   $path_batch_instances \
   $batch_instances_count \
   $response \

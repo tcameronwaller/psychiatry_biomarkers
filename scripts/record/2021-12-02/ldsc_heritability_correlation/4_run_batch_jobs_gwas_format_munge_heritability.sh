@@ -77,7 +77,7 @@ path_gwas_concatenation_compress="${array[1]}"
 # Execute procedure.
 
 # Concatenate GWAS across chromosomes.
-/usr/bin/bash "${path_scripts_record}/5_drive_gwas_concatenation_format_munge_heritability.sh" \
+/usr/bin/bash "${path_scripts_record}/5_drive_gwas_format_munge_heritability.sh" \
 $study \
 $path_gwas_concatenation_compress \
 $response \
