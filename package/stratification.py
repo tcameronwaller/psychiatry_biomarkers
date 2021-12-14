@@ -191,11 +191,48 @@ def execute_procedure(
                 path_dock=path_dock,
                 report=True,
         ))
+        # Describe effect of preferential selection of females and males in the
+        # Kinship Filter for genetic analyses.
+        # Priority for female persons.
+        table_simple = (
+            pail_population["table_white_unrelated_female_male"]
+        )
+        table_priority = (
+            pail_population["table_white_unrelated_female_male_priority_female"]
+        )
+        ukb_strat.report_kinship_filter_priority_selection(
+            name="... Comparison of priority to female persons in population ...",
+            priority_values=["female",],
+            priority_variable="sex_text",
+            table_full=source["table_phenotypes"],
+            table_simple=table_simple,
+            table_priority=table_priority,
+            report=True,
+        )
+        # Priority for male persons.
+        table_simple = (
+            pail_population["table_white_unrelated_female_male"]
+        )
+        table_priority = (
+            pail_population["table_white_unrelated_female_male_priority_male"]
+        )
+        ukb_strat.report_kinship_filter_priority_selection(
+            name="... Comparison of priority to male persons in population ...",
+            priority_values=["male",],
+            priority_variable="sex_text",
+            table_full=source["table_phenotypes"],
+            table_simple=table_simple,
+            table_priority=table_priority,
+            report=True,
+        )
     else:
         pail_population = dict()
         pass
     # Cohorts and models for linear genetic analyses.
-    if True:
+
+    # set: Vitamin D...
+
+    if False:
         pail_linear = (
             ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
                 table=source["table_phenotypes"],
@@ -207,7 +244,7 @@ def execute_procedure(
         pail_linear = dict()
         pass
     # Cohorts and models for logistic genetic analyses.
-    if True:
+    if False:
         pail_logistic = (
             ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
                 table=source["table_phenotypes"],
@@ -215,79 +252,43 @@ def execute_procedure(
                 path_dock=path_dock,
                 report=True,
         ))
+        # Describe effect of preferential selection of Bipolar Disorder cases in the
+        # Kinship Filter for genetic analyses.
+        # Strict Bipolar Disorder.
+        table_simple = (
+            pail_logistic["table_white_bipolar_control_case_strict"]
+        )
+        table_priority = (
+            pail_logistic["table_white_bipolar_control_case_strict_priority_case"]
+        )
+        ukb_strat.report_kinship_filter_priority_selection(
+            name="... Comparison of case priority for Strict Bipolar Disorder ...",
+            priority_values=[1,],
+            priority_variable="bipolar_control_case_strict",
+            table_full=source["table_phenotypes"],
+            table_simple=table_simple,
+            table_priority=table_priority,
+            report=True,
+        )
+        # Loose Bipolar Disorder.
+        table_simple = (
+            pail_logistic["table_white_bipolar_control_case_loose"]
+        )
+        table_priority = (
+            pail_logistic["table_white_bipolar_control_case_loose_priority_case"]
+        )
+        ukb_strat.report_kinship_filter_priority_selection(
+            name="... Comparison of case priority for Loose Bipolar Disorder ...",
+            priority_values=[1,],
+            priority_variable="bipolar_control_case_loose",
+            table_full=source["table_phenotypes"],
+            table_simple=table_simple,
+            table_priority=table_priority,
+            report=True,
+        )
     else:
         pail_logistic = dict()
         pass
-
-    # Describe effect of preferential selection of females and males in the
-    # Kinship Filter for genetic analyses.
-    # Priority for female persons.
-    table_simple = (
-        pail_population["table_white_unrelated_female_male"]
-    )
-    table_priority = (
-        pail_population["table_white_unrelated_female_male_priority_female"]
-    )
-    ukb_strat.report_kinship_filter_priority_selection(
-        name="... Comparison of priority to female persons in population ...",
-        priority_values=["female",],
-        priority_variable="sex_text",
-        table_full=source["table_phenotypes"],
-        table_simple=table_simple,
-        table_priority=table_priority,
-        report=True,
-    )
-    # Priority for male persons.
-    table_simple = (
-        pail_population["table_white_unrelated_female_male"]
-    )
-    table_priority = (
-        pail_population["table_white_unrelated_female_male_priority_male"]
-    )
-    ukb_strat.report_kinship_filter_priority_selection(
-        name="... Comparison of priority to male persons in population ...",
-        priority_values=["male",],
-        priority_variable="sex_text",
-        table_full=source["table_phenotypes"],
-        table_simple=table_simple,
-        table_priority=table_priority,
-        report=True,
-    )
-
-    # Describe effect of preferential selection of Bipolar Disorder cases in the
-    # Kinship Filter for genetic analyses.
-    # Strict Bipolar Disorder.
-    table_simple = (
-        pail_logistic["table_white_bipolar_control_case_strict"]
-    )
-    table_priority = (
-        pail_logistic["table_white_bipolar_control_case_strict_priority_case"]
-    )
-    ukb_strat.report_kinship_filter_priority_selection(
-        name="... Comparison of case priority for Strict Bipolar Disorder ...",
-        priority_values=[1,],
-        priority_variable="bipolar_control_case_strict",
-        table_full=source["table_phenotypes"],
-        table_simple=table_simple,
-        table_priority=table_priority,
-        report=True,
-    )
-    # Loose Bipolar Disorder.
-    table_simple = (
-        pail_logistic["table_white_bipolar_control_case_loose"]
-    )
-    table_priority = (
-        pail_logistic["table_white_bipolar_control_case_loose_priority_case"]
-    )
-    ukb_strat.report_kinship_filter_priority_selection(
-        name="... Comparison of case priority for Loose Bipolar Disorder ...",
-        priority_values=[1,],
-        priority_variable="bipolar_control_case_loose",
-        table_full=source["table_phenotypes"],
-        table_simple=table_simple,
-        table_priority=table_priority,
-        report=True,
-    )
 
     # Collect information.
     information = dict()
