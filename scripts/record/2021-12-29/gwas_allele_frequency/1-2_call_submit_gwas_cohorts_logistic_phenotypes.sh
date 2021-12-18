@@ -25,8 +25,8 @@ path_dock="$path_process/dock"
 
 path_stratification_tables="${path_dock}/stratification_2021-12-18/body_bipolar_logistic"
 
-#path_gwas_container="${path_dock}/gwas_raw/bipolar_strict_white_logistic"          # 4 GWAS; TCW started at ___ on 18 December 2021
-path_gwas_container="${path_dock}/gwas_raw/bipolar_loose_white_logistic"          # 4 GWAS; TCW started at ___ on 18 December 2021
+path_gwas_container="${path_dock}/gwas_raw/bipolar_strict_white_logistic"          # 4 GWAS; TCW started at ___ on 18 December 2021
+#path_gwas_container="${path_dock}/gwas_raw/bipolar_loose_white_logistic"          # 4 GWAS; TCW started at 01:13 on 18 December 2021
 
 
 # Initialize directories.
@@ -54,24 +54,24 @@ covariates_common="genotype_pc_1,genotype_pc_2,genotype_pc_3,genotype_pc_4,genot
 cohorts_models_instances=()
 
 ### logistic case-control for Strict Bipolar Disorder
-#cohorts_models_instances+=("white_bipolar_strict_unadjust;table_white_bipolar_strict_priority_case;")
-#cohorts_models_instances+=("white_bipolar_strict_sex;table_white_bipolar_strict_priority_case;sex_y,")
-#cohorts_models_instances+=("white_bipolar_strict_sex_age;table_white_bipolar_strict_priority_case;sex_y,age,")
-#cohorts_models_instances+=("white_bipolar_strict_sex_age_body;table_white_bipolar_strict_priority_case;sex_y,age,body_log")
+cohorts_models_instances+=("white_bipolar_strict_unadjust;table_white_bipolar_strict_priority_case;")
+cohorts_models_instances+=("white_bipolar_strict_sex;table_white_bipolar_strict_priority_case;sex_y,")
+cohorts_models_instances+=("white_bipolar_strict_sex_age;table_white_bipolar_strict_priority_case;sex_y,age,")
+cohorts_models_instances+=("white_bipolar_strict_sex_age_body;table_white_bipolar_strict_priority_case;sex_y,age,body_log")
 
 ### logistic case-control for Loose Bipolar Disorder
-cohorts_models_instances+=("white_bipolar_loose_unadjust;table_white_bipolar_loose_priority_case;")
-cohorts_models_instances+=("white_bipolar_loose_sex;table_white_bipolar_loose_priority_case;sex_y,")
-cohorts_models_instances+=("white_bipolar_loose_sex_age;table_white_bipolar_loose_priority_case;sex_y,age,")
-cohorts_models_instances+=("white_bipolar_loose_sex_age_body;table_white_bipolar_loose_priority_case;sex_y,age,body_log")
+#cohorts_models_instances+=("white_bipolar_loose_unadjust;table_white_bipolar_loose_priority_case;")
+#cohorts_models_instances+=("white_bipolar_loose_sex;table_white_bipolar_loose_priority_case;sex_y,")
+#cohorts_models_instances+=("white_bipolar_loose_sex_age;table_white_bipolar_loose_priority_case;sex_y,age,")
+#cohorts_models_instances+=("white_bipolar_loose_sex_age_body;table_white_bipolar_loose_priority_case;sex_y,age,body_log")
 
 
 ##########
 # Define array of phenotypes.
 phenotypes_instances=()
 
-#phenotypes_instances+=("case_control;;bipolar_control_case_strict")
-phenotypes_instances+=("case_control;;bipolar_control_case_loose")
+phenotypes_instances+=("case_control;;bipolar_control_case_strict")
+#phenotypes_instances+=("case_control;;bipolar_control_case_loose")
 
 ##########
 # Assemble details for batch instances.
