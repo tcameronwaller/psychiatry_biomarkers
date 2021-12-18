@@ -23,13 +23,10 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-12-29/gwas_allele_frequency"
 path_dock="$path_process/dock"
 
-path_stratification_tables="${path_dock}/stratification_2021-12-17/body_bipolar_linear"
-#path_stratification_tables="${path_dock}/stratification_2021-12-17/body_bipolar_logistic"
+path_stratification_tables="${path_dock}/stratification_2021-12-18/body_bipolar_linear"
 
 path_gwas_container="${path_dock}/gwas_raw/body_white_bipolar_strict_linear"          # 12 GWAS; TCW started at ___ on 17 December 2021
 #path_gwas_container="${path_dock}/gwas_raw/body_white_bipolar_loose"          # 12 GWAS; TCW started at ____ on 17 December 2021
-
-#path_gwas_container="${path_dock}/gwas_raw/bipolar_strict_white_logistic"          # 4 GWAS; TCW started at ___ on 17 December 2021
 
 # Initialize directories.
 rm -r $path_gwas_container
@@ -71,21 +68,12 @@ cohorts_models_instances+=("white_bipolar_strict_case_sex_age;table_white_bipola
 #cohorts_models+=("white_bipolar_loose_case_sex;table_white_bipolar_loose_case;sex,")
 #cohorts_models+=("white_bipolar_loose_case_sex_age;table_white_bipolar_loose_case;sex,age,")
 
-### logistic case-control
-#cohorts_models_instances+=("white_bipolar_strict_unadjust;table_white_bipolar_strict_priority_case;")
-#cohorts_models_instances+=("white_bipolar_strict_sex;table_white_bipolar_strict_priority_case;sex_y,")
-#cohorts_models_instances+=("white_bipolar_strict_sex_age;table_white_bipolar_strict_priority_case;sex_y,age,")
-#cohorts_models_instances+=("white_bipolar_strict_sex_age_body;table_white_bipolar_strict_priority_case;sex_y,age,body_log")
-
 ##########
 # Define array of phenotypes.
 phenotypes_instances=()
 
 phenotypes_instances+=("body;_body;body")
 phenotypes_instances+=("body_log;_body;body_log")
-
-#phenotypes_instances+=("case_control;;bipolar_control_case_strict")
-###phenotypes_instances+=("case_control;;bipolar_control_case_loose")
 
 ##########
 # Assemble details for batch instances.

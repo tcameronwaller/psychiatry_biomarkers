@@ -23,10 +23,10 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-12-29/gwas_allele_frequency"
 path_dock="$path_process/dock"
 
-path_stratification_tables="${path_dock}/stratification_2021-12-17/body_bipolar_logistic"
+path_stratification_tables="${path_dock}/stratification_2021-12-18/body_bipolar_logistic"
 
-path_gwas_container="${path_dock}/gwas_raw/bipolar_strict_white_logistic"          # 4 GWAS; TCW started at ___ on 17 December 2021
-#path_gwas_container="${path_dock}/gwas_raw/bipolar_loose_white_logistic"          # 4 GWAS; TCW started at ___ on 17 December 2021
+path_gwas_container="${path_dock}/gwas_raw/bipolar_strict_white_logistic"          # 4 GWAS; TCW started at ___ on 18 December 2021
+#path_gwas_container="${path_dock}/gwas_raw/bipolar_loose_white_logistic"          # 4 GWAS; TCW started at ___ on 18 December 2021
 
 
 # Initialize directories.
