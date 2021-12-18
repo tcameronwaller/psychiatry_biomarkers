@@ -39,7 +39,7 @@ mkdir -p $path_gwas_container
 # Assemble a list of analysis instances with common patterns.
 
 # Assemble array of batch instance details.
-path_batch_instances="${path_gwas}/batch_instances.txt"
+path_batch_instances="${path_gwas_container}/batch_instances.txt"
 rm $path_batch_instances
 
 ##########

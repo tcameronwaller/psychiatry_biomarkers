@@ -25,8 +25,8 @@ path_dock="$path_process/dock"
 
 path_stratification_tables="${path_dock}/stratification_2021-12-18/body_bipolar_linear"
 
-path_gwas_container="${path_dock}/gwas_raw/body_white_bipolar_strict_linear"          # 12 GWAS; TCW started at ___ on 17 December 2021
-#path_gwas_container="${path_dock}/gwas_raw/body_white_bipolar_loose"          # 12 GWAS; TCW started at ____ on 17 December 2021
+path_gwas_container="${path_dock}/gwas_raw/body_white_bipolar_strict_linear"          # 12 GWAS; TCW started at ___ on 18 December 2021
+#path_gwas_container="${path_dock}/gwas_raw/body_white_bipolar_loose"          # 12 GWAS; TCW started at ____ on 18 December 2021
 
 # Initialize directories.
 rm -r $path_gwas_container
@@ -38,7 +38,7 @@ mkdir -p $path_gwas_container
 # Assemble a list of analysis instances with common patterns.
 
 # Assemble array of batch instance details.
-path_batch_instances="${path_gwas}/batch_instances.txt"
+path_batch_instances="${path_gwas_container}/batch_instances.txt"
 rm $path_batch_instances
 
 ##########
