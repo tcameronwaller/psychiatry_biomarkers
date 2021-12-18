@@ -75,6 +75,7 @@ covariates="${array[3]}"
 
 # Organize variables.
 path_gwas_study_parent="${path_gwas_container}/${name_study}"
+path_table_phenotypes_covariates="${path_stratification_tables}/${table_phenotypes_covariates}"
 
 # Report.
 echo "name of study: " ${name_study}
@@ -108,7 +109,6 @@ path_script_run_gwas="${path_scripts_gwas_process}/run_gwas_chromosomes_plink_as
 ###########################################################################
 # Execute procedure.
 
-name_study="${cohort_model_phenotype}"
 /usr/bin/bash "${path_script_run_gwas}" \
 $path_table_phenotypes_covariates \
 $path_gwas_study_parent \
