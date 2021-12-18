@@ -25,7 +25,7 @@ path_dock="$path_process/dock"
 
 path_stratification_tables="${path_dock}/stratification_2021-12-18/body_bipolar_logistic"
 
-#path_gwas_container="${path_dock}/gwas_raw/bipolar_strict_white_logistic"          # 4 GWAS; TCW started at 00:29 on 18 December 2021
+#path_gwas_container="${path_dock}/gwas_raw/bipolar_strict_white_logistic"          # 4 GWAS; TCW started at ___ on 18 December 2021
 path_gwas_container="${path_dock}/gwas_raw/bipolar_loose_white_logistic"          # 4 GWAS; TCW started at ___ on 18 December 2021
 
 
@@ -122,7 +122,7 @@ if true; then
   echo "Submit array of batches to Sun Grid Engine."
   echo "----------------------------------------------------------------------"
   qsub -t 1-${batch_instances_count}:1 \
-  -o "${path_gwas}/out.txt" -e "${path_gwas}/error.txt" \
+  -o "${path_gwas_container}/out.txt" -e "${path_gwas_container}/error.txt" \
   "${path_scripts_record}/2-1_organize_call_run_gwas_chromosomes_plink_association.sh" \
   $path_batch_instances \
   $batch_instances_count \
