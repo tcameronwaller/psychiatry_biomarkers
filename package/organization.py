@@ -218,20 +218,20 @@ def execute_procedure(
     # Organize variables for female menstruation across the UK Biobank.
     pail_female = ukb_organization.execute_female_menstruation(
         table=pail_basis["table"],
-        report=True,
+        report=False,
     )
 
     # Organize variables for persons' sex hormones across the UK Biobank.
     pail_hormone = ukb_organization.execute_sex_hormones(
         table=pail_female["table"],
-        report=True,
+        report=False,
     )
 
     # Organize variables for persons' mental health across the UK Biobank.
     pail_psychology = ukb_organization.execute_psychology_psychiatry(
         table=pail_hormone["table"],
         path_dock=path_dock,
-        report=True,
+        report=False,
     )
     #print(pail_psychology["table_clean"].columns.to_list())
 

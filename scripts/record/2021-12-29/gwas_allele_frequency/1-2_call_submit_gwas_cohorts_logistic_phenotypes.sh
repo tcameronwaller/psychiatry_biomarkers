@@ -26,7 +26,7 @@ path_dock="$path_process/dock"
 path_stratification_tables="${path_dock}/stratification_2021-12-18/body_bipolar_logistic"
 
 #path_gwas_container="${path_dock}/gwas_raw/bipolar_strict_white_logistic"          # 4 GWAS; TCW started at 01:36 on 18 December 2021
-path_gwas_container="${path_dock}/gwas_raw/bipolar_loose_white_logistic"          # 4 GWAS; TCW started at 01:__ on 18 December 2021
+path_gwas_container="${path_dock}/gwas_raw/bipolar_loose_white_logistic"          # 4 GWAS; TCW started at 01:41 on 18 December 2021
 
 
 # Initialize directories.
