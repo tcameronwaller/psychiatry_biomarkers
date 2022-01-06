@@ -226,14 +226,19 @@ def execute_procedure(
         table=pail_female["table"],
         report=True,
     )
+    # Organize variables for persons' alcohol consumption across the UK Biobank.
+    pail_alcohol = ukb_organization.execute_alcohol(
+        table=pail_hormone["table"],
+        report=True,
+    )
     # Organize variables for persons' mental health across the UK Biobank.
     pail_psychology = ukb_organization.execute_psychology_psychiatry(
-        table=pail_hormone["table"],
+        table=pail_alcohol["table"],
         path_dock=path_dock,
         report=True,
     )
     #print(pail_psychology["table_clean"].columns.to_list())
-    
+
     # Collect information.
     information = dict()
     information["organization"] = dict()
