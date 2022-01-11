@@ -224,6 +224,7 @@ def execute_procedure(
     # Organize variables for persons' sex hormones across the UK Biobank.
     pail_hormone = ukb_organization.execute_sex_hormones(
         table=pail_female["table"],
+        path_dock=path_dock,
         report=True,
     )
     # Organize variables for persons' alcohol consumption across the UK Biobank.
