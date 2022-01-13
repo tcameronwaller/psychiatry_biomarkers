@@ -216,7 +216,7 @@ def execute_procedure(
     )
     # Organize variables for female menstruation across the UK Biobank.
     pail_female = ukb_organization.execute_female_menstruation(
-        table=pail_hormone["table"],
+        table=pail_basis["table"],
         report=True,
     )
     # Organize variables for persons' sex hormones across the UK Biobank.
