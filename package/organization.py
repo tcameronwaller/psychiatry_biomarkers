@@ -225,28 +225,26 @@ def execute_procedure(
         path_dock=path_dock,
         report=True,
     )
-
-    if False:
-        # Organize variables for persons' alcohol consumption across the UK Biobank.
-        pail_alcohol = ukb_organization.execute_alcohol(
-            table=pail_female["table"],
-            report=True,
-        )
-        # Organize variables for persons' mental health across the UK Biobank.
-        pail_psychology = ukb_organization.execute_psychology_psychiatry(
-            table=pail_alcohol["table"],
-            path_dock=path_dock,
-            report=True,
-        )
-        #print(pail_psychology["table_clean"].columns.to_list())
+    # Organize variables for persons' alcohol consumption across the UK Biobank.
+    pail_alcohol = ukb_organization.execute_alcohol(
+        table=pail_hormone["table"],
+        report=True,
+    )
+    # Organize variables for persons' mental health across the UK Biobank.
+    pail_psychology = ukb_organization.execute_psychology_psychiatry(
+        table=pail_alcohol["table"],
+        path_dock=path_dock,
+        report=True,
+    )
+    #print(pail_psychology["table_clean"].columns.to_list())
 
     # Collect information.
     information = dict()
     information["organization"] = dict()
     #information["organization"]["table_phenotypes"] = pail_basis["table"]
-    information["organization"]["table_phenotypes"] = pail_hormone["table"]
+    #information["organization"]["table_phenotypes"] = pail_hormone["table"]
     #information["organization"]["table_phenotypes"] = pail_female["table"]
-    #information["organization"]["table_phenotypes"] = pail_psychology["table"]
+    information["organization"]["table_phenotypes"] = pail_psychology["table"]
     # Write product information to file.
     ukb_organization.write_product(
         paths=paths,
