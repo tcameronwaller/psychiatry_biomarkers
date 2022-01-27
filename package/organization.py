@@ -238,18 +238,19 @@ def execute_procedure(
             report=True,
         )
         #print(pail_psychology["table_clean"].columns.to_list())
-    if False:
-        # Organize variables for female menstruation across the UK Biobank.
-        pail_female = ukb_organization.execute_female_menstruation(
+    if True:
+        # Organize variables for persons' sex hormones across the UK Biobank.
+        pail_hormone = ukb_organization.execute_sex_hormones(
             table=pail_basis["table"],
+            path_dock=path_dock,
             report=True,
         )
 
     # Collect information.
     information = dict()
     information["organization"] = dict()
-    information["organization"]["table_phenotypes"] = pail_basis["table"]
-    #information["organization"]["table_phenotypes"] = pail_hormone["table"]
+    #information["organization"]["table_phenotypes"] = pail_basis["table"]
+    information["organization"]["table_phenotypes"] = pail_hormone["table"]
     #information["organization"]["table_phenotypes"] = pail_female["table"]
     #information["organization"]["table_phenotypes"] = pail_psychology["table"]
     # Write product information to file.
