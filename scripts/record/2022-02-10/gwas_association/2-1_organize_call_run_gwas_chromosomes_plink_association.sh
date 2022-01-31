@@ -44,7 +44,7 @@
 # temporarily.
 # Also remember that as large batches complete, the final GWAS summary
 # statistics accumulate and consume some of the available storage space.
-#$ -tc 6
+#$ -tc 8
 
 # http://gridscheduler.sourceforge.net/htmlman/htmlman1/qsub.html
 

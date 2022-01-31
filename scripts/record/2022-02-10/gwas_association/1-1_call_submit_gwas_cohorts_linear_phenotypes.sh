@@ -20,13 +20,14 @@
 echo "read private file path variables and organize paths..."
 cd ~/paths
 path_process=$(<"./process_psychiatric_metabolism.txt")
-path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2021-12-29/gwas_allele_frequency"
+path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2022-02-10/gwas_association"
 path_dock="$path_process/dock"
 
-path_stratification_tables="${path_dock}/stratification_2021-12-18/body_bipolar_linear"
+path_stratification_tables="${path_dock}/stratification_2022-01-31/vitamin_d_linear"
 
-#path_gwas_container="${path_dock}/gwas_raw/body_white_bipolar_strict_linear"          # 12 GWAS; TCW started at 01:35 on 18 December 2021
-path_gwas_container="${path_dock}/gwas_raw/body_white_bipolar_loose_linear"          # 12 GWAS; TCW started at 01:40 on 18 December 2021
+path_gwas_container="${path_dock}/gwas_raw/white_female_male_priority_male_linear" # 8 GWAS; TCW started at ___ on 31 January 2022
+#path_gwas_container="${path_dock}/gwas_raw/white_female_linear"                   # 8 GWAS; TCW started at ___ on 31 January 2022
+#path_gwas_container="${path_dock}/gwas_raw/white_male_linear"                   # 8 GWAS; TCW started at ___ on 31 January 2022
 
 # Initialize directories.
 rm -r $path_gwas_container
@@ -44,39 +45,38 @@ rm $path_batch_instances
 ##########
 # General models.
 
-# TODO: TCW 3 January 2022
-# TODO: include common covariates for "genotype_array_axiom" and any batches of interest...
-
 ##########
 # Define covariates common for all cohorts.
-covariates_common="genotype_pc_1,genotype_pc_2,genotype_pc_3,genotype_pc_4,genotype_pc_5,genotype_pc_6,genotype_pc_7,genotype_pc_8,genotype_pc_9,genotype_pc_10"
+covariates_common="genotype_array_axiom,genotype_pc_1,genotype_pc_2,genotype_pc_3,genotype_pc_4,genotype_pc_5,genotype_pc_6,genotype_pc_7,genotype_pc_8,genotype_pc_9,genotype_pc_10"
 
 ##########
 # Define multi-dimensional array of cohorts and model covariates.
+# [name of cohort and model for analysis description];[table name cohort-model prefix];[independent variable columns in table]
 cohorts_models_instances=()
 
-### body_white_bipolar_strict
-#cohorts_models_instances+=("white_bipolar_strict_control_unadjust;table_white_bipolar_strict_control;")
-#cohorts_models_instances+=("white_bipolar_strict_control_sex;table_white_bipolar_strict_control;sex_y,")
-#cohorts_models_instances+=("white_bipolar_strict_control_sex_age;table_white_bipolar_strict_control;sex_y,age,")
-#cohorts_models_instances+=("white_bipolar_strict_case_unadjust;table_white_bipolar_strict_case;")
-#cohorts_models_instances+=("white_bipolar_strict_case_sex;table_white_bipolar_strict_case;sex_y,")
-#cohorts_models_instances+=("white_bipolar_strict_case_sex_age;table_white_bipolar_strict_case;sex_y,age,")
+covariates_joint="age,body_log,medication_vitamin_d,alteration_sex_hormone,season,region"
 
-### body_white_bipolar_loose
-cohorts_models_instances+=("white_bipolar_loose_control_unadjust;table_white_bipolar_loose_control;")
-cohorts_models_instances+=("white_bipolar_loose_control_sex;table_white_bipolar_loose_control;sex_y,")
-cohorts_models_instances+=("white_bipolar_loose_control_sex_age;table_white_bipolar_loose_control;sex_y,age,")
-cohorts_models_instances+=("white_bipolar_loose_case_unadjust;table_white_bipolar_loose_case;")
-cohorts_models_instances+=("white_bipolar_loose_case_sex;table_white_bipolar_loose_case;sex_y,")
-cohorts_models_instances+=("white_bipolar_loose_case_sex_age;table_white_bipolar_loose_case;sex_y,age,")
+### white_female_male_priority_male_linear
+cohorts_models_instances+=("unadjust;table_female_male_priority_male;")
+cohorts_models_instances+=("joint;table_female_male_priority_male;sex_y,${covariates_joint},")
+
+### white_female_linear
+#cohorts_models_instances+=("unadjust;table_female;")
+#cohorts_models_instances+=("joint;table_female;menopause_ordinal,${covariates_joint},")
+
+### white_male_linear
+#cohorts_models_instances+=("unadjust;table_male;")
+#cohorts_models_instances+=("joint;table_male;${covariates_joint},")
+
 
 ##########
 # Define array of phenotypes.
+# [name of phenotype for analysis description];[table name phenotype suffix];[dependent variable column in table]
 phenotypes_instances=()
-
-phenotypes_instances+=("body;_body;body")
-phenotypes_instances+=("body_log;_body;body_log")
+phenotypes_instances+=("vitamin_d;_vitamin_d;vitamin_d")
+phenotypes_instances+=("vitamin_d_log;_vitamin_d_log;vitamin_d_log")
+phenotypes_instances+=("vitamin_d_imputation;_vitamin_d_imputation;vitamin_d_imputation")
+phenotypes_instances+=("vitamin_d_imputation_log;_vitamin_d_imputation_log;vitamin_d_imputation_log")
 
 ##########
 # Assemble details for batch instances.
