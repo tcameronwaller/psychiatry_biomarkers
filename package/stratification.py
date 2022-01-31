@@ -87,6 +87,12 @@ def read_source(
 # Procedure
 
 
+# TODO: TCW, 31 January 2022
+# TODO: EVENTUALLY, Estrogen and Testosterone will require different covariates
+# TODO: than Albumin and SHBG.
+# TODO: For example, "alteration_sex_hormones" is more relevant to Estrogen and Testosterone
+
+
 def execute_procedure(
     path_dock=None,
 ):
@@ -137,7 +143,7 @@ def execute_procedure(
         pail_population = dict()
         pass
 
-    # Hormones and their regulatory proteins.
+    # Vitamin D.
     if True:
         pail_vitamin_d_linear = (
             ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
@@ -159,6 +165,30 @@ def execute_procedure(
         ))
     else:
         pail_vitamin_d_logistic = dict()
+        pass
+
+    # Hormones and their regulatory proteins.
+    if False:
+        pail_hormones_linear = (
+            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
+                table=source["table_phenotypes"],
+                set="vitamin_d_linear",
+                path_dock=path_dock,
+                report=True,
+        ))
+    else:
+        pail_hormones_linear = dict()
+        pass
+    if False:
+        pail_hormones_logistic = (
+            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
+                table=source["table_phenotypes"],
+                set="vitamin_d_logistic",
+                path_dock=path_dock,
+                report=True,
+        ))
+    else:
+        pail_hormones_logistic = dict()
         pass
 
     # Body mass index (BMI) in Bipolar Disorder.
@@ -188,10 +218,10 @@ def execute_procedure(
     # Collect information.
     information = dict()
     information["reference_population"] = pail_population
-    #information["hormones_linear"] = pail_hormones_linear
-    #information["hormones_logistic"] = pail_hormones_logistic
     information["vitamin_d_linear"] = pail_vitamin_d_linear
     information["vitamin_d_logistic"] = pail_vitamin_d_logistic
+    information["hormones_linear"] = pail_hormones_linear
+    information["hormones_logistic"] = pail_hormones_logistic
     information["body_bipolar_linear"] = pail_bipolar_linear
     information["body_bipolar_logistic"] = pail_bipolar_logistic
     # Write product information to file.
