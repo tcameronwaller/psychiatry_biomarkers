@@ -138,31 +138,31 @@ def execute_procedure(
         pass
 
     # Hormones and their regulatory proteins.
-    if False:
-        pail_hormones_linear = (
+    if True:
+        pail_vitamin_d_linear = (
             ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
                 table=source["table_phenotypes"],
-                set="hormones_linear",
+                set="vitamin_d_linear",
                 path_dock=path_dock,
                 report=True,
         ))
     else:
-        pail_hormones_linear = dict()
+        pail_vitamin_d_linear = dict()
         pass
-    if False:
-        pail_hormones_logistic = (
+    if True:
+        pail_vitamin_d_logistic = (
             ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
                 table=source["table_phenotypes"],
-                set="hormones_logistic",
+                set="vitamin_d_logistic",
                 path_dock=path_dock,
                 report=True,
         ))
     else:
-        pail_hormones_logistic = dict()
+        pail_vitamin_d_logistic = dict()
         pass
 
     # Body mass index (BMI) in Bipolar Disorder.
-    if True:
+    if False:
         pail_bipolar_linear = (
             ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
                 table=source["table_phenotypes"],
@@ -173,7 +173,7 @@ def execute_procedure(
     else:
         pail_bipolar_linear = dict()
         pass
-    if True:
+    if False:
         pail_bipolar_logistic = (
             ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
                 table=source["table_phenotypes"],
@@ -188,8 +188,10 @@ def execute_procedure(
     # Collect information.
     information = dict()
     information["reference_population"] = pail_population
-    information["hormones_linear"] = pail_hormones_linear
-    information["hormones_logistic"] = pail_hormones_logistic
+    #information["hormones_linear"] = pail_hormones_linear
+    #information["hormones_logistic"] = pail_hormones_logistic
+    information["vitamin_d_linear"] = pail_vitamin_d_linear
+    information["vitamin_d_logistic"] = pail_vitamin_d_logistic
     information["body_bipolar_linear"] = pail_bipolar_linear
     information["body_bipolar_logistic"] = pail_bipolar_logistic
     # Write product information to file.
