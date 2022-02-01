@@ -25,9 +25,9 @@ path_dock="$path_process/dock"
 
 path_stratification_tables="${path_dock}/stratification_2022-01-31/vitamin_d_linear"
 
-#path_gwas_container="${path_dock}/gwas_raw/white_female_male_priority_male_linear" # 8 GWAS; TCW started at 15:33 on 31 January 2022
-#path_gwas_container="${path_dock}/gwas_raw/white_female_linear"                   # 8 GWAS; TCW started at 15:37 on 31 January 2022
-path_gwas_container="${path_dock}/gwas_raw/white_male_linear"                   # 8 GWAS; TCW started at 15:44 on 31 January 2022
+#path_gwas_container="${path_dock}/gwas_raw/white_female_male_priority_male_linear" # 8 GWAS; TCW started at ___ on 01 February 2022
+#path_gwas_container="${path_dock}/gwas_raw/white_female_linear"                    # 8 GWAS; TCW started at ___ on 01 February 2022
+path_gwas_container="${path_dock}/gwas_raw/white_male_linear"                      # 8 GWAS; TCW started at ___ on 01 February 2022
 
 # Initialize directories.
 rm -r $path_gwas_container
