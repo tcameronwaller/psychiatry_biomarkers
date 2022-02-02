@@ -25,7 +25,7 @@ path_dock="$path_process/dock"
 
 path_stratification_tables="${path_dock}/stratification_2022-01-31/vitamin_d_linear"
 
-path_gwas_container="${path_dock}/gwas_raw/white_female_male_priority_male_linear" # 8 GWAS; TCW started at ___ on 01 February 2022
+#path_gwas_container="${path_dock}/gwas_raw/white_female_male_priority_male_linear" # 8 GWAS; TCW started at 14:29 on 01 February 2022
 #path_gwas_container="${path_dock}/gwas_raw/white_female_linear"                    # 8 GWAS; TCW started at 14:23 on 01 February 2022
 #path_gwas_container="${path_dock}/gwas_raw/white_male_linear"                      # 8 GWAS; TCW started at 14:18 on 01 February 2022
 
