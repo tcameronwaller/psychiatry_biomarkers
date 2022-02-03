@@ -12,9 +12,9 @@
 ################################################################################
 # General parameters.
 
-#cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW started at 09:56 on 03 February 2022
-#cohorts_models="white_female_linear"                    # 8 GWAS; TCW started at 09:57 on 03 February 2022
-cohorts_models="white_male_linear"                      # 8 GWAS; TCW started at _____ on 03 February 2022
+cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW started at ___ on 03 February 2022
+#cohorts_models="white_female_linear"                    # 8 GWAS; TCW started at ___ on 03 February 2022
+#cohorts_models="white_male_linear"                      # 8 GWAS; TCW started at ___ on 03 February 2022
 
 response="coefficient" # for linear GWAS, "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
 response_standard_scale="false" # whether to convert reponse (effect, coefficient) to z-score standard scale ("true" or "false")
