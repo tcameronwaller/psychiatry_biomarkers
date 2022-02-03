@@ -12,8 +12,8 @@
 ################################################################################
 # General parameters.
 
-#cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW started at 09:50 on 03 February 2022
-cohorts_models="white_female_linear"                    # 8 GWAS; TCW started at _____ on 03 February 2022
+cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW started at ____ on 03 February 2022
+#cohorts_models="white_female_linear"                    # 8 GWAS; TCW started at _____ on 03 February 2022
 #cohorts_models="white_male_linear"                      # 8 GWAS; TCW started at _____ on 03 February 2022
 
 response="coefficient" # for linear GWAS, "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
@@ -33,7 +33,7 @@ path_gwas_format_container="${path_dock}/gwas_ldsc_format/${cohorts_models}"
 path_gwas_munge_container="${path_dock}/gwas_ldsc_munge/${cohorts_models}"
 path_heritability_container="${path_dock}/heritability/${cohorts_models}"
 
-path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2022-02-02/ldsc_heritability_correlation"
+path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2022-02-10/ldsc_heritability_correlation"
 path_batch_instances="${path_gwas_munge_container}/batch_instances_format_munge.txt"
 
 ###########################################################################
