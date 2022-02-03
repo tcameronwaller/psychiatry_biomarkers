@@ -12,15 +12,11 @@
 ################################################################################
 # General parameters.
 
-cohorts_models="cohorts_models_linear_measurement"          # 72 GWAS started at 10:41 on 9 December 2021
-#cohorts_models="cohorts_models_linear_measurement_unadjust" # 72 GWAS started at ___ on _ December 2021
-#cohorts_models="cohorts_models_linear_imputation"           # 72 GWAS started at ___ on _ December 2021
-#cohorts_models="cohorts_models_linear_imputation_unadjust"  # 72 GWAS started at ___ on _ December 2021
+cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW started at _____ on 03 February 2022
+#cohorts_models="white_female_linear"                    # 8 GWAS; TCW started at _____ on 03 February 2022
+#cohorts_models="white_male_linear"                      # 8 GWAS; TCW started at _____ on 03 February 2022
 
-#cohorts_models="cohorts_models_logistic_detection"
-#cohorts_models="cohorts_models_logistic_detection_unadjust"
-
-response="coefficient" # "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
+response="coefficient" # for linear GWAS, "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
 response_standard_scale="false" # whether to convert reponse (effect, coefficient) to z-score standard scale ("true" or "false")
 
 restore_target_study_directories="true" # whether to delete any previous directories for each study's format and munge GWAS ("true" or "false")
@@ -37,7 +33,7 @@ path_gwas_format_container="${path_dock}/gwas_ldsc_format/${cohorts_models}"
 path_gwas_munge_container="${path_dock}/gwas_ldsc_munge/${cohorts_models}"
 path_heritability_container="${path_dock}/heritability/${cohorts_models}"
 
-path_scripts_record="$path_process/sexy_alcohol/scripts/record/2021-12-02/ldsc_heritability_correlation"
+path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2022-02-02/ldsc_heritability_correlation"
 path_batch_instances="${path_gwas_munge_container}/batch_instances_format_munge.txt"
 
 ###########################################################################
