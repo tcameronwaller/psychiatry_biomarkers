@@ -12,7 +12,7 @@
 # General parameters.
 
 
-#cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW started at ____ on 02 February 2022
+cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW started at ____ on 02 February 2022
 #cohorts_models="white_female_linear"                    # 8 GWAS; TCW started at ____ on 02 February 2022
 #cohorts_models="white_male_linear"                      # 8 GWAS; TCW started at ____ on 02 February 2022
 
