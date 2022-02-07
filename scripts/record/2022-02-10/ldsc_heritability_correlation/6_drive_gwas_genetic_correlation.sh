@@ -11,8 +11,8 @@
 ################################################################################
 # General parameters.
 
-cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW ran at ____ on 03 February 2022
-#cohorts_models="white_female_linear"                    # 8 GWAS; TCW ran at ____ on 03 February 2022
+#cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW ran at about 12:00 on 07 February 2022
+cohorts_models="white_female_linear"                    # 8 GWAS; TCW ran on __ February 2022
 #cohorts_models="white_male_linear"                      # 8 GWAS; TCW ran at ____ on 03 February 2022
 
 ################################################################################
@@ -77,44 +77,44 @@ done
 
 ##########
 # Study pairs within the same container (white_female_male_priority_male_linear).
-if true; then
+if false; then
   # Signal transformation.
   pairs+=("joint_vitamin_d;joint_vitamin_d_log")
   pairs+=("joint_vitamin_d_imputation;joint_vitamin_d_imputation_log")
   # Model.
   pairs+=("unadjust_vitamin_d_imputation_log;joint_vitamin_d_imputation_log")
+
+  # Assemble array of batch instance details.
+  comparison_container="${cohorts_models}_secondary_pairs_model"
+  for pair in "${pairs[@]}"; do
+    IFS=";" read -r -a array <<< "${pair}"
+    study_primary="${array[0]}"
+    study_secondary="${array[1]}"
+    comparisons+=("${comparison_container};${study_primary};${path_secondary_gwas_munge_container}/${study_primary}/${name_gwas_munge_file};${study_secondary};${path_secondary_gwas_munge_container}/${study_secondary}/${name_gwas_munge_file}")
+  done
 fi
-
-# Assemble array of batch instance details.
-comparison_container="${cohorts_models}_secondary_pairs_model"
-for pair in "${pairs[@]}"; do
-  IFS=";" read -r -a array <<< "${pair}"
-  study_primary="${array[0]}"
-  study_secondary="${array[1]}"
-  comparisons+=("${comparison_container};${study_primary};${path_secondary_gwas_munge_container}/${study_primary}/${name_gwas_munge_file};${study_secondary};${path_secondary_gwas_munge_container}/${study_secondary}/${name_gwas_munge_file}")
-done
-
 
 ##########
 # Study pairs within different containers.
-if true; then
+if false; then
   # Females to Males.
   pairs+=("female_vitamin_d;${path_dock}/gwas_ldsc_munge/white_female_linear/joint_vitamin_d;male_vitamin_d;${path_dock}/gwas_ldsc_munge/white_male_linear/joint_vitamin_d")
   pairs+=("female_vitamin_d_log;${path_dock}/gwas_ldsc_munge/white_female_linear/joint_vitamin_d_log;male_vitamin_d_log;${path_dock}/gwas_ldsc_munge/white_male_linear/joint_vitamin_d_log")
   pairs+=("female_vitamin_d_imputation;${path_dock}/gwas_ldsc_munge/white_female_linear/joint_vitamin_d_imputation;male_vitamin_d_imputation;${path_dock}/gwas_ldsc_munge/white_male_linear/joint_vitamin_d_imputation")
   pairs+=("female_vitamin_d_imputation_log;${path_dock}/gwas_ldsc_munge/white_female_linear/joint_vitamin_d_imputation_log;male_vitamin_d_imputation_log;${path_dock}/gwas_ldsc_munge/white_male_linear/joint_vitamin_d_imputation_log")
+
+  # Assemble array of batch instance details.
+  comparison_container="white_secondary_pairs_female_male"
+  for pair in "${pairs[@]}"; do
+    IFS=";" read -r -a array <<< "${pair}"
+    study_primary="${array[0]}"
+    path_primary="${array[1]}"
+    study_secondary="${array[2]}"
+    path_secondary="${array[3]}"
+    comparisons+=("${comparison_container};${study_primary};${path_primary}/${name_gwas_munge_file};${study_secondary};${path_secondary}/${name_gwas_munge_file}")
+  done
 fi
 
-# Assemble array of batch instance details.
-comparison_container="${cohorts_models}_secondary_pairs_female_male"
-for pair in "${pairs[@]}"; do
-  IFS=";" read -r -a array <<< "${pair}"
-  study_primary="${array[0]}"
-  path_primary="${array[1]}"
-  study_secondary="${array[2]}"
-  path_secondary="${array[3]}"
-  comparisons+=("${comparison_container};${study_primary};${path_primary}/${name_gwas_munge_file};${study_secondary};${path_secondary}/${name_gwas_munge_file}")
-done
 
 ################################################################################
 # Drive genetic correlations across comparisons.
