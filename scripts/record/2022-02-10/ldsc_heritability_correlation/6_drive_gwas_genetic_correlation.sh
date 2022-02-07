@@ -12,8 +12,8 @@
 # General parameters.
 
 #cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW ran at about 12:00 on 07 February 2022
-cohorts_models="white_female_linear"                    # 8 GWAS; TCW ran on __ February 2022
-#cohorts_models="white_male_linear"                      # 8 GWAS; TCW ran at ____ on 03 February 2022
+#cohorts_models="white_female_linear"                    # 8 GWAS; TCW ran at about 13:05 on 07 February 2022
+cohorts_models="white_male_linear"                      # 8 GWAS; TCW ran at ____ on 03 February 2022
 
 ################################################################################
 # Organize paths.
