@@ -24,6 +24,7 @@ import assembly
 import importation
 import organization
 import stratification
+import description
 import regression
 import collection
 import scratch
@@ -194,6 +195,15 @@ def define_main_subparser(subparsers=None):
         )
     )
     parser_main.add_argument(
+        "-description", "--description",
+        dest="description",
+        action="store_true",
+        help=(
+            "Description of cohorts and phenotypes with summary statistics " +
+            "and plots."
+        )
+    )
+    parser_main.add_argument(
         "-regression", "--regression",
         dest="regression",
         action="store_true",
@@ -336,6 +346,13 @@ def evaluate_main_parameters(arguments):
         print("... executing stratification procedure ...")
         # Execute procedure.
         stratification.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.description:
+        # Report status.
+        print("... executing description procedure ...")
+        # Execute procedure.
+        description.execute_procedure(
             path_dock=arguments.path_dock
         )
     if arguments.regression:
