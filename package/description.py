@@ -364,12 +364,12 @@ def execute_procedure(
     information["description"]["table_cohorts_measurements_missingness"] = (
         pail_summary["table_cohorts_measurements_missingness"]
     )
-    #information["description"]["table_summary_cohorts_models_phenotypes"] = (
-    #    pail_summary["table_summary_cohorts_models_phenotypes"]
-    #)
-    #information["description"]["table_summary_cohorts_models_genotypes"] = (
-    #    pail_summary["table_summary_cohorts_models_genotypes"]
-    #)
+    information["description"]["table_summary_cohorts_models_phenotypes"] = (
+        pail_summary["table_summary_cohorts_models_phenotypes"]
+    )
+    information["description"]["table_summary_cohorts_models_genotypes"] = (
+        pail_summary["table_summary_cohorts_models_genotypes"]
+    )
     information["plots"] = pail_plot
     # Write product information to file.
     write_product(
