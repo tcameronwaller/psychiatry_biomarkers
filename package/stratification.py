@@ -40,57 +40,8 @@ import uk_biobank.stratification as ukb_strat
 # Functionality
 
 
-##########
-# Read
-
-
-def read_source(
-    path_dock=None,
-    report=None,
-):
-    """
-    Reads and organizes source information from file.
-
-    Notice that Pandas does not accommodate missing values within series of
-    integer variable types.
-
-    arguments:
-        path_dock (str): path to dock directory for source and product
-            directories and files
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (object): source information
-
-    """
-
-    # Specify directories and files.
-    path_table_phenotypes = os.path.join(
-        path_dock, "organization",
-        "table_phenotypes.pickle",
-    )
-
-    # Read information from file.
-    table_phenotypes = pandas.read_pickle(
-        path_table_phenotypes
-    )
-    # Compile and return information.
-    return {
-        "table_phenotypes": table_phenotypes,
-        #"table_ukb_samples": table_ukb_samples,
-    }
-
-
 ###############################################################################
 # Procedure
-
-
-# TODO: TCW, 31 January 2022
-# TODO: EVENTUALLY, Estrogen and Testosterone will require different covariates
-# TODO: than Albumin and SHBG.
-# TODO: For example, "alteration_sex_hormones" is more relevant to Estrogen and Testosterone
 
 
 def execute_procedure(
@@ -115,123 +66,12 @@ def execute_procedure(
     # Pause procedure.
     time.sleep(5.0)
 
-    # Initialize directories.
-    paths = ukb_strat.initialize_directories(
-        restore=True,
-        path_dock=path_dock,
-    )
-    # Read source information from file.
-    # Exclusion identifiers are "eid".
-    source = read_source(
-        path_dock=path_dock,
-        report=True,
-    )
-
-    # Select and organize variables across cohorts.
-    # Organize phenotypes and covariates in format for analysis in PLINK.
-
-    # Reference population.
-    if True:
-        pail_population = (
-            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
-                table=source["table_phenotypes"],
-                set="reference_population",
-                path_dock=path_dock,
-                report=True,
-        ))
-    else:
-        pail_population = dict()
-        pass
-
-    # Vitamin D.
-    if True:
-        pail_vitamin_d_linear = (
-            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
-                table=source["table_phenotypes"],
-                set="vitamin_d_linear",
-                path_dock=path_dock,
-                report=True,
-        ))
-    else:
-        pail_vitamin_d_linear = dict()
-        pass
-    if True:
-        pail_vitamin_d_logistic = (
-            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
-                table=source["table_phenotypes"],
-                set="vitamin_d_logistic",
-                path_dock=path_dock,
-                report=True,
-        ))
-    else:
-        pail_vitamin_d_logistic = dict()
-        pass
-
-    # Hormones and their regulatory proteins.
-    if False:
-        pail_hormones_linear = (
-            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
-                table=source["table_phenotypes"],
-                set="vitamin_d_linear",
-                path_dock=path_dock,
-                report=True,
-        ))
-    else:
-        pail_hormones_linear = dict()
-        pass
-    if False:
-        pail_hormones_logistic = (
-            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
-                table=source["table_phenotypes"],
-                set="vitamin_d_logistic",
-                path_dock=path_dock,
-                report=True,
-        ))
-    else:
-        pail_hormones_logistic = dict()
-        pass
-
-    # Body mass index (BMI) in Bipolar Disorder.
-    if False:
-        pail_bipolar_linear = (
-            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
-                table=source["table_phenotypes"],
-                set="bipolar_body_linear",
-                path_dock=path_dock,
-                report=True,
-        ))
-    else:
-        pail_bipolar_linear = dict()
-        pass
-    if False:
-        pail_bipolar_logistic = (
-            ukb_strat.execute_stratify_genotype_cohorts_plink_format_set(
-                table=source["table_phenotypes"],
-                set="bipolar_body_logistic",
-                path_dock=path_dock,
-                report=True,
-        ))
-    else:
-        pail_bipolar_logistic = dict()
-        pass
-
-    # Collect information.
-    information = dict()
-    information["reference_population"] = pail_population
-    information["vitamin_d_linear"] = pail_vitamin_d_linear
-    information["vitamin_d_logistic"] = pail_vitamin_d_logistic
-    information["hormones_linear"] = pail_hormones_linear
-    information["hormones_logistic"] = pail_hormones_logistic
-    information["body_bipolar_linear"] = pail_bipolar_linear
-    information["body_bipolar_logistic"] = pail_bipolar_logistic
-    # Write product information to file.
-    ukb_strat.write_genotype_product(
-        paths=paths,
-        information=information
-    )
+    # Execute assembly procedure from uk_biobank package.
+    ukb_strat.execute_procedure(path_dock=path_dock)
+    utility.print_terminal_partition(level=1)
+    print("From package 'uk_biobank', procedure 'stratification' is complete.")
 
     pass
-
 
 
 if (__name__ == "__main__"):
