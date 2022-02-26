@@ -29,8 +29,8 @@ path_dock="$path_process/dock"
 path_stratification_tables="${path_dock}/stratification_2022-02-25/testosterone"
 
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"    # 24 GWAS; TCW started at 23:48 on 25 February 2022; job 3109174
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # __ GWAS; TCW started at __ on 25 February 2022
-path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # 24 GWAS; TCW started at __ on 26 February 2022
+path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at __ on 26 February 2022
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # 24 GWAS; TCW started at 01:17 on 26 February 2022; job 3109689
 
 # Initialize directories.
 rm -r $path_gwas_container
@@ -107,8 +107,8 @@ cohorts_models_instances+=("male_joint_3;table_male_joint_3;${covariates_joint_3
 phenotypes_instances=()
 #phenotypes_instances+=("vitamin_d_imputation;_vitamin_d_imputation;vitamin_d_imputation")
 #phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection")
-#phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection")
-phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")
+phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection")
+#phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")
 
 ##########
 # Assemble details for batch instances.
