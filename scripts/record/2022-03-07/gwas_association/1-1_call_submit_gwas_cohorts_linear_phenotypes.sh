@@ -23,11 +23,14 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2022-03-07/gwas_association"
 path_dock="$path_process/dock"
 
-path_stratification_tables="${path_dock}/stratification_2022-02-25/oestradiol"
 
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic" # __ GWAS; TCW started at __ on 25 February 2022
-###path_gwas_container="${path_dock}/gwas_raw/white_female_linear"                    # 8 GWAS; TCW started at 14:23 on 01 February 2022
-###path_gwas_container="${path_dock}/gwas_raw/white_male_linear"                      # 8 GWAS; TCW started at 14:18 on 01 February 2022
+#path_stratification_tables="${path_dock}/stratification_2022-02-25/vitamin_d"
+path_stratification_tables="${path_dock}/stratification_2022-02-25/oestradiol"
+#path_stratification_tables="${path_dock}/stratification_2022-02-25/testosterone"
+
+path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"    # __ GWAS; TCW started at __ on 25 February 2022
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # __ GWAS; TCW started at __ on 25 February 2022
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # __ GWAS; TCW started at __ on 25 February 2022
 
 # Initialize directories.
 rm -r $path_gwas_container
@@ -55,6 +58,8 @@ covariates_genotype="genotype_array_axiom,genotype_pc_1,genotype_pc_2,genotype_p
 cohorts_models_instances=()
 
 covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
+#vitamin_d#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,oestradiol_imputation,testosterone_imputation"
+#vitamin_d#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,oestradiol_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
 #covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation"
 #covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,steroid_globulin_imputation,albumin_imputation"
 covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation"
