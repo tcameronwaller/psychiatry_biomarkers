@@ -28,7 +28,7 @@ path_dock="$path_process/dock"
 path_stratification_tables="${path_dock}/stratification_2022-02-25/oestradiol"
 #path_stratification_tables="${path_dock}/stratification_2022-02-25/testosterone"
 
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"    # __ GWAS; TCW started at __ on 25 February 2022
+path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"    # 24 GWAS; TCW started at __ on 25 February 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # __ GWAS; TCW started at __ on 25 February 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # __ GWAS; TCW started at __ on 25 February 2022
 
