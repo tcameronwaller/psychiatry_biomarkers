@@ -25,12 +25,12 @@ path_dock="$path_process/dock"
 
 
 #path_stratification_tables="${path_dock}/stratification_2022-02-25/vitamin_d"
-path_stratification_tables="${path_dock}/stratification_2022-02-25/oestradiol"
-#path_stratification_tables="${path_dock}/stratification_2022-02-25/testosterone"
+#path_stratification_tables="${path_dock}/stratification_2022-02-25/oestradiol"
+path_stratification_tables="${path_dock}/stratification_2022-02-25/testosterone"
 
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"    # 24 GWAS; TCW started at __ on 25 February 2022
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"    # 24 GWAS; TCW started at 23:48 on 25 February 2022; job 3109174
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # __ GWAS; TCW started at __ on 25 February 2022
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # __ GWAS; TCW started at __ on 25 February 2022
+path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # 24 GWAS; TCW started at __ on 26 February 2022
 
 # Initialize directories.
 rm -r $path_gwas_container
@@ -60,10 +60,10 @@ cohorts_models_instances=()
 covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
 #vitamin_d#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,oestradiol_imputation,testosterone_imputation"
 #vitamin_d#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,oestradiol_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
-#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation"
-#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,steroid_globulin_imputation,albumin_imputation"
-covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation"
-covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
+covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation"
+covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,steroid_globulin_imputation,albumin_imputation"
+#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation"
+#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
 
 ### female
 cohorts_models_instances+=("female_unadjust;table_female_unadjust;")
@@ -106,9 +106,9 @@ cohorts_models_instances+=("male_joint_3;table_male_joint_3;${covariates_joint_3
 # [name of phenotype for analysis description];[table name phenotype suffix];[dependent variable column in table]
 phenotypes_instances=()
 #phenotypes_instances+=("vitamin_d_imputation;_vitamin_d_imputation;vitamin_d_imputation")
-phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection")
+#phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection")
 #phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection")
-#phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")
+phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")
 
 ##########
 # Assemble details for batch instances.
