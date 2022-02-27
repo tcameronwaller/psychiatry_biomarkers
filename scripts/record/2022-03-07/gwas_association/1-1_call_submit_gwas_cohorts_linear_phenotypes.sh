@@ -28,8 +28,8 @@ path_dock="$path_process/dock"
 #path_stratification_tables="${path_dock}/stratification_2022-02-25/oestradiol"
 path_stratification_tables="${path_dock}/stratification_2022-02-25/testosterone"
 
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"    # 24 GWAS; TCW started at 23:48 on 25 February 2022; job 3109174
-path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at __ on 26 February 2022
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 23:48 on 25 February 2022; job 3109174
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 11:44 on 26 February 2022; job 3120038
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # 24 GWAS; TCW started at 01:17 on 26 February 2022; job 3109689
 
 # Initialize directories.
@@ -57,49 +57,67 @@ covariates_genotype="genotype_array_axiom,genotype_pc_1,genotype_pc_2,genotype_p
 # [name of cohort and model for analysis description];[table name cohort-model prefix];[independent variable columns in table, beginning with cohort-specific variables]
 cohorts_models_instances=()
 
-covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
-#vitamin_d#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,oestradiol_imputation,testosterone_imputation"
-#vitamin_d#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,oestradiol_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
-covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation"
-covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,steroid_globulin_imputation,albumin_imputation"
+# testosterone_detection and testosterone_imputation
+#covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
+#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation"
+#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,steroid_globulin_imputation,albumin_imputation"
+
+# oestradiol_detection
+#covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
 #covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation"
 #covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
+
+#vitamin_d#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,oestradiol_imputation,testosterone_imputation"
+#vitamin_d#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,oestradiol_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
+#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation"
+#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,steroid_globulin_imputation,albumin_imputation"
+
+# bioavailable and free testosterone: only use "covariates_joint_1" and "covariates_joint_2" with "oestradiol_imputation"
+covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
+covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation"
+
+# bioavailable and free oestradiol: only use "covariates_joint_1" and "covariates_joint_2" without "oestradiol_imputation"
+#covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
+#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation"
+
+
+
 
 ### female
 cohorts_models_instances+=("female_unadjust;table_female_unadjust;")
 cohorts_models_instances+=("female_joint_1;table_female_joint_1;menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_1},")
 cohorts_models_instances+=("female_joint_2;table_female_joint_2;menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_2},")
-cohorts_models_instances+=("female_joint_3;table_female_joint_3;menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_3},")
+#cohorts_models_instances+=("female_joint_3;table_female_joint_3;menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_3},")
 
 ### female_menstruation_regular
 cohorts_models_instances+=("female_menstruation_regular_unadjust;table_female_menstruation_regular_unadjust;")
 cohorts_models_instances+=("female_menstruation_regular_joint_1;table_female_menstruation_regular_joint_1;menstruation_phase_cycle,menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_1},")
 cohorts_models_instances+=("female_menstruation_regular_joint_2;table_female_menstruation_regular_joint_2;menstruation_phase_cycle,menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_2},")
-cohorts_models_instances+=("female_menstruation_regular_joint_3;table_female_menstruation_regular_joint_3;menstruation_phase_cycle,menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_3},")
+#cohorts_models_instances+=("female_menstruation_regular_joint_3;table_female_menstruation_regular_joint_3;menstruation_phase_cycle,menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_3},")
 
 ### female_premenopause
 cohorts_models_instances+=("female_premenopause_unadjust;table_female_premenopause_unadjust;")
 cohorts_models_instances+=("female_premenopause_joint_1;table_female_premenopause_joint_1;menstruation_phase_cycle,hysterectomy,pregnancies,${covariates_joint_1},")
 cohorts_models_instances+=("female_premenopause_joint_2;table_female_premenopause_joint_2;menstruation_phase_cycle,hysterectomy,pregnancies,${covariates_joint_2},")
-cohorts_models_instances+=("female_premenopause_joint_3;table_female_premenopause_joint_3;menstruation_phase_cycle,hysterectomy,pregnancies,${covariates_joint_3},")
+#cohorts_models_instances+=("female_premenopause_joint_3;table_female_premenopause_joint_3;menstruation_phase_cycle,hysterectomy,pregnancies,${covariates_joint_3},")
 
 ### female_perimenopause
 cohorts_models_instances+=("female_perimenopause_unadjust;table_female_perimenopause_unadjust;")
 cohorts_models_instances+=("female_perimenopause_joint_1;table_female_perimenopause_joint_1;hysterectomy,pregnancies,${covariates_joint_1},")
 cohorts_models_instances+=("female_perimenopause_joint_2;table_female_perimenopause_joint_2;hysterectomy,pregnancies,${covariates_joint_2},")
-cohorts_models_instances+=("female_perimenopause_joint_3;table_female_perimenopause_joint_3;hysterectomy,pregnancies,${covariates_joint_3},")
+#cohorts_models_instances+=("female_perimenopause_joint_3;table_female_perimenopause_joint_3;hysterectomy,pregnancies,${covariates_joint_3},")
 
 ### female_postmenopause
 cohorts_models_instances+=("female_postmenopause_unadjust;table_female_postmenopause_unadjust;")
 cohorts_models_instances+=("female_postmenopause_joint_1;table_female_postmenopause_joint_1;oophorectomy,hysterectomy,pregnancies,${covariates_joint_1},")
 cohorts_models_instances+=("female_postmenopause_joint_2;table_female_postmenopause_joint_2;oophorectomy,hysterectomy,pregnancies,${covariates_joint_2},")
-cohorts_models_instances+=("female_postmenopause_joint_3;table_female_postmenopause_joint_3;oophorectomy,hysterectomy,pregnancies,${covariates_joint_3},")
+#cohorts_models_instances+=("female_postmenopause_joint_3;table_female_postmenopause_joint_3;oophorectomy,hysterectomy,pregnancies,${covariates_joint_3},")
 
 ### male
 cohorts_models_instances+=("male_unadjust;table_male_unadjust;")
 cohorts_models_instances+=("male_joint_1;table_male_joint_1;${covariates_joint_1},")
 cohorts_models_instances+=("male_joint_2;table_male_joint_2;${covariates_joint_2},")
-cohorts_models_instances+=("male_joint_3;table_male_joint_3;${covariates_joint_3},")
+#cohorts_models_instances+=("male_joint_3;table_male_joint_3;${covariates_joint_3},")
 
 ##########
 # Define array of phenotypes.
@@ -107,8 +125,13 @@ cohorts_models_instances+=("male_joint_3;table_male_joint_3;${covariates_joint_3
 phenotypes_instances=()
 #phenotypes_instances+=("vitamin_d_imputation;_vitamin_d_imputation;vitamin_d_imputation")
 #phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection")
-phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection")
+#phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection")
 #phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")
+phenotypes_instances+=("testosterone_bioavailable_imputation;_testosterone_bioavailable_imputation;testosterone_bioavailable_imputation")
+phenotypes_instances+=("testosterone_free_imputation;_testosterone_free_imputation;testosterone_free_imputation")
+
+
+
 
 ##########
 # Assemble details for batch instances.
