@@ -41,8 +41,9 @@ path_stratification_tables="${path_dock}/stratification_2022-02-26/oestradiol"
 
 
 #path_gwas_container="${path_dock}/gwas_raw/vitamin_d_linear"                   # 24 GWAS; TCW started at ___ on 26 February 2022; job ___
+
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"     # 18 GWAS; TCW started at 21:15 on 26 February 2022; job 3149651
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"     # 24 GWAS; TCW started at ___ on 26 February 2022; job ___
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"             # 18 GWAS; TCW started at 21:21 on 26 February 2022; job 3149652
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear"   # 18 GWAS; TCW started at 20:56 on 26 February 2022; job 3149548
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"           # 18 GWAS; TCW started at 21:03 on 26 February 2022; job 3149549
 
@@ -87,8 +88,8 @@ covariates_genotype="genotype_array_axiom,genotype_pc_1,genotype_pc_2,genotype_p
 #covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
 
 # "oestradiol_bioavailable" and "oestradiol_free"
-covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
-covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation"
+#covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
+#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation"
 
 # "testosterone_bioavailable" and "testosterone_free"
 #covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
@@ -140,9 +141,10 @@ cohorts_models_instances+=("male_joint_2;table_male_joint_2;${covariates_joint_2
 # [name of phenotype for analysis description];[table name phenotype suffix];[dependent variable column in table]
 phenotypes_instances=()
 #phenotypes_instances+=("vitamin_d_imputation;_vitamin_d_imputation;vitamin_d_imputation")
+
 #phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection")
 #phenotypes_instances+=("oestradiol_bioavailable_imputation;_oestradiol_bioavailable_imputation;oestradiol_bioavailable_imputation")
-phenotypes_instances+=("oestradiol_free_imputation;_oestradiol_free_imputation;oestradiol_free_imputation")
+#phenotypes_instances+=("oestradiol_free_imputation;_oestradiol_free_imputation;oestradiol_free_imputation")
 #phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection")
 #phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")
 #phenotypes_instances+=("testosterone_bioavailable_imputation;_testosterone_bioavailable_imputation;testosterone_bioavailable_imputation")
