@@ -32,8 +32,8 @@ path_dock="$path_process/dock"
 #path_stratification_tables="${path_dock}/stratification_2022-02-26/testosterone"
 
 #path_stratification_tables="${path_dock}/stratification_2022-02-27/vitamin_d"
-path_stratification_tables="${path_dock}/stratification_2022-02-27/steroid_globulin"
-#path_stratification_tables="${path_dock}/stratification_2022-02-27/albumin"
+#path_stratification_tables="${path_dock}/stratification_2022-02-27/steroid_globulin"
+path_stratification_tables="${path_dock}/stratification_2022-02-27/albumin"
 
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 23:48 on 25 February 2022; job 3109174
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 11:44 on 26 February 2022; job 3120038
@@ -46,8 +46,8 @@ path_stratification_tables="${path_dock}/stratification_2022-02-27/steroid_globu
 
 
 #path_gwas_container="${path_dock}/gwas_raw/vitamin_d_linear"          # 24 GWAS; TCW started at ___ on 27 February 2022; job ___
-path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear"   # 24 GWAS; TCW started at ___ on 27 February 2022; job ___
-#path_gwas_container="${path_dock}/gwas_raw/albumin_linear"            # 24 GWAS; TCW started at ___ on 27 February 2022; job ___
+#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear"   # 4 GWAS; TCW started at 12:59 on 27 February 2022; job 3155785
+path_gwas_container="${path_dock}/gwas_raw/albumin_linear"            # 24 GWAS; TCW started at ___ on 27 February 2022; job ___
 
 
 
@@ -81,14 +81,14 @@ covariates_genotype="genotype_array_axiom,genotype_pc_1,genotype_pc_2,genotype_p
 #covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,oestradiol_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
 
 # "steroid_globulin"
-covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
-covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,testosterone_imputation"
-covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,testosterone_imputation,albumin_imputation"
-
-# "albumin"
 #covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
 #covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,testosterone_imputation"
-#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,testosterone_imputation,steroid_globulin_imputation"
+#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,testosterone_imputation,albumin_imputation"
+
+# "albumin"
+covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
+covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,testosterone_imputation"
+covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,testosterone_imputation,steroid_globulin_imputation"
 
 
 
@@ -163,8 +163,8 @@ cohorts_models_instances+=("female_male_priority_male_joint_3;table_female_male_
 phenotypes_instances=()
 
 #phenotypes_instances+=("vitamin_d_imputation;_vitamin_d_imputation;vitamin_d_imputation")
-phenotypes_instances+=("steroid_globulin_imputation;_steroid_globulin_imputation;steroid_globulin_imputation")
-#phenotypes_instances+=("albumin_imputation;_albumin_imputation;albumin_imputation")
+#phenotypes_instances+=("steroid_globulin_imputation;_steroid_globulin_imputation;steroid_globulin_imputation")
+phenotypes_instances+=("albumin_imputation;_albumin_imputation;albumin_imputation")
 
 #phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection")
 #phenotypes_instances+=("oestradiol_bioavailable_imputation;_oestradiol_bioavailable_imputation;oestradiol_bioavailable_imputation")
