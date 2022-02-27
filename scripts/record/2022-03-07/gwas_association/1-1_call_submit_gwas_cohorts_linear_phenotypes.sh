@@ -42,7 +42,8 @@ path_stratification_tables="${path_dock}/stratification_2022-02-26/testosterone"
 
 #path_gwas_container="${path_dock}/gwas_raw/vitamin_d_linear"   # 24 GWAS; TCW started at ___ on 26 February 2022; job ___
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_integral_linear"   # 24 GWAS; TCW started at ___ on 26 February 2022; job ___
-path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear"   # 24 GWAS; TCW started at ___ on 26 February 2022; job ___
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear"   # 18 GWAS; TCW started at 20:56 on 26 February 2022; job 3149548
+path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"   # 18 GWAS; TCW started at ___ on 26 February 2022; job ___
 
 
 
@@ -143,8 +144,8 @@ phenotypes_instances=()
 #phenotypes_instances+=("oestradiol_free_imputation;_oestradiol_free_imputation;oestradiol_free_imputation")
 #phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection")
 #phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")
-phenotypes_instances+=("testosterone_bioavailable_imputation;_testosterone_bioavailable_imputation;testosterone_bioavailable_imputation")
-#phenotypes_instances+=("testosterone_free_imputation;_testosterone_free_imputation;testosterone_free_imputation")
+#phenotypes_instances+=("testosterone_bioavailable_imputation;_testosterone_bioavailable_imputation;testosterone_bioavailable_imputation")
+phenotypes_instances+=("testosterone_free_imputation;_testosterone_free_imputation;testosterone_free_imputation")
 
 
 
