@@ -38,7 +38,6 @@ path_dock="$path_process/dock"
 path_stratification_tables="${path_dock}/stratification_2022-02-27/testosterone"
 
 
-
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 23:48 on 25 February 2022; job 3109174; complete; failure: PLINK2 intepreted not any 'cases' due to "variance-standardize" argument
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 11:44 on 26 February 2022; job 3120038; complete; failure: PLINK2 interpreted not any 'cases' due to "variance-standardize" argument
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # 24 GWAS; TCW started at 01:17 on 26 February 2022; job 3109689; complete
