@@ -40,7 +40,15 @@ path_dock="$path_process/dock"
 #path_stratification_tables="${path_dock}/stratification_2022-02-28/steroid_globulin"
 
 #path_stratification_tables="${path_dock}/stratification_2022-03-01/oestradiol"
-path_stratification_tables="${path_dock}/stratification_2022-03-01/testosterone"
+#path_stratification_tables="${path_dock}/stratification_2022-03-01/testosterone"
+#path_stratification_tables="${path_dock}/stratification_2022-03-01/steroid_globulin" <-- need to re-start on 1 March 2022
+
+# Stratification tables without standardization of variance in covariates within the stratification table.
+# Standardize covariate variance in PLINK2.
+path_stratification_tables="${path_dock}/stratification_2022-03-01_2/oestradiol"
+#path_stratification_tables="${path_dock}/stratification_2022-03-01/testosterone"
+#path_stratification_tables="${path_dock}/stratification_2022-03-01/steroid_globulin" <-- need to re-start on 1 March 2022
+
 
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 23:48 on 25 February 2022; job 3109174; status: complete; failure: PLINK2 intepreted not any 'cases' due to "variance-standardize" argument
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 11:44 on 26 February 2022; job 3120038; status: complete; failure: PLINK2 interpreted not any 'cases' due to "variance-standardize" argument
@@ -49,19 +57,19 @@ path_stratification_tables="${path_dock}/stratification_2022-03-01/testosterone"
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 13:37 on 28 February 2022; job 3167520; status: failure: PLINK2 intepreted not any 'cases' due to "covar-variance-standardize" argument;
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 13:48 on 28 February 2022; job 3167537; status: cancelled;
 
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 00:22 on 01 March 2022; job 3186784; status: running;
-path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at ___ on 01 March 2022; job _____; status: ;
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 00:22 on 01 March 2022; job 3186784; status: complete; <-- priority... WATCH CLOSELY
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 00:38 on 01 March 2022; job 3186785; status: queue; <-- priority
 
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"     # 18 GWAS; TCW started at 21:15 on 26 February 2022; job 3149651; status: complete;
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"             # 18 GWAS; TCW started at 21:21 on 26 February 2022; job 3149652; status: complete;
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear"   # 18 GWAS; TCW started at 20:56 on 26 February 2022; job 3149548; complete
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"           # 18 GWAS; TCW started at 21:03 on 26 February 2022; job 3149549; complete
 
-#path_gwas_container="${path_dock}/gwas_raw/vitamin_d_linear"          # 4 GWAS; TCW started at 13:20 on 27 February 2022; job 3155905; status: running;
-#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear"   # 4 GWAS; TCW started at 12:59 on 27 February 2022; job 3155785; status: running;
-#path_gwas_container="${path_dock}/gwas_raw/albumin_linear"            # 4 GWAS; TCW started at 13:09 on 27 February 2022; job 3155786; status: running;
+#path_gwas_container="${path_dock}/gwas_raw/vitamin_d_linear"          # 4 GWAS; TCW started at 13:20 on 27 February 2022; job 3155905; status: still running;
+#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear"   # 4 GWAS; TCW started at 12:59 on 27 February 2022; job 3155785; status: complete;
+#path_gwas_container="${path_dock}/gwas_raw/albumin_linear"            # 4 GWAS; TCW started at 13:09 on 27 February 2022; job 3155786; status: complete;
 
-#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_sex_linear"   # 24 GWAS; TCW started at 20:29 on 28 February 2022; job 3182561; status: cancelled;
+#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_sex_linear"   # 24 GWAS; TCW started at 20:29 on 28 February 2022; job 3182561; status: cancelled; <-- need to re-start on 1 March 2022!!!
 
 # Initialize directories.
 rm -r $path_gwas_container
@@ -175,11 +183,11 @@ phenotypes_instances=()
 #phenotypes_instances+=("steroid_globulin_imputation;_steroid_globulin_imputation;steroid_globulin_imputation")
 #phenotypes_instances+=("albumin_imputation;_albumin_imputation;albumin_imputation")
 
-#phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection")
+#phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection_plink")
 #phenotypes_instances+=("oestradiol_bioavailable_imputation;_oestradiol_bioavailable_imputation;oestradiol_bioavailable_imputation")
 #phenotypes_instances+=("oestradiol_free_imputation;_oestradiol_free_imputation;oestradiol_free_imputation")
 
-phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection")
+phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection_plink")
 #phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")
 #phenotypes_instances+=("testosterone_bioavailable_imputation;_testosterone_bioavailable_imputation;testosterone_bioavailable_imputation")
 #phenotypes_instances+=("testosterone_free_imputation;_testosterone_free_imputation;testosterone_free_imputation")
