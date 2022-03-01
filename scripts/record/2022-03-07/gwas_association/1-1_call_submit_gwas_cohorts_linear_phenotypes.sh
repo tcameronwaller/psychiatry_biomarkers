@@ -60,7 +60,7 @@ path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW
 #path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear"   # 4 GWAS; TCW started at 12:59 on 27 February 2022; job 3155785; status: running;
 #path_gwas_container="${path_dock}/gwas_raw/albumin_linear"            # 4 GWAS; TCW started at 13:09 on 27 February 2022; job 3155786; status: running;
 
-#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_sex_linear"   # 24 GWAS; TCW started at 20:29 on 28 February 2022; job 3182561; status: in queue; <-- need to cancel this...
+#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_sex_linear"   # 24 GWAS; TCW started at 20:29 on 28 February 2022; job 3182561; status: cancelled;
 
 # Initialize directories.
 rm -r $path_gwas_container
