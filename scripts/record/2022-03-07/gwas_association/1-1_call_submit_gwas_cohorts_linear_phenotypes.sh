@@ -45,8 +45,8 @@ path_dock="$path_process/dock"
 
 # Stratification tables without standardization of variance in covariates within the stratification table.
 # Standardize covariate variance in PLINK2.
-path_stratification_tables="${path_dock}/stratification_2022-03-01_2/oestradiol"
-#path_stratification_tables="${path_dock}/stratification_2022-03-01_2/testosterone"
+#path_stratification_tables="${path_dock}/stratification_2022-03-01_2/oestradiol"
+path_stratification_tables="${path_dock}/stratification_2022-03-01_2/testosterone"
 #path_stratification_tables="${path_dock}/stratification_2022-03-01_2/steroid_globulin"
 
 
@@ -57,9 +57,10 @@ path_stratification_tables="${path_dock}/stratification_2022-03-01_2/oestradiol"
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 00:22 on 01 March 2022; job 3186784; status: cancelled; name of phenotype column ought to be "oestradiol_detection_plink"
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 00:38 on 01 March 2022; job 3186785; status: cancelled; name of phenotype column ought to be "testosterone_detection_plink"
 
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at ___ on 01 March 2022; job ___; status: ___;
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at ___ on 01 March 2022; job ___; status: ___;
 
+
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 16:51 on 01 March 2022; job 3202343; status: running; <-- priority!!!
+path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at ___ on 01 March 2022; job ___; status: ___;
 
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # 24 GWAS; TCW started at 01:17 on 26 February 2022; job 3109689; status: complete;
 
@@ -116,14 +117,14 @@ covariates_genotype="genotype_array_axiom,genotype_pc_1,genotype_pc_2,genotype_p
 #covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,testosterone_imputation,steroid_globulin_imputation"
 
 # "testosterone_detection" and "testosterone_imputation"
-#covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
-#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation"
-#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,steroid_globulin_imputation,albumin_imputation"
+covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
+covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation"
+covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,oestradiol_imputation,steroid_globulin_imputation,albumin_imputation"
 
 # "oestradiol_detection"
-covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
-covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation"
-covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
+#covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
+#covariates_joint_2="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation"
+#covariates_joint_3="age,body_log,region,season,medication_vitamin_d,alteration_sex_hormone,cholesterol_imputation,vitamin_d_imputation,testosterone_imputation,steroid_globulin_imputation,albumin_imputation"
 
 # "oestradiol_bioavailable" and "oestradiol_free"
 #covariates_joint_1="age,body_log,region,season,alteration_sex_hormone"
@@ -189,11 +190,11 @@ phenotypes_instances=()
 #phenotypes_instances+=("steroid_globulin_imputation;_steroid_globulin_imputation;steroid_globulin_imputation")
 #phenotypes_instances+=("albumin_imputation;_albumin_imputation;albumin_imputation")
 
-phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection_plink")
+#phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection_plink")
 #phenotypes_instances+=("oestradiol_bioavailable_imputation;_oestradiol_bioavailable_imputation;oestradiol_bioavailable_imputation")
 #phenotypes_instances+=("oestradiol_free_imputation;_oestradiol_free_imputation;oestradiol_free_imputation")
 
-#phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection_plink")
+phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection_plink")
 #phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")
 #phenotypes_instances+=("testosterone_bioavailable_imputation;_testosterone_bioavailable_imputation;testosterone_bioavailable_imputation")
 #phenotypes_instances+=("testosterone_free_imputation;_testosterone_free_imputation;testosterone_free_imputation")
