@@ -69,11 +69,11 @@ path_stratification_tables="${path_dock}/stratification_2022-03-01_2/steroid_glo
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear"   # 18 GWAS; TCW started at 20:56 on 26 February 2022; job 3149548; complete
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"           # 18 GWAS; TCW started at 21:03 on 26 February 2022; job 3149549; complete
 
-#path_gwas_container="${path_dock}/gwas_raw/vitamin_d_linear"          # 4 GWAS; TCW started at 13:20 on 27 February 2022; job 3155905; status: still running at 17:00 on 1 March 2022, 27 hours after starting; might get killed by "1-day" queue 
+#path_gwas_container="${path_dock}/gwas_raw/vitamin_d_linear"          # 4 GWAS; TCW started at 13:20 on 27 February 2022; job 3155905; status: still running at 17:00 on 1 March 2022, 27 hours after starting; might get killed by "1-day" queue; complete, I think;
 #path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear"   # 4 GWAS; TCW started at 12:59 on 27 February 2022; job 3155785; status: complete;
 #path_gwas_container="${path_dock}/gwas_raw/albumin_linear"            # 4 GWAS; TCW started at 13:09 on 27 February 2022; job 3155786; status: complete;
 
-path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_sex_linear"   # 24 GWAS; TCW started at ___ on 01 March 2022; job ___; status: in queue;
+path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_sex_linear"   # 24 GWAS; TCW started at 17:05 on 01 March 2022; job 3202509; status: in queue;
 
 
 
