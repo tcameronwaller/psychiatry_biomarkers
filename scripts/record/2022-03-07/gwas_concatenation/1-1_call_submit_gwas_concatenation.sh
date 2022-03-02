@@ -11,7 +11,7 @@
 ################################################################################
 # General parameters.
 
-#cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete;
+cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete;
 
 ###cohorts_models="oestradiol_logistic"              # 24 GWAS; GWAS job 3202343, status: running; <-- priority!!!
 #cohorts_models="oestradiol_bioavailable_linear"     # 18 GWAS; GWAS job 3149651, status: complete; TCW started at __ on 02 March 2022;
