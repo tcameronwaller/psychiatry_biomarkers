@@ -12,11 +12,23 @@
 ################################################################################
 # General parameters.
 
-cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW started at 11:04 on 03 February 2022
-cohorts_models="white_female_linear"                    # 8 GWAS; TCW started at 11:06 on 03 February 2022
-cohorts_models="white_male_linear"                      # 8 GWAS; TCW started at 11:08 on 03 February 2022
+cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete; TCW started at ___ on 03 March 2022;
 
-response="coefficient" # for linear GWAS, "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
+###cohorts_models="oestradiol_logistic"              # 24 GWAS; GWAS job 3202343, status: running; <-- priority!!!
+#cohorts_models="oestradiol_bioavailable_linear"     # 18 GWAS; GWAS job 3149651, status: complete; TCW started at ___ on 03 March 2022;
+#cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at ___ on 03 March 2022;
+
+###cohorts_models="testosterone_logistic"            # 24 GWAS; GWAS job 3202423, status: in queue;
+#cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at ___ on 03 March 2022;
+#cohorts_models="testosterone_bioavailable_linear"   # 18 GWAS; GWAS job 3149548, status: complete; TCW started at ___ on 03 March 2022;
+#cohorts_models="testosterone_free_linear"           # 18 GWAS; GWAS job 3149549, status: complete; TCW started at ___ on 03 March 2022;
+
+#cohorts_models="steroid_globulin_linear"            # 4 GWAS;  GWAS job 3155785, status: complete; TCW started at ___ on 03 March 2022;
+###cohorts_models="steroid_globulin_sex_linear"      # 24 GWAS; GWAS job 3202509, status: in queue;
+#cohorts_models="albumin_linear"                     # 4 GWAS;  GWAS job 3155786, status: complete; TCW started at ___ on 03 March 2022;
+
+regression_type="linear" # "linear" or "logistic"
+response="coefficient" # "coefficient", "odds_ratio", or "z_score"; for linear GWAS, use "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
 response_standard_scale="false" # whether to convert reponse (effect, coefficient) to z-score standard scale ("true" or "false")
 
 restore_target_study_directories="true" # whether to delete any previous directories for each study's format and munge GWAS ("true" or "false")
@@ -33,8 +45,18 @@ path_gwas_format_container="${path_dock}/gwas_ldsc_format/${cohorts_models}"
 path_gwas_munge_container="${path_dock}/gwas_ldsc_munge/${cohorts_models}"
 path_heritability_container="${path_dock}/heritability/${cohorts_models}"
 
-path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2022-02-10/ldsc_heritability_correlation"
+path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2022-03-07/ldsc_heritability_correlation"
 path_batch_instances="${path_gwas_munge_container}/batch_instances_format_munge.txt"
+
+#####
+# WORK HERE
+#####
+
+# Specify format script according to whether the GWAS is linear or logistic.
+# TODO: TCW, 2 March 2022
+# TODO: pass the format script as an argment to script 4 and on to script 5
+# TODO: I also need to copy the linear format script and adapt it for logistic...
+
 
 ###########################################################################
 # Define explicit inclusions and exclusions.
@@ -95,6 +117,7 @@ if true; then
   "${path_scripts_record}/4_run_batch_jobs_gwas_format_munge_heritability.sh" \
   $path_batch_instances \
   $batch_instances_count \
+  $regression_type \
   $response \
   $response_standard_scale \
   $path_gwas_format_container \
