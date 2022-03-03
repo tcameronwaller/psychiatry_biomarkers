@@ -11,10 +11,10 @@
 ################################################################################
 # General parameters.
 
-cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete;
+#cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete; TCW started at 18:11 on 02 March 2022;
 
 ###cohorts_models="oestradiol_logistic"              # 24 GWAS; GWAS job 3202343, status: running; <-- priority!!!
-#cohorts_models="oestradiol_bioavailable_linear"     # 18 GWAS; GWAS job 3149651, status: complete; TCW started at __ on 02 March 2022;
+cohorts_models="oestradiol_bioavailable_linear"     # 18 GWAS; GWAS job 3149651, status: complete; TCW started at __ on 02 March 2022;
 #cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at __ on 02 March 2022;
 
 ###cohorts_models="testosterone_logistic"            # 24 GWAS; GWAS job 3202423, status: in queue;
