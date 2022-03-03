@@ -12,20 +12,20 @@
 ################################################################################
 # General parameters.
 
-#cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete; TCW started at 10:22 on 03 March 2022;
+#cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete; TCW started at 10:22 on 03 March 2022; complete
 
 ###cohorts_models="oestradiol_logistic"              # 24 GWAS; GWAS job 3202343, status: running; <-- priority!!!
-#cohorts_models="oestradiol_bioavailable_linear"     # 18 GWAS; GWAS job 3149651, status: complete; TCW started at 10:23 on 03 March 2022;
-#cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at 10:25 on 03 March 2022;
+#cohorts_models="oestradiol_bioavailable_linear"     # 18 GWAS; GWAS job 3149651, status: complete; TCW started at 10:23 on 03 March 2022; complete
+#cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at 10:25 on 03 March 2022; complete
 
 ###cohorts_models="testosterone_logistic"            # 24 GWAS; GWAS job 3202423, status: in queue;
-#cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at 10:26 on 03 March 2022;
+#cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at 10:26 on 03 March 2022; complete
 #cohorts_models="testosterone_bioavailable_linear"   # 18 GWAS; GWAS job 3149548, status: complete; TCW started at 10:28 on 03 March 2022;
 #cohorts_models="testosterone_free_linear"           # 18 GWAS; GWAS job 3149549, status: complete; TCW started at 10:29 on 03 March 2022;
 
 #cohorts_models="steroid_globulin_linear"            # 4 GWAS;  GWAS job 3155785, status: complete; TCW started at 10:31 on 03 March 2022;
 ###cohorts_models="steroid_globulin_sex_linear"      # 24 GWAS; GWAS job 3202509, status: in queue;
-cohorts_models="albumin_linear"                     # 4 GWAS;  GWAS job 3155786, status: complete; TCW started at ___ on 03 March 2022;
+#cohorts_models="albumin_linear"                     # 4 GWAS;  GWAS job 3155786, status: complete; TCW started at 10:33 on 03 March 2022;
 
 regression_type="linear" # "linear" or "logistic"
 response="coefficient" # "coefficient", "odds_ratio", or "z_score"; for linear GWAS, use "coefficient" unless "response_standard_scale" is "true", in which case "z_score"

@@ -60,7 +60,7 @@ path_stratification_tables="${path_dock}/stratification_2022-03-01_2/oestradiol"
 path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic_long"   # 12 GWAS; TCW started at 21:00 on 02 March 2022; job 3225508; status: in queue;
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic_long"   # 12 GWAS; TCW started at ___ on __ March 2022; job ___; status: ___;
 
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 16:51 on 01 March 2022; job 3202343; status: running; <-- priority!!!
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 16:51 on 01 March 2022; job 3202343; status: running; several jobs were killed due to exceeding 1 day;
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 16:57 on 01 March 2022; job 3202423; status: cancelled;
 
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # 24 GWAS; TCW started at 01:17 on 26 February 2022; job 3109689; status: complete;

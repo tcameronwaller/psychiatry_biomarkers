@@ -11,9 +11,20 @@
 ################################################################################
 # General parameters.
 
-#cohorts_models="white_female_male_priority_male_linear" # 8 GWAS; TCW ran at about 12:00 on 07 February 2022
-#cohorts_models="white_female_linear"                    # 8 GWAS; TCW ran at about 13:05 on 07 February 2022
-cohorts_models="white_male_linear"                      # 8 GWAS; TCW ran at ____ on 03 February 2022
+cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete; TCW started at ___ on 03 March 2022;
+
+###cohorts_models="oestradiol_logistic"              # 24 GWAS; GWAS job 3202343, status: running; <-- priority!!!
+#cohorts_models="oestradiol_bioavailable_linear"     # 18 GWAS; GWAS job 3149651, status: complete; TCW started at ___ on 03 March 2022;
+#cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at ___ on 03 March 2022;
+
+###cohorts_models="testosterone_logistic"            # 24 GWAS; GWAS job 3202423, status: in queue;
+#cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at ___ on 03 March 2022;
+#cohorts_models="testosterone_bioavailable_linear"   # 18 GWAS; GWAS job 3149548, status: complete; TCW started at ___ on 03 March 2022;
+#cohorts_models="testosterone_free_linear"           # 18 GWAS; GWAS job 3149549, status: complete; TCW started at ___ on 03 March 2022;
+
+#cohorts_models="steroid_globulin_linear"            # 4 GWAS;  GWAS job 3155785, status: complete; TCW started at ___ on 03 March 2022;
+###cohorts_models="steroid_globulin_sex_linear"      # 24 GWAS; GWAS job 3202509, status: in queue;
+#cohorts_models="albumin_linear"                     # 4 GWAS;  GWAS job 3155786, status: complete; TCW started at ___ on 03 March 2022;
 
 ################################################################################
 # Organize paths.
@@ -44,6 +55,9 @@ primaries+=("34002096_mullins_2021_bpd1;${path_primary_gwas_munge_container}/340
 primaries+=("34002096_mullins_2021_bpd2;${path_primary_gwas_munge_container}/34002096_mullins_2021_bpd2/${name_gwas_munge_file}")
 primaries+=("00000000_ripke_2022;${path_primary_gwas_munge_container}/00000000_ripke_2022/${name_gwas_munge_file}")
 
+#primaries+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
+#primaries+=("34255042_schmitz_2021_male;${path_primary_gwas_munge_container}/34255042_schmitz_2021_male/${name_gwas_munge_file}")
+
 # Define array of secondary studies.
 secondaries=()
 # Iterate on directories for GWAS on cohorts and hormones.
@@ -63,17 +77,40 @@ for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
   fi
 done
 
-# Assemble array of batch instance details.
-comparison_container="${cohorts_models}_primary_secondary"
-comparisons=()
-for primary in "${primaries[@]}"; do
-  for secondary in "${secondaries[@]}"; do
-    comparisons+=("${comparison_container};${primary};${secondary}")
-  done
-done
-
 ################################################################################
-# Append custom comparisons that do not follow the same pattern.
+# Collect comparisons between studies.
+
+# Initialize array of comparisons.
+comparisons=()
+
+##########
+# Comparison pairs of secondary studies for comparison to all primary studies.
+if false; then
+  # Assemble array of batch instance details.
+  comparison_container="${cohorts_models}_primary_secondary"
+  for primary in "${primaries[@]}"; do
+    for secondary in "${secondaries[@]}"; do
+      comparisons+=("${comparison_container};${primary};${secondary}")
+    done
+  done
+fi
+
+##########
+# Study pairs with special secondary studies for comparison to all primary studies.
+if true; then
+  # Collect special secondary studies.
+  secondaries_special=()
+  secondaries_special+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
+  secondaries_special+=("34255042_schmitz_2021_male;${path_primary_gwas_munge_container}/34255042_schmitz_2021_male/${name_gwas_munge_file}")
+  # Assemble array of batch instance details.
+  comparison_container="comparisons_primary_34255042_schmitz_2021"
+  for primary in "${primaries[@]}"; do
+    for secondary_special in "${secondaries_special[@]}"; do
+      comparisons+=("${comparison_container};${primary};${secondary_special}")
+    done
+  done
+fi
+
 
 ##########
 # Study pairs within the same container (white_female_male_priority_male_linear).
