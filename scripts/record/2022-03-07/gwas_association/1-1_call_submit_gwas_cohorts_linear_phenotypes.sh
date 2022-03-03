@@ -57,7 +57,8 @@ path_stratification_tables="${path_dock}/stratification_2022-03-01_2/oestradiol"
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 00:22 on 01 March 2022; job 3186784; status: cancelled; name of phenotype column ought to be "oestradiol_detection_plink"
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 00:38 on 01 March 2022; job 3186785; status: cancelled; name of phenotype column ought to be "testosterone_detection_plink"
 
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic_long"   # __ GWAS; TCW started at ___ on 02 March 2022; job ___; status: ___;
+path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic_long"   # 12 GWAS; TCW started at 21:00 on 02 March 2022; job 3225508; status: in queue;
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic_long"   # 12 GWAS; TCW started at ___ on __ March 2022; job ___; status: ___;
 
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 16:51 on 01 March 2022; job 3202343; status: running; <-- priority!!!
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 16:57 on 01 March 2022; job 3202423; status: cancelled;
@@ -75,10 +76,11 @@ path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic_long"   # __ GWAS
 
 #path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_sex_linear"   # 24 GWAS; TCW started at 17:05 on 01 March 2022; job 3202509; status: in queue;
 
-# Note:
+# Note: TCW, 02 March 2022
 # Logistic GWAS require a long time to run.
-# Logistic GWAS for "oestradiol_detection" on the "female" cohort has a very large
-# sample size and requires longer than 30 hours to run.
+# Logistic GWAS for "oestradiol_detection" on the "female",
+# "female_postmenopause", and "male" cohorts have very large sample size and
+# require much longer than 30 hours to run.
 # The "1-day" queue on NCSA server aborts batch jobs after about 30 hours.
 
 

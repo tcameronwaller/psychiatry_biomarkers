@@ -73,6 +73,10 @@ studies+=("00000000_ripke_2022;odds_ratio;${path_gwas_summaries}/00000000_ripke_
 ##studies+=("29906448_ruderfer_2018_bpd_vs_ctl;${path_gwas_summaries}/29906448_ruderfer_2018/BDvsCONT.sumstats.gz")
 ##studies+=("31043756_stahl_2019;${path_gwas_summaries}/31043756_stahl_2019/daner_PGC_BIP32b_mds7a_0416a.gz")
 
+studies+=("34255042_schmitz_2021_female;odds_ratio;${path_gwas_summaries}/34255042_schmitz_2021/gwas_females.tsv.gz")
+studies+=("34255042_schmitz_2021_male;odds_ratio;${path_gwas_summaries}/34255042_schmitz_2021/gwas_males.tsv.gz")
+
+
 
 # Organize information in format for LDSC.
 for study_details in "${studies[@]}"; do
