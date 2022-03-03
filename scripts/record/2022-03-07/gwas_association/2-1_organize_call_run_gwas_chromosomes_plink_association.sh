@@ -18,7 +18,7 @@
 ### -e "./error"
 # Queue.
 # "1-hour", "1-day", "4-day", "7-day", "30-day", "lg-mem"
-#$ -q 1-day
+#$ -q 4-day
 # Priority 0-15.
 ### -p -10
 # Memory per iteration.
@@ -44,7 +44,7 @@
 # temporarily.
 # Also remember that as large batches complete, the final GWAS summary
 # statistics accumulate and consume some of the available storage space.
-#$ -tc 18
+#$ -tc 24
 
 # http://gridscheduler.sourceforge.net/htmlman/htmlman1/qsub.html
 

@@ -24,7 +24,7 @@
 
 #cohorts_models="steroid_globulin_linear"            # 4 GWAS;  GWAS job 3155785, status: complete; TCW started at 18:26 on 02 March 2022;
 ###cohorts_models="steroid_globulin_sex_linear"      # 24 GWAS; GWAS job 3202509, status: in queue;
-cohorts_models="albumin_linear"                     # 4 GWAS;  GWAS job 3155786, status: complete; TCW started at __ on 02 March 2022;
+#cohorts_models="albumin_linear"                     # 4 GWAS;  GWAS job 3155786, status: complete; TCW started at 18:28 on 02 March 2022;
 
 chromosome_x="true" # whether to collect GWAS summary statistics report for Chromosome X and XY
 
