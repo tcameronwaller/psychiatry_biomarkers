@@ -15,10 +15,10 @@
 
 ###cohorts_models="oestradiol_logistic"              # 24 GWAS; GWAS job 3202343, status: running; <-- priority!!!
 #cohorts_models="oestradiol_bioavailable_linear"     # 18 GWAS; GWAS job 3149651, status: complete; TCW started at 18:13 on 02 March 2022;
-cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at __ on 02 March 2022;
+#cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at 18:15 on 02 March 2022;
 
 ###cohorts_models="testosterone_logistic"            # 24 GWAS; GWAS job 3202423, status: in queue;
-#cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at __ on 02 March 2022;
+cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at __ on 02 March 2022;
 #cohorts_models="testosterone_bioavailable_linear"   # 18 GWAS; GWAS job 3149548, status: complete; TCW started at __ on 02 March 2022;
 #cohorts_models="testosterone_free_linear"           # 18 GWAS; GWAS job 3149549, status: complete; TCW started at __ on 02 March 2022;
 
