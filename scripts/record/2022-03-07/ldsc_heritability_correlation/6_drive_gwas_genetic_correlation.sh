@@ -103,7 +103,7 @@ if true; then
   secondaries_special+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
   secondaries_special+=("34255042_schmitz_2021_male;${path_primary_gwas_munge_container}/34255042_schmitz_2021_male/${name_gwas_munge_file}")
   # Assemble array of batch instance details.
-  comparison_container="comparisons_primary_34255042_schmitz_2021"
+  comparison_container="primary_34255042_schmitz_2021"
   for primary in "${primaries[@]}"; do
     for secondary_special in "${secondaries_special[@]}"; do
       comparisons+=("${comparison_container};${primary};${secondary_special}")
@@ -113,21 +113,18 @@ fi
 
 
 ##########
-# Study pairs within the same container (white_female_male_priority_male_linear).
-if false; then
+# Study pairs within the same container (path_primary_gwas_munge_container).
+if true; then
   # Signal transformation.
-  pairs+=("joint_vitamin_d;joint_vitamin_d_log")
-  pairs+=("joint_vitamin_d_imputation;joint_vitamin_d_imputation_log")
-  # Model.
-  pairs+=("unadjust_vitamin_d_imputation_log;joint_vitamin_d_imputation_log")
+  pairs+=("34255042_schmitz_2021_female;34255042_schmitz_2021_male")
 
   # Assemble array of batch instance details.
-  comparison_container="${cohorts_models}_secondary_pairs_model"
+  comparison_container="34255042_schmitz_2021_female_versus_male"
   for pair in "${pairs[@]}"; do
     IFS=";" read -r -a array <<< "${pair}"
     study_primary="${array[0]}"
     study_secondary="${array[1]}"
-    comparisons+=("${comparison_container};${study_primary};${path_secondary_gwas_munge_container}/${study_primary}/${name_gwas_munge_file};${study_secondary};${path_secondary_gwas_munge_container}/${study_secondary}/${name_gwas_munge_file}")
+    comparisons+=("${comparison_container};${study_primary};${path_primary_gwas_munge_container}/${study_primary}/${name_gwas_munge_file};${study_secondary};${path_primary_gwas_munge_container}/${study_secondary}/${name_gwas_munge_file}")
   done
 fi
 
