@@ -14,6 +14,7 @@
 #cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete; TCW started at ___ on 03 March 2022;
 
 ###cohorts_models="oestradiol_logistic"              # 24 GWAS; GWAS job 3202343, status: running; <-- priority!!!
+###cohorts_models="oestradiol_logistic_long"              # 24 GWAS; GWAS job 3202343, status: running; <-- priority!!!
 #cohorts_models="oestradiol_bioavailable_linear"     # 18 GWAS; GWAS job 3149651, status: complete; TCW started at ___ on 03 March 2022;
 #cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at ___ on 03 March 2022;
 
@@ -33,10 +34,15 @@ cd ~/paths
 path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
 
+path_genetic_reference="${path_dock}/access/genetic_reference"
 path_genetic_correlation_container="${path_dock}/genetic_correlation"
 name_gwas_munge_file="gwas_munge.sumstats.gz"
 path_primary_gwas_munge_container="${path_dock}/gwas_ldsc_format_munge"
 path_secondary_gwas_munge_container="${path_dock}/gwas_ldsc_munge/${cohorts_models}"
+path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2022-03-07/ldsc_heritability_correlation"
+
+# Parameters.
+report="true" # "true" or "false"
 
 ###########################################################################
 # Define main comparisons.
@@ -49,11 +55,11 @@ primaries+=("30482948_walters_2018_female;${path_primary_gwas_munge_container}/3
 primaries+=("30482948_walters_2018_male;${path_primary_gwas_munge_container}/30482948_walters_2018_male/${name_gwas_munge_file}")
 primaries+=("30643251_liu_2019_alcohol_all;${path_primary_gwas_munge_container}/30643251_liu_2019_alcohol_all/${name_gwas_munge_file}")
 primaries+=("30643251_liu_2019_alcohol_no_ukb;${path_primary_gwas_munge_container}/30643251_liu_2019_alcohol_no_ukb/${name_gwas_munge_file}")
-#primaries+=("30718901_howard_2019;${path_primary_gwas_munge_container}/30718901_howard_2019/${name_gwas_munge_file}")
-#primaries+=("34002096_mullins_2021_all;${path_primary_gwas_munge_container}/34002096_mullins_2021_all/${name_gwas_munge_file}")
-#primaries+=("34002096_mullins_2021_bpd1;${path_primary_gwas_munge_container}/34002096_mullins_2021_bpd1/${name_gwas_munge_file}")
-#primaries+=("34002096_mullins_2021_bpd2;${path_primary_gwas_munge_container}/34002096_mullins_2021_bpd2/${name_gwas_munge_file}")
-#primaries+=("00000000_ripke_2022;${path_primary_gwas_munge_container}/00000000_ripke_2022/${name_gwas_munge_file}")
+primaries+=("30718901_howard_2019;${path_primary_gwas_munge_container}/30718901_howard_2019/${name_gwas_munge_file}")
+primaries+=("34002096_mullins_2021_all;${path_primary_gwas_munge_container}/34002096_mullins_2021_all/${name_gwas_munge_file}")
+primaries+=("34002096_mullins_2021_bpd1;${path_primary_gwas_munge_container}/34002096_mullins_2021_bpd1/${name_gwas_munge_file}")
+primaries+=("34002096_mullins_2021_bpd2;${path_primary_gwas_munge_container}/34002096_mullins_2021_bpd2/${name_gwas_munge_file}")
+primaries+=("00000000_ripke_2022;${path_primary_gwas_munge_container}/00000000_ripke_2022/${name_gwas_munge_file}")
 
 #primaries+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
 #primaries+=("34255042_schmitz_2021_male;${path_primary_gwas_munge_container}/34255042_schmitz_2021_male/${name_gwas_munge_file}")
@@ -132,10 +138,8 @@ fi
 # Study pairs within different containers.
 if false; then
   # Females to Males.
-  pairs+=("female_vitamin_d;${path_dock}/gwas_ldsc_munge/white_female_linear/joint_vitamin_d;male_vitamin_d;${path_dock}/gwas_ldsc_munge/white_male_linear/joint_vitamin_d")
-  pairs+=("female_vitamin_d_log;${path_dock}/gwas_ldsc_munge/white_female_linear/joint_vitamin_d_log;male_vitamin_d_log;${path_dock}/gwas_ldsc_munge/white_male_linear/joint_vitamin_d_log")
-  pairs+=("female_vitamin_d_imputation;${path_dock}/gwas_ldsc_munge/white_female_linear/joint_vitamin_d_imputation;male_vitamin_d_imputation;${path_dock}/gwas_ldsc_munge/white_male_linear/joint_vitamin_d_imputation")
-  pairs+=("female_vitamin_d_imputation_log;${path_dock}/gwas_ldsc_munge/white_female_linear/joint_vitamin_d_imputation_log;male_vitamin_d_imputation_log;${path_dock}/gwas_ldsc_munge/white_male_linear/joint_vitamin_d_imputation_log")
+  pairs+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female;male_vitamin_d;${path_dock}/gwas_ldsc_munge/oestradiol_logistic_long/female...")
+  pairs+=("34255042_schmitz_2021_male;${path_primary_gwas_munge_container}/34255042_schmitz_2021_male;male_vitamin_d_log;${path_dock}/gwas_ldsc_munge/oestradiol_logistic_long/male...")
 
   # Assemble array of batch instance details.
   comparison_container="white_secondary_pairs_female_male"
@@ -155,42 +159,48 @@ fi
 # Format for array of comparisons.
 # "study_primary;path_gwas_primary_munge_suffix;study_secondary;path_gwas_secondary_munge_suffix"
 
-for comparison in "${comparisons[@]}"; do
+report="true"
 
-  ##############################################################################
-  # Extract details for comparison.
-  IFS=";" read -r -a array <<< "${comparison}"
-  comparison_container="${array[0]}"
-  study_primary="${array[1]}"
-  path_gwas_primary_munge_suffix="${array[2]}"
-  study_secondary="${array[3]}"
-  path_gwas_secondary_munge_suffix="${array[4]}"
+if true; then
+  # Execute comparisons in parallel compute batch job.
+  # Initialize batch instances.
+  path_batch_instances="${path_genetic_correlation_container}/batch_instances_${cohorts_models}.txt"
+  rm $path_batch_instances
+  # Write out batch instances.
+  for comparison in "${comparisons[@]}"; do
+    echo $comparison >> $path_batch_instances
+  done
+  # Read batch instances.
+  readarray -t batch_instances < $path_batch_instances
+  batch_instances_count=${#batch_instances[@]}
   echo "----------"
-  echo "comparison container: ${comparison_container}"
-  echo "primary study: ${study_primary}"
-  echo "path: ${path_gwas_primary_munge_suffix}"
-  echo "secondary study: ${study_secondary}"
-  echo "path: ${path_gwas_secondary_munge_suffix}"
-
-  if true; then
-    ##############################################################################
-    # LDSC Genetic Correlation.
-    # Paths.
-    path_genetic_reference="${path_dock}/access/genetic_reference"
-    path_genetic_correlation_parent="${path_genetic_correlation_container}/${comparison_container}/${study_primary}/${study_secondary}"
-    rm -r $path_genetic_correlation_parent
-    mkdir -p $path_genetic_correlation_parent
-    # Scripts.
-    path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-    path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
-    path_script_drive_ldsc_gwas_genetic_correlation="${path_scripts_gwas_process}/drive_ldsc_gwas_genetic_correlation.sh"
-    # Parameters.
-    report="true" # "true" or "false"
-    /usr/bin/bash "$path_script_drive_ldsc_gwas_genetic_correlation" \
-    $path_gwas_primary_munge_suffix \
-    $path_gwas_secondary_munge_suffix \
-    $path_genetic_correlation_parent \
+  echo "count of batch instances: " $batch_instances_count
+  echo "first batch instance: " ${batch_instances[0]} # notice base-zero indexing
+  echo "last batch instance: " ${batch_instances[$batch_instances_count - 1]}
+  # Submit array batch to Sun Grid Engine.
+  # Array batch indices must start at one (not zero).
+  qsub -t 1-${batch_instances_count}:1 -o \
+  "${path_genetic_correlation_container}/batch_${cohorts_models}_out.txt" -e "${path_genetic_correlation_container}/batch_${cohorts_models}_error.txt" \
+  "${path_scripts_record}/7_run_batch_jobs_gwas_ldsc_genetic_correlation.sh" \
+  $path_batch_instances \
+  $batch_instances_count \
+  $path_genetic_correlation_container \
+  $path_genetic_reference \
+  $path_process \
+  $report
+else
+  # Execute comparisons by simple, sequential iteration.
+  for comparison in "${comparisons[@]}"; do
+    # Call driver script.
+    /usr/bin/bash "${path_scripts_record}/7_run_batch_jobs_gwas_ldsc_genetic_correlation.sh" \
+    $comparison_instance \
+    $path_genetic_correlation_container \
     $path_genetic_reference \
+    $path_process \
     $report
-  fi
-done
+  done
+fi
+
+
+
+#
