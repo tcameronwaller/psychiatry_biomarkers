@@ -19,8 +19,8 @@
 #cohorts_models="oestradiol_free_linear"             # 198 comparisons; GWAS job 3149652; TCW started at 14:45 on 04 March 2022;
 
 ###cohorts_models="testosterone_logistic"            # 24 GWAS; GWAS job 3202423, status: in queue;
-cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at ___ on 04 March 2022;
-#cohorts_models="testosterone_bioavailable_linear"   # 18 GWAS; GWAS job 3149548, status: complete; TCW started at ___ on 04 March 2022;
+#cohorts_models="testosterone_linear"                # 264 comparisons; GWAS job 3109689; TCW started at 14:48 on 04 March 2022;
+cohorts_models="testosterone_bioavailable_linear"   # 18 GWAS; GWAS job 3149548, status: complete; TCW started at ___ on 04 March 2022;
 #cohorts_models="testosterone_free_linear"           # 18 GWAS; GWAS job 3149549, status: complete; TCW started at ___ on 04 March 2022;
 
 #cohorts_models="steroid_globulin_linear"            # 4 GWAS;  GWAS job 3155785, status: complete; TCW started at ___ on 04 March 2022;
