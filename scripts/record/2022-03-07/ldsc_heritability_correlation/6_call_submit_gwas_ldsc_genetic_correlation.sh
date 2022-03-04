@@ -39,7 +39,7 @@ path_genetic_correlation_container="${path_dock}/genetic_correlation"
 name_gwas_munge_file="gwas_munge.sumstats.gz"
 path_primary_gwas_munge_container="${path_dock}/gwas_ldsc_format_munge"
 path_secondary_gwas_munge_container="${path_dock}/gwas_ldsc_munge/${cohorts_models}"
-path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2022-03-07/ldsc_heritability_correlation"
+path_scripts_record="${path_process}/psychiatric_metabolism/scripts/record/2022-03-07/ldsc_heritability_correlation"
 
 # Parameters.
 report="true" # "true" or "false"
@@ -192,7 +192,7 @@ if false; then
   $report
 else
   # Execute comparisons by simple, sequential iteration.
-  for comparison in "${comparisons[@]}"; do
+  for comparison_instance in "${comparisons[@]}"; do
     # Call driver script.
     /usr/bin/bash "${path_scripts_record}/8_run_drive_gwas_ldsc_genetic_correlation.sh" \
     $comparison_instance \
