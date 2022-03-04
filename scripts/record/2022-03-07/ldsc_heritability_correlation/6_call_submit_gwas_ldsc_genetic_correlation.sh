@@ -11,7 +11,7 @@
 ################################################################################
 # General parameters.
 
-#cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete; TCW started at ___ on 03 March 2022;
+cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete; TCW started at ___ on 03 March 2022;
 
 ###cohorts_models="oestradiol_logistic"              # 12 GWAS; GWAS job 3202343, status: complete;
 ###cohorts_models="oestradiol_logistic_long"         # 12 GWAS; GWAS job 3202343, status: running;
@@ -19,7 +19,7 @@
 #cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at ___ on 03 March 2022;
 
 ###cohorts_models="testosterone_logistic"            # 24 GWAS; GWAS job 3202423, status: in queue;
-cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at ___ on 03 March 2022;
+#cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at ___ on 03 March 2022;
 #cohorts_models="testosterone_bioavailable_linear"   # 18 GWAS; GWAS job 3149548, status: complete; TCW started at ___ on 03 March 2022;
 #cohorts_models="testosterone_free_linear"           # 18 GWAS; GWAS job 3149549, status: complete; TCW started at ___ on 03 March 2022;
 
@@ -50,19 +50,19 @@ report="true" # "true" or "false"
 # Define array of primary studies.
 primaries=()
 primaries+=("30482948_walters_2018_eur_unrel_meta;${path_primary_gwas_munge_container}/30482948_walters_2018_eur_unrel_meta/${name_gwas_munge_file}")
-primaries+=("30482948_walters_2018_eur_unrel_genotype;${path_primary_gwas_munge_container}/30482948_walters_2018_eur_unrel_genotype/${name_gwas_munge_file}")
-primaries+=("30482948_walters_2018_female;${path_primary_gwas_munge_container}/30482948_walters_2018_female/${name_gwas_munge_file}")
-primaries+=("30482948_walters_2018_male;${path_primary_gwas_munge_container}/30482948_walters_2018_male/${name_gwas_munge_file}")
-primaries+=("30643251_liu_2019_alcohol_all;${path_primary_gwas_munge_container}/30643251_liu_2019_alcohol_all/${name_gwas_munge_file}")
-primaries+=("30643251_liu_2019_alcohol_no_ukb;${path_primary_gwas_munge_container}/30643251_liu_2019_alcohol_no_ukb/${name_gwas_munge_file}")
-primaries+=("30718901_howard_2019;${path_primary_gwas_munge_container}/30718901_howard_2019/${name_gwas_munge_file}")
-primaries+=("34002096_mullins_2021_all;${path_primary_gwas_munge_container}/34002096_mullins_2021_all/${name_gwas_munge_file}")
-primaries+=("34002096_mullins_2021_bpd1;${path_primary_gwas_munge_container}/34002096_mullins_2021_bpd1/${name_gwas_munge_file}")
-primaries+=("34002096_mullins_2021_bpd2;${path_primary_gwas_munge_container}/34002096_mullins_2021_bpd2/${name_gwas_munge_file}")
-primaries+=("00000000_ripke_2022;${path_primary_gwas_munge_container}/00000000_ripke_2022/${name_gwas_munge_file}")
+#primaries+=("30482948_walters_2018_eur_unrel_genotype;${path_primary_gwas_munge_container}/30482948_walters_2018_eur_unrel_genotype/${name_gwas_munge_file}")
+#primaries+=("30482948_walters_2018_female;${path_primary_gwas_munge_container}/30482948_walters_2018_female/${name_gwas_munge_file}")
+#primaries+=("30482948_walters_2018_male;${path_primary_gwas_munge_container}/30482948_walters_2018_male/${name_gwas_munge_file}")
+#primaries+=("30643251_liu_2019_alcohol_all;${path_primary_gwas_munge_container}/30643251_liu_2019_alcohol_all/${name_gwas_munge_file}")
+#primaries+=("30643251_liu_2019_alcohol_no_ukb;${path_primary_gwas_munge_container}/30643251_liu_2019_alcohol_no_ukb/${name_gwas_munge_file}")
+#primaries+=("30718901_howard_2019;${path_primary_gwas_munge_container}/30718901_howard_2019/${name_gwas_munge_file}")
+#primaries+=("34002096_mullins_2021_all;${path_primary_gwas_munge_container}/34002096_mullins_2021_all/${name_gwas_munge_file}")
+#primaries+=("34002096_mullins_2021_bpd1;${path_primary_gwas_munge_container}/34002096_mullins_2021_bpd1/${name_gwas_munge_file}")
+#primaries+=("34002096_mullins_2021_bpd2;${path_primary_gwas_munge_container}/34002096_mullins_2021_bpd2/${name_gwas_munge_file}")
+#primaries+=("00000000_ripke_2022;${path_primary_gwas_munge_container}/00000000_ripke_2022/${name_gwas_munge_file}")
 
-#primaries+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
-#primaries+=("34255042_schmitz_2021_male;${path_primary_gwas_munge_container}/34255042_schmitz_2021_male/${name_gwas_munge_file}")
+###primaries+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
+###primaries+=("34255042_schmitz_2021_male;${path_primary_gwas_munge_container}/34255042_schmitz_2021_male/${name_gwas_munge_file}")
 
 # Define array of secondary studies.
 secondaries=()
@@ -93,7 +93,7 @@ comparisons=()
 # Comparison pairs of secondary studies for comparison to all primary studies.
 if true; then
   # Assemble array of batch instance details.
-  comparison_container="${cohorts_models}_primary_secondary"
+  comparison_container="primary_versus_${cohorts_models}"
   for primary in "${primaries[@]}"; do
     for secondary in "${secondaries[@]}"; do
       comparisons+=("${comparison_container};${primary};${secondary}")
@@ -103,13 +103,13 @@ fi
 
 ##########
 # Study pairs with special secondary studies for comparison to all primary studies.
-if true; then
+if false; then
   # Collect special secondary studies.
   secondaries_special=()
   secondaries_special+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
   secondaries_special+=("34255042_schmitz_2021_male;${path_primary_gwas_munge_container}/34255042_schmitz_2021_male/${name_gwas_munge_file}")
   # Assemble array of batch instance details.
-  comparison_container="primary_34255042_schmitz_2021"
+  comparison_container="primary_versus_34255042_schmitz_2021"
   for primary in "${primaries[@]}"; do
     for secondary_special in "${secondaries_special[@]}"; do
       comparisons+=("${comparison_container};${primary};${secondary_special}")
@@ -120,7 +120,7 @@ fi
 
 ##########
 # Study pairs within the same container (path_primary_gwas_munge_container).
-if true; then
+if false; then
   # Signal transformation.
   pairs+=("34255042_schmitz_2021_female;34255042_schmitz_2021_male")
 
@@ -133,6 +133,8 @@ if true; then
     comparisons+=("${comparison_container};${study_primary};${path_primary_gwas_munge_container}/${study_primary}/${name_gwas_munge_file};${study_secondary};${path_primary_gwas_munge_container}/${study_secondary}/${name_gwas_munge_file}")
   done
 fi
+
+# TODO: need to update path to GWAS results for oestradiol_logistic in females and males...
 
 ##########
 # Study pairs within different containers.
@@ -161,7 +163,7 @@ fi
 
 report="true"
 
-if true; then
+if false; then
   # Execute comparisons in parallel compute batch job.
   # Initialize batch instances.
   path_batch_instances="${path_genetic_correlation_container}/batch_instances_${cohorts_models}.txt"
@@ -192,7 +194,7 @@ else
   # Execute comparisons by simple, sequential iteration.
   for comparison in "${comparisons[@]}"; do
     # Call driver script.
-    /usr/bin/bash "${path_scripts_record}/7_run_batch_jobs_gwas_ldsc_genetic_correlation.sh" \
+    /usr/bin/bash "${path_scripts_record}/8_run_drive_gwas_ldsc_genetic_correlation.sh" \
     $comparison_instance \
     $path_genetic_correlation_container \
     $path_genetic_reference \
