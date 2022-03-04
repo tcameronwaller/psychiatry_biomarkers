@@ -14,7 +14,7 @@
 #cohorts_models="vitamin_d_linear"                   # 4 GWAS; GWAS job 3155905, status: complete; TCW started at 18:11 on 02 March 2022;
 
 #cohorts_models="oestradiol_logistic"                # 12 GWAS; GWAS job 3202343, status: complete; TCW started at 12:59 on 03 March 2022; job 3238649;
-###cohorts_models="oestradiol_logistic_long"         # 12 GWAS; GWAS job 3225508, status: running;
+###cohorts_models="oestradiol_logistic_long"         # 12 GWAS; GWAS job 3225508, status: running; TCW started at ___ on __ March 2022;
 #cohorts_models="oestradiol_bioavailable_linear"     # 18 GWAS; GWAS job 3149651, status: complete; TCW started at 18:13 on 02 March 2022;
 #cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at 18:15 on 02 March 2022;
 
