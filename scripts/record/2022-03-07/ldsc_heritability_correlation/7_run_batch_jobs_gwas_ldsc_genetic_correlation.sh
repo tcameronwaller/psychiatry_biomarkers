@@ -40,6 +40,12 @@
 ################################################################################
 # Note.
 
+# LDSC Munge of GWAS summary statistics throws a memory error with 4 thread
+# slots ("-pe threaded 4") and 1 Gigabyte of memory ("-l h_vmem=1G").
+
+# LDSC Munge of GWAS summary statistics runs with 8 thread slots
+# ("-pe threaded 8") and 1 Gigabyte of memory ("-l h_vmem=1G").
+
 
 ################################################################################
 # Organize argument variables.
@@ -48,8 +54,9 @@ path_batch_instances=${1} # text list of information for each instance in batch
 batch_instances_count=${2} # count of instances in batch
 path_genetic_correlation_container=${3} # full path to parent directory for genetic correlation comparisons
 path_genetic_reference=${4} # full path to directory for all processes relevant to current project
-path_process=${5} # full path to directory for all processes relevant to current project
-report=${6} # full path to directory for all processes relevant to current project
+path_scripts_record=${5} # full path to directory for scripts in current procedure
+path_process=${6} # full path to directory for all processes relevant to current project
+report=${7} # full path to directory for all processes relevant to current project
 
 ###########################################################################
 # Organize batch instance variables.

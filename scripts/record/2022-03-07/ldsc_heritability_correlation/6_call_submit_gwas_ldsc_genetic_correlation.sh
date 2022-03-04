@@ -190,6 +190,7 @@ if true; then
   $batch_instances_count \
   $path_genetic_correlation_container \
   $path_genetic_reference \
+  $path_scripts_record \
   $path_process \
   $report
 else
