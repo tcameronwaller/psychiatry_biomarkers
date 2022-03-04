@@ -16,10 +16,10 @@
 #cohorts_models="oestradiol_logistic"                # 33 comparisons; GWAS job 3202343; only 3 cohorts successful in LDSC munge; TCW started at 14:32 on 04 March 2022;
 ###cohorts_models="oestradiol_logistic_long"         # 12 GWAS; GWAS job 3202343, status: running;
 #cohorts_models="oestradiol_bioavailable_linear"     # 198 comparisons; GWAS job 3149651; TCW started at 14:41 on 04 March 2022;
-cohorts_models="oestradiol_free_linear"             # 18 GWAS; GWAS job 3149652, status: complete; TCW started at ___ on 04 March 2022;
+#cohorts_models="oestradiol_free_linear"             # 198 comparisons; GWAS job 3149652; TCW started at 14:45 on 04 March 2022;
 
 ###cohorts_models="testosterone_logistic"            # 24 GWAS; GWAS job 3202423, status: in queue;
-#cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at ___ on 04 March 2022;
+cohorts_models="testosterone_linear"                # 24 GWAS; GWAS job 3109689, status: complete; TCW started at ___ on 04 March 2022;
 #cohorts_models="testosterone_bioavailable_linear"   # 18 GWAS; GWAS job 3149548, status: complete; TCW started at ___ on 04 March 2022;
 #cohorts_models="testosterone_free_linear"           # 18 GWAS; GWAS job 3149549, status: complete; TCW started at ___ on 04 March 2022;
 
