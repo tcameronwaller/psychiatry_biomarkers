@@ -44,6 +44,8 @@ path_scripts_record="${path_process}/psychiatric_metabolism/scripts/record/2022-
 # Parameters.
 report="true" # "true" or "false"
 
+mkdir -p $path_genetic_correlation_container
+
 ###########################################################################
 # Define main comparisons.
 
