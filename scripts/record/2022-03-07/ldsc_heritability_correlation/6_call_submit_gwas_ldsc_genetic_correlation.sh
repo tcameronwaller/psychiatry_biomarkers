@@ -24,7 +24,7 @@
 #cohorts_models="testosterone_free_linear"           # 198 comparisons; GWAS job 3149549; TCW started at 14:52 on 04 March 2022;
 
 #cohorts_models="steroid_globulin_linear"            # 44 comparisons; GWAS job 3155785; TCW started at 14:54 on 04 March 2022;
-cohorts_models="steroid_globulin_sex_linear"      # 24 GWAS; GWAS job 3202509; TCW started at ___ on 07 March 2022;
+#cohorts_models="steroid_globulin_sex_linear"      # 264 GWAS; GWAS job 3202509; TCW started at 08:41 on 07 March 2022;
 #cohorts_models="albumin_linear"                     # 44 comparisons; GWAS job 3155786; TCW started at 14:57 on 04 March 2022;
 
 ################################################################################
