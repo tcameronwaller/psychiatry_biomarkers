@@ -24,7 +24,7 @@
 #cohorts_models="testosterone_free_linear"           # 18 GWAS; GWAS job 3149549, status: complete; TCW started at 18:24 on 02 March 2022;
 
 #cohorts_models="steroid_globulin_linear"            # 4 GWAS;  GWAS job 3155785, status: complete; TCW started at 18:26 on 02 March 2022;
-###cohorts_models="steroid_globulin_sex_linear"      # 24 GWAS; GWAS job 3202509, status: in queue;
+cohorts_models="steroid_globulin_sex_linear"      # 24 GWAS; GWAS job 3202509, status: complete; TCW started at ___ on 07 March 2022;
 #cohorts_models="albumin_linear"                     # 4 GWAS;  GWAS job 3155786, status: complete; TCW started at 18:28 on 02 March 2022;
 
 chromosome_x="true" # whether to collect GWAS summary statistics report for Chromosome X and XY
@@ -51,8 +51,8 @@ mkdir -p $path_gwas_target_container
 rm $path_batch_instances
 
 # Define patterns for file names.
-#pattern_gwas_report_file="report.*.glm.linear" # do not expand with full path yet <-- must choose here!!!
-pattern_gwas_report_file="report.*.glm.logistic" # do not expand with full path yet <-- must choose here!!!
+pattern_gwas_report_file="report.*.glm.linear" # do not expand with full path yet <-- must choose here!!!
+#pattern_gwas_report_file="report.*.glm.logistic" # do not expand with full path yet <-- must choose here!!!
 pattern_gwas_concatenation_file="gwas_concatenation.txt.gz"
 
 # Iterate on directories for GWAS on cohorts and hormones.

@@ -74,7 +74,7 @@ path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic_long"   # 12 GWAS
 #path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear"   # 4 GWAS; TCW started at 12:59 on 27 February 2022; job 3155785; status: complete;
 #path_gwas_container="${path_dock}/gwas_raw/albumin_linear"            # 4 GWAS; TCW started at 13:09 on 27 February 2022; job 3155786; status: complete;
 
-#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_sex_linear"   # 24 GWAS; TCW started at 17:05 on 01 March 2022; job 3202509; status: running;
+#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_sex_linear"   # 24 GWAS; TCW started at 17:05 on 01 March 2022; job 3202509; status: complete;
 
 # Note: TCW, 02 March 2022
 # Logistic GWAS require a long time to run.
