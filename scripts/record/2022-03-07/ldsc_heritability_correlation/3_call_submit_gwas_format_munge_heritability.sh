@@ -25,11 +25,11 @@
 #cohorts_models="testosterone_free_linear"           # 18 GWAS; GWAS job 3149549, status: complete; TCW started at 10:29 on 03 March 2022;
 
 #cohorts_models="steroid_globulin_linear"            # 4 GWAS;  GWAS job 3155785, status: complete; TCW started at 10:31 on 03 March 2022;
-###cohorts_models="steroid_globulin_sex_linear"      # 24 GWAS; GWAS job 3202509, status: in queue;
+cohorts_models="steroid_globulin_sex_linear"      # 24 GWAS; GWAS job 3202509, status: complete; TCW started at 08:__ on 07 March 2022;
 #cohorts_models="albumin_linear"                     # 4 GWAS;  GWAS job 3155786, status: complete; TCW started at 10:33 on 03 March 2022;
 
-regression_type="logistic" # "linear" or "logistic"
-response="odds_ratio" # "coefficient", "odds_ratio", or "z_score"; for linear GWAS, use "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
+regression_type="linear" # "linear" or "logistic"
+response="coefficient" # "coefficient", "odds_ratio", or "z_score"; for linear GWAS, use "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
 response_standard_scale="false" # whether to convert reponse (effect, coefficient) to z-score standard scale ("true" or "false")
 
 restore_target_study_directories="true" # whether to delete any previous directories for each study's format and munge GWAS ("true" or "false")
