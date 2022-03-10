@@ -350,7 +350,7 @@ def execute_procedure(
     ))
 
     # Plot figures for cohorts, models, and phenotypes.
-    if True:
+    if False:
         pail_plot = ukb_description.execute_plot_cohorts_models_phenotypes(
             table=source["table_phenotypes"],
             report=True,
