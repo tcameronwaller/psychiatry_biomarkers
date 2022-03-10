@@ -364,6 +364,9 @@ def execute_procedure(
     information["description"]["table_cohorts_measurements_missingness"] = (
         pail_summary["table_cohorts_measurements_missingness"]
     )
+    information["description"]["table_cohorts_vitamin_d_deficiency"] = (
+        pail_summary["table_cohorts_vitamin_d_deficiency"]
+    )
     information["description"]["table_summary_cohorts_models_phenotypes"] = (
         pail_summary["table_summary_cohorts_models_phenotypes"]
     )
