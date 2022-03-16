@@ -10,7 +10,7 @@
 #$ -N waller_gwas
 # Contact.
 # "b": beginning, "e": end, "a": abortion, "s": suspension, "n": never
-#$ -M tcameronwaller@gmail.com
+#$ -M waller.tcameron@mayo.edu
 #$ -m as
 # Standard output and error.
 # Specify as arguments when calling qsub.
