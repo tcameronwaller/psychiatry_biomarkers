@@ -39,10 +39,10 @@ fi
 
 #python3 $path_package/interface.py main --path_dock $path_dock --assembly # TCW 23 February 2022
 #python3 $path_package/interface.py main --path_dock $path_dock --importation # TCW 23 February 2022
-#python3 $path_package/interface.py main --path_dock $path_dock --organization # TCW 16 March 2022
+python3 $path_package/interface.py main --path_dock $path_dock --organization # TCW 17 March 2022
 #python3 $path_package/interface.py main --path_dock $path_dock --stratification # TCW 01 March 2022
 
-python3 $path_package/interface.py main --path_dock $path_dock --description
+#python3 $path_package/interface.py main --path_dock $path_dock --description
 #python3 $path_package/interface.py main --path_dock $path_dock --regression # TCW 16 March 2022
 #python3 $path_package/interface.py main --path_dock $path_dock --collection
 
