@@ -38,8 +38,8 @@ fi
 # Execute procedure(s).
 
 #python3 $path_package/interface.py main --path_dock $path_dock --assembly # TCW 30 March 2022
-python3 $path_package/interface.py main --path_dock $path_dock --importation # TCW __ March 2022
-#python3 $path_package/interface.py main --path_dock $path_dock --organization # TCW 30 March 2022
+#python3 $path_package/interface.py main --path_dock $path_dock --importation # TCW 31 March 2022
+python3 $path_package/interface.py main --path_dock $path_dock --organization # TCW __ March 2022
 #python3 $path_package/interface.py main --path_dock $path_dock --stratification # TCW 01 March 2022
 
 #python3 $path_package/interface.py main --path_dock $path_dock --description
