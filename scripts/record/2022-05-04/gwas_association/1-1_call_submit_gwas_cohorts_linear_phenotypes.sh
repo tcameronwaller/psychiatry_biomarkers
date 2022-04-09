@@ -39,7 +39,7 @@ path_dock="$path_process/dock"
 # Cohort stratification phenotype tables.
 
 #path_stratification_tables="${path_dock}/stratification_2022-04-09/oestradiol"
-path_stratification_tables="${path_dock}/stratification_2022-04-09/testosterone"
+path_stratification_tables="${path_dock}/stratification_2022-04-09/testosterone" # 09 April 2022
 #path_stratification_tables="${path_dock}/stratification_2022-04-09/steroid_globulin"
 #path_stratification_tables="${path_dock}/stratification_2022-04-09/albumin"
 
