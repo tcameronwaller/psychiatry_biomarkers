@@ -23,67 +23,6 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_scripts_record="$path_process/psychiatric_metabolism/scripts/record/2022-05-04/gwas_association"
 path_dock="$path_process/dock"
 
-################
-# TODO: TCW, 08 April 2022
-# TODO: remember to change from "body_log" to "body"
-# TODO: submit "oestradiol_detection" to the 4-day queue at least... maybe 7-day queue...
-####################
-
-
-
-
-#path_stratification_tables="${path_dock}/stratification_2022-02-25/vitamin_d"
-#path_stratification_tables="${path_dock}/stratification_2022-02-25/oestradiol"
-#path_stratification_tables="${path_dock}/stratification_2022-02-25/testosterone"
-
-#path_stratification_tables="${path_dock}/stratification_2022-02-26/oestradiol"
-#path_stratification_tables="${path_dock}/stratification_2022-02-26/testosterone"
-
-#path_stratification_tables="${path_dock}/stratification_2022-02-27/vitamin_d"
-#path_stratification_tables="${path_dock}/stratification_2022-02-27/steroid_globulin"
-#path_stratification_tables="${path_dock}/stratification_2022-02-27/albumin"
-#path_stratification_tables="${path_dock}/stratification_2022-02-27/oestradiol"
-#path_stratification_tables="${path_dock}/stratification_2022-02-27/testosterone"
-
-#path_stratification_tables="${path_dock}/stratification_2022-02-28/steroid_globulin"
-
-#path_stratification_tables="${path_dock}/stratification_2022-03-01/oestradiol"
-#path_stratification_tables="${path_dock}/stratification_2022-03-01/testosterone"
-#path_stratification_tables="${path_dock}/stratification_2022-03-01/steroid_globulin" <-- need to re-start on 1 March 2022
-
-# Stratification tables without standardization of variance in covariates within the stratification table.
-# Standardize covariate variance in PLINK2.
-path_stratification_tables="${path_dock}/stratification_2022-03-01_2/oestradiol"
-#path_stratification_tables="${path_dock}/stratification_2022-03-01_2/testosterone"
-#path_stratification_tables="${path_dock}/stratification_2022-03-01_2/steroid_globulin"
-
-
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 23:48 on 25 February 2022; job 3109174; status: complete; failure: PLINK2 intepreted not any 'cases' due to "variance-standardize" argument
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 11:44 on 26 February 2022; job 3120038; status: complete; failure: PLINK2 interpreted not any 'cases' due to "variance-standardize" argument
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 13:37 on 28 February 2022; job 3167520; status: failure: PLINK2 intepreted not any 'cases' due to "covar-variance-standardize" argument;
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 13:48 on 28 February 2022; job 3167537; status: cancelled;
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 00:22 on 01 March 2022; job 3186784; status: cancelled; name of phenotype column ought to be "oestradiol_detection_plink"
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 00:38 on 01 March 2022; job 3186785; status: cancelled; name of phenotype column ought to be "testosterone_detection_plink"
-
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic_long"   # 12 GWAS; TCW started at 21:00 on 02 March 2022; job 3225508; status: running;
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic_long"   # 12 GWAS; TCW started at ___ on __ March 2022; job ___; status: ___;
-
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # 24 GWAS; TCW started at 16:51 on 01 March 2022; job 3202343; status: complete; several jobs were killed due to exceeding 1 day;
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # 24 GWAS; TCW started at 16:57 on 01 March 2022; job 3202423; status: running;
-
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"   # 24 GWAS; TCW started at 01:17 on 26 February 2022; job 3109689; status: complete;
-
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"     # 18 GWAS; TCW started at 21:15 on 26 February 2022; job 3149651; status: complete;
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"             # 18 GWAS; TCW started at 21:21 on 26 February 2022; job 3149652; status: complete;
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear"   # 18 GWAS; TCW started at 20:56 on 26 February 2022; job 3149548; complete
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"           # 18 GWAS; TCW started at 21:03 on 26 February 2022; job 3149549; complete
-
-#path_gwas_container="${path_dock}/gwas_raw/vitamin_d_linear"          # 4 GWAS; TCW started at 13:20 on 27 February 2022; job 3155905; status: still running at 17:00 on 1 March 2022, 27 hours after starting; might get killed by "1-day" queue; complete, I think;
-#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear"   # 4 GWAS; TCW started at 12:59 on 27 February 2022; job 3155785; status: complete;
-#path_gwas_container="${path_dock}/gwas_raw/albumin_linear"            # 4 GWAS; TCW started at 13:09 on 27 February 2022; job 3155786; status: complete;
-
-#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_sex_linear"   # 24 GWAS; TCW started at 17:05 on 01 March 2022; job 3202509; status: complete;
-
 # Note: TCW, 02 March 2022
 # Logistic GWAS require a long time to run.
 # Logistic GWAS for "oestradiol_detection" on the "female",
@@ -91,6 +30,34 @@ path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic_long"   # 12 GWAS
 # require much longer than 30 hours to run.
 # The "1-day" queue on NCSA server aborts batch jobs after about 30 hours.
 
+################
+# TODO: TCW, 08 April 2022
+# TODO: submit "oestradiol_detection" to the 4-day queue at least... maybe 7-day queue...
+####################
+
+
+# Cohort stratification phenotype tables.
+
+#path_stratification_tables="${path_dock}/stratification_2022-04-09/oestradiol"
+path_stratification_tables="${path_dock}/stratification_2022-04-09/testosterone"
+#path_stratification_tables="${path_dock}/stratification_2022-04-09/steroid_globulin"
+#path_stratification_tables="${path_dock}/stratification_2022-04-09/albumin"
+
+# Container directory for raw GWAS summary statistics.
+
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"   # name of phenotype column ought to be "oestradiol_detection_plink"
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear"
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"
+
+
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic" # name of phenotype column ought to be "testosterone_detection_plink"
+path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear"
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"
+
+#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear"
+#path_gwas_container="${path_dock}/gwas_raw/albumin_linear"
 
 # Initialize directories.
 rm -r $path_gwas_container
@@ -113,91 +80,80 @@ rm $path_batch_instances
 covariates_genotype="genotype_array_axiom,genotype_pc_1,genotype_pc_2,genotype_pc_3,genotype_pc_4,genotype_pc_5,genotype_pc_6,genotype_pc_7,genotype_pc_8,genotype_pc_9,genotype_pc_10"
 
 ##########
-# Basis covariates
+# Basis covariates that are the same across all cohorts
 
-# "steroid_globulin"
-#covariates_joint_1="age,body,region,season,alteration_sex_hormone"
+# model: 'unadjust'
+covariates_unadjust=""
 
-# "albumin"
-#covariates_joint_1="age,body,region,season,alteration_sex_hormone"
-
-# "testosterone_detection" and "testosterone_imputation"
-#covariates_joint_1="age,body,region,season,alteration_sex_hormone"
-
-# "oestradiol_detection"
+# model: 'joint_1' # Model 'joint_1' is the same for all dependent variables for Sex Hormones and their Binding Proteins (not for Vitamin D).
 covariates_joint_1="age,body,region,season,alteration_sex_hormone"
-
-# "oestradiol_bioavailable" and "oestradiol_free"
-#covariates_joint_1="age,body,region,season,alteration_sex_hormone"
-
-# "testosterone_bioavailable" and "testosterone_free"
-#covariates_joint_1="age,body,region,season,alteration_sex_hormone"
 
 ##########
 # Define multi-dimensional array of cohorts and model covariates.
+# Use comments to exclude cohorts from GWAS for a specific dependent variable.
 # [name of cohort and model for analysis description];[table name cohort-model prefix];[independent variable columns in table, beginning with cohort-specific variables]
 cohorts_models_instances=()
 
-### female_male_priority_male: only for vitamin_d_imputation, steroid_globulin_imputation, albumin_imputation
+# cohort: female_male_priority_male: only for steroid_globulin_imputation, albumin_imputation
 #cohorts_models_instances+=("female_male_priority_male_unadjust;table_female_male_priority_male_unadjust;sex_y,")
 #cohorts_models_instances+=("female_male_priority_male_joint_1;table_female_male_priority_male_joint_1;sex_y,${covariates_joint_1},")
-#cohorts_models_instances+=("female_male_priority_male_joint_2;table_female_male_priority_male_joint_2;sex_y,${covariates_joint_2},")
-#cohorts_models_instances+=("female_male_priority_male_joint_3;table_female_male_priority_male_joint_3;sex_y,${covariates_joint_3},")
 
-### female
+# cohort: female
 cohorts_models_instances+=("female_unadjust;table_female_unadjust;")
-cohorts_models_instances+=("female_joint_1;table_female_joint_1;menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_1},")
-cohorts_models_instances+=("female_joint_2;table_female_joint_2;menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_2},")
-cohorts_models_instances+=("female_joint_3;table_female_joint_3;menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_3},")
+cohorts_models_instances+=("female_joint_1;table_female_joint_1;births,menopause_ordinal,oophorectomy,hysterectomy,${covariates_joint_1},")
 
-### female_menstruation_regular
-#cohorts_models_instances+=("female_menstruation_regular_unadjust;table_female_menstruation_regular_unadjust;")
-#cohorts_models_instances+=("female_menstruation_regular_joint_1;table_female_menstruation_regular_joint_1;menstruation_phase_cycle,menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_1},")
-#cohorts_models_instances+=("female_menstruation_regular_joint_2;table_female_menstruation_regular_joint_2;menstruation_phase_cycle,menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_2},")
-#cohorts_models_instances+=("female_menstruation_regular_joint_3;table_female_menstruation_regular_joint_3;menstruation_phase_cycle,menopause_ordinal,oophorectomy,hysterectomy,pregnancies,${covariates_joint_3},")
+# cohort: female_menstruation_regular
+cohorts_models_instances+=("female_menstruation_regular_unadjust;table_female_menstruation_regular_unadjust;")
+cohorts_models_instances+=("female_menstruation_regular_joint_1;table_female_menstruation_regular_joint_1;menstruation_phase_cycle,birth_live_recent,births,menopause_ordinal,oophorectomy,hysterectomy,${covariates_joint_1},")
 
-### female_premenopause
-#cohorts_models_instances+=("female_premenopause_unadjust;table_female_premenopause_unadjust;")
-#cohorts_models_instances+=("female_premenopause_joint_1;table_female_premenopause_joint_1;menstruation_phase_cycle,hysterectomy,pregnancies,${covariates_joint_1},")
-#cohorts_models_instances+=("female_premenopause_joint_2;table_female_premenopause_joint_2;menstruation_phase_cycle,hysterectomy,pregnancies,${covariates_joint_2},")
-#cohorts_models_instances+=("female_premenopause_joint_3;table_female_premenopause_joint_3;menstruation_phase_cycle,hysterectomy,pregnancies,${covariates_joint_3},")
+# cohort: female_premenopause
+cohorts_models_instances+=("female_premenopause_unadjust;table_female_premenopause_unadjust;")
+cohorts_models_instances+=("female_premenopause_joint_1;table_female_premenopause_joint_1;menstruation_phase_cycle,birth_live_recent,births,hysterectomy,${covariates_joint_1},")
 
-### female_perimenopause
-#cohorts_models_instances+=("female_perimenopause_unadjust;table_female_perimenopause_unadjust;")
-#cohorts_models_instances+=("female_perimenopause_joint_1;table_female_perimenopause_joint_1;hysterectomy,pregnancies,${covariates_joint_1},")
-#cohorts_models_instances+=("female_perimenopause_joint_2;table_female_perimenopause_joint_2;hysterectomy,pregnancies,${covariates_joint_2},")
-#cohorts_models_instances+=("female_perimenopause_joint_3;table_female_perimenopause_joint_3;hysterectomy,pregnancies,${covariates_joint_3},")
+# cohort: female_perimenopause
+cohorts_models_instances+=("female_perimenopause_unadjust;table_female_perimenopause_unadjust;")
+cohorts_models_instances+=("female_perimenopause_joint_1;table_female_perimenopause_joint_1;births,hysterectomy,${covariates_joint_1},")
 
-### female_postmenopause
+# cohort: female_postmenopause
 cohorts_models_instances+=("female_postmenopause_unadjust;table_female_postmenopause_unadjust;")
-cohorts_models_instances+=("female_postmenopause_joint_1;table_female_postmenopause_joint_1;oophorectomy,hysterectomy,pregnancies,${covariates_joint_1},")
-cohorts_models_instances+=("female_postmenopause_joint_2;table_female_postmenopause_joint_2;oophorectomy,hysterectomy,pregnancies,${covariates_joint_2},")
-cohorts_models_instances+=("female_postmenopause_joint_3;table_female_postmenopause_joint_3;oophorectomy,hysterectomy,pregnancies,${covariates_joint_3},")
+cohorts_models_instances+=("female_postmenopause_joint_1;table_female_postmenopause_joint_1;births,oophorectomy,hysterectomy,${covariates_joint_1},")
 
-### male
+# cohort: male
 cohorts_models_instances+=("male_unadjust;table_male_unadjust;")
 cohorts_models_instances+=("male_joint_1;table_male_joint_1;${covariates_joint_1},")
-cohorts_models_instances+=("male_joint_2;table_male_joint_2;${covariates_joint_2},")
-cohorts_models_instances+=("male_joint_3;table_male_joint_3;${covariates_joint_3},")
+
+# cohort: male_age_low
+cohorts_models_instances+=("male_age_low_unadjust;table_male_age_low_unadjust;")
+cohorts_models_instances+=("male_age_low_joint_1;table_male_age_low_joint_1;${covariates_joint_1},")
+
+# cohort: male_age_middle
+cohorts_models_instances+=("male_age_middle_unadjust;table_male_age_middle_unadjust;")
+cohorts_models_instances+=("male_age_middle_joint_1;table_male_age_middle_joint_1;${covariates_joint_1},")
+
+# cohort: male_age_high
+cohorts_models_instances+=("male_age_high_unadjust;table_male_age_high_unadjust;")
+cohorts_models_instances+=("male_age_high_joint_1;table_male_age_high_joint_1;${covariates_joint_1},")
 
 ##########
 # Define array of phenotypes.
 # [name of phenotype for analysis description];[table name phenotype suffix];[dependent variable column in table]
 phenotypes_instances=()
 
-#phenotypes_instances+=("vitamin_d_imputation;_vitamin_d_imputation;vitamin_d_imputation")
-#phenotypes_instances+=("steroid_globulin_imputation;_steroid_globulin_imputation;steroid_globulin_imputation")
-#phenotypes_instances+=("albumin_imputation;_albumin_imputation;albumin_imputation")
-
-phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection_plink")
-#phenotypes_instances+=("oestradiol_bioavailable_imputation;_oestradiol_bioavailable_imputation;oestradiol_bioavailable_imputation")
-#phenotypes_instances+=("oestradiol_free_imputation;_oestradiol_free_imputation;oestradiol_free_imputation")
+#phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection_plink")
+#phenotypes_instances+=("oestradiol_log;_oestradiol_log;oestradiol_log")
+#phenotypes_instances+=("oestradiol_imputation_log;_oestradiol_imputation_log;oestradiol_imputation_log")
+#phenotypes_instances+=("oestradiol_bioavailable_imputation_log;_oestradiol_bioavailable_imputation_log;oestradiol_bioavailable_imputation_log")
+#phenotypes_instances+=("oestradiol_free_imputation_log;_oestradiol_free_imputation_log;oestradiol_free_imputation_log")
 
 #phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection_plink")
-#phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")
-#phenotypes_instances+=("testosterone_bioavailable_imputation;_testosterone_bioavailable_imputation;testosterone_bioavailable_imputation")
-#phenotypes_instances+=("testosterone_free_imputation;_testosterone_free_imputation;testosterone_free_imputation")
+phenotypes_instances+=("testosterone_log;_testosterone_log;testosterone_log") # 'testosterone_linear'
+phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation") # 'testosterone_linear'
+phenotypes_instances+=("testosterone_imputation_log;_testosterone_imputation_log;testosterone_imputation_log") # 'testosterone_linear'
+#phenotypes_instances+=("testosterone_bioavailable_imputation_log;_testosterone_bioavailable_imputation_log;testosterone_bioavailable_imputation_log") # 'testosterone_bioavailable_linear'
+#phenotypes_instances+=("testosterone_free_imputation_log;_testosterone_free_imputation_log;testosterone_free_imputation_log") # 'testosterone_free_linear'
 
+#phenotypes_instances+=("steroid_globulin_imputation_log;_steroid_globulin_imputation_log;steroid_globulin_imputation_log")
+#phenotypes_instances+=("albumin_imputation;_albumin_imputation;albumin_imputation")
 
 
 
