@@ -58,7 +58,7 @@ path_stratification_tables="${path_dock}/stratification_2022-04-09/steroid_globu
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"         # 18 GWAS; 10 April 2022
 
 #path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_1"        # 18 GWAS; 11 April 2022
-path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_2"        # __ GWAS; __ April 2022
+path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_2"        # __ GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/albumin_linear_1"                 # 18 GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/albumin_linear_2"                 # sex-combined cohort (female-male), longer queue
 
@@ -98,7 +98,7 @@ covariates_joint_1="age,body,region,season,alteration_sex_hormone"
 cohorts_models_instances=()
 
 # cohort: female_male_priority_male: only for steroid_globulin_imputation, albumin_imputation
-cohorts_models_instances+=("female_male_priority_male_unadjust;table_female_male_priority_male_unadjust;sex_y,")
+cohorts_models_instances+=("female_male_priority_male_unadjust;table_female_male_priority_male_unadjust;sex_y,") # include 'sex_y' at minimum for X chromosome
 cohorts_models_instances+=("female_male_priority_male_joint_1;table_female_male_priority_male_joint_1;sex_y,${covariates_joint_1},")
 
 # cohort: female
