@@ -38,21 +38,21 @@ path_dock="$path_process/dock"
 
 # Cohort stratification phenotype tables.
 
-path_stratification_tables="${path_dock}/stratification_2022-04-09/oestradiol" # 09 April 2022, 11 April 2022
-#path_stratification_tables="${path_dock}/stratification_2022-04-09/testosterone" # 09 April 2022, 10 April 2022
+#path_stratification_tables="${path_dock}/stratification_2022-04-09/oestradiol" # 09 April 2022, 10 April 2022, 11 April 2022
+path_stratification_tables="${path_dock}/stratification_2022-04-09/testosterone" # 09 April 2022, 10 April 2022, 11 April 2022
 #path_stratification_tables="${path_dock}/stratification_2022-04-09/steroid_globulin" # 11 April 2022
 #path_stratification_tables="${path_dock}/stratification_2022-04-09/albumin" # 11 April 2022
 
 # Container directory for raw GWAS summary statistics.
 
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"              # __ GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"              # 18 GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_1"              # 18 GWAS; 09 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_2"              # 12 GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"   # 18 GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"           # 18 GWAS; 11 April 2022
 
 
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic"            # name of phenotype column ought to be "testosterone_detection_plink"
+path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic"            # __ GWAS; __ April 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"              # 54 GWAS; 09 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear" # 18 GWAS; 10 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"         # 18 GWAS; 10 April 2022
@@ -142,14 +142,14 @@ cohorts_models_instances+=("male_age_high_joint_1;table_male_age_high_joint_1;${
 # [name of phenotype for analysis description];[table name phenotype suffix];[dependent variable column in table]
 phenotypes_instances=()
 
-phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection_plink")                                                         # 'oestradiol_logistic'; 11 April 2022
+#phenotypes_instances+=("oestradiol_detection;_oestradiol_detection;oestradiol_detection_plink")                                                         # 'oestradiol_logistic'; 11 April 2022
 #phenotypes_instances+=("oestradiol_log;_oestradiol_log;oestradiol_log")                                                                                 # 'oestradiol_linear_1'; 09 April 2022
 #phenotypes_instances+=("oestradiol_imputation;_oestradiol_imputation;oestradiol_imputation")                                                            # 'oestradiol_linear_2'; 11 April 2022
 #phenotypes_instances+=("oestradiol_imputation_log;_oestradiol_imputation_log;oestradiol_imputation_log")                                                # 'oestradiol_linear_2'; 11 April 2022
 #phenotypes_instances+=("oestradiol_bioavailable_imputation_log;_oestradiol_bioavailable_imputation_log;oestradiol_bioavailable_imputation_log")         # 'oestradiol_bioavailable_linear'; 11 April 2022
 #phenotypes_instances+=("oestradiol_free_imputation_log;_oestradiol_free_imputation_log;oestradiol_free_imputation_log")                                 # 'oestradiol_free_linear'; 11 April 2022
 
-#phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection_plink")
+phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection_plink")                                                   # 'testosterone_logistic'; 11 April 2022
 #phenotypes_instances+=("testosterone_log;_testosterone_log;testosterone_log")                                                                           # 'testosterone_linear'; 09 April 2022
 #phenotypes_instances+=("testosterone_imputation;_testosterone_imputation;testosterone_imputation")                                                      # 'testosterone_linear'; 09 April 2022
 #phenotypes_instances+=("testosterone_imputation_log;_testosterone_imputation_log;testosterone_imputation_log")                                          # 'testosterone_linear'; 09 April 2022
