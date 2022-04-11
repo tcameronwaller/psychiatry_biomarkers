@@ -54,7 +54,7 @@ path_stratification_tables="${path_dock}/stratification_2022-04-09/testosterone"
 
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic"            # name of phenotype column ought to be "testosterone_detection_plink"
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"               # 54 GWAS; 09 April 2022
-path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear"   # __
+path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear"   # __ GWAS; 10 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"
 
 #path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_1"            # __ GWAS; __ April 2022
