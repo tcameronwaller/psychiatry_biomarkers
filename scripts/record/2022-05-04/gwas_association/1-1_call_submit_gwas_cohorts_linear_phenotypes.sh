@@ -57,7 +57,7 @@ path_stratification_tables="${path_dock}/stratification_2022-04-09/steroid_globu
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear" # 18 GWAS; 10 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"         # 18 GWAS; 10 April 2022
 
-path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_1"        # __ GWAS; __ April 2022
+path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_1"        # __ GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_2"        # sex-combined cohort (female-male), longer queue
 #path_gwas_container="${path_dock}/gwas_raw/albumin_linear_1"                 # __ GWAS; __ April 2022
 #path_gwas_container="${path_dock}/gwas_raw/albumin_linear_2"                 # sex-combined cohort (female-male), longer queue
