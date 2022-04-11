@@ -45,7 +45,7 @@ path_stratification_tables="${path_dock}/stratification_2022-04-09/oestradiol" #
 
 # Container directory for raw GWAS summary statistics.
 
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"              # __ GWAS; __ April 2022
+path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"              # __ GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_1"              # 18 GWAS; 09 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_2"              # 12 GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"   # 18 GWAS; 11 April 2022
