@@ -60,7 +60,7 @@ path_stratification_tables="${path_dock}/stratification_2022-04-09/albumin" # 11
 #path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_1"        # 18 GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_2"        # 2 GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/albumin_linear_1"                 # 18 GWAS; 11 April 2022
-path_gwas_container="${path_dock}/gwas_raw/albumin_linear_2"                 # __ GWAS; __ April 2022
+path_gwas_container="${path_dock}/gwas_raw/albumin_linear_2"                 # __ GWAS; 11 April 2022
 
 # Initialize directories.
 rm -r $path_gwas_container
