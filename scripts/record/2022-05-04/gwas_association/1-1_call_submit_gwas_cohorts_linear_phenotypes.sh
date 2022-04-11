@@ -52,7 +52,7 @@ path_stratification_tables="${path_dock}/stratification_2022-04-09/testosterone"
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"           # 18 GWAS; 11 April 2022
 
 
-path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic"            # __ GWAS; __ April 2022
+path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic"            # __ GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"              # 54 GWAS; 09 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear" # 18 GWAS; 10 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"         # 18 GWAS; 10 April 2022
