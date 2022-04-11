@@ -49,7 +49,7 @@ path_stratification_tables="${path_dock}/stratification_2022-04-09/oestradiol" #
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_1"               # 18 GWAS; 09 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_2"  # run "oestradiol_imputation" and "oestradiol_imputation_log" together (same cohorts)... need to stratify first
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"    # 18 GWAS; 11 April 2022
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"             # __ GWAS;
+path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"             # __ GWAS; 11 April 2022
 
 
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic"            # name of phenotype column ought to be "testosterone_detection_plink"
