@@ -40,8 +40,8 @@ path_dock="$path_process/dock"
 
 #path_stratification_tables="${path_dock}/stratification_2022-04-09/oestradiol" # 09 April 2022, 11 April 2022
 #path_stratification_tables="${path_dock}/stratification_2022-04-09/testosterone" # 09 April 2022, 10 April 2022
-path_stratification_tables="${path_dock}/stratification_2022-04-09/steroid_globulin" # 10 April 2022, 11 April 2022
-#path_stratification_tables="${path_dock}/stratification_2022-04-09/albumin"
+#path_stratification_tables="${path_dock}/stratification_2022-04-09/steroid_globulin" # 10 April 2022, 11 April 2022
+path_stratification_tables="${path_dock}/stratification_2022-04-09/albumin" # 11 April 2022, __ April 2022
 
 # Container directory for raw GWAS summary statistics.
 
@@ -57,9 +57,9 @@ path_stratification_tables="${path_dock}/stratification_2022-04-09/steroid_globu
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear" # 18 GWAS; 10 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"         # 18 GWAS; 10 April 2022
 
-path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_1"        # __ GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_1"        # 18 GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_2"        # sex-combined cohort (female-male), longer queue
-#path_gwas_container="${path_dock}/gwas_raw/albumin_linear_1"                 # __ GWAS; __ April 2022
+path_gwas_container="${path_dock}/gwas_raw/albumin_linear_1"                 # __ GWAS; __ April 2022
 #path_gwas_container="${path_dock}/gwas_raw/albumin_linear_2"                 # sex-combined cohort (female-male), longer queue
 
 # Initialize directories.
@@ -156,8 +156,8 @@ phenotypes_instances=()
 #phenotypes_instances+=("testosterone_bioavailable_imputation_log;_testosterone_bioavailable_imputation_log;testosterone_bioavailable_imputation_log")   # 'testosterone_bioavailable_linear'; 10 April 2022
 #phenotypes_instances+=("testosterone_free_imputation_log;_testosterone_free_imputation_log;testosterone_free_imputation_log")                           # 'testosterone_free_linear'; 10 April 2022
 
-phenotypes_instances+=("steroid_globulin_imputation_log;_steroid_globulin_imputation_log;steroid_globulin_imputation_log")                              # 'steroid_globulin_linear_1', 'steroid_globulin_linear_2'; __ April 2022
-#phenotypes_instances+=("albumin_imputation;_albumin_imputation;albumin_imputation")                                                                     # 'albumin_linear_1', 'albumin_linear_2'; __ April 2022
+#phenotypes_instances+=("steroid_globulin_imputation_log;_steroid_globulin_imputation_log;steroid_globulin_imputation_log")                              # 'steroid_globulin_linear_1', 'steroid_globulin_linear_2'; 11 April 2022, __ April 2022
+phenotypes_instances+=("albumin_imputation;_albumin_imputation;albumin_imputation")                                                                     # 'albumin_linear_1', 'albumin_linear_2'; 11 April 2022, __ April 2022
 
 
 
