@@ -48,7 +48,7 @@ path_stratification_tables="${path_dock}/stratification_2022-04-09/oestradiol" #
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"              # name of phenotype column ought to be "oestradiol_detection_plink"
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_1"               # 18 GWAS; 09 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_2"  # run "oestradiol_imputation" and "oestradiol_imputation_log" together (same cohorts)... need to stratify first
-path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"    # __ GWAS;
+path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"    # __ GWAS; 11 April 2022
 #path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"
 
 
@@ -145,7 +145,7 @@ phenotypes_instances=()
 #phenotypes_instances+=("oestradiol_log;_oestradiol_log;oestradiol_log") #                                                                               'oestradiol_linear_1'; 09 April 2022
 #phenotypes_instances+=("oestradiol_imputation;_oestradiol_imputation;oestradiol_imputation")
 #phenotypes_instances+=("oestradiol_imputation_log;_oestradiol_imputation_log;oestradiol_imputation_log")
-phenotypes_instances+=("oestradiol_bioavailable_imputation_log;_oestradiol_bioavailable_imputation_log;oestradiol_bioavailable_imputation_log") #        'oestradiol_linear_1': 11 April 2022
+phenotypes_instances+=("oestradiol_bioavailable_imputation_log;_oestradiol_bioavailable_imputation_log;oestradiol_bioavailable_imputation_log") #        'oestradiol_bioavailable_linear': 11 April 2022
 #phenotypes_instances+=("oestradiol_free_imputation_log;_oestradiol_free_imputation_log;oestradiol_free_imputation_log")
 
 #phenotypes_instances+=("testosterone_detection;_testosterone_detection;testosterone_detection_plink")
