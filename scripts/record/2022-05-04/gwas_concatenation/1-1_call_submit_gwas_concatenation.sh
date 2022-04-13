@@ -14,9 +14,9 @@
 #cohorts_models="albumin_linear_2"                      #  2 GWAS;
 #cohorts_models="albumin_linear_1"                      # 18 GWAS;
 #cohorts_models="steroid_globulin_linear_2"             #  2 GWAS;
-cohorts_models="steroid_globulin_linear_1"             # __ GWAS;
+#cohorts_models="steroid_globulin_linear_1"             # 18 GWAS;
 #cohorts_models="oestradiol_logistic"                   # __ GWAS; incomplete
-#cohorts_models="oestradiol_linear_1"                   # __ GWAS;
+cohorts_models="oestradiol_linear_1"                   # __ GWAS;
 #cohorts_models="oestradiol_linear_2"                   # __ GWAS;
 #cohorts_models="oestradiol_bioavailable_linear"        # __ GWAS;
 #cohorts_models="oestradiol_free_linear"                # __ GWAS;
