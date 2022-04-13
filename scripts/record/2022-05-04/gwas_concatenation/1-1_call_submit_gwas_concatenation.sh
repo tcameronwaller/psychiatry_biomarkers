@@ -83,6 +83,7 @@ for path_directory in `find . -maxdepth 1 -mindepth 1 -type d -not -name .`; do
         echo "Found GWAS concatenation for: ${study}"
         echo "Found match file: ${match_concatenation_file}"
       else
+        echo "-----"
         echo "Study has chromosome GWAS summary statistics but no concatenation."
         echo $study >> $path_batch_instances
       fi
@@ -94,9 +95,14 @@ done
 readarray -t batch_instances < $path_batch_instances
 batch_instances_count=${#batch_instances[@]}
 echo "----------"
+echo "----------"
+echo "----------"
 echo "count of batch instances: " $batch_instances_count
 echo "first batch instance: " ${batch_instances[0]} # notice base-zero indexing
 echo "last batch instance: " ${batch_instances[$batch_instances_count - 1]}
+echo "----------"
+echo "----------"
+echo "----------"
 
 # Execute batch with grid scheduler.
 if false; then
