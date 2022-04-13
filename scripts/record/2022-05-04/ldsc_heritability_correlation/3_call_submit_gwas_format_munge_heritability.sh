@@ -12,7 +12,7 @@
 ################################################################################
 # General parameters.
 
-#cohorts_models="albumin_linear_2"                      #  2 GWAS; __ April 2022
+cohorts_models="albumin_linear_2"                      #  2 GWAS; __ April 2022
 #cohorts_models="albumin_linear_1"                      # 18 GWAS; __ April 2022
 #cohorts_models="steroid_globulin_linear_2"             #  2 GWAS; __ April 2022
 #cohorts_models="steroid_globulin_linear_1"             # 18 GWAS; __ April 2022
