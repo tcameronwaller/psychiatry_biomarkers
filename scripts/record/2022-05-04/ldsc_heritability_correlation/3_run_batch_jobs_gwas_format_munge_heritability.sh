@@ -10,7 +10,7 @@
 #$ -N waller_gwas
 # Contact.
 # "b": beginning, "e": end, "a": abortion, "s": suspension, "n": never
-#$ -M tcameronwaller@gmail.com
+#$ -M waller.tcameron@mayo.edu
 #$ -m as
 # Standard output and error.
 # Specify as arguments when calling qsub.
@@ -78,7 +78,7 @@ path_gwas_concatenation_compress="${array[1]}"
 # Execute procedure.
 
 # Concatenate GWAS across chromosomes.
-/usr/bin/bash "${path_scripts_record}/5_drive_gwas_format_munge_heritability.sh" \
+/usr/bin/bash "${path_scripts_record}/4_drive_gwas_format_munge_heritability.sh" \
 $study \
 $path_gwas_concatenation_compress \
 $regression_type \

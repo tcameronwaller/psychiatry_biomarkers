@@ -104,7 +104,7 @@ if true; then
   # Array batch indices must start at one (not zero).
   qsub -t 1-${batch_instances_count}:1 -o \
   "${path_gwas_munge_container}/post_process_out.txt" -e "${path_gwas_munge_container}/post_process_error.txt" \
-  "${path_scripts_record}/4_run_batch_jobs_gwas_format_munge_heritability.sh" \
+  "${path_scripts_record}/3_run_batch_jobs_gwas_format_munge_heritability.sh" \
   $path_batch_instances \
   $batch_instances_count \
   $regression_type \
