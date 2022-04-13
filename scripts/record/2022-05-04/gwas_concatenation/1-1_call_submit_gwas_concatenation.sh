@@ -22,8 +22,8 @@
 #cohorts_models="oestradiol_free_linear"                # 18 GWAS;
 #cohorts_models="testosterone_logistic"                 # __ GWAS; incomplete
 #cohorts_models="testosterone_linear"                   # 54 GWAS;
-cohorts_models="testosterone_bioavailable_linear"      # __ GWAS;
-#cohorts_models="testosterone_free_linear"              # __ GWAS;
+#cohorts_models="testosterone_bioavailable_linear"      # 18 GWAS;
+cohorts_models="testosterone_free_linear"              # __ GWAS;
 
 chromosome_x="true" # whether to collect GWAS summary statistics report for Chromosome X and XY
 
