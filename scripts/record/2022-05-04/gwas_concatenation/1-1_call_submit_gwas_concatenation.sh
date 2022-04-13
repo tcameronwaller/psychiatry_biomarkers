@@ -105,7 +105,7 @@ echo "----------"
 echo "----------"
 
 # Execute batch with grid scheduler.
-if false; then
+if true; then
   # Submit array batch to Sun Grid Engine.
   # Array batch indices must start at one (not zero).
   qsub -t 1-${batch_instances_count}:1 -o \
