@@ -33,10 +33,10 @@ response_standard_scale="false" # whether to convert reponse (effect, coefficien
 # Execute procedure.
 
 # Initialize directories.
-#rm -r $path_gwas_target
-#rm -r $path_heritability
-#mkdir -p $path_gwas_target
-#mkdir -p $path_heritability
+rm -r $path_gwas_target
+rm -r $path_heritability
+mkdir -p $path_gwas_target
+mkdir -p $path_heritability
 
 # Organize information about studies.
 
