@@ -11,21 +11,19 @@
 ################################################################################
 # General parameters.
 
-#cohorts_models="vitamin_d_linear"                   # 44 comparisons; GWAS job 3155905; TCW started at 14:30 on 04 March 2022;
-
-#cohorts_models="oestradiol_logistic"                # 33 comparisons; GWAS job 3202343; only 3 cohorts successful in LDSC munge; TCW started at 14:32 on 04 March 2022;
-###cohorts_models="oestradiol_logistic_long"         # 12 GWAS; GWAS job 3202343, status: running;
-#cohorts_models="oestradiol_bioavailable_linear"     # 198 comparisons; GWAS job 3149651; TCW started at 14:41 on 04 March 2022;
-#cohorts_models="oestradiol_free_linear"             # 198 comparisons; GWAS job 3149652; TCW started at 14:45 on 04 March 2022;
-
-###cohorts_models="testosterone_logistic"            # 24 GWAS; GWAS job 3202423, status: in queue;
-#cohorts_models="testosterone_linear"                # 264 comparisons; GWAS job 3109689; TCW started at 14:48 on 04 March 2022;
-#cohorts_models="testosterone_bioavailable_linear"   # 198 comparisons; GWAS job 3149548; TCW started at 14:50 on 04 March 2022;
-#cohorts_models="testosterone_free_linear"           # 198 comparisons; GWAS job 3149549; TCW started at 14:52 on 04 March 2022;
-
-#cohorts_models="steroid_globulin_linear"            # 44 comparisons; GWAS job 3155785; TCW started at 14:54 on 04 March 2022;
-#cohorts_models="steroid_globulin_sex_linear"      # 264 GWAS; GWAS job 3202509; TCW started at 08:41 on 07 March 2022;
-#cohorts_models="albumin_linear"                     # 44 comparisons; GWAS job 3155786; TCW started at 14:57 on 04 March 2022;
+cohorts_models="albumin_linear_2"                      # __ Comparisons;  2 GWAS; __ April 2022
+#cohorts_models="albumin_linear_1"                      # __ Comparisons; 18 GWAS; __ April 2022
+#cohorts_models="steroid_globulin_linear_2"             # __ Comparisons;  2 GWAS; __ April 2022
+#cohorts_models="steroid_globulin_linear_1"             # __ Comparisons; 18 GWAS; __ April 2022
+#cohorts_models="oestradiol_logistic"                   # __ Comparisons; __ GWAS; incomplete
+#cohorts_models="oestradiol_linear_1"                   # __ Comparisons; 18 GWAS; __ April 2022
+#cohorts_models="oestradiol_linear_2"                   # __ Comparisons; 12 GWAS; __ April 2022
+#cohorts_models="oestradiol_bioavailable_linear"        # __ Comparisons; 18 GWAS; __ April 2022
+#cohorts_models="oestradiol_free_linear"                # __ Comparisons; 18 GWAS; __ April 2022
+#cohorts_models="testosterone_logistic"                 # __ Comparisons; __ GWAS; incomplete
+#cohorts_models="testosterone_linear"                   # __ Comparisons; 54 GWAS; __ April 2022
+#cohorts_models="testosterone_bioavailable_linear"      # __ Comparisons; 18 GWAS; __ April 2022
+#cohorts_models="testosterone_free_linear"              # __ Comparisons; 18 GWAS; __ April 2022
 
 ################################################################################
 # Organize paths.
@@ -105,7 +103,7 @@ fi
 
 ##########
 # Study pairs with special secondary studies for comparison to all primary studies.
-if true; then
+if false; then
   # Collect special secondary studies.
   secondaries_special=()
   secondaries_special+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
