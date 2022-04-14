@@ -36,9 +36,10 @@ path_heritability_container="${path_dock}/heritability/${cohorts_models}"
 #study="male_age_high_joint_1_testosterone_imputation" # unsuccessful rescue; LDSC Munge Failure; TCW; 13 April 2022
 # "WARNING: median value of SIGNED_SUMSTATS is 0.24 (should be close to 0.0)."
 
-study="male_age_high_unadjust_testosterone_imputation"
+#study="male_age_high_unadjust_testosterone_imputation" # unsuccessful rescue; LDSC Munge Failure; TCW; 13 April 2022
+# "WARNING: median value of SIGNED_SUMSTATS is 0.12 (should be close to 0.0)."
 
-#study="male_age_middle_unadjust_testosterone_imputation"
+#study="male_age_middle_unadjust_testosterone_imputation" # did not attempt rescue
 
 name_gwas_concatenation_file="gwas_concatenation.txt.gz"
 path_gwas_concatenation_compress="${path_gwas_concatenation_container}/${study}/${name_gwas_concatenation_file}"
