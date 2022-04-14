@@ -48,10 +48,10 @@ restore_target_study_directories="true" # whether to delete any previous directo
 # Format GWAS summary statistics for analysis in LDSC.
 # Paths.
 path_gwas_target_parent="${path_gwas_format_container}/${study}"
-#if [[ "$restore_target_study_directories" == "true" ]]; then
-#  rm -r $path_gwas_target_parent
-#fi
-#mkdir -p $path_gwas_target_parent
+if [[ "$restore_target_study_directories" == "true" ]]; then
+  rm -r $path_gwas_target_parent
+fi
+mkdir -p $path_gwas_target_parent
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
@@ -60,14 +60,14 @@ path_script_gwas_format="${path_promiscuity_scripts}/gwas_process/format_gwas_ld
 ##########
 # Format adjustment.
 # Parameters.
-#report="true" # "true" or "false"
-#/usr/bin/bash "${path_script_drive_gwas_format}" \
-#$path_gwas_concatenation_compress \
-#$path_gwas_target_parent \
-#$path_promiscuity_scripts \
-#$path_script_gwas_format \
-#$response_standard_scale \
-#$report
+report="true" # "true" or "false"
+/usr/bin/bash "${path_script_drive_gwas_format}" \
+$path_gwas_concatenation_compress \
+$path_gwas_target_parent \
+$path_promiscuity_scripts \
+$path_script_gwas_format \
+$response_standard_scale \
+$report
 
 ##############################################################################
 # LDSC Munge and Heritability.
