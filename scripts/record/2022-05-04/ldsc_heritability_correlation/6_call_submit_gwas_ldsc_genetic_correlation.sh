@@ -163,7 +163,7 @@ fi
 
 report="true"
 
-if false; then
+if true; then
   # Execute comparisons in parallel compute batch job.
   # Initialize batch instances.
   path_batch_instances="${path_genetic_correlation_container}/batch_instances_${cohorts_models}.txt"
