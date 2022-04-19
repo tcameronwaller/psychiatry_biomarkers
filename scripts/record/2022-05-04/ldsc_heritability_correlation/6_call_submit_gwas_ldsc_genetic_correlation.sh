@@ -15,7 +15,7 @@
 #cohorts_models="albumin_linear_1"                      # 198 Comparisons; 18 GWAS; 13 April 2022
 #cohorts_models="steroid_globulin_linear_2"             #  22 Comparisons;  2 GWAS; 13 April 2022
 #cohorts_models="steroid_globulin_linear_1"             # 198 Comparisons; 18 GWAS; 13 April 2022
-#cohorts_models="oestradiol_logistic"                   # __ Comparisons; __ GWAS; incomplete
+cohorts_models="oestradiol_logistic"                   # __ Comparisons; __ GWAS; __ April 2022; GWAS on 'adjust' models for for 'female' and 'male' cohorts incomplete as of 19 April 2022
 #cohorts_models="oestradiol_linear_1"                   # 198 Comparisons; 18 GWAS; 13 April 2022
 #cohorts_models="oestradiol_linear_2"                   # 132 Comparisons; 12 GWAS; 13 April 2022
 #cohorts_models="oestradiol_bioavailable_linear"        # 198 Comparisons; 18 GWAS; 13 April 2022
@@ -61,8 +61,8 @@ primaries+=("34002096_mullins_2021_bpd1;${path_primary_gwas_munge_container}/340
 primaries+=("34002096_mullins_2021_bpd2;${path_primary_gwas_munge_container}/34002096_mullins_2021_bpd2/${name_gwas_munge_file}")
 primaries+=("00000000_ripke_2022;${path_primary_gwas_munge_container}/00000000_ripke_2022/${name_gwas_munge_file}")
 
-###primaries+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
-###primaries+=("34255042_schmitz_2021_male;${path_primary_gwas_munge_container}/34255042_schmitz_2021_male/${name_gwas_munge_file}")
+primaries+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
+primaries+=("34255042_schmitz_2021_male;${path_primary_gwas_munge_container}/34255042_schmitz_2021_male/${name_gwas_munge_file}")
 
 # Define array of secondary studies.
 secondaries=()
@@ -91,7 +91,7 @@ comparisons=()
 
 ##########
 # Comparison pairs of secondary studies for comparison to all primary studies.
-if false; then
+if true; then
   # Assemble array of batch instance details.
   comparison_container="primary_versus_${cohorts_models}"
   for primary in "${primaries[@]}"; do
@@ -163,7 +163,7 @@ fi
 
 report="true"
 
-if true; then
+if false; then
   # Execute comparisons in parallel compute batch job.
   # Initialize batch instances.
   path_batch_instances="${path_genetic_correlation_container}/batch_instances_${cohorts_models}.txt"
