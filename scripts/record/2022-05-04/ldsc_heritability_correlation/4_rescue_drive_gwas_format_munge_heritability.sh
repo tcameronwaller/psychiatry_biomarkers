@@ -57,7 +57,7 @@ study="female_postmenopause_unadjust_oestradiol_detection" # ___ rescue; TCW; __
 name_gwas_concatenation_file="gwas_concatenation.txt.gz"
 path_gwas_concatenation_compress="${path_gwas_concatenation_container}/${study}/${name_gwas_concatenation_file}"
 regression_type="logistic" # "linear" or "logistic"
-response="odds_ratio" # "coefficient", "odds_ratio", or "z_score"; for linear GWAS, use "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
+response="coefficient" # "coefficient", "odds_ratio", or "z_score"; for linear GWAS, use "coefficient" unless "response_standard_scale" is "true", in which case "z_score"
 response_standard_scale="false" # whether to convert reponse (effect, coefficient) to z-score standard scale ("true" or "false")
 restore_target_study_directories="true" # whether to delete any previous directories for each study's format and munge GWAS ("true" or "false")
 
