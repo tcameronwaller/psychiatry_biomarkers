@@ -15,7 +15,7 @@
 #cohorts_models="albumin_linear_1"                      # 18 GWAS; 13 April 2022
 #cohorts_models="steroid_globulin_linear_2"             #  2 GWAS; 13 April 2022
 #cohorts_models="steroid_globulin_linear_1"             # 18 GWAS; 13 April 2022
-#cohorts_models="oestradiol_logistic"                   # __ GWAS; incomplete
+cohorts_models="oestradiol_logistic"                   # __ GWAS; __ April 2022; GWAS on 'adjust' models for for 'female' and 'male' cohorts incomplete as of 19 April 2022
 #cohorts_models="oestradiol_linear_1"                   # 18 GWAS; 13 April 2022
 #cohorts_models="oestradiol_linear_2"                   # 12 GWAS; 13 April 2022
 #cohorts_models="oestradiol_bioavailable_linear"        # 18 GWAS; 13 April 2022
@@ -49,8 +49,8 @@ mkdir -p $path_gwas_target_container
 rm $path_batch_instances
 
 # Define patterns for file names.
-pattern_gwas_report_file="report.*.glm.linear" # do not expand with full path yet <-- must choose here!!!
-#pattern_gwas_report_file="report.*.glm.logistic" # do not expand with full path yet <-- must choose here!!!
+#pattern_gwas_report_file="report.*.glm.linear" # do not expand with full path yet <-- must choose here!!!
+pattern_gwas_report_file="report.*.glm.logistic" # do not expand with full path yet <-- must choose here!!!
 pattern_gwas_concatenation_file="gwas_concatenation.txt.gz"
 
 # Iterate on directories for GWAS on cohorts and hormones.
