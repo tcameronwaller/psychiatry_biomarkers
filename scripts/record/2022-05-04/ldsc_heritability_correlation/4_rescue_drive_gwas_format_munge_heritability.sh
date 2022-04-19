@@ -67,7 +67,7 @@ restore_target_study_directories="true" # whether to delete any previous directo
 ##############################################################################
 # Format GWAS summary statistics for analysis in LDSC.
 # Paths.
-if false; then
+if true; then
   path_gwas_target_parent="${path_gwas_format_container}/${study}"
   if [[ "$restore_target_study_directories" == "true" ]]; then
     rm -r $path_gwas_target_parent
