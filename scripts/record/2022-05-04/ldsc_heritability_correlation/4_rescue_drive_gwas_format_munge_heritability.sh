@@ -10,7 +10,8 @@
 
 # Parameters.
 #cohorts_models="albumin_linear_1"
-cohorts_models="testosterone_linear"
+cohorts_models="oestradiol_logistic"
+#cohorts_models="testosterone_linear"
 
 ################################################################################
 # Organize paths.
@@ -41,6 +42,18 @@ path_heritability_container="${path_dock}/heritability/${cohorts_models}"
 
 #study="male_age_middle_unadjust_testosterone_imputation" # did not attempt rescue
 
+
+study="female_postmenopause_unadjust_oestradiol_detection" # ___ rescue; TCW; __ April 2022
+#study="female_postmenopause_joint_1_oestradiol_detection" # ___ rescue; TCW; __ April 2022
+#study="male_age_low_unadjust_oestradiol_detection" # ___ rescue; TCW; __ April 2022
+#study="male_age_low_joint_1_oestradiol_detection" # ___ rescue; TCW; __ April 2022
+#study="male_age_middle_unadjust_oestradiol_detection" # ___ rescue; TCW; __ April 2022
+#study="male_age_middle_joint_1_oestradiol_detection" # ___ rescue; TCW; __ April 2022
+#study="male_age_high_unadjust_oestradiol_detection" # ___ rescue; TCW; __ April 2022
+#study="male_age_high_joint_1_oestradiol_detection" # ___ rescue; TCW; __ April 2022
+
+
+
 name_gwas_concatenation_file="gwas_concatenation.txt.gz"
 path_gwas_concatenation_compress="${path_gwas_concatenation_container}/${study}/${name_gwas_concatenation_file}"
 regression_type="linear" # "linear" or "logistic"
@@ -54,27 +67,29 @@ restore_target_study_directories="true" # whether to delete any previous directo
 ##############################################################################
 # Format GWAS summary statistics for analysis in LDSC.
 # Paths.
-path_gwas_target_parent="${path_gwas_format_container}/${study}"
-if [[ "$restore_target_study_directories" == "true" ]]; then
-  rm -r $path_gwas_target_parent
+if false; then
+  path_gwas_target_parent="${path_gwas_format_container}/${study}"
+  if [[ "$restore_target_study_directories" == "true" ]]; then
+    rm -r $path_gwas_target_parent
+  fi
+  mkdir -p $path_gwas_target_parent
+  # Scripts.
+  path_promiscuity_scripts="${path_process}/promiscuity/scripts"
+  path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
+  path_script_drive_gwas_format="${path_promiscuity_scripts}/gwas_process/drive_gwas_format.sh"
+  path_script_gwas_format="${path_promiscuity_scripts}/gwas_process/format_gwas_ldsc/format_gwas_ldsc_plink_${regression_type}.sh"
+  ##########
+  # Format adjustment.
+  # Parameters.
+  report="true" # "true" or "false"
+  /usr/bin/bash "${path_script_drive_gwas_format}" \
+  $path_gwas_concatenation_compress \
+  $path_gwas_target_parent \
+  $path_promiscuity_scripts \
+  $path_script_gwas_format \
+  $response_standard_scale \
+  $report
 fi
-mkdir -p $path_gwas_target_parent
-# Scripts.
-path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
-path_script_drive_gwas_format="${path_promiscuity_scripts}/gwas_process/drive_gwas_format.sh"
-path_script_gwas_format="${path_promiscuity_scripts}/gwas_process/format_gwas_ldsc/format_gwas_ldsc_plink_${regression_type}.sh"
-##########
-# Format adjustment.
-# Parameters.
-report="true" # "true" or "false"
-/usr/bin/bash "${path_script_drive_gwas_format}" \
-$path_gwas_concatenation_compress \
-$path_gwas_target_parent \
-$path_promiscuity_scripts \
-$path_script_gwas_format \
-$response_standard_scale \
-$report
 
 ##############################################################################
 # LDSC Munge and Heritability.
