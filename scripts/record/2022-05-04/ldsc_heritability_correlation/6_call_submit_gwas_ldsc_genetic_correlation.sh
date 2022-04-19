@@ -91,7 +91,7 @@ comparisons=()
 
 ##########
 # Comparison pairs of secondary studies for comparison to all primary studies.
-if true; then
+if false; then
   # Assemble array of batch instance details.
   comparison_container="primary_versus_${cohorts_models}"
   for primary in "${primaries[@]}"; do
@@ -103,7 +103,7 @@ fi
 
 ##########
 # Study pairs with special secondary studies for comparison to all primary studies.
-if false; then
+if true; then
   # Collect special secondary studies.
   secondaries_special=()
   secondaries_special+=("34255042_schmitz_2021_female;${path_primary_gwas_munge_container}/34255042_schmitz_2021_female/${name_gwas_munge_file}")
