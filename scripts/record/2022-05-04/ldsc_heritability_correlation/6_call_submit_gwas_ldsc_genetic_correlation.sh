@@ -15,7 +15,7 @@
 #cohorts_models="albumin_linear_1"                      # 198 Comparisons; 18 GWAS; 13 April 2022
 #cohorts_models="steroid_globulin_linear_2"             #  22 Comparisons;  2 GWAS; 13 April 2022
 #cohorts_models="steroid_globulin_linear_1"             # 198 Comparisons; 18 GWAS; 13 April 2022
-cohorts_models="oestradiol_logistic"                   # __ Comparisons; __ GWAS; __ April 2022; GWAS on 'adjust' models for for 'female' and 'male' cohorts incomplete as of 19 April 2022
+cohorts_models="oestradiol_logistic"                   # 234 Comparisons; 16 GWAS; 19 April 2022; GWAS on 'adjust' models for for 'female' and 'male' cohorts incomplete as of 19 April 2022
 #cohorts_models="oestradiol_linear_1"                   # 198 Comparisons; 18 GWAS; 13 April 2022
 #cohorts_models="oestradiol_linear_2"                   # 132 Comparisons; 12 GWAS; 13 April 2022
 #cohorts_models="oestradiol_bioavailable_linear"        # 198 Comparisons; 18 GWAS; 13 April 2022
