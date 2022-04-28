@@ -39,31 +39,31 @@ path_dock="$path_process/dock"
 # Cohort stratification phenotype tables.
 
 #path_stratification_tables="${path_dock}/stratification_2022-04-09/oestradiol" # 09 April 2022, 10 April 2022, 11 April 2022, 27 April 2022
-path_stratification_tables="${path_dock}/stratification_2022-04-09/testosterone" # 09 April 2022, 10 April 2022, 11 April 2022
+#path_stratification_tables="${path_dock}/stratification_2022-04-09/testosterone" # 09 April 2022, 10 April 2022, 11 April 2022
 #path_stratification_tables="${path_dock}/stratification_2022-04-09/steroid_globulin" # 11 April 2022
 #path_stratification_tables="${path_dock}/stratification_2022-04-09/albumin" # 11 April 2022
 
 # Container directory for raw GWAS summary statistics.
 
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"              # 18 GWAS; 11 April 2022
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic_long_rescue"  # 2 GWAS; 27 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic"               # 18 GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_logistic_long_rescue"   # 2 GWAS; 27 April 2022
 
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_1"              # 18 GWAS; 09 April 2022
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_2"              # 12 GWAS; 11 April 2022
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"   # 18 GWAS; 11 April 2022
-#path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"           # 18 GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_1"               # 18 GWAS; 09 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_linear_2"               # 12 GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_bioavailable_linear"    # 18 GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/oestradiol_free_linear"            # 18 GWAS; 11 April 2022
 
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic"            # 18 GWAS; 11 April 2022
-path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic_long_rescue"     # __ GWAS; 27 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic"             # 18 GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_logistic_long_rescue" # 1 GWAS; 27 April 2022
 
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"              # 54 GWAS; 09 April 2022
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear" # 18 GWAS; 10 April 2022
-#path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"         # 18 GWAS; 10 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_linear"               # 54 GWAS; 09 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_bioavailable_linear"  # 18 GWAS; 10 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/testosterone_free_linear"          # 18 GWAS; 10 April 2022
 
-#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_1"        # 18 GWAS; 11 April 2022
-#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_2"        # 2 GWAS; 11 April 2022
-#path_gwas_container="${path_dock}/gwas_raw/albumin_linear_1"                 # 18 GWAS; 11 April 2022
-#path_gwas_container="${path_dock}/gwas_raw/albumin_linear_2"                 # 2 GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_1"         # 18 GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/steroid_globulin_linear_2"         # 2 GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/albumin_linear_1"                  # 18 GWAS; 11 April 2022
+#path_gwas_container="${path_dock}/gwas_raw/albumin_linear_2"                  # 2 GWAS; 11 April 2022
 
 # Initialize directories.
 rm -r $path_gwas_container
