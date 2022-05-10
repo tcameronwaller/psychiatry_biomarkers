@@ -33,13 +33,13 @@ path_target_directory_score="${path_dock}/polygenic_score_test"
 # Execute procedure.
 
 # Initialize target directory.
-rm -r $path_target_score_directory
-mkdir -p $path_target_score_directory
+rm -r $path_target_directory_score
+mkdir -p $path_target_directory_score
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
-path_script_drive_ldsc_gwas_munge_heritability="${path_scripts_gwas_process}/polygenic_score/drive_test_prscs.sh"
+path_script_drive_test_prscs="${path_scripts_gwas_process}/polygenic_score/drive_test_prscs.sh"
 
 # Parameters.
 # chromosome=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,x,xy
