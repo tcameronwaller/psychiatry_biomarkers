@@ -50,7 +50,7 @@ mkdir -p $path_gwas_target_parent
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
-path_script_drive_format_gwas="${path_promiscuity_scripts}/gwas_process/drive_gwas_format.sh"
+path_script_drive_format_gwas="${path_promiscuity_scripts}/gwas_process/prscs_polygenic_score/drive_format_gwas_prscs.sh"
 path_script_format_gwas="${path_promiscuity_scripts}/gwas_process/format_gwas_prscs/format_gwas_prscs_plink_${regression_type}.sh"
 ##########
 # Format adjustment.
