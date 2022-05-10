@@ -76,17 +76,17 @@ if true; then
   # Scripts.
   path_promiscuity_scripts="${path_process}/promiscuity/scripts"
   path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
-  path_script_drive_gwas_format="${path_promiscuity_scripts}/gwas_process/drive_gwas_format.sh"
-  path_script_gwas_format="${path_promiscuity_scripts}/gwas_process/format_gwas_ldsc/format_gwas_ldsc_plink_${regression_type}.sh"
+  path_script_drive_format_gwas="${path_promiscuity_scripts}/gwas_process/ldsc_genetic_heritability_correlation/drive_format_gwas_ldsc.sh"
+  path_script_format_gwas="${path_promiscuity_scripts}/gwas_process/format_gwas_ldsc/format_gwas_ldsc_plink_${regression_type}.sh"
   ##########
   # Format adjustment.
   # Parameters.
   report="true" # "true" or "false"
-  /usr/bin/bash "${path_script_drive_gwas_format}" \
+  /usr/bin/bash "${path_script_drive_format_gwas}" \
   $path_gwas_concatenation_compress \
   $path_gwas_target_parent \
   $path_promiscuity_scripts \
-  $path_script_gwas_format \
+  $path_script_format_gwas \
   $response_standard_scale \
   $report
 fi
