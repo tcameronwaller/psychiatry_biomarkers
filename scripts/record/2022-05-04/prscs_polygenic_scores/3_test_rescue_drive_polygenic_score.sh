@@ -39,7 +39,7 @@ mkdir -p $path_target_directory_score
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
-path_script_drive_test_prscs="${path_scripts_gwas_process}/polygenic_score/drive_test_prscs.sh"
+path_script_drive_test_prscs="${path_scripts_gwas_process}/prscs_polygenic_score/drive_test_prscs.sh"
 
 # Parameters.
 # chromosome=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,x,xy

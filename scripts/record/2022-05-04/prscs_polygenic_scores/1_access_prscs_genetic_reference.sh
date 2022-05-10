@@ -11,11 +11,12 @@ path_dock="${path_process}/dock"
 path_genetic_reference="${path_dock}/access/genetic_reference_prscs"
 
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_promiscuity_scripts_polygenic_score="${path_promiscuity_scripts}/polygenic_score"
+path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
+path_script_access_reference="${path_scripts_gwas_process}/prscs_polygenic_score/access_prscs_genetic_references.sh"
 
 ###########################################################################
 # Execute procedure.
 ###########################################################################
 
-/usr/bin/bash "${path_promiscuity_scripts_polygenic_score}/access_prscs_genetic_references.sh" \
+/usr/bin/bash "${path_script_access_reference}" \
 $path_genetic_reference
