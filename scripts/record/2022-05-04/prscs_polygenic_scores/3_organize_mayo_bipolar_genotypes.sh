@@ -34,7 +34,7 @@ report="true"
 set -x
 
 # Initialize directories and batch instances.
-rm -r $path_genotype_product_bim_container
+#rm -r $path_genotype_product_bim_container
 mkdir -p $path_genotype_product_bim_container
 
 # Convert genotype files in VCF format to BIM format.
