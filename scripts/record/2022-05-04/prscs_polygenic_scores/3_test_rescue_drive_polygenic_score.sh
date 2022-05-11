@@ -26,7 +26,7 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
 path_genetic_reference_prscs="${path_dock}/access/genetic_reference_prscs"
 path_gwas_container="${path_dock}/gwas_format_prscs/${gwas_group}/${study}"
-path_source_gwas_summary="${path_gwas_container}/gwas_format.txt.gz"
+path_source_gwas_summary="${path_gwas_container}/gwas_format.txt"
 path_target_directory_score="${path_dock}/polygenic_score_test"
 
 ###########################################################################
