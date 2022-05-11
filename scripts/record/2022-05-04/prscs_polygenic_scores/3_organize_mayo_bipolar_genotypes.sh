@@ -21,7 +21,7 @@ path_script_drive_convert_vcf_to_bim="${path_promiscuity_scripts}/utility/drive_
 # Define patterns for file names.
 pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
 
-name_prefix_file_product_bim="test_"
+name_prefix_file_product_bim=""
 report="true"
 
 ###########################################################################

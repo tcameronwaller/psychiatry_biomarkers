@@ -9,7 +9,7 @@
 ###########################################################################
 
 # Parameters.
-gwas_group="steroid_globulin_linear_1"
+gwas_group="steroid_globulin_linear_2"
 
 ################################################################################
 # Organize paths.
@@ -28,7 +28,7 @@ path_gwas_format_container="${path_dock}/gwas_format_prscs/${gwas_group}"
 
 # Parameters.
 
-study="female_joint_1_steroid_globulin_imputation_log"
+study="female_male_priority_male_joint_1_steroid_globulin_imputation_log"
 
 name_gwas_concatenation_file="gwas_concatenation.txt.gz"
 path_gwas_concatenation_compress="${path_gwas_concatenation_container}/${study}/${name_gwas_concatenation_file}"

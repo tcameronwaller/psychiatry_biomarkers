@@ -9,9 +9,9 @@
 ###########################################################################
 
 # Parameters.
-gwas_group="steroid_globulin_linear_1"
-study="female_joint_1_steroid_globulin_imputation_log"
-count_gwas_samples=174949 # count of samples in GWAS
+gwas_group="steroid_globulin_linear_2"
+study="female_male_priority_male_joint_1_steroid_globulin_imputation_log"
+count_gwas_samples=329617 # count of samples in GWAS
 file_name_prefix="test_shbg_female"
 
 ################################################################################
@@ -39,7 +39,7 @@ mkdir -p $path_target_directory_score
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_scripts_gwas_process="${path_promiscuity_scripts}/gwas_process"
-path_script_drive_test_prscs="${path_scripts_gwas_process}/prscs_polygenic_score/drive_prscs_allelic_effects.sh"
+path_script_drive_test_prscs="${path_scripts_gwas_process}/prscs_polygenic_score/drive_estimate_prscs_allelic_effects.sh"
 
 # Parameters.
 # chromosome=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,x,xy
