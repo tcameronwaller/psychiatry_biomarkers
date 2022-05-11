@@ -21,7 +21,6 @@ path_script_drive_convert_vcf_to_bim="${path_promiscuity_scripts}/utility/drive_
 # Define patterns for file names.
 pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
 
-name_prefix_file_product_bim=""
 report="true"
 
 ###########################################################################
@@ -40,6 +39,5 @@ mkdir -p $path_genotype_product_bim_container
 $path_mayo_bipolar_genotype \
 $pattern_genotype_source_vcf_file \
 $path_genotype_product_bim_container \
-$name_prefix_file_product_bim \
 $path_promiscuity_scripts \
 $report
