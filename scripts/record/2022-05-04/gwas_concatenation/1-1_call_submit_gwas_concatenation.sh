@@ -49,6 +49,7 @@ mkdir -p $path_gwas_target_container
 rm $path_batch_instances
 
 # Define patterns for file names.
+# Do not expand with full path until after passing as argument.
 #pattern_gwas_report_file="report.*.glm.linear" # do not expand with full path yet <-- must choose here!!!
 pattern_gwas_report_file="report.*.glm.logistic" # do not expand with full path yet <-- must choose here!!!
 pattern_gwas_concatenation_file="gwas_concatenation.txt.gz"
