@@ -30,6 +30,12 @@ report="true"
 # Echo each command to console.
 set -x
 
+# TODO: TCW, 16 May 2022
+# TODO: Before translating VCF to BIM...
+# TODO: Introduce rsIDs to the VCF files
+
+
+
 # Initialize directories and batch instances.
 rm -r $path_genotype_product_bim_container
 mkdir -p $path_genotype_product_bim_container
