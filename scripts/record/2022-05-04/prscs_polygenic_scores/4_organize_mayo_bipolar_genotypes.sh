@@ -8,7 +8,7 @@ cd ~/paths
 path_bcftools=$(<"./tools_bcftools.txt")
 path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="${path_process}/dock"
-path_dbsnp_reference="${path_dock}/access/dbsnp_reference"
+path_dbsnp_reference="${path_dock}/access/dbsnp_reference/GCF_000001405.39.gz"
 path_mayo_bipolar_genotype="${path_dock}/access/mayo_bipolar_genotype"
 path_genotype_dbsnp_annotation="${path_dock}/access/mayo_bipolar_genotype/dbsnp_annotation"
 path_genotype_product_bim_container="${path_dock}/access/mayo_bipolar_genotype/snp_relevance_bim"
