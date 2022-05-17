@@ -21,9 +21,9 @@ path_genotype_snp_bim="${path_dock}/access/mayo_bipolar_genotype/snp_relevance_b
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_script_chr_prefix_in_vcf="${path_promiscuity_scripts}/utility/remove_chr_prefix_in_vcf.sh"
+path_script_chr_prefix_in_vcf="${path_promiscuity_scripts}/utility/remove_chromosome_prefix_in_vcf.sh"
 path_script_dbsnp_rsid_to_vcf="${path_promiscuity_scripts}/utility/introduce_dbsnp_rsid_to_vcf.sh"
-path_script_format_annotation="${path_promiscuity_scripts}/utility/remove_chromosome_prefix_introduce_dbsnp_rsid_to_vcf.sh"
+#path_script_format_annotation="${path_promiscuity_scripts}/utility/remove_chromosome_prefix_introduce_dbsnp_rsid_to_vcf.sh"
 path_script_drive_convert_vcf_to_bim="${path_promiscuity_scripts}/utility/drive_convert_directory_all_vcf_to_plink_bim.sh"
 
 
@@ -44,37 +44,34 @@ set -x
 ###########################################################################
 # Format genotype information in VCF.
 
-# Initialize directory.
-rm -r $path_genotype_dbsnp_annotation
-mkdir -p $path_genotype_dbsnp_annotation
-
-#path_vcf_source="${path_mayo_bipolar_genotype}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
-path_vcf_source="${path_genotype_chr_format}/genotype_chromosome_21.vcf.gz"
-path_vcf_product="${path_genotype_dbsnp_annotation}/genotype_chromosome_21.vcf.gz"
-report="true"
-
-# Convert information from genotype files in VCF format to BIM format.
-/usr/bin/bash "${path_script_format_annotation}" \
-$path_translations_chromosome_prefix \
-$path_dbsnp_reference \
-$path_vcf_source \
-$path_vcf_product \
-$path_bcftools \
-$report
+if true; then
+  # Initialize directory.
+  rm -r $path_genotype_chr_format
+  mkdir -p $path_genotype_chr_format
+  # Organize specific paths and parameters.
+  path_vcf_source="${path_mayo_bipolar_genotype}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
+  path_vcf_product="${path_genotype_chr_format}/genotype_chromosome_21" # determine suffix from BCFTools argument
+  report="true"
+  # Convert information from genotype files in VCF format to BIM format.
+  /usr/bin/bash "${path_script_chr_prefix_in_vcf}" \
+  $path_translations_chromosome_prefix \
+  $path_vcf_source \
+  $path_vcf_product \
+  $path_bcftools \
+  $report
+fi
 
 ###########################################################################
 # Annotate genotype information in VCF.
 
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_genotype_dbsnp_annotation
   mkdir -p $path_genotype_dbsnp_annotation
-
-  path_vcf_source="${path_mayo_bipolar_genotype}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
-  path_vcf_product="${path_genotype_dbsnp_annotation}/genotype_chromosome_21.vcf.gz"
-
+  # Organize specific paths and parameters.
+  path_vcf_source="${path_genotype_chr_format}/genotype_chromosome_21.vcf.gz"
+  path_vcf_product="${path_genotype_dbsnp_annotation}/genotype_chromosome_21"
   report="true"
-
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_dbsnp_rsid_to_vcf}" \
   $path_dbsnp_reference \
@@ -90,23 +87,19 @@ fi
 # Initialize directory.
 rm -r $path_genotype_snp_bim
 mkdir -p $path_genotype_snp_bim
-
-# Temporary Testing...
-
-# Scripts.
+# Organize specific paths and parameters.
 path_script_extract_vcf_to_bim="${path_scripts_utility}/extract_vcf_snps_to_plink_bim.sh"
 #path_genotype_source_vcf="${path_genotype_chr_format}/genotype_chromosome_21.vcf.gz"
 path_genotype_source_vcf="${path_genotype_dbsnp_annotation}/genotype_chromosome_21.vcf.gz"
 name_file_product_bim="genotype_chromosome_21" # optional to add prefix or suffix here
 report="true"
-
+# Convert information from genotype files in VCF format to BIM format.
 /usr/bin/bash "${path_script_extract_vcf_to_bim}" \
 $path_genotype_source_vcf \
 $path_genotype_snp_bim \
 $name_file_product_bim \
 $path_plink2 \
 $report
-
 
 if false; then
 
