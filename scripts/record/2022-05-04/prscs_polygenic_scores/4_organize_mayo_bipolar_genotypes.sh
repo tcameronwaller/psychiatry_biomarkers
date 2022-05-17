@@ -59,7 +59,8 @@ $path_translations_chromosome_prefix \
 $path_vcf_source \
 $path_vcf_product \
 $path_bcftools \
-$report
+$report \
+$path_dbsnp_reference
 
 ###########################################################################
 # Annotate genotype information in VCF.
