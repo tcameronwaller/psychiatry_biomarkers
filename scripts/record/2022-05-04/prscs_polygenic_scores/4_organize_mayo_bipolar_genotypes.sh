@@ -88,7 +88,7 @@ fi
 rm -r $path_genotype_snp_bim
 mkdir -p $path_genotype_snp_bim
 # Organize specific paths and parameters.
-path_script_extract_vcf_to_bim="${path_promiscuity_scripts}/extract_vcf_snps_to_plink_bim.sh"
+path_script_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/extract_vcf_snps_to_plink_bim.sh"
 #path_genotype_source_vcf="${path_genotype_chr_format}/genotype_chromosome_21.vcf.gz"
 path_genotype_source_vcf="${path_genotype_dbsnp_annotation}/genotype_chromosome_21.vcf.gz"
 name_file_product_bim="genotype_chromosome_21" # optional to add prefix or suffix here
