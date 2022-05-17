@@ -41,8 +41,8 @@ set -x
 # Annotate information in VCF.
 
 # Initialize directory.
-rm -r $path_genotype_dbsnp_annotation
-mkdir -p $path_genotype_dbsnp_annotation
+#rm -r $path_genotype_dbsnp_annotation
+#mkdir -p $path_genotype_dbsnp_annotation
 
 path_vcf_source="${path_mayo_bipolar_genotype}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
 path_vcf_product="${path_genotype_dbsnp_annotation}/genotype_annotation_chromosome_21.vcf.gz"
@@ -50,12 +50,12 @@ path_vcf_product="${path_genotype_dbsnp_annotation}/genotype_annotation_chromoso
 report="true"
 
 # Convert information from genotype files in VCF format to BIM format.
-/usr/bin/bash "${path_script_dbsnp_rsid_to_vcf}" \
-$path_dbsnp_reference \
-$path_vcf_source \
-$path_vcf_product \
-$path_bcftools \
-$report
+#/usr/bin/bash "${path_script_dbsnp_rsid_to_vcf}" \
+#$path_dbsnp_reference \
+#$path_vcf_source \
+#$path_vcf_product \
+#$path_bcftools \
+#$report
 
 ###########################################################################
 # Extract information from VCF to BIM.
@@ -68,7 +68,7 @@ mkdir -p $path_genotype_snp_bim
 # Temporary Testing...
 
 # Scripts.
-path_script_extract_vcf_to_bim="${path_scripts_utility}/extract_vcf_to_plink_bim.sh"
+path_script_extract_vcf_to_bim="${path_scripts_utility}/extract_vcf_snps_to_plink_bim.sh"
 path_genotype_source_vcf="${path_genotype_dbsnp_annotation}/genotype_annotation_chromosome_21.vcf.gz"
 name_file_product_bim="genotype_annotation_chromosome_21" # optional to add prefix or suffix here
 report="true"
