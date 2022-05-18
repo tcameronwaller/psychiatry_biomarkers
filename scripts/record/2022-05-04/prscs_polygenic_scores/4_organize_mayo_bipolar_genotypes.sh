@@ -44,7 +44,7 @@ set -x
 ###########################################################################
 # Format genotype information in VCF.
 
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_genotype_chr_format
   mkdir -p $path_genotype_chr_format
