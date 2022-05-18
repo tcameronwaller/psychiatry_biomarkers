@@ -12,7 +12,7 @@ path_parameters="${path_dock}/parameters"
 path_translations_chromosomes_dbsnp="${path_parameters}/promiscuity/translations_chromosomes_refseq_grch38p14.txt"
 path_dbsnp_raw_container="${path_dock}/access/dbsnp_reference_raw"
 #path_dbsnp_raw_file="${path_dock}/access/dbsnp_reference_raw/GCF_000001405.39.gz"
-path_dbsnp_format_container="${path_dock}/access/dbsnp_reference_format"
+path_dbsnp_format_container="${path_dock}/access/dbsnp_reference_format_thread_12"
 #path_dbsnp_format_file="${path_dock}/access/dbsnp_reference_format/GCF_000001405.39.gz"
 
 # Scripts.
