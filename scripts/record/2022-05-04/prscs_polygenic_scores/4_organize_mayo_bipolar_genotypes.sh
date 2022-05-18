@@ -44,7 +44,7 @@ set -x
 ###########################################################################
 # Format genotype information in VCF.
 
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_genotype_chr_format
   mkdir -p $path_genotype_chr_format
@@ -64,7 +64,7 @@ fi
 ###########################################################################
 # Annotate genotype information in VCF.
 
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_genotype_dbsnp_annotation
   mkdir -p $path_genotype_dbsnp_annotation
