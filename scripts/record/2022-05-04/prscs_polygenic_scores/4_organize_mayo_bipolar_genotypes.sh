@@ -15,8 +15,8 @@ path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_
 path_dbsnp_reference="${path_dock}/access/dbsnp_reference_format/GCF_000001405.39.gz"
 path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw_test"
 
-path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype_format"
-path_genotype_snp_relevance_bim="${path_dock}/access/mayo_bipolar_genotype_format/genotype_snp_relevance_bim"
+path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype_format_test"
+path_genotype_snp_relevance_bim="${path_dock}/access/mayo_bipolar_genotype_format_test/genotype_snp_relevance_bim"
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
