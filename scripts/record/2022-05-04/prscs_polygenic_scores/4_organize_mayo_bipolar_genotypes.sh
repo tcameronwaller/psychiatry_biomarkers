@@ -13,10 +13,10 @@ path_dock="${path_process}/dock"
 path_parameters="${path_dock}/parameters"
 path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
 path_dbsnp_reference="${path_dock}/access/dbsnp_reference_format/GCF_000001405.39.gz"
-path_mayo_bipolar_genotype="${path_dock}/access/mayo_bipolar_genotype"
+path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw_test"
 
-path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype/format_chromosome_snp_identifiers"
-path_genotype_snp_relevance_bim="${path_dock}/access/mayo_bipolar_genotype/genotype_snp_relevance_bim"
+path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype_format"
+path_genotype_snp_relevance_bim="${path_dock}/access/mayo_bipolar_genotype_format/genotype_snp_relevance_bim"
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
@@ -45,7 +45,7 @@ if true; then
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_submit_genotype_format_annotation}" \
-  $path_mayo_bipolar_genotype \
+  $path_mayo_bipolar_genotype_raw \
   $pattern_genotype_source_vcf_file \
   $path_mayo_bipolar_genotype_format \
   $path_translations_chromosomes_mayo \
@@ -61,8 +61,8 @@ fi
 
 if false; then
   # Initialize directory.
-  rm -r $path_genotype_snp_bim
-  mkdir -p $path_genotype_snp_bim
+  rm -r $path_genotype_snp_relevance_bim
+  mkdir -p $path_genotype_snp_relevance_bim
   # Organize specific paths and parameters.
   path_genotype_source_vcf="${path_genotype_snp_rsid}/genotype_chromosome_21.vcf.gz"
   name_file_product_bim="genotype_chromosome_21" # optional to add prefix or suffix here
@@ -86,9 +86,9 @@ if false; then
 
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_drive_convert_vcf_to_bim}" \
-  $path_mayo_bipolar_genotype \
+  $path_mayo_bipolar_genotype_format \
   $pattern_genotype_source_vcf_file \
-  $path_genotype_product_bim_container \
+  $path_genotype_snp_relevance_bim \
   $path_promiscuity_scripts \
   $report
 fi
