@@ -27,7 +27,7 @@ path_script_chromosome_in_vcf="${path_promiscuity_scripts}/utility/bcftools/tran
 ###########################################################################
 # Access raw files from dbSNP.
 
-if false; then
+if true; then
   /usr/bin/bash "${path_script_access_dbsnp}" \
   $path_dbsnp_raw_container
 fi
