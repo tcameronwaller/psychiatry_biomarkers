@@ -15,13 +15,17 @@ path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_
 path_dbsnp_reference="${path_dock}/access/dbsnp_reference_format/GCF_000001405.39.gz"
 path_mayo_bipolar_genotype="${path_dock}/access/mayo_bipolar_genotype"
 
-path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype/format_chromosome_snp_identifiers"
-path_genotype_snp_relevance_bim="${path_dock}/access/mayo_bipolar_genotype/genotype_snp_relevance_bim"
+path_genotype_chromosome="${path_dock}/access/mayo_bipolar_genotype/test_chromosome_identifier"
+path_genotype_snp_rsid="${path_dock}/access/mayo_bipolar_genotype/test_snp_identifier"
+path_genotype_snp_bim="${path_dock}/access/mayo_bipolar_genotype/test_snp_relevance_bim"
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_script_submit_genotype_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_directory_all_vcf_format_annotation.sh"
-path_script_drive_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/drive_directory_all_extract_vcf_snps_to_plink_bim.sh"
+path_script_chromosome_in_vcf="${path_promiscuity_scripts}/utility/bcftools/translate_chromosomes_in_vcf.sh"
+path_script_dbsnp_rsid_to_vcf="${path_promiscuity_scripts}/utility/bcftools/introduce_dbsnp_rsid_to_vcf.sh"
+path_script_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/extract_vcf_snps_to_plink_bim.sh"
+#path_script_drive_convert_vcf_to_bim="${path_promiscuity_scripts}/utility/drive_convert_directory_all_vcf_to_plink_bim.sh"
+
 
 ###########################################################################
 # Execute procedure.
@@ -31,26 +35,44 @@ path_script_drive_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/drive_
 set -x
 
 ###########################################################################
-# Format and annotate genotype information in VCF.
+# Format genotype information in VCF.
 
 if true; then
   # Initialize directory.
-  rm -r $path_mayo_bipolar_genotype_format
-  mkdir -p $path_mayo_bipolar_genotype_format
+  rm -r $path_genotype_chromosome
+  mkdir -p $path_genotype_chromosome
   # Organize specific paths and parameters.
-  pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
-  #path_vcf_source="${path_mayo_bipolar_genotype}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
-  #path_vcf_product="${path_genotype_chromosome}/genotype_chromosome_21.vcf.gz" # determine suffix from BCFTools argument
+  path_vcf_source="${path_mayo_bipolar_genotype}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
+  path_vcf_product="${path_genotype_chromosome}/genotype_chromosome_21.vcf.gz" # determine suffix from BCFTools argument
   threads=10
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
-  /usr/bin/bash "${path_script_submit_genotype_format_annotation}" \
-  $path_mayo_bipolar_genotype \
-  $pattern_genotype_source_vcf_file \
-  $path_mayo_bipolar_genotype_format \
+  /usr/bin/bash "${path_script_chromosome_in_vcf}" \
   $path_translations_chromosomes_mayo \
+  $path_vcf_source \
+  $path_vcf_product \
+  $threads \
+  $path_bcftools \
+  $report
+fi
+
+###########################################################################
+# Annotate genotype information in VCF.
+
+if true; then
+  # Initialize directory.
+  rm -r $path_genotype_snp_rsid
+  mkdir -p $path_genotype_snp_rsid
+  # Organize specific paths and parameters.
+  path_vcf_source="${path_genotype_chromosome}/genotype_chromosome_21.vcf.gz"
+  path_vcf_product="${path_genotype_snp_rsid}/genotype_chromosome_21.vcf.gz"
+  threads=10
+  report="true"
+  # Convert information from genotype files in VCF format to BIM format.
+  /usr/bin/bash "${path_script_dbsnp_rsid_to_vcf}" \
   $path_dbsnp_reference \
-  $path_promiscuity_scripts \
+  $path_vcf_source \
+  $path_vcf_product \
   $threads \
   $path_bcftools \
   $report
@@ -59,7 +81,7 @@ fi
 ###########################################################################
 # Extract information from VCF to BIM.
 
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_genotype_snp_bim
   mkdir -p $path_genotype_snp_bim
