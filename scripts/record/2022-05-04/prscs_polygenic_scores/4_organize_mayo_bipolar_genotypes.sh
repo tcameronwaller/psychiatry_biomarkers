@@ -12,7 +12,7 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="${path_process}/dock"
 path_parameters="${path_dock}/parameters"
 path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
-path_dbsnp_reference="${path_dock}/access/dbsnp_reference/GCF_000001405.39.gz"
+path_dbsnp_reference="${path_dock}/access/dbsnp_reference_format/GCF_000001405.39.gz"
 path_mayo_bipolar_genotype="${path_dock}/access/mayo_bipolar_genotype"
 
 path_genotype_chr_format="${path_dock}/access/mayo_bipolar_genotype/chr_format"
