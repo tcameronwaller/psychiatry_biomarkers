@@ -29,7 +29,7 @@ path_script_chromosome_in_vcf="${path_promiscuity_scripts}/utility/bcftools/tran
 
 if false; then
   /usr/bin/bash "${path_script_access_dbsnp}" \
-  $path_dbsnp_reference
+  $path_dbsnp_raw_container
 fi
 
 ###########################################################################
@@ -37,8 +37,8 @@ fi
 
 if true; then
   # Initialize directory.
-  rm -r $path_genotype_chr_format
-  mkdir -p $path_genotype_chr_format
+  rm -r $path_dbsnp_format_container
+  mkdir -p $path_dbsnp_format_container
   # Organize specific paths and parameters.
   path_vcf_source="${path_dbsnp_raw_container}/GCF_000001405.39.gz"
   path_vcf_product="${path_dbsnp_format_container}/GCF_000001405.39.gz" # determine suffix from BCFTools argument
