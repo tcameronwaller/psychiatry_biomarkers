@@ -9,9 +9,9 @@ path_bcftools=$(<"./tools_bcftools.txt")
 path_plink2=$(<"./tools_plink2.txt")
 
 path_process=$(<"./process_psychiatric_metabolism.txt")
-path_parameters="$path_process/dock/parameters"
-path_translations_chromosome_prefix="$path_parameters/promiscuity/translations_chromosomes_chr_prefix.txt"
 path_dock="${path_process}/dock"
+path_parameters="${path_dock}/parameters"
+path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
 path_dbsnp_reference="${path_dock}/access/dbsnp_reference/GCF_000001405.39.gz"
 path_mayo_bipolar_genotype="${path_dock}/access/mayo_bipolar_genotype"
 
@@ -21,8 +21,8 @@ path_genotype_snp_bim="${path_dock}/access/mayo_bipolar_genotype/snp_relevance_b
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_script_chr_prefix_in_vcf="${path_promiscuity_scripts}/utility/remove_chromosome_prefix_in_vcf.sh"
-path_script_dbsnp_rsid_to_vcf="${path_promiscuity_scripts}/utility/introduce_dbsnp_rsid_to_vcf.sh"
+path_script_chromosome_in_vcf="${path_promiscuity_scripts}/utility/bcftools/translate_chromosomes_in_vcf.sh"
+path_script_dbsnp_rsid_to_vcf="${path_promiscuity_scripts}/utility/bcftools/introduce_dbsnp_rsid_to_vcf.sh"
 #path_script_format_annotation="${path_promiscuity_scripts}/utility/remove_chromosome_prefix_introduce_dbsnp_rsid_to_vcf.sh"
 path_script_drive_convert_vcf_to_bim="${path_promiscuity_scripts}/utility/drive_convert_directory_all_vcf_to_plink_bim.sh"
 
@@ -53,8 +53,8 @@ if false; then
   path_vcf_product="${path_genotype_chr_format}/genotype_chromosome_21.vcf.gz" # determine suffix from BCFTools argument
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
-  /usr/bin/bash "${path_script_chr_prefix_in_vcf}" \
-  $path_translations_chromosome_prefix \
+  /usr/bin/bash "${path_script_chromosome_in_vcf}" \
+  $path_translations_chromosomes_mayo \
   $path_vcf_source \
   $path_vcf_product \
   $path_bcftools \
