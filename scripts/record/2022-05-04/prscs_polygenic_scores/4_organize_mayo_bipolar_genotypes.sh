@@ -41,7 +41,7 @@ if true; then
   pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
   #path_vcf_source="${path_mayo_bipolar_genotype}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
   #path_vcf_product="${path_genotype_chromosome}/genotype_chromosome_21.vcf.gz" # determine suffix from BCFTools argument
-  threads=10
+  threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_submit_genotype_format_annotation}" \
