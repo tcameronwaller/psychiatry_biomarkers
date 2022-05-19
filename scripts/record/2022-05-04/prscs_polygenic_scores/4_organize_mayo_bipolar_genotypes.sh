@@ -20,7 +20,7 @@ path_genotype_snp_relevance_bim="${path_dock}/access/mayo_bipolar_genotype_forma
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_script_submit_genotype_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_directory_all_vcf_format_annotation.sh"
+path_script_submit_genotype_sample_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_directory_all_vcf_sample_format_annotation.sh"
 path_script_drive_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/drive_directory_all_extract_vcf_snps_to_plink_bim.sh"
 
 ###########################################################################
@@ -38,16 +38,20 @@ if true; then
   rm -r $path_mayo_bipolar_genotype_format
   mkdir -p $path_mayo_bipolar_genotype_format
   # Organize specific paths and parameters.
+  # In communication on 19 May 2022, Anthony Batzler advised to exclude sample
+  # "1325304780".
+  sample_exclusion_list="^1325304780_1325304780"
   pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
   #path_vcf_source="${path_mayo_bipolar_genotype}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
   #path_vcf_product="${path_genotype_chromosome}/genotype_chromosome_21.vcf.gz" # determine suffix from BCFTools argument
   threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
-  /usr/bin/bash "${path_script_submit_genotype_format_annotation}" \
+  /usr/bin/bash "${path_script_submit_genotype_sample_format_annotation}" \
   $path_mayo_bipolar_genotype_raw \
   $pattern_genotype_source_vcf_file \
   $path_mayo_bipolar_genotype_format \
+  $sample_exclusion_list \
   $path_translations_chromosomes_mayo \
   $path_dbsnp_reference \
   $path_promiscuity_scripts \
