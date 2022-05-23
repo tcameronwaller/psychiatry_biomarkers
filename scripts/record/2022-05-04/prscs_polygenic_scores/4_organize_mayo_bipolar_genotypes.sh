@@ -20,7 +20,7 @@ path_genotype_snp_relevance_bim="${path_dock}/access/mayo_bipolar_genotype_forma
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_script_submit_genotype_sample_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_directory_all_vcf_sample_format_annotation.sh"
+path_script_submit_genotype_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_directory_all_vcf_format_annotation.sh"
 path_script_drive_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/drive_directory_all_extract_vcf_snps_to_plink_bim.sh"
 
 ###########################################################################
@@ -42,7 +42,7 @@ if true; then
   threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
-  /usr/bin/bash "${path_script_submit_genotype_sample_format_annotation}" \
+  /usr/bin/bash "${path_script_submit_genotype_format_annotation}" \
   $path_mayo_bipolar_genotype_raw \
   $pattern_genotype_source_vcf_file \
   $path_mayo_bipolar_genotype_format \
