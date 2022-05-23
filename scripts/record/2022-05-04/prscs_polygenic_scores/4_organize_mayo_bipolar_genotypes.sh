@@ -79,7 +79,7 @@ fi
 if false; then
 
   # Define patterns for file names.
-  pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
+  pattern_genotype_source_vcf_file="snp_MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
   report="true"
 
   # Convert information from genotype files in VCF format to BIM format.
