@@ -34,7 +34,7 @@ path_script_chromosome_in_vcf="${path_promiscuity_scripts}/utility/bcftools/tran
 # Access and organize information for human genome sequence.
 
 # Access.
-if true; then
+if false; then
   /usr/bin/bash "${path_script_access_human_genome}" \
   "grch37" \
   $path_human_genome_sequence_parent_container
@@ -44,7 +44,7 @@ fi
 # Access and chain files to map between assemblies of human genome.
 
 # Access.
-if true; then
+if false; then
   /usr/bin/bash "${path_script_access_genome_assembly_chain}" \
   $path_human_genome_assembly_chain_parent_container
 fi
@@ -53,7 +53,7 @@ fi
 # Access and organize information for annotations on SNPs.
 
 # Access.
-if true; then
+if false; then
   /usr/bin/bash "${path_script_access_dbsnp}" \
   "grch37" \
   $path_dbsnp_parent_container
@@ -63,7 +63,7 @@ fi
 if true; then
   # Initialize directory.
   rm -r $path_dbsnp_grch37_format_container
-  mkdir -p $path_dbsnp_format_container
+  mkdir -p $path_dbsnp_grch37_format_container
   # Organize specific paths and parameters.
   path_vcf_source="${path_dbsnp_grch37_raw_container}/GCF_000001405.25.gz"
   path_vcf_product="${path_dbsnp_grch37_format_container}/GCF_000001405.25.gz" # determine suffix from BCFTools argument

@@ -34,10 +34,18 @@ path_script_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/extract_vcf_
 # Echo each command to console.
 set -x
 
+################################################################################
+# Translate chromosome and base-pair position coordinates from human genome
+# assembly GRCh38 to GRCh37.
+
+
+
+
+
 ###########################################################################
 # Format genotype information in VCF.
 
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_genotype_chromosome
   mkdir -p $path_genotype_chromosome
@@ -59,7 +67,7 @@ fi
 ###########################################################################
 # Annotate genotype information in VCF.
 
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_genotype_snp_rsid
   mkdir -p $path_genotype_snp_rsid
@@ -81,7 +89,7 @@ fi
 ###########################################################################
 # Extract information from VCF to BIM.
 
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_genotype_snp_bim
   mkdir -p $path_genotype_snp_bim

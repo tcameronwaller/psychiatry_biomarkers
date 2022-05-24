@@ -8,7 +8,7 @@ cd ~/paths
 path_process=$(<"./process_psychiatric_metabolism.txt")
 
 path_dock="${path_process}/dock"
-path_genetic_reference="${path_dock}/access/genetic_reference"
+path_genetic_reference="${path_dock}/access/linkage_disequilibrium_ldsc"
 
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_promiscuity_scripts_ldsc="${path_promiscuity_scripts}/gwas_process/ldsc_genetic_heritability_correlation"
