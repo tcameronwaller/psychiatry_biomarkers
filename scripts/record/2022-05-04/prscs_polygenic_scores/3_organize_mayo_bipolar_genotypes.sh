@@ -5,19 +5,21 @@
 # Read private, local file paths.
 #echo "read private file path variables and organize paths..."
 cd ~/paths
+path_waller_tools=$(<"./waller_tools.txt")
+path_environment_crossmap="${path_waller_tools}/python/environments/crossmap"
 path_bcftools=$(<"./tools_bcftools.txt")
 path_plink2=$(<"./tools_plink2.txt")
-
 path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="${path_process}/dock"
 path_parameters="${path_dock}/parameters"
 path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
 path_human_genome_sequence="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa.gz"
-#path_human_genome_assembly_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
-path_human_genome_assembly_chain="${path_dock}/access/human_genome_assembly_chain/ensembl/GRCh38_to_GRCh37.chain.gz"
+path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
+#path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ensembl/GRCh38_to_GRCh37.chain.gz"
 path_dbsnp="${path_dock}/access/dbsnp/grch37_format/GCF_000001405.25.gz"
 path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
-path_mayo_bipolar_genotype_assembly="${path_dock}/access/mayo_bipolar_genotype_grch37"
+path_mayo_bipolar_genotype_assembly="${path_dock}/access/mayo_bipolar_genotype_grch37_ucsc"
+#path_mayo_bipolar_genotype_assembly="${path_dock}/access/mayo_bipolar_genotype_grch37_ensembl"
 path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype_format"
 path_genotype_snp_relevance_bim="${path_dock}/access/mayo_bipolar_genotype_format/genotype_snp_relevance_bim"
 
@@ -44,18 +46,16 @@ if true; then
   mkdir -p $path_mayo_bipolar_genotype_assembly
   # Organize specific paths and parameters.
   pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
-  threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_submit_genotype_translate_assembly}" \
   $path_mayo_bipolar_genotype_raw \
   $pattern_genotype_source_vcf_file \
-  $path_mayo_bipolar_genotype_format \
-  $path_translations_chromosomes_mayo \
-  $path_dbsnp_reference \
+  $path_mayo_bipolar_genotype_assembly \
+  $path_assembly_translation_chain \
+  $path_human_genome_sequence \
   $path_promiscuity_scripts \
-  $threads \
-  $path_bcftools \
+  $path_environment_crossmap \
   $report
 fi
 
