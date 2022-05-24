@@ -41,7 +41,7 @@ set -x
 # Translate chromosome and base-pair position coordinates from human genome
 # assembly GRCh38 to GRCh37.
 
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_mayo_bipolar_genotype_assembly
   mkdir -p $path_mayo_bipolar_genotype_assembly
@@ -64,7 +64,7 @@ fi
 ###########################################################################
 # Format and annotate genotype information in VCF.
 
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_mayo_bipolar_genotype_format
   mkdir -p $path_mayo_bipolar_genotype_format
