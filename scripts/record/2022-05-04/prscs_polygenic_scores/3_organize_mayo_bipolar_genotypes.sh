@@ -13,7 +13,8 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="${path_process}/dock"
 path_parameters="${path_dock}/parameters"
 path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
-path_human_genome_sequence="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa.gz"
+path_human_genome_sequence_compress="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa.gz"
+path_human_genome_sequence="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa"
 path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 #path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ensembl/GRCh38_to_GRCh37.chain.gz"
 path_dbsnp="${path_dock}/access/dbsnp/grch37_format/GCF_000001405.25.gz"
@@ -45,6 +46,7 @@ if true; then
   rm -r $path_mayo_bipolar_genotype_assembly
   mkdir -p $path_mayo_bipolar_genotype_assembly
   # Organize specific paths and parameters.
+  gzip --decompress --keep $path_human_genome_sequence_compress
   pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
