@@ -19,9 +19,10 @@ path_human_genome_sequence="${path_dock}/access/human_genome_sequence/grch37/GRC
 path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ensembl/GRCh38_to_GRCh37.chain.gz"
 path_dbsnp="${path_dock}/access/dbsnp/grch37_format/GCF_000001405.25.gz"
 path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
-#path_mayo_bipolar_genotype_assembly="${path_dock}/access/mayo_bipolar_genotype_grch37_ucsc"
-path_mayo_bipolar_genotype_assembly="${path_dock}/access/mayo_bipolar_genotype_grch37_ensembl"
-path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype_format"
+path_mayo_bipolar_genotype_assembly="${path_dock}/access/mayo_bipolar_genotype_grch37_ucsc"
+#path_mayo_bipolar_genotype_assembly="${path_dock}/access/mayo_bipolar_genotype_grch37_ensembl"
+path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype_grch37_ucsc_format"
+#path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype_grch37_ensemble_format"
 path_genotype_snp_relevance_bim="${path_dock}/access/mayo_bipolar_genotype_format/genotype_snp_relevance_bim"
 
 # Scripts.
