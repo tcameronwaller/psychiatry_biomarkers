@@ -103,7 +103,7 @@ if true; then
   threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
-  /usr/bin/bash "${path_script_drive_convert_vcf_to_bim}" \
+  /usr/bin/bash "${path_script_drive_extract_vcf_to_bim}" \
   $path_mayo_bipolar_genotype_format \
   $pattern_genotype_source_vcf_file \
   $path_genotype_snp_relevance_bim \
