@@ -38,6 +38,10 @@ path_target_directory_score="${path_dock}/polygenic_score_test"
 ###########################################################################
 # Execute procedure.
 
+# TODO: TCW; 25 May 2022
+# pass 'name_prefix' and 'name_suffix' to the PRS-CS script for file name
+
+
 # Initialize target directory.
 rm -r $path_target_directory_score
 mkdir -p $path_target_directory_score
