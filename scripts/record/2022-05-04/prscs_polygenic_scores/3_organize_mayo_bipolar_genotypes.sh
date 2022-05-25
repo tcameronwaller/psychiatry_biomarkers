@@ -15,8 +15,8 @@ path_parameters="${path_dock}/parameters"
 path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
 path_human_genome_sequence_compress="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa.gz"
 path_human_genome_sequence="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa"
-#host="ucsc"
-host="ensembl"
+host="ucsc"
+#host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -47,13 +47,14 @@ set -x
 # Translate chromosome and base-pair position coordinates from human genome
 # assembly GRCh38 to GRCh37.
 
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_mayo_bipolar_genotype_assembly
   mkdir -p $path_mayo_bipolar_genotype_assembly
   # Organize specific paths and parameters.
   gzip --decompress --stdout $path_human_genome_sequence_compress > $path_human_genome_sequence
   pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
+  threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_submit_genotype_translate_assembly}" \
@@ -62,8 +63,10 @@ if false; then
   $path_mayo_bipolar_genotype_assembly \
   $path_assembly_translation_chain \
   $path_human_genome_sequence \
+  $threads \
   $path_promiscuity_scripts \
   $path_environment_crossmap \
+  $path_bcftools \
   $report
 fi
 
@@ -94,7 +97,7 @@ fi
 ###########################################################################
 # Extract information from VCF to BIM.
 
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_genotype_snp_relevance_bim
   mkdir -p $path_genotype_snp_relevance_bim
