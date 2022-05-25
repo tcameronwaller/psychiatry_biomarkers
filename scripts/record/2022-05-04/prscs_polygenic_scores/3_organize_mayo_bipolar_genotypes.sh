@@ -70,7 +70,7 @@ fi
 ###########################################################################
 # Format and annotate genotype information in VCF.
 
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_mayo_bipolar_genotype_format
   mkdir -p $path_mayo_bipolar_genotype_format
@@ -94,7 +94,7 @@ fi
 ###########################################################################
 # Extract information from VCF to BIM.
 
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_genotype_snp_relevance_bim
   mkdir -p $path_genotype_snp_relevance_bim
