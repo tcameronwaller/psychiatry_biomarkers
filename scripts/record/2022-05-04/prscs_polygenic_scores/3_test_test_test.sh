@@ -47,73 +47,10 @@ set -x
 # Translate chromosome and base-pair position coordinates from human genome
 # assembly GRCh38 to GRCh37.
 
-# UCSC chain: TCW; 25 May 2022; running
-# Ensembl chain: TCW; 25 May 2022; running
-if true; then
-  # Initialize directory.
-  rm -r $path_mayo_bipolar_genotype_assembly
-  mkdir -p $path_mayo_bipolar_genotype_assembly
-  # Organize specific paths and parameters.
-  #gzip --decompress --stdout $path_human_genome_sequence_compress > $path_human_genome_sequence
-  pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
-  threads=16
-  report="true"
-  # Convert information from genotype files in VCF format to BIM format.
-  /usr/bin/bash "${path_script_submit_genotype_translate_assembly}" \
-  $path_mayo_bipolar_genotype_raw \
-  $pattern_genotype_source_vcf_file \
-  $path_mayo_bipolar_genotype_assembly \
-  $path_assembly_translation_chain \
-  $path_human_genome_sequence \
-  $threads \
-  $path_promiscuity_scripts \
-  $path_environment_crossmap \
-  $path_bcftools \
-  $report
-fi
 
-###########################################################################
-# Format and annotate genotype information in VCF.
+path_test="${path_mayo_bipolar_genotype_raw}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
+name_base_file="$(basename $path_test .vcf.gz)"
+path_container="$(dirname $path_test)"
 
-if false; then
-  # Initialize directory.
-  rm -r $path_mayo_bipolar_genotype_format
-  mkdir -p $path_mayo_bipolar_genotype_format
-  # Organize specific paths and parameters.
-  pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
-  threads=16
-  report="true"
-  # Convert information from genotype files in VCF format to BIM format.
-  /usr/bin/bash "${path_script_submit_genotype_format_annotation}" \
-  $path_mayo_bipolar_genotype_assembly \
-  $pattern_genotype_source_vcf_file \
-  $path_mayo_bipolar_genotype_format \
-  $path_translations_chromosomes_mayo \
-  $path_dbsnp \
-  $path_promiscuity_scripts \
-  $threads \
-  $path_bcftools \
-  $report
-fi
-
-###########################################################################
-# Extract information from VCF to BIM.
-
-if false; then
-  # Initialize directory.
-  rm -r $path_genotype_snp_relevance_bim
-  mkdir -p $path_genotype_snp_relevance_bim
-  # Organize specific paths and parameters.
-  pattern_genotype_source_vcf_file="snp_MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
-  threads=16
-  report="true"
-  # Convert information from genotype files in VCF format to BIM format.
-  /usr/bin/bash "${path_script_drive_extract_vcf_to_bim}" \
-  $path_mayo_bipolar_genotype_format \
-  $pattern_genotype_source_vcf_file \
-  $path_genotype_snp_relevance_bim \
-  $threads \
-  $path_plink2 \
-  $path_promiscuity_scripts \
-  $report
-fi
+echo "base of file name: ${name_base_file}"
+echo "path of directories to file: ${path_container}"
