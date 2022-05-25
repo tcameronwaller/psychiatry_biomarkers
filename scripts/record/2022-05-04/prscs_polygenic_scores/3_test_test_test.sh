@@ -54,3 +54,24 @@ path_container="$(dirname $path_test)"
 
 echo "base of file name: ${name_base_file}"
 echo "path of directories to file: ${path_container}"
+
+path_test="${path_dock}/test"
+path_vcf_source="${path_mayo_bipolar_genotype_raw}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
+path_vcf_product="${path_test}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
+
+# Initialize directory.
+rm -r $path_test
+mkdir -p $path_test
+
+threads=16
+report="true"
+path_script_translate_genome_assembly_vcf="${path_promiscuity_scripts}/utility/crossmap/translate_genome_assembly_vcf.sh"
+/usr/bin/bash "${path_script_translate_genome_assembly_vcf}" \
+$path_vcf_source \
+$path_vcf_product \
+$path_assembly_translation_chain \
+$path_human_genome_sequence \
+$threads \
+$path_environment_crossmap \
+$path_bcftools \
+$report
