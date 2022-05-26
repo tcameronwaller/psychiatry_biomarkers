@@ -27,7 +27,7 @@ report="true" # "true" or "false"
 # Read private, local file paths.
 cd ~/paths
 path_tools=$(<"./waller_tools.txt")
-path_prs_cs="${path_tools}/prs_cs/"
+path_prscs="${path_tools}/prs_cs/"
 #path_snp_relevance_bim_container="${path_prs_cs}/PRScsx/test_data/test"
 
 path_process=$(<"./process_psychiatric_metabolism.txt")
