@@ -101,6 +101,8 @@ fi
 ###########################################################################
 # Extract information from VCF to BIM.
 
+# UCSC chain:
+# Ensembl chain: 
 if true; then
   # Initialize directory.
   rm -r $path_genotype_snp_relevance_bim
