@@ -102,7 +102,7 @@ fi
 # Extract information from VCF to BIM.
 
 # UCSC chain: TCW; 25 May 2022; complete
-# Ensembl chain:
+# Ensembl chain: TCW; 25 May 2022; complete
 if true; then
   # Initialize directory.
   rm -r $path_genotype_snp_relevance_bim
