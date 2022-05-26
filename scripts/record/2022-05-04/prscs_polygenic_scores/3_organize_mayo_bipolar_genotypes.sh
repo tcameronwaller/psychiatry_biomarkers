@@ -15,8 +15,8 @@ path_parameters="${path_dock}/parameters"
 path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
 path_human_genome_sequence_compress="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa.gz"
 path_human_genome_sequence="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa"
-#host="ucsc"
-host="ensembl"
+host="ucsc"
+#host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -49,7 +49,7 @@ set -x
 
 # UCSC chain: TCW; 25 May 2022; running
 # Ensembl chain: TCW; 25 May 2022; running
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_mayo_bipolar_genotype_assembly
   mkdir -p $path_mayo_bipolar_genotype_assembly
@@ -75,7 +75,9 @@ fi
 ###########################################################################
 # Format and annotate genotype information in VCF.
 
-if false; then
+# UCSC chain:
+# Ensembl chain:
+if true; then
   # Initialize directory.
   rm -r $path_mayo_bipolar_genotype_format
   mkdir -p $path_mayo_bipolar_genotype_format

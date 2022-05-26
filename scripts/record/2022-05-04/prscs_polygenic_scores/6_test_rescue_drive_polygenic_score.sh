@@ -8,6 +8,10 @@
 ###########################################################################
 ###########################################################################
 
+# Use 1000 Genomes references
+# Iterate across chromosomes (references do not include X Chromosome?)
+
+
 ################################################################################
 # Organize parameters.
 gwas_group="steroid_globulin_linear_2"
