@@ -47,13 +47,13 @@ set -x
 # Translate chromosome and base-pair position coordinates from human genome
 # assembly GRCh38 to GRCh37.
 
-path_script_prepare_combine_multiple_vcf="${path_promiscuity_scripts}/utility/bcftools/1_drive_prepare_combine_multiple_vcf_bcf.sh"
+path_script_prepare_combine_multiple_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_prepare_vcf_bcf_for_combination.sh"
 
 # Organize specific paths and parameters.
 
 prefix_file_source_genotype_vcf="MERGED.maf0.dosR20.3.noDups.chr" # do not expand with full path yet
 suffix_file_source_genotype_vcf=".dose.vcf.gz" # omit the ".bim" suffix
-path_directory_product_genotype_vcf="${path_dock}/test_bcftools"
+path_directory_product_genotype_bcf="${path_dock}/test_bcftools"
 chromosome_x="true"
 threads=16
 report="true"
@@ -63,7 +63,7 @@ $path_mayo_bipolar_genotype_raw \
 $prefix_file_source_genotype_vcf \
 $suffix_file_source_genotype_vcf \
 $chromosome_x \
-$path_directory_product_genotype_vcf \
+$path_directory_product_genotype_bcf \
 $threads \
 $path_promiscuity_scripts \
 $path_bcftools \
