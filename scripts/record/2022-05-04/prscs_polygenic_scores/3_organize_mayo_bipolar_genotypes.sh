@@ -56,6 +56,10 @@ set -x
 
 # Organize specific paths and parameters.
 
+# Initialize directory.
+rm -r $path_directory_product_genotype_bcf
+mkdir -p $path_directory_product_genotype_bcf
+
 prefix_file_source_genotype_vcf="MERGED.maf0.dosR20.3.noDups.chr" # do not expand with full path yet
 suffix_file_source_genotype_vcf=".dose.vcf.gz" # omit the ".bim" suffix
 chromosome_x="true"
@@ -76,7 +80,7 @@ report="true"
 path_script_preparation="${path_promiscuity_scripts}/utility/bcftools/3_convert_vcf_bcf_remove_duplicates_sort_samples_records.sh"
 path_file_source_vcf_chromosome="${path_mayo_bipolar_genotype_raw}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
 path_directory_product_temporary_chromosome="${path_directory_product_genotype_bcf}/temporary_chr21"
-path_file_intermediate_bcf_chromosome="${path_directory_product_genotype_bcf}/temporary21/21_bcf.vcf"
+path_file_intermediate_format_chromosome="${path_directory_product_genotype_bcf}/temporary21/21_bcf.vcf"
 path_file_intermediate_remove_duplicates_chromosome="${path_directory_product_genotype_bcf}/temporary21/21_rem_dups.vcf"
 path_file_intermediate_list_samples_chromosome="${path_directory_product_genotype_bcf}/temporary21/21list_samples.txt"
 path_file_intermediate_sort_samples_chromosome="${path_directory_product_genotype_bcf}/temporary21/21sort_samples.vcf"
@@ -86,7 +90,7 @@ path_file_product_bcf_chromosome="${path_directory_product_genotype_bcf}/genotyp
 /usr/bin/bash "${path_script_preparation}" \
 $path_file_source_vcf_chromosome \
 $path_directory_product_temporary_chromosome \
-$path_file_intermediate_bcf_chromosome \
+$path_file_intermediate_format_chromosome \
 $path_file_intermediate_remove_duplicates_chromosome \
 $path_file_intermediate_list_samples_chromosome \
 $path_file_intermediate_sort_samples_chromosome \
