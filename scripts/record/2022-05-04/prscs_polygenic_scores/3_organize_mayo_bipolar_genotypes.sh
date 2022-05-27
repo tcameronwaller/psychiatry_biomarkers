@@ -14,8 +14,9 @@ path_dock="${path_process}/dock"
 path_parameters="${path_dock}/parameters"
 
 path_directory_genotype_preparation_bcf="${path_dock}/genotype_mayo_bipolar/preparation_bcf"
-path_file_list_files_combination="${path_directory_genotype_preparation_bcf}/list_files_chromosomes_combination.txt"
+path_file_list_vcf_bcf_files_combination="${path_directory_genotype_preparation_bcf}/list_files_chromosomes_combination.txt"
 path_directory_genotype_combination_vcf="${path_dock}/genotype_mayo_bipolar/combination_vcf"
+path_file_genotype_combination_vcf="${path_directory_genotype_combination_vcf}/genotype_combination.vcf.gz"
 
 path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
 path_human_genome_sequence_compress="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa.gz"
@@ -38,7 +39,7 @@ path_genotype_snp_relevance_bim="${path_mayo_bipolar_genotype_format}/genotype_s
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_script_prepare_combine_multiple_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_prepare_vcf_bcf_for_combination.sh"
-path_script_combine_sort_split_chromosome="${path_promiscuity_scripts}/utility/bcftools/1_drive_combine_bcf_sort_split_by_chromosome.sh"
+path_script_combine_bcf_convert_vcf="${path_promiscuity_scripts}/utility/bcftools/combine_bcf_sort_convert_vcf.sh"
 
 path_script_submit_genotype_translate_assembly="${path_promiscuity_scripts}/utility/crossmap/1_submit_batch_directory_all_vcf_assembly_grch38_to_grch37.sh"
 path_script_submit_genotype_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_directory_all_vcf_format_annotation.sh"
@@ -52,10 +53,10 @@ path_script_drive_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/plink/
 set -x
 
 ################################################################################
-# Translate chromosome and base-pair position coordinates from human genome
-# assembly GRCh38 to GRCh37.
+# Prepare individual genotype files, separate across chromosomes, for
+# combination prior to mapping between genomic assemblies.
 
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_preparation_bcf
   mkdir -p $path_directory_genotype_preparation_bcf
@@ -72,44 +73,40 @@ if true; then
   $suffix_file_source_genotype_vcf \
   $chromosome_x \
   $path_directory_genotype_preparation_bcf \
-  $path_file_list_files_combination \
+  $path_file_list_vcf_bcf_files_combination \
   $threads \
   $path_promiscuity_scripts \
   $path_bcftools \
   $report
 fi
 
-#path_script_preparation="${path_promiscuity_scripts}/utility/bcftools/3_convert_vcf_bcf_remove_duplicates_sort_samples_records.sh"
-#path_file_source_vcf_chromosome="${path_mayo_bipolar_genotype_raw}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
-#path_directory_product_temporary_chromosome="${path_directory_genotype_preparation_bcf}/temporary_chr21"
-#path_file_intermediate_format_chromosome="${path_directory_product_temporary_chromosome}/21_bcf.bcf"
-#path_file_intermediate_remove_duplicates_chromosome="${path_directory_product_temporary_chromosome}/21_rem_dups.bcf"
-#path_file_intermediate_list_samples_chromosome="${path_directory_product_temporary_chromosome}/21list_samples.txt"
-#path_file_intermediate_sort_samples_chromosome="${path_directory_product_temporary_chromosome}/21sort_samples.bcf"
-#path_file_intermediate_sort_records_chromosome="${path_directory_product_temporary_chromosome}/21sort_records.bcf"
-#path_file_product_bcf_chromosome="${path_directory_genotype_preparation_bcf}/genotype_chromosome21_bcf.bcf"
+################################################################################
+# Combine individual genotype files across chromosomes.
+# Write to genotype file in VCF format with BGZip compression.
+# This combination genotype file is for mapping from GRCh38 to GRCh37.
 
-#/usr/bin/bash "${path_script_preparation}" \
-#$path_file_source_vcf_chromosome \
-#$path_directory_product_temporary_chromosome \
-#$path_file_intermediate_format_chromosome \
-#$path_file_intermediate_remove_duplicates_chromosome \
-#$path_file_intermediate_list_samples_chromosome \
-#$path_file_intermediate_sort_samples_chromosome \
-#$path_file_intermediate_sort_records_chromosome \
-#$path_file_product_bcf_chromosome \
-#$threads \
-#$path_bcftools \
-#$report
-
-
-
-# TODO: TCW; 26 May 2022
-# TODO: next call a regular driver script to find the list of BCF files for combination and call BCFTools "concat"
+if true; then
+  # Initialize directory.
+  rm -r $path_directory_genotype_combination_vcf
+  mkdir -p $path_directory_genotype_combination_vcf
+  # Organize specific paths and parameters.
+  threads=16
+  report="true"
+  # Call script to test organization for combination of VCF files.
+  /usr/bin/bash "${path_script_combine_bcf_convert_vcf}" \
+  $path_file_list_vcf_bcf_files_combination \
+  $path_file_genotype_combination_vcf \
+  $threads \
+  $path_bcftools \
+  $report
+fi
 
 
 
 
+################################################################################
+# Translate chromosome and base-pair position coordinates from human genome
+# assembly GRCh38 to GRCh37.
 
 # UCSC chain: TCW; 25 May 2022; running
 # Ensembl chain: TCW; 25 May 2022; running
