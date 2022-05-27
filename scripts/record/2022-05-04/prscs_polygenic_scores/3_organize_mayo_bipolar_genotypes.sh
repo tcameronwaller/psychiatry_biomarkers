@@ -17,7 +17,6 @@ path_directory_genotype_preparation_bcf="${path_dock}/genotype_mayo_bipolar/prep
 path_file_list_files_combination="${path_directory_genotype_preparation_bcf}/list_files_chromosomes_combination.txt"
 path_directory_genotype_combination_vcf="${path_dock}/genotype_mayo_bipolar/combination_vcf"
 
-
 path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
 path_human_genome_sequence_compress="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa.gz"
 path_human_genome_sequence="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa"
@@ -56,52 +55,52 @@ set -x
 # Translate chromosome and base-pair position coordinates from human genome
 # assembly GRCh38 to GRCh37.
 
-# Organize specific paths and parameters.
+if true; then
+  # Initialize directory.
+  rm -r $path_directory_genotype_preparation_bcf
+  mkdir -p $path_directory_genotype_preparation_bcf
+  # Organize specific paths and parameters.
+  prefix_file_source_genotype_vcf="MERGED.maf0.dosR20.3.noDups.chr" # do not expand with full path yet
+  suffix_file_source_genotype_vcf=".dose.vcf.gz" # omit the ".bim" suffix
+  chromosome_x="true"
+  threads=16
+  report="true"
+  # Call script to test organization for combination of VCF files.
+  /usr/bin/bash "${path_script_prepare_combine_multiple_vcf}" \
+  $path_mayo_bipolar_genotype_raw \
+  $prefix_file_source_genotype_vcf \
+  $suffix_file_source_genotype_vcf \
+  $chromosome_x \
+  $path_directory_genotype_preparation_bcf \
+  $path_file_list_files_combination \
+  $threads \
+  $path_promiscuity_scripts \
+  $path_bcftools \
+  $report
+fi
 
-# Initialize directory.
-rm -r $path_directory_genotype_preparation_bcf
-mkdir -p $path_directory_genotype_preparation_bcf
+#path_script_preparation="${path_promiscuity_scripts}/utility/bcftools/3_convert_vcf_bcf_remove_duplicates_sort_samples_records.sh"
+#path_file_source_vcf_chromosome="${path_mayo_bipolar_genotype_raw}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
+#path_directory_product_temporary_chromosome="${path_directory_genotype_preparation_bcf}/temporary_chr21"
+#path_file_intermediate_format_chromosome="${path_directory_product_temporary_chromosome}/21_bcf.bcf"
+#path_file_intermediate_remove_duplicates_chromosome="${path_directory_product_temporary_chromosome}/21_rem_dups.bcf"
+#path_file_intermediate_list_samples_chromosome="${path_directory_product_temporary_chromosome}/21list_samples.txt"
+#path_file_intermediate_sort_samples_chromosome="${path_directory_product_temporary_chromosome}/21sort_samples.bcf"
+#path_file_intermediate_sort_records_chromosome="${path_directory_product_temporary_chromosome}/21sort_records.bcf"
+#path_file_product_bcf_chromosome="${path_directory_genotype_preparation_bcf}/genotype_chromosome21_bcf.bcf"
 
-prefix_file_source_genotype_vcf="MERGED.maf0.dosR20.3.noDups.chr" # do not expand with full path yet
-suffix_file_source_genotype_vcf=".dose.vcf.gz" # omit the ".bim" suffix
-chromosome_x="true"
-threads=16
-report="true"
-# Call script to test organization for combination of VCF files.
-#/usr/bin/bash "${path_script_prepare_combine_multiple_vcf}" \
-#$path_mayo_bipolar_genotype_raw \
-#$prefix_file_source_genotype_vcf \
-#$suffix_file_source_genotype_vcf \
-#$chromosome_x \
-#$path_directory_genotype_preparation_bcf \
-#$path_file_list_files_combination \
+#/usr/bin/bash "${path_script_preparation}" \
+#$path_file_source_vcf_chromosome \
+#$path_directory_product_temporary_chromosome \
+#$path_file_intermediate_format_chromosome \
+#$path_file_intermediate_remove_duplicates_chromosome \
+#$path_file_intermediate_list_samples_chromosome \
+#$path_file_intermediate_sort_samples_chromosome \
+#$path_file_intermediate_sort_records_chromosome \
+#$path_file_product_bcf_chromosome \
 #$threads \
-#$path_promiscuity_scripts \
 #$path_bcftools \
 #$report
-
-path_script_preparation="${path_promiscuity_scripts}/utility/bcftools/3_convert_vcf_bcf_remove_duplicates_sort_samples_records.sh"
-path_file_source_vcf_chromosome="${path_mayo_bipolar_genotype_raw}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
-path_directory_product_temporary_chromosome="${path_directory_genotype_preparation_bcf}/temporary_chr21"
-path_file_intermediate_format_chromosome="${path_directory_product_temporary_chromosome}/21_bcf.bcf"
-path_file_intermediate_remove_duplicates_chromosome="${path_directory_product_temporary_chromosome}/21_rem_dups.bcf"
-path_file_intermediate_list_samples_chromosome="${path_directory_product_temporary_chromosome}/21list_samples.txt"
-path_file_intermediate_sort_samples_chromosome="${path_directory_product_temporary_chromosome}/21sort_samples.bcf"
-path_file_intermediate_sort_records_chromosome="${path_directory_product_temporary_chromosome}/21sort_records.bcf"
-path_file_product_bcf_chromosome="${path_directory_genotype_preparation_bcf}/genotype_chromosome21_bcf.bcf"
-
-/usr/bin/bash "${path_script_preparation}" \
-$path_file_source_vcf_chromosome \
-$path_directory_product_temporary_chromosome \
-$path_file_intermediate_format_chromosome \
-$path_file_intermediate_remove_duplicates_chromosome \
-$path_file_intermediate_list_samples_chromosome \
-$path_file_intermediate_sort_samples_chromosome \
-$path_file_intermediate_sort_records_chromosome \
-$path_file_product_bcf_chromosome \
-$threads \
-$path_bcftools \
-$report
 
 
 
