@@ -101,6 +101,7 @@ $path_bcftools \
 $report
 
 
+
 # TODO: TCW; 26 May 2022
 # TODO: next call a regular driver script to find the list of BCF files for combination and call BCFTools "concat"
 
