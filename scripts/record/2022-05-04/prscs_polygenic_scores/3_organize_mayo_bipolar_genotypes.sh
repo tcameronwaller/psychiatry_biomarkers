@@ -75,7 +75,7 @@ report="true"
 
 path_script_preparation="${path_promiscuity_scripts}/utility/bcftools/3_convert_vcf_bcf_remove_duplicates_sort_samples_records.sh"
 path_file_source_vcf_chromosome="${path_mayo_bipolar_genotype_raw}/MERGED.maf0.dosR20.3.noDups.chr21.dose.vcf.gz"
-path_directory_product_temporary_chromosome="${path_directory_product_genotype_bcf}/temporary_chr${chromosome}"
+path_directory_product_temporary_chromosome="${path_directory_product_genotype_bcf}/temporary_chr21"
 path_file_intermediate_bcf_chromosome="${path_directory_product_genotype_bcf}/temporary21/21_bcf.bcf"
 path_file_intermediate_remove_duplicates_chromosome="${path_directory_product_genotype_bcf}/temporary21/21_rem_dups.bcf"
 path_file_intermediate_list_samples_chromosome="${path_directory_product_genotype_bcf}/temporary21/21list_samples.txt"
