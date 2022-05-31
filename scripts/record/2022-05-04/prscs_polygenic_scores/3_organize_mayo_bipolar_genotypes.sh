@@ -56,7 +56,8 @@ set -x
 # Prepare individual genotype files, separate across chromosomes, for
 # combination prior to mapping between genomic assemblies.
 
-if true; then
+# batch submission: TCW; 27 May 2022
+if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_preparation_bcf
   mkdir -p $path_directory_genotype_preparation_bcf
@@ -85,7 +86,7 @@ fi
 # Write to genotype file in VCF format with BGZip compression.
 # This combination genotype file is for mapping from GRCh38 to GRCh37.
 
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_directory_genotype_combination_vcf
   mkdir -p $path_directory_genotype_combination_vcf
