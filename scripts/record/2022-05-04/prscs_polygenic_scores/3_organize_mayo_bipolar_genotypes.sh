@@ -13,8 +13,8 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="${path_process}/dock"
 path_parameters="${path_dock}/parameters"
 
-path_directory_genotype_preparation_bcf="${path_dock}/genotype_mayo_bipolar/preparation_bcf"
-path_file_list_vcf_bcf_files_combination="${path_directory_genotype_preparation_bcf}/list_files_chromosomes_combination.txt"
+path_directory_genotype_preparation_vcf="${path_dock}/genotype_mayo_bipolar/preparation_vcf"
+path_file_list_vcf_files_combination="${path_directory_genotype_preparation_vcf}/list_files_chromosomes_combination.txt"
 path_directory_genotype_combination_vcf="${path_dock}/genotype_mayo_bipolar/combination_vcf"
 path_file_genotype_combination_vcf="${path_directory_genotype_combination_vcf}/genotype_combination.vcf.gz"
 
@@ -38,8 +38,8 @@ path_genotype_snp_relevance_bim="${path_mayo_bipolar_genotype_format}/genotype_s
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_script_prepare_combine_multiple_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_prepare_vcf_bcf_for_combination.sh"
-path_script_combine_bcf_convert_vcf="${path_promiscuity_scripts}/utility/bcftools/combine_bcf_sort_convert_vcf.sh"
+path_script_prepare_combine_multiple_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_prepare_vcf_for_combination.sh"
+path_script_combine_bcf_convert_vcf="${path_promiscuity_scripts}/utility/bcftools/combine_sort_vcf.sh"
 
 path_script_submit_genotype_translate_assembly="${path_promiscuity_scripts}/utility/crossmap/1_submit_batch_directory_all_vcf_assembly_grch38_to_grch37.sh"
 path_script_submit_genotype_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_directory_all_vcf_format_annotation.sh"
@@ -57,10 +57,10 @@ set -x
 # combination prior to mapping between genomic assemblies.
 
 # batch submission: TCW; 27 May 2022
-if false; then
+if true; then
   # Initialize directory.
-  rm -r $path_directory_genotype_preparation_bcf
-  mkdir -p $path_directory_genotype_preparation_bcf
+  rm -r $path_directory_genotype_preparation_vcf
+  mkdir -p $path_directory_genotype_preparation_vcf
   # Organize specific paths and parameters.
   prefix_file_source_genotype_vcf="MERGED.maf0.dosR20.3.noDups.chr" # do not expand with full path yet
   suffix_file_source_genotype_vcf=".dose.vcf.gz" # omit the ".bim" suffix
@@ -73,8 +73,8 @@ if false; then
   $prefix_file_source_genotype_vcf \
   $suffix_file_source_genotype_vcf \
   $chromosome_x \
-  $path_directory_genotype_preparation_bcf \
-  $path_file_list_vcf_bcf_files_combination \
+  $path_directory_genotype_preparation_vcf \
+  $path_file_list_vcf_files_combination \
   $threads \
   $path_promiscuity_scripts \
   $path_bcftools \
@@ -86,7 +86,7 @@ fi
 # Write to genotype file in VCF format with BGZip compression.
 # This combination genotype file is for mapping from GRCh38 to GRCh37.
 
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_combination_vcf
   mkdir -p $path_directory_genotype_combination_vcf
@@ -95,7 +95,7 @@ if true; then
   report="true"
   # Call script to test organization for combination of VCF files.
   /usr/bin/bash "${path_script_combine_bcf_convert_vcf}" \
-  $path_file_list_vcf_bcf_files_combination \
+  $path_file_list_vcf_files_combination \
   $path_file_genotype_combination_vcf \
   $threads \
   $path_bcftools \
