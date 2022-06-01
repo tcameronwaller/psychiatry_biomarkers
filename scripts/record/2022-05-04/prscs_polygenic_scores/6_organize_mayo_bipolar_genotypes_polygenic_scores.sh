@@ -44,9 +44,9 @@ if true; then
   # Organize specific paths and parameters.
   gzip --decompress --stdout $path_source_gwas_summary_compression > $path_source_gwas_summary
   count_gwas_samples=411778
-  # file pattern: "snp_MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz"
-  prefix_genotype_snp_bim_file="snp_MERGED.maf0.dosR20.3.noDups.chr" # do not expand with full path yet
-  suffix_genotype_snp_bim_file=".dose.vcf.gz" # omit the ".bim" suffix
+  # file pattern: "genotype_grch37_chromosome_*.vcf.gz"
+  prefix_genotype_snp_bim_file="genotype_grch37_chromosome_" # do not expand with full path yet
+  suffix_genotype_snp_bim_file=".vcf.gz" # omit the ".bim" suffix
   population_ancestry="EUR"
   name_file_product_prefix="bpd"
   chromosome_x="false"

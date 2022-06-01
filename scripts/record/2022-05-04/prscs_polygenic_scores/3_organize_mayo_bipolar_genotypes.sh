@@ -34,20 +34,20 @@ path_directory_mayo_bipolar_genotype_assembly="${path_dock}/genotype_mayo_bipola
 path_file_mayo_genotype_assembly_vcf="${path_directory_mayo_bipolar_genotype_assembly}/genotype_assembly.vcf.gz"
 # Split of genetic features by chromosomes.
 path_directory_mayo_bipolar_genotype_split="${path_dock}/genotype_mayo_bipolar/assembly_grch37_${host}_split"
-
-
 # Annotation of genetic features.
-
-
 path_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
 path_dbsnp="${path_dock}/access/dbsnp/grch37_format/GCF_000001405.25.gz"
-path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype_grch37_${host}_format"
+path_directory_mayo_bipolar_genotype_annotation="${path_dock}/genotype_mayo_bipolar/grch37_${host}_annotation"
+# Extraction of relevant genetic features to file in BIM format.
 path_genotype_snp_relevance_bim="${path_mayo_bipolar_genotype_format}/genotype_snp_relevance_bim"
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_script_prepare_combine_multiple_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_prepare_vcf_for_combination.sh"
 path_script_combine_vcf="${path_promiscuity_scripts}/utility/bcftools/combine_sort_vcf.sh"
+path_script_split_vcf_chromosome="${path_promiscuity_scripts}/utility/bcftools/split_genotype_by_chromosome_vcf.sh"
+
+
 path_script_translate_genome_assembly="${path_promiscuity_scripts}/utility/crossmap/translate_genome_assembly_vcf.sh"
 
 #path_script_split_genotype_by_chromosome="${path_promiscuity_scripts}/utility/bcftools/split_genotype_by_chromosome_vcf.sh"
@@ -97,12 +97,13 @@ fi
 # Write to genotype file in VCF format with BGZip compression.
 # This combination genotype file is for mapping from GRCh38 to GRCh37.
 
+# process start: TCW; 31 May 2022; running
 if true; then
   # Initialize directory.
-  rm -r $path_directory_genotype_combination_vcf
+  #rm -r $path_directory_genotype_combination_vcf
   mkdir -p $path_directory_genotype_combination_vcf
   # Organize specific paths and parameters.
-  threads=16
+  threads=32
   report="true"
   # Call script to test organization for combination of VCF files.
   /usr/bin/bash "${path_script_combine_vcf}" \
@@ -125,7 +126,7 @@ if false; then
   mkdir -p $path_directory_mayo_bipolar_genotype_assembly
   # Organize specific paths and parameters.
   gzip --decompress --stdout $path_human_genome_sequence_compress > $path_human_genome_sequence
-  threads=16
+  threads=32
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_translate_genome_assembly}" \
@@ -143,46 +144,45 @@ fi
 ################################################################################
 # Within genotype information, split records for genetic features by chromosome.
 
+# process start: TCW; ___ 2022;
 if false; then
   # Initialize directory.
   rm -r $path_directory_mayo_bipolar_genotype_split
   mkdir -p $path_directory_mayo_bipolar_genotype_split
   # Organize specific paths and parameters.
-  suffix_file_product_vcf="_grch37.vcf.gz"
+  chromosome_x="true"
+  prefix_file_product_vcf="genotype_grch37_chromosome_"
   threads=16
   report="true"
   # Call script to test organization for combination of VCF files.
-  /usr/bin/bash "${path_script_split_genotype_by_chromosome}" \
+  /usr/bin/bash "${path_script_split_vcf_chromosome}" \
   $path_file_mayo_genotype_assembly_vcf \
+  $chromosome_x \
   $path_directory_mayo_bipolar_genotype_split \
-  $suffix_file_product_vcf \
+  $prefix_file_product_vcf \
   $threads \
   $path_bcftools \
   $report
 fi
 
-
-
-
-
 ###########################################################################
 # Format and annotate genotype information in VCF.
 
-# UCSC chain: TCW; 25 May 2022; complete
-# Ensembl chain: TCW; 25 May 2022; complete
+# UCSC chain: TCW; ___ 2022;
+# Ensembl chain: TCW; ___ 2022;
 if false; then
   # Initialize directory.
-  rm -r $path_mayo_bipolar_genotype_format
-  mkdir -p $path_mayo_bipolar_genotype_format
+  rm -r $path_directory_mayo_bipolar_genotype_annotation
+  mkdir -p $path_directory_mayo_bipolar_genotype_annotation
   # Organize specific paths and parameters.
-  pattern_genotype_source_vcf_file="MERGED.maf0.dosR20.3.noDups.chr*.dose.vcf.gz" # do not expand with full path yet
+  pattern_genotype_source_vcf_file="genotype_grch37_chromosome_*.vcf.gz" # do not expand with full path yet
   threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_submit_genotype_format_annotation}" \
   $path_directory_mayo_bipolar_genotype_assembly \
   $pattern_genotype_source_vcf_file \
-  $path_mayo_bipolar_genotype_format \
+  $path_directory_mayo_bipolar_genotype_annotation \
   $path_translations_chromosomes_mayo \
   $path_dbsnp \
   $path_promiscuity_scripts \
