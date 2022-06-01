@@ -94,7 +94,7 @@ fi
 # Write to genotype file in VCF format with BGZip compression.
 # This combination genotype file is for mapping from GRCh38 to GRCh37.
 
-# batch submission: TCW; 1 June 2022; running
+# batch submission: TCW; 09:05 on 1 June 2022; running
 if false; then
   # Initialize directory.
   #rm -r $path_directory_genotype_combination_vcf
