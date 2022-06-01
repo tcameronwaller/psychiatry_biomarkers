@@ -44,7 +44,7 @@ path_genotype_snp_relevance_bim="${path_mayo_bipolar_genotype_format}/genotype_s
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_script_prepare_combine_multiple_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_prepare_vcf_for_combination.sh"
-path_script_combine_vcf="${path_promiscuity_scripts}/utility/bcftools/combine_sort_vcf.sh"
+path_script_combine_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_single_combine_sort_vcf.sh"
 path_script_split_vcf_chromosome="${path_promiscuity_scripts}/utility/bcftools/split_genotype_by_chromosome_vcf.sh"
 
 
@@ -110,6 +110,7 @@ if true; then
   $path_file_list_vcf_files_combination \
   $path_file_genotype_combination_vcf \
   $threads \
+  $path_promiscuity_scripts \
   $path_bcftools \
   $report
 fi
