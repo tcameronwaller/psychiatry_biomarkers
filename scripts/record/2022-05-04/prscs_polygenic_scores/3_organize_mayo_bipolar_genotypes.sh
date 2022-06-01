@@ -45,13 +45,10 @@ path_genotype_snp_relevance_bim="${path_mayo_bipolar_genotype_format}/genotype_s
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_script_prepare_combine_multiple_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_prepare_vcf_for_combination.sh"
 path_script_combine_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_single_combine_sort_vcf.sh"
+path_script_translate_genome_assembly="${path_promiscuity_scripts}/utility/crossmap/1_submit_batch_single_translate_genome_assembly.sh"
+
+
 path_script_split_vcf_chromosome="${path_promiscuity_scripts}/utility/bcftools/split_genotype_by_chromosome_vcf.sh"
-
-
-path_script_translate_genome_assembly="${path_promiscuity_scripts}/utility/crossmap/translate_genome_assembly_vcf.sh"
-
-#path_script_split_genotype_by_chromosome="${path_promiscuity_scripts}/utility/bcftools/split_genotype_by_chromosome_vcf.sh"
-
 
 path_script_submit_genotype_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_directory_all_vcf_format_annotation.sh"
 path_script_drive_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/plink/drive_directory_all_extract_vcf_snps_to_plink_bim.sh"
@@ -97,8 +94,8 @@ fi
 # Write to genotype file in VCF format with BGZip compression.
 # This combination genotype file is for mapping from GRCh38 to GRCh37.
 
-# process start: TCW; 31 May 2022; running
-if true; then
+# batch submission: TCW; 1 June 2022; running
+if false; then
   # Initialize directory.
   #rm -r $path_directory_genotype_combination_vcf
   mkdir -p $path_directory_genotype_combination_vcf
@@ -121,7 +118,7 @@ fi
 
 # UCSC chain: TCW; ____;
 # Ensembl chain: TCW; ____;
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_directory_mayo_bipolar_genotype_assembly
   mkdir -p $path_directory_mayo_bipolar_genotype_assembly
