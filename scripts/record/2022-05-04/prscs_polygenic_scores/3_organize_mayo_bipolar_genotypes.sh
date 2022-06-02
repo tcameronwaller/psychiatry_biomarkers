@@ -21,8 +21,8 @@ path_file_genotype_combination_vcf="${path_directory_genotype_combination_vcf}/g
 # Mapping from genome assembly GRCh38 to GRCh37.
 path_human_genome_sequence_compress="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa.gz"
 path_human_genome_sequence="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa"
-#host="ucsc"
-host="ensembl"
+host="ucsc"
+#host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -119,14 +119,14 @@ fi
 # Translate chromosome and base-pair position coordinates from human genome
 # assembly GRCh38 to GRCh37.
 
-# UCSC chain: TCW; ____;
-# Ensembl chain: TCW; ___ on 1 June 2022;
+# UCSC chain: TCW; ____ on 1 June 2022;
+# Ensembl chain: TCW; 21:26:51 on 1 June 2022;
 if true; then
   # Initialize directory.
   rm -r $path_directory_mayo_bipolar_genotype_assembly
   mkdir -p $path_directory_mayo_bipolar_genotype_assembly
   # Organize specific paths and parameters.
-  gzip --decompress --stdout $path_human_genome_sequence_compress > $path_human_genome_sequence
+  #gzip --decompress --stdout $path_human_genome_sequence_compress > $path_human_genome_sequence
   threads=32
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
