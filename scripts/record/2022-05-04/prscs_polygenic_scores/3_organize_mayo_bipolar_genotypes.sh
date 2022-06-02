@@ -21,8 +21,8 @@ path_file_genotype_combination_vcf="${path_directory_genotype_combination_vcf}/g
 # Mapping from genome assembly GRCh38 to GRCh37.
 path_human_genome_sequence_compress="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa.gz"
 path_human_genome_sequence="${path_dock}/access/human_genome_sequence/grch37/GRCh37.p13.genome.fa"
-host="ucsc"
-#host="ensembl"
+#host="ucsc"
+host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -32,6 +32,9 @@ else
 fi
 path_directory_mayo_bipolar_genotype_assembly="${path_dock}/genotype_mayo_bipolar/assembly_grch37_${host}"
 path_file_mayo_genotype_assembly_vcf="${path_directory_mayo_bipolar_genotype_assembly}/genotype_assembly.vcf.gz"
+
+
+
 # Split of genetic features by chromosomes.
 path_directory_mayo_bipolar_genotype_split="${path_dock}/genotype_mayo_bipolar/assembly_grch37_${host}_split"
 # Annotation of genetic features.
@@ -94,7 +97,7 @@ fi
 # Write to genotype file in VCF format with BGZip compression.
 # This combination genotype file is for mapping from GRCh38 to GRCh37.
 
-# batch submission: TCW; 09:05 on 1 June 2022; running
+# batch submission: TCW; 09:05 on 1 June 2022; complete
 if false; then
   # Initialize directory.
   #rm -r $path_directory_genotype_combination_vcf
@@ -117,7 +120,7 @@ fi
 # assembly GRCh38 to GRCh37.
 
 # UCSC chain: TCW; ____;
-# Ensembl chain: TCW; ____;
+# Ensembl chain: TCW; ___ on 1 June 2022;
 if true; then
   # Initialize directory.
   rm -r $path_directory_mayo_bipolar_genotype_assembly
@@ -133,6 +136,7 @@ if true; then
   $path_assembly_translation_chain \
   $path_human_genome_sequence \
   $threads \
+  $path_promiscuity_scripts \
   $path_environment_crossmap \
   $path_bcftools \
   $report
