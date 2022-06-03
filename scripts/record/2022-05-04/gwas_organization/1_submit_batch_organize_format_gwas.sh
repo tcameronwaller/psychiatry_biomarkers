@@ -19,11 +19,12 @@ cd ~/paths
 path_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
-
 path_directory_gwas_concatenation="${path_dock}/gwas_concatenation"
 path_directory_gwas_format="${path_dock}/gwas_format_team"
+path_batch_instances="${path_directory_gwas_format}/batch_instances.txt"
 
 # Scripts.
+path_script_run_organize_format_gwas="$path_process/psychiatric_metabolism/scripts/record/2022-05-04/gwas_organization/2_run_batch_organize_format_gwas.sh"
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_script_format_gwas_linear="${path_promiscuity_scripts}/gwas_process/format_gwas_team/format_gwas_team_plink_linear.sh"
 path_script_format_gwas_logistic="${path_promiscuity_scripts}/gwas_process/format_gwas_team/format_gwas_team_plink_logistic.sh"
@@ -31,6 +32,7 @@ path_script_format_gwas_logistic="${path_promiscuity_scripts}/gwas_process/forma
 # Initialize directories.
 rm -r $path_directory_gwas_format
 mkdir -p $path_directory_gwas_format
+rm $path_batch_instances
 
 ###########################################################################
 # Execute procedure.
@@ -91,27 +93,51 @@ studies+=(
   ${path_directory_gwas_format}/ukbiobank_tcw_2022-05-04/testosterone_imputation_log_male_unadjust.txt.gz"
 )
 
-# within driver for-loop, call a script to call the appropriate format script...
-
-# Organize information in format for LDSC.
+# Organize information for batch instances.
 for study_details in "${studies[@]}"; do
-  # Read information.
+  # Separate fields from instance.
   IFS=";" read -r -a array <<< "${study_details}"
   type_regression="${array[0]}"
   path_file_gwas_source="${array[1]}"
   path_file_gwas_product="${array[2]}"
-  # Organize specific paths and parameters.
-  report="true" # "true" or "false"
-  if [[ "$type_regression" == "linear" ]]; then
-    path_script_format_gwas="${path_script_format_gwas_linear}"
-  elif [[ "$type_regression" == "logistic" ]]; then
-    path_script_format_gwas="${path_script_format_gwas_logistic}"
-  else
-    echo "invalid specification of regression type"
-  fi
-  # Format adjustment.
-  /usr/bin/bash "${path_script_format_gwas}" \
-  $path_file_gwas_source \
-  $path_file_gwas_product \
-  $report
+  # Define and append a new batch instance.
+  instance="${type_regression};${path_file_gwas_source};${path_file_gwas_product}"
+  echo $instance >> $path_batch_instances
 done
+
+################################################################################
+# Report.
+if [[ "$report" == "true" ]]; then
+  echo "----------"
+  echo "1_submit_batch_organize_format_gwas.sh"
+  echo "----------"
+fi
+
+################################################################################
+# Submit batch instances to cluster scheduler.
+
+# Read batch instances.
+readarray -t batch_instances < $path_batch_instances
+batch_instances_count=${#batch_instances[@]}
+echo "----------"
+echo "count of batch instances: " $batch_instances_count
+echo "first batch instance: " ${batch_instances[0]} # notice base-zero indexing
+echo "last batch instance: " ${batch_instances[$batch_instances_count - 1]}
+
+# Execute batch with grid scheduler.
+if true; then
+  # Submit array batch to Sun Grid Engine.
+  # Array batch indices must start at one (not zero).
+  qsub -t 1-${batch_instances_count}:1 -o \
+  "${path_directory_gwas_format}/batch_out.txt" -e "${path_directory_gwas_format}/batch_error.txt" \
+  "${path_script_run_organize_format_gwas}" \
+  $path_batch_instances \
+  $batch_instances_count \
+  $path_script_format_gwas_linear \
+  $path_script_format_gwas_logistic \
+  $report
+fi
+
+
+
+#

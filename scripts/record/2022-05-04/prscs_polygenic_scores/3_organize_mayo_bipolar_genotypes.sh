@@ -64,10 +64,12 @@ path_script_drive_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/plink/
 set -x
 
 ################################################################################
-# Prepare individual genotype files, separate across chromosomes, for
-# combination prior to mapping between genomic assemblies.
+# Prepare individual genotype files, separate across chromosomes, for mapping
+# between genomic assemblies (from GRCh38 to GRCh37).
 
-# batch submission: TCW; 31 May 2022; complete
+# TODO: I need the GRCh38 reference genome...
+
+# batch submission: TCW; ___ 2022; ____
 if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_preparation_vcf
@@ -93,34 +95,11 @@ if false; then
 fi
 
 ################################################################################
-# Combine individual genotype files across chromosomes.
-# Write to genotype file in VCF format with BGZip compression.
-# This combination genotype file is for mapping from GRCh38 to GRCh37.
+# Map chromosome and base-pair position coordinates from human genome assembly
+# GRCh38 to GRCh37.
 
-# batch submission: TCW; 09:05 on 1 June 2022; complete
-if false; then
-  # Initialize directory.
-  #rm -r $path_directory_genotype_combination_vcf
-  mkdir -p $path_directory_genotype_combination_vcf
-  # Organize specific paths and parameters.
-  threads=32
-  report="true"
-  # Call script to test organization for combination of VCF files.
-  /usr/bin/bash "${path_script_combine_vcf}" \
-  $path_file_list_vcf_files_combination \
-  $path_file_genotype_combination_vcf \
-  $threads \
-  $path_promiscuity_scripts \
-  $path_bcftools \
-  $report
-fi
-
-################################################################################
-# Translate chromosome and base-pair position coordinates from human genome
-# assembly GRCh38 to GRCh37.
-
-# UCSC chain: TCW; 21:33:06 on 1 June 2022;
-# Ensembl chain: TCW; 21:26:51 on 1 June 2022;
+# UCSC chain: TCW; ___ on __ June 2022;
+# Ensembl chain: TCW; ___ on __ June 2022;
 if true; then
   # Initialize directory.
   rm -r $path_directory_mayo_bipolar_genotype_assembly
@@ -142,6 +121,30 @@ if true; then
   $report
 fi
 
+################################################################################
+# Nope... not until AFTER mapping to GRCh37
+# And... keep this simple... 1. combine, 2. sort, 3. split again ASAP
+# Combine individual genotype files across chromosomes.
+# Write to genotype file in VCF format with BGZip compression.
+# This combination genotype file is for mapping from GRCh38 to GRCh37.
+
+# batch submission: TCW; ____ on __ June 2022; __
+if false; then
+  # Initialize directory.
+  #rm -r $path_directory_genotype_combination_vcf
+  mkdir -p $path_directory_genotype_combination_vcf
+  # Organize specific paths and parameters.
+  threads=32
+  report="true"
+  # Call script to test organization for combination of VCF files.
+  /usr/bin/bash "${path_script_combine_vcf}" \
+  $path_file_list_vcf_files_combination \
+  $path_file_genotype_combination_vcf \
+  $threads \
+  $path_promiscuity_scripts \
+  $path_bcftools \
+  $report
+fi
 
 ################################################################################
 # Within genotype information, split records for genetic features by chromosome.
