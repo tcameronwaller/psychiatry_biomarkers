@@ -119,7 +119,7 @@ fi
 # Translate chromosome and base-pair position coordinates from human genome
 # assembly GRCh38 to GRCh37.
 
-# UCSC chain: TCW; ____ on 1 June 2022;
+# UCSC chain: TCW; 21:33:06 on 1 June 2022;
 # Ensembl chain: TCW; 21:26:51 on 1 June 2022;
 if true; then
   # Initialize directory.
