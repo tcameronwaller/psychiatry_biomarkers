@@ -40,6 +40,13 @@ if false; then
   $path_human_genome_sequence_parent_container
 fi
 
+if true; then
+  /usr/bin/bash "${path_script_access_human_genome}" \
+  "grch38" \
+  $path_human_genome_sequence_parent_container
+fi
+
+
 ################################################################################
 # Access and chain files to map between assemblies of human genome.
 
@@ -60,7 +67,7 @@ if false; then
 fi
 
 # Format genotype information in VCF.
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_dbsnp_grch37_format_container
   mkdir -p $path_dbsnp_grch37_format_container
