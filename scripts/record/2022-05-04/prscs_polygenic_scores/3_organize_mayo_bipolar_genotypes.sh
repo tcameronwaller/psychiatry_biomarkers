@@ -115,7 +115,7 @@ if true; then
   rm -r $path_directory_mayo_bipolar_genotype_assembly
   mkdir -p $path_directory_mayo_bipolar_genotype_assembly
   # Organize specific paths and parameters.
-  gzip --decompress --stdout $path_human_grch37_sequence_compression > $path_human_grch37_sequence
+  #gzip --decompress --stdout $path_human_grch37_sequence_compression > $path_human_grch37_sequence
   prefix_file_genotype_vcf_source="genotype_grch38_chromosome_" # do not expand with full path yet
   suffix_file_genotype_vcf_source=".vcf.gz" # omit the ".bim" suffix
   chromosome_x="true"
