@@ -125,7 +125,7 @@ if true; then
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_map_genome_assembly}" \
-  $path_directory_genotype_preparation_vcf
+  $path_directory_genotype_preparation_vcf \
   $prefix_file_genotype_vcf_source \
   $suffix_file_genotype_vcf_source \
   $chromosome_x \
