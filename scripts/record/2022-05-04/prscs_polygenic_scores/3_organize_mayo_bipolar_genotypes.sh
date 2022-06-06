@@ -32,7 +32,7 @@ else
 fi
 path_directory_genotype_assembly="${path_dock}/genotype_mayo_bipolar/assembly_vcf_grch37_${host}"
 # Combine and sort records for genetic features across chromosomes.
-path_directory_genotype_combination_vcf="${path_dock}/genotype_mayo_bipolar/combination_vcf"
+path_directory_genotype_combination_vcf="${path_dock}/genotype_mayo_bipolar/grch37_${host}_combination_vcf"
 path_file_list_vcf_files_combination="${path_directory_genotype_combination_vcf}/list_files_chromosomes_combination.txt"
 path_file_genotype_combination_vcf="${path_directory_genotype_combination_vcf}/genotype_combination.vcf.gz"
 
