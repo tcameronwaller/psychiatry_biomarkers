@@ -21,8 +21,8 @@ path_human_grch38_sequence="${path_dock}/access/human_genome_sequence/grch38/GRC
 path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
 path_directory_genotype_preparation_vcf="${path_dock}/genotype_mayo_bipolar/preparation_vcf"
 # Mapping from genome assembly GRCh38 to GRCh37.
-host="ucsc"
-#host="ensembl"
+#host="ucsc"
+host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -108,7 +108,7 @@ fi
 
 # review: TCW; 5 June 2022; I think it's ready here... need to update driver scripts
 
-# UCSC chain: TCW; ___ on 06 June 2022;
+# UCSC chain: TCW; 09:01:31 on 06 June 2022; running
 # Ensembl chain: TCW; ___ on __ June 2022;
 if true; then
   # Initialize directory.
