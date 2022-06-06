@@ -24,7 +24,7 @@ path_script_access_human_genome="${path_promiscuity_scripts}/utility/access_gene
 path_script_access_genome_assembly_chain="${path_promiscuity_scripts}/utility/access_genetic_reference/access_genome_human_assembly_map_chain_ucsc_ensembl.sh"
 
 path_script_access_dbsnp="${path_promiscuity_scripts}/utility/access_genetic_reference/access_dbsnp_human_grch37_grch38_vcf.sh"
-path_script_chromosome_in_vcf="${path_promiscuity_scripts}/utility/bcftools/translate_chromosomes_in_vcf.sh"
+path_script_chromosome_in_vcf="${path_promiscuity_scripts}/utility/bcftools/3_translate_chromosome_identifiers_vcf.sh"
 
 ###########################################################################
 # Execute procedure.
