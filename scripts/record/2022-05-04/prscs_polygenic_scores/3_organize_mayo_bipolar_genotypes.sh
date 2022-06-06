@@ -21,8 +21,8 @@ path_human_grch38_sequence="${path_dock}/access/human_genome_sequence/grch38/GRC
 path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
 path_directory_genotype_preparation_vcf="${path_dock}/genotype_mayo_bipolar/preparation_vcf"
 # Mapping from genome assembly GRCh38 to GRCh37.
-#host="ucsc"
-host="ensembl"
+host="ucsc"
+#host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -31,13 +31,14 @@ else
   echo "invalid specification of host for genetic reference information"
 fi
 path_directory_genotype_assembly="${path_dock}/genotype_mayo_bipolar/assembly_vcf_grch37_${host}"
+# Combine and sort records for genetic features across chromosomes.
+path_directory_genotype_combination_vcf="${path_dock}/genotype_mayo_bipolar/combination_vcf"
+path_file_list_vcf_files_combination="${path_directory_genotype_combination_vcf}/list_files_chromosomes_combination.txt"
+path_file_genotype_combination_vcf="${path_directory_genotype_combination_vcf}/genotype_combination.vcf.gz"
+
 
 
 #### work in progress... ###
-
-path_file_list_vcf_files_combination="${path_directory_genotype_preparation_vcf}/list_files_chromosomes_combination.txt"
-path_directory_genotype_combination_vcf="${path_dock}/genotype_mayo_bipolar/combination_vcf"
-path_file_genotype_combination_vcf="${path_directory_genotype_combination_vcf}/genotype_combination.vcf.gz"
 
 # Split of genetic features by chromosomes.
 path_directory_mayo_bipolar_genotype_split="${path_dock}/genotype_mayo_bipolar/assembly_grch37_${host}_split"
@@ -52,10 +53,10 @@ path_genotype_snp_relevance_bim="${path_mayo_bipolar_genotype_format}/genotype_s
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_script_prepare_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_decompose_align_unique_sort.sh"
 path_script_map_genome_assembly="${path_promiscuity_scripts}/utility/crossmap/1_submit_batch_chromosomes_map_genotype_genome_assembly.sh"
+path_script_combine_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_single_combine_chromosomes_sort_vcf.sh"
+
 
 #### work in progress... ###
-
-path_script_combine_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_single_combine_sort_vcf.sh"
 path_script_split_vcf_chromosome="${path_promiscuity_scripts}/utility/bcftools/split_genotype_by_chromosome_vcf.sh"
 
 path_script_submit_genotype_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_directory_all_vcf_format_annotation.sh"
@@ -108,12 +109,12 @@ fi
 
 # review: TCW; 5 June 2022; I think it's ready here... need to update driver scripts
 
-# UCSC chain: TCW; 09:01:31 on 06 June 2022; running
-# Ensembl chain: TCW; ___ on __ June 2022;
-if true; then
+# UCSC chain: TCW; at 09:01:31 on 06 June 2022; running
+# Ensembl chain: TCW; 09:34:52 on 06 June 2022;
+if false; then
   # Initialize directory.
-  rm -r $path_directory_mayo_bipolar_genotype_assembly
-  mkdir -p $path_directory_mayo_bipolar_genotype_assembly
+  rm -r $path_directory_genotype_assembly
+  mkdir -p $path_directory_genotype_assembly
   # Organize specific paths and parameters.
   #gzip --decompress --stdout $path_human_grch37_sequence_compression > $path_human_grch37_sequence
   prefix_file_genotype_vcf_source="genotype_grch38_chromosome_" # do not expand with full path yet
@@ -142,30 +143,27 @@ if true; then
 fi
 
 ################################################################################
-# Nope... not until AFTER mapping to GRCh37
-# And... keep this simple... 1. combine, 2. sort, 3. split again ASAP
 # Combine individual genotype files across chromosomes.
-# Write to genotype file in VCF format with BGZip compression.
-# This combination genotype file is for mapping from GRCh38 to GRCh37.
-
-#$path_file_list_vcf_files_combination
-#path_file_list_vcf_files_combination=${6} # full path to file with line-delimiter list of full paths to genotype files in VCF format for combination
-# Collect list of genotype files in BCF format for subsequent combination.
-#instance="${path_file_product_vcf_chromosome}"
-#echo $instance >> $path_file_list_vcf_files_combination
-
-
+# Sort records for genetic features.
+# Split into separate genotype files by chromosome.
 
 # batch submission: TCW; ____ on __ June 2022; __
-if false; then
+if true; then
   # Initialize directory.
-  #rm -r $path_directory_genotype_combination_vcf
+  rm -r $path_directory_genotype_combination_vcf
   mkdir -p $path_directory_genotype_combination_vcf
   # Organize specific paths and parameters.
+  prefix_file_genotype_vcf_source="genotype_grch37_chromosome_" # do not expand with full path yet
+  suffix_file_genotype_vcf_source=".vcf.gz" # omit the ".bim" suffix
+  chromosome_x="true"
   threads=32
   report="true"
   # Call script to test organization for combination of VCF files.
   /usr/bin/bash "${path_script_combine_vcf}" \
+  $path_directory_genotype_assembly \
+  $prefix_file_genotype_vcf_source \
+  $suffix_file_genotype_vcf_source \
+  $chromosome_x \
   $path_file_list_vcf_files_combination \
   $path_file_genotype_combination_vcf \
   $threads \
