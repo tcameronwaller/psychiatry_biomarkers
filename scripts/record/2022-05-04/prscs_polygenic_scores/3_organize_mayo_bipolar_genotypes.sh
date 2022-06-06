@@ -72,10 +72,8 @@ set -x
 # Prepare individual genotype files, separate across chromosomes, for mapping
 # between genomic assemblies (from GRCh38 to GRCh37).
 
-# TODO: I need the GRCh38 reference genome...
-
-# batch submission: TCW; ___ 2022; ____
-if true; then
+# batch submission: TCW; at 21:11:31 on 05 June 2022; running
+if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_preparation_vcf
   mkdir -p $path_directory_genotype_preparation_vcf
@@ -110,9 +108,9 @@ fi
 
 # review: TCW; 5 June 2022; I think it's ready here... need to update driver scripts
 
-# UCSC chain: TCW; ___ on __ June 2022;
+# UCSC chain: TCW; ___ on 06 June 2022;
 # Ensembl chain: TCW; ___ on __ June 2022;
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_directory_mayo_bipolar_genotype_assembly
   mkdir -p $path_directory_mayo_bipolar_genotype_assembly
