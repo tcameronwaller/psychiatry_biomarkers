@@ -20,12 +20,6 @@ path_human_grch38_sequence="${path_dock}/access/human_genome_sequence/grch38/GRC
 # Quality control preparation of genotypes before mapping from genome assembly GRCh38 to GRCh37.
 path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
 path_directory_genotype_preparation_vcf="${path_dock}/genotype_mayo_bipolar/preparation_vcf"
-
-
-
-path_file_list_vcf_files_combination="${path_directory_genotype_preparation_vcf}/list_files_chromosomes_combination.txt"
-path_directory_genotype_combination_vcf="${path_dock}/genotype_mayo_bipolar/combination_vcf"
-path_file_genotype_combination_vcf="${path_directory_genotype_combination_vcf}/genotype_combination.vcf.gz"
 # Mapping from genome assembly GRCh38 to GRCh37.
 host="ucsc"
 #host="ensembl"
@@ -36,10 +30,14 @@ elif [[ "$host" == "ensembl" ]]; then
 else
   echo "invalid specification of host for genetic reference information"
 fi
-path_directory_mayo_bipolar_genotype_assembly="${path_dock}/genotype_mayo_bipolar/assembly_grch37_${host}"
-path_file_mayo_genotype_assembly_vcf="${path_directory_mayo_bipolar_genotype_assembly}/genotype_assembly.vcf.gz"
+path_directory_genotype_assembly="${path_dock}/genotype_mayo_bipolar/assembly_vcf_grch37_${host}"
 
 
+#### work in progress... ###
+
+path_file_list_vcf_files_combination="${path_directory_genotype_preparation_vcf}/list_files_chromosomes_combination.txt"
+path_directory_genotype_combination_vcf="${path_dock}/genotype_mayo_bipolar/combination_vcf"
+path_file_genotype_combination_vcf="${path_directory_genotype_combination_vcf}/genotype_combination.vcf.gz"
 
 # Split of genetic features by chromosomes.
 path_directory_mayo_bipolar_genotype_split="${path_dock}/genotype_mayo_bipolar/assembly_grch37_${host}_split"
@@ -53,10 +51,11 @@ path_genotype_snp_relevance_bim="${path_mayo_bipolar_genotype_format}/genotype_s
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_script_prepare_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_decompose_align_unique_sort.sh"
+path_script_map_genome_assembly="${path_promiscuity_scripts}/utility/crossmap/1_submit_batch_chromosomes_map_genotype_genome_assembly.sh"
 
+#### work in progress... ###
 
 path_script_combine_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_single_combine_sort_vcf.sh"
-path_script_translate_genome_assembly="${path_promiscuity_scripts}/utility/crossmap/1_submit_batch_single_translate_genome_assembly.sh"
 path_script_split_vcf_chromosome="${path_promiscuity_scripts}/utility/bcftools/split_genotype_by_chromosome_vcf.sh"
 
 path_script_submit_genotype_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_directory_all_vcf_format_annotation.sh"
@@ -89,7 +88,7 @@ if true; then
   suffix_file_genotype_vcf_product=".vcf.gz" # omit the ".bim" suffix
   threads=16
   report="true"
-  # Call script to test organization for combination of VCF files.
+  # Call script to prepare genotype files in VCF format.
   /usr/bin/bash "${path_script_prepare_vcf}" \
   $path_mayo_bipolar_genotype_raw \
   $prefix_file_genotype_vcf_source \
@@ -109,6 +108,8 @@ fi
 # Map chromosome and base-pair position coordinates from human genome assembly
 # GRCh38 to GRCh37.
 
+# review: TCW; 5 June 2022; I think it's ready here... need to update driver scripts
+
 # UCSC chain: TCW; ___ on __ June 2022;
 # Ensembl chain: TCW; ___ on __ June 2022;
 if false; then
@@ -116,13 +117,23 @@ if false; then
   rm -r $path_directory_mayo_bipolar_genotype_assembly
   mkdir -p $path_directory_mayo_bipolar_genotype_assembly
   # Organize specific paths and parameters.
-  #gzip --decompress --stdout $path_human_grch37_sequence_compression > $path_human_grch37_sequence
-  threads=32
+  gzip --decompress --stdout $path_human_grch37_sequence_compression > $path_human_grch37_sequence
+  prefix_file_genotype_vcf_source="genotype_grch38_chromosome_" # do not expand with full path yet
+  suffix_file_genotype_vcf_source=".vcf.gz" # omit the ".bim" suffix
+  chromosome_x="true"
+  prefix_file_genotype_vcf_product="genotype_grch37_chromosome_" # do not expand with full path yet
+  suffix_file_genotype_vcf_product=".vcf.gz" # omit the ".bim" suffix
+  threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
-  /usr/bin/bash "${path_script_translate_genome_assembly}" \
-  $path_file_genotype_combination_vcf \
-  $path_file_mayo_genotype_assembly_vcf \
+  /usr/bin/bash "${path_script_map_genome_assembly}" \
+  $path_directory_genotype_preparation_vcf
+  $prefix_file_genotype_vcf_source \
+  $suffix_file_genotype_vcf_source \
+  $chromosome_x \
+  $path_directory_genotype_assembly \
+  $prefix_file_genotype_vcf_product \
+  $suffix_file_genotype_vcf_product \
   $path_assembly_translation_chain \
   $path_human_grch37_sequence \
   $threads \
