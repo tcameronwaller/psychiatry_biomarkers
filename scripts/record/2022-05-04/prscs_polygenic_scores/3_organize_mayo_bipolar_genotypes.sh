@@ -109,8 +109,8 @@ fi
 
 # review: TCW; 5 June 2022; I think it's ready here... need to update driver scripts
 
-# UCSC chain: TCW; at 09:01:31 on 06 June 2022; running
-# Ensembl chain: TCW; 09:34:52 on 06 June 2022;
+# UCSC chain: TCW; at 09:01:31 on 06 June 2022; complete
+# Ensembl chain: TCW; 09:34:52 on 06 June 2022; running
 if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_assembly
@@ -147,7 +147,8 @@ fi
 # Sort records for genetic features.
 # Split into separate genotype files by chromosome.
 
-# batch submission: TCW; ____ on __ June 2022; __
+# UCSC chain: TCW; at ___ on 06 June 2022; ___
+# Ensembl chain: TCW; ___ on 06 June 2022;
 if true; then
   # Initialize directory.
   rm -r $path_directory_genotype_combination_vcf
