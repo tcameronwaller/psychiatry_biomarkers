@@ -176,8 +176,8 @@ fi
 # From total genotype information, split records for genetic features by chromosome.
 
 # UCSC chain: TCW; at ___ on 06 June 2022; ___
-# Ensembl chain: TCW; ___ on 06 June 2022; ___ <-- ready
-if true; then
+# Ensembl chain: TCW; 17:51:05 on 06 June 2022; complete
+if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_split_vcf
   mkdir -p $path_directory_genotype_split_vcf
@@ -207,7 +207,7 @@ fi
 
 # UCSC chain: TCW; at ___ on 06 June 2022; ___
 # Ensembl chain: TCW; ___ on 06 June 2022; ___
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_directory_genotype_format_annotation_vcf
   mkdir -p $path_directory_genotype_format_annotation_vcf

@@ -72,15 +72,15 @@ if false; then
   rm -r $path_dbsnp_grch37_format_container
   mkdir -p $path_dbsnp_grch37_format_container
   # Organize specific paths and parameters.
-  path_vcf_source="${path_dbsnp_grch37_raw_container}/GCF_000001405.25.gz"
-  path_vcf_product="${path_dbsnp_grch37_format_container}/GCF_000001405.25.gz" # determine suffix from BCFTools argument
+  path_file_vcf_source="${path_dbsnp_grch37_raw_container}/GCF_000001405.25.gz"
+  path_file_vcf_product="${path_dbsnp_grch37_format_container}/GCF_000001405.25.gz" # determine suffix from BCFTools argument
   threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_chromosome_in_vcf}" \
+  $path_file_vcf_source \
+  $path_file_vcf_product \
   $path_translations_chromosomes_dbsnp_grch37 \
-  $path_vcf_source \
-  $path_vcf_product \
   $threads \
   $path_bcftools \
   $report
