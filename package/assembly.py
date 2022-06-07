@@ -10,6 +10,11 @@
 ###############################################################################
 # Installation and importation
 
+# Import modules from specific path without having to install a general package
+# I would have to figure out how to pass a path variable...
+# https://stackoverflow.com/questions/67631/how-to-import-a-module-given-the-full-path
+
+
 # Standard
 
 import sys
@@ -41,7 +46,6 @@ import uk_biobank.assembly
 
 ###############################################################################
 # Functionality
-
 
 ###############################################################################
 # Procedure
