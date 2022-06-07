@@ -149,13 +149,13 @@ fi
 # Split into separate genotype files by chromosome.
 
 # without decomposition of multiallelic genetic features
-# UCSC chain: TCW; at 03:39:31 on 06 June 2022; queue;
-# Ensembl chain: TCW; at _____ on 06 June 2022; ____;
+# UCSC chain: TCW; at 03:39:31 on 07 June 2022; running; <-- wait
+# Ensembl chain: TCW; at 03:43:55 on 07 June 2022; running; <-- wait
 ###
 # with decomposition of multiallelic genetic features
 # UCSC chain: TCW; at 11:34:57 on 06 June 2022; running
 # Ensembl chain: TCW; at 11:54:22 on 06 June 2022; complete
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_combination_vcf
   mkdir -p $path_directory_genotype_combination_vcf
@@ -211,6 +211,8 @@ fi
 # Apply quality control processes to new chromosomal genotype files.
 # Format records for genetic features (chromosomal identifier) in new chromosomal genotype files.
 # Annotate records for genetic features with rsIDs in new chromosomal genotype files.
+
+# TODO: do not apply the "decomposition" step... at least not "atomize"
 
 # UCSC chain: TCW; at ___ on 06 June 2022; ___
 # Ensembl chain: TCW; at ___ on 06 June 2022; running test on chromosome 1
