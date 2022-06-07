@@ -19,7 +19,8 @@ path_human_grch38_sequence_compression="${path_dock}/access/human_genome_sequenc
 path_human_grch38_sequence="${path_dock}/access/human_genome_sequence/grch38/GRCh38.p13.genome.fa"
 # Quality control preparation of genotypes before mapping from genome assembly GRCh38 to GRCh37.
 path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
-path_directory_genotype_preparation_vcf="${path_dock}/genotype_mayo_bipolar_no_decomposition/preparation_vcf"
+path_directory_mayo_genotype_parent="${path_dock}/genotype_mayo_bipolar_no_decomposition"
+path_directory_genotype_preparation_vcf="${path_directory_mayo_genotype_parent}/preparation_vcf"
 # Mapping from genome assembly GRCh38 to GRCh37.
 host="ucsc"
 #host="ensembl"
@@ -30,17 +31,17 @@ elif [[ "$host" == "ensembl" ]]; then
 else
   echo "invalid specification of host for genetic reference information"
 fi
-path_directory_genotype_assembly_vcf="${path_dock}/genotype_mayo_bipolar/assembly_vcf_grch37_${host}"
+path_directory_genotype_assembly_vcf="${path_directory_mayo_genotype_parent}/assembly_vcf_grch37_${host}"
 # Combine and sort records for genetic features across chromosomes.
-path_directory_genotype_combination_vcf="${path_dock}/genotype_mayo_bipolar/grch37_${host}_combination_vcf"
+path_directory_genotype_combination_vcf="${path_directory_mayo_genotype_parent}/grch37_${host}_combination_vcf"
 path_file_list_vcf_files_combination="${path_directory_genotype_combination_vcf}/list_files_chromosomes_combination.txt"
 path_file_genotype_combination_vcf="${path_directory_genotype_combination_vcf}/genotype_combination.vcf.gz"
 # Split genetic features by chromosomes.
-path_directory_genotype_split_vcf="${path_dock}/genotype_mayo_bipolar/grch37_${host}_split_chromosome_vcf"
+path_directory_genotype_split_vcf="${path_directory_mayo_genotype_parent}/grch37_${host}_split_chromosome_vcf"
 # Preparation, adjustment of format, and annotation of genotypes.
 path_file_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
 path_file_dbsnp_grch37="${path_dock}/access/dbsnp/grch37_format/GCF_000001405.25.gz"
-path_directory_genotype_format_annotation_vcf="${path_dock}/genotype_mayo_bipolar/grch37_${host}_format_annotation_vcf"
+path_directory_genotype_format_annotation_vcf="${path_directory_mayo_genotype_parent}/grch37_${host}_format_annotation_vcf"
 
 #### work in progress... ###
 # Extraction of relevant genetic features to file in BIM format.
@@ -53,8 +54,6 @@ path_script_map_genome_assembly="${path_promiscuity_scripts}/utility/crossmap/1_
 path_script_combine_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_single_combine_chromosomes_sort_vcf.sh"
 path_script_split_vcf_chromosomes="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_split_genotype_vcf_by_chromosomes.sh"
 path_script_preparation_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_preparation_format_annotation_genotype_vcf.sh"
-
-
 
 #### work in progress... ###
 path_script_drive_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/plink/drive_directory_all_extract_vcf_snps_to_plink_bim.sh"
@@ -70,8 +69,8 @@ set -x
 # Prepare individual genotype files, separate across chromosomes, for mapping
 # between genomic assemblies (from GRCh38 to GRCh37).
 
-# batch submission: TCW; at ___ on 06 June 2022;
-if true; then
+# batch submission: TCW; at 21:12:17 on 06 June 2022; complete
+if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_preparation_vcf
   mkdir -p $path_directory_genotype_preparation_vcf
@@ -106,9 +105,14 @@ fi
 
 # review: TCW; 5 June 2022; I think it's ready here... need to update driver scripts
 
+# without decomposition of multiallelic genetic features
+# UCSC chain: TCW; at ___ on 06 June 2022; ___;
+# Ensembl chain: TCW; at ___ on 06 June 2022; ___;
+###
+# with decomposition of multiallelic genetic features
 # UCSC chain: TCW; at 09:01:31 on 06 June 2022; complete; were there errors in mapping?
 # Ensembl chain: TCW; at 09:34:52 on 06 June 2022; complete; seem to be extensive errors (loss) in mapping
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_directory_genotype_assembly_vcf
   mkdir -p $path_directory_genotype_assembly_vcf
