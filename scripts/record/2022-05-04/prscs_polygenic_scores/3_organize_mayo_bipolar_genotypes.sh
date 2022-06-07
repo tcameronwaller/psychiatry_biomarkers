@@ -19,10 +19,10 @@ path_human_grch38_sequence_compression="${path_dock}/access/human_genome_sequenc
 path_human_grch38_sequence="${path_dock}/access/human_genome_sequence/grch38/GRCh38.p13.genome.fa"
 # Quality control preparation of genotypes before mapping from genome assembly GRCh38 to GRCh37.
 path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
-path_directory_genotype_preparation_vcf="${path_dock}/genotype_mayo_bipolar/preparation_vcf"
+path_directory_genotype_preparation_vcf="${path_dock}/genotype_mayo_bipolar_no_decomposition/preparation_vcf"
 # Mapping from genome assembly GRCh38 to GRCh37.
-#host="ucsc"
-host="ensembl"
+host="ucsc"
+#host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -41,8 +41,6 @@ path_directory_genotype_split_vcf="${path_dock}/genotype_mayo_bipolar/grch37_${h
 path_file_translations_chromosomes_mayo="${path_parameters}/promiscuity/translations_chromosomes_mayo_bipolar.txt"
 path_file_dbsnp_grch37="${path_dock}/access/dbsnp/grch37_format/GCF_000001405.25.gz"
 path_directory_genotype_format_annotation_vcf="${path_dock}/genotype_mayo_bipolar/grch37_${host}_format_annotation_vcf"
-
-
 
 #### work in progress... ###
 # Extraction of relevant genetic features to file in BIM format.
@@ -72,18 +70,18 @@ set -x
 # Prepare individual genotype files, separate across chromosomes, for mapping
 # between genomic assemblies (from GRCh38 to GRCh37).
 
-# batch submission: TCW; at 21:11:31 on 05 June 2022; running
-if false; then
+# batch submission: TCW; at ___ on 06 June 2022;
+if true; then
   # Initialize directory.
   rm -r $path_directory_genotype_preparation_vcf
   mkdir -p $path_directory_genotype_preparation_vcf
   # Organize specific paths and parameters.
   gzip --decompress --stdout $path_human_grch38_sequence_compression > $path_human_grch38_sequence
   prefix_file_genotype_vcf_source="MERGED.maf0.dosR20.3.noDups.chr" # do not expand with full path yet
-  suffix_file_genotype_vcf_source=".dose.vcf.gz" # omit the ".bim" suffix
+  suffix_file_genotype_vcf_source=".dose.vcf.gz"
   chromosome_x="true"
   prefix_file_genotype_vcf_product="genotype_grch38_chromosome_" # do not expand with full path yet
-  suffix_file_genotype_vcf_product=".vcf.gz" # omit the ".bim" suffix
+  suffix_file_genotype_vcf_product=".vcf.gz"
   threads=16
   report="true"
   # Call script to prepare genotype files in VCF format.
@@ -108,8 +106,8 @@ fi
 
 # review: TCW; 5 June 2022; I think it's ready here... need to update driver scripts
 
-# UCSC chain: TCW; at 09:01:31 on 06 June 2022; complete
-# Ensembl chain: TCW; 09:34:52 on 06 June 2022; complete
+# UCSC chain: TCW; at 09:01:31 on 06 June 2022; complete; were there errors in mapping?
+# Ensembl chain: TCW; at 09:34:52 on 06 June 2022; complete; seem to be extensive errors (loss) in mapping
 if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_assembly_vcf
@@ -117,10 +115,10 @@ if false; then
   # Organize specific paths and parameters.
   gzip --decompress --stdout $path_human_grch37_sequence_compression > $path_human_grch37_sequence
   prefix_file_genotype_vcf_source="genotype_grch38_chromosome_" # do not expand with full path yet
-  suffix_file_genotype_vcf_source=".vcf.gz" # omit the ".bim" suffix
+  suffix_file_genotype_vcf_source=".vcf.gz"
   chromosome_x="true"
   prefix_file_genotype_vcf_product="genotype_grch37_chromosome_" # do not expand with full path yet
-  suffix_file_genotype_vcf_product=".vcf.gz" # omit the ".bim" suffix
+  suffix_file_genotype_vcf_product=".vcf.gz"
   threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
@@ -147,14 +145,14 @@ fi
 # Split into separate genotype files by chromosome.
 
 # UCSC chain: TCW; at 11:34:57 on 06 June 2022; running
-# Ensembl chain: TCW; 11:54:22 on 06 June 2022; complete
+# Ensembl chain: TCW; at 11:54:22 on 06 June 2022; complete
 if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_combination_vcf
   mkdir -p $path_directory_genotype_combination_vcf
   # Organize specific paths and parameters.
   prefix_file_genotype_vcf_source="genotype_grch37_chromosome_" # do not expand with full path yet
-  suffix_file_genotype_vcf_source=".vcf.gz" # omit the ".bim" suffix
+  suffix_file_genotype_vcf_source=".vcf.gz"
   chromosome_x="true"
   threads=32
   report="true"
@@ -184,7 +182,7 @@ if false; then
   # Organize specific paths and parameters.
   chromosome_x="true"
   prefix_file_genotype_vcf_product="genotype_grch37_chromosome_" # do not expand with full path yet
-  suffix_file_genotype_vcf_product=".vcf.gz" # omit the ".bim" suffix
+  suffix_file_genotype_vcf_product=".vcf.gz"
   threads=16
   report="true"
   # Call script to test organization for combination of VCF files.
@@ -206,18 +204,18 @@ fi
 # Annotate records for genetic features with rsIDs in new chromosomal genotype files.
 
 # UCSC chain: TCW; at ___ on 06 June 2022; ___
-# Ensembl chain: TCW; ___ on 06 June 2022; ___
-if true; then
+# Ensembl chain: TCW; at ___ on 06 June 2022; running test on chromosome 1
+if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_format_annotation_vcf
   mkdir -p $path_directory_genotype_format_annotation_vcf
   # Organize specific paths and parameters.
   gzip --decompress --stdout $path_human_grch37_sequence_compression > $path_human_grch37_sequence
   prefix_file_genotype_vcf_source="genotype_grch37_chromosome_" # do not expand with full path yet
-  suffix_file_genotype_vcf_source=".vcf.gz" # omit the ".bim" suffix
+  suffix_file_genotype_vcf_source=".vcf.gz"
   chromosome_x="true"
   prefix_file_genotype_vcf_product="genotype_grch37_chromosome_" # do not expand with full path yet
-  suffix_file_genotype_vcf_product=".vcf.gz" # omit the ".bim" suffix
+  suffix_file_genotype_vcf_product=".vcf.gz"
   threads=16
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
