@@ -22,8 +22,8 @@ path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
 path_directory_mayo_genotype_parent="${path_dock}/genotype_mayo_bipolar_no_decomposition"
 path_directory_genotype_preparation_vcf="${path_directory_mayo_genotype_parent}/preparation_vcf"
 # Mapping from genome assembly GRCh38 to GRCh37.
-host="ucsc"
-#host="ensembl"
+#host="ucsc"
+host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -149,7 +149,7 @@ fi
 # Split into separate genotype files by chromosome.
 
 # without decomposition of multiallelic genetic features
-# UCSC chain: TCW; at _____ on 06 June 2022; ____;
+# UCSC chain: TCW; at 03:39:31 on 06 June 2022; queue;
 # Ensembl chain: TCW; at _____ on 06 June 2022; ____;
 ###
 # with decomposition of multiallelic genetic features
