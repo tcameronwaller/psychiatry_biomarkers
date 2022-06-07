@@ -22,8 +22,8 @@ path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
 path_directory_mayo_genotype_parent="${path_dock}/genotype_mayo_bipolar_no_decomposition"
 path_directory_genotype_preparation_vcf="${path_directory_mayo_genotype_parent}/preparation_vcf"
 # Mapping from genome assembly GRCh38 to GRCh37.
-#host="ucsc"
-host="ensembl"
+host="ucsc"
+#host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -106,13 +106,13 @@ fi
 # review: TCW; 5 June 2022; I think it's ready here... need to update driver scripts
 
 # without decomposition of multiallelic genetic features
-# UCSC chain: TCW; at 23:36:10 on 06 June 2022; ___;
-# Ensembl chain: TCW; at  on 06 June 2022; ___;
+# UCSC chain: TCW; at 23:36:10 on 06 June 2022; complete;
+# Ensembl chain: TCW; at 23:39:51 on 06 June 2022; complete;
 ###
 # with decomposition of multiallelic genetic features
 # UCSC chain: TCW; at 09:01:31 on 06 June 2022; complete; were there errors in mapping?
 # Ensembl chain: TCW; at 09:34:52 on 06 June 2022; complete; seem to be extensive errors (loss) in mapping
-if true; then
+if false; then
   # Initialize directory.
   rm -r $path_directory_genotype_assembly_vcf
   mkdir -p $path_directory_genotype_assembly_vcf
@@ -148,12 +148,14 @@ fi
 # Sort records for genetic features.
 # Split into separate genotype files by chromosome.
 
-
+# without decomposition of multiallelic genetic features
+# UCSC chain: TCW; at _____ on 06 June 2022; ____;
+# Ensembl chain: TCW; at _____ on 06 June 2022; ____;
 ###
 # with decomposition of multiallelic genetic features
 # UCSC chain: TCW; at 11:34:57 on 06 June 2022; running
 # Ensembl chain: TCW; at 11:54:22 on 06 June 2022; complete
-if false; then
+if true; then
   # Initialize directory.
   rm -r $path_directory_genotype_combination_vcf
   mkdir -p $path_directory_genotype_combination_vcf
