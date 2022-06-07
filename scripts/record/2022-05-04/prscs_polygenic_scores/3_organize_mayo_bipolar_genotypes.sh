@@ -22,8 +22,8 @@ path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
 path_directory_mayo_genotype_parent="${path_dock}/genotype_mayo_bipolar_no_decomposition"
 path_directory_genotype_preparation_vcf="${path_directory_mayo_genotype_parent}/preparation_vcf"
 # Mapping from genome assembly GRCh38 to GRCh37.
-#host="ucsc"
-host="ensembl"
+host="ucsc"
+#host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -106,8 +106,8 @@ fi
 # review: TCW; 5 June 2022; I think it's ready here... need to update driver scripts
 
 # without decomposition of multiallelic genetic features
-# UCSC chain: TCW; at 22:53:41 on 06 June 2022; queue;
-# Ensembl chain: TCW; at ___ on 06 June 2022; ___;
+# UCSC chain: TCW; at  on 06 June 2022; ___;
+# Ensembl chain: TCW; at  on 06 June 2022; ___;
 ###
 # with decomposition of multiallelic genetic features
 # UCSC chain: TCW; at 09:01:31 on 06 June 2022; complete; were there errors in mapping?
@@ -123,7 +123,7 @@ if true; then
   chromosome_x="true"
   prefix_file_genotype_vcf_product="genotype_grch37_chromosome_" # do not expand with full path yet
   suffix_file_genotype_vcf_product=".vcf.gz"
-  threads=16
+  threads=32
   report="true"
   # Convert information from genotype files in VCF format to BIM format.
   /usr/bin/bash "${path_script_map_genome_assembly}" \
@@ -148,6 +148,9 @@ fi
 # Sort records for genetic features.
 # Split into separate genotype files by chromosome.
 
+
+###
+# with decomposition of multiallelic genetic features
 # UCSC chain: TCW; at 11:34:57 on 06 June 2022; running
 # Ensembl chain: TCW; at 11:54:22 on 06 June 2022; complete
 if false; then
