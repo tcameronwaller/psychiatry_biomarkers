@@ -22,8 +22,8 @@ path_mayo_bipolar_genotype_raw="${path_dock}/access/mayo_bipolar_genotype_raw"
 path_directory_mayo_genotype_parent="${path_dock}/genotype_mayo_bipolar_no_decomposition"
 path_directory_genotype_preparation_vcf="${path_directory_mayo_genotype_parent}/preparation_vcf"
 # Mapping from genome assembly GRCh38 to GRCh37.
-#host="ucsc"
-host="ensembl"
+host="ucsc"
+#host="ensembl"
 if [[ "$host" == "ucsc" ]]; then
   path_assembly_translation_chain="${path_dock}/access/human_genome_assembly_chain/ucsc/hg38ToHg19.over.chain.gz"
 elif [[ "$host" == "ensembl" ]]; then
@@ -212,7 +212,7 @@ fi
 # Format records for genetic features (chromosomal identifier) in new chromosomal genotype files.
 # Annotate records for genetic features with rsIDs in new chromosomal genotype files.
 
-# UCSC chain: TCW; at 09:11:32 on 08 June 2022; running
+# UCSC chain: TCW; at ___ on 08 June 2022; ___
 # Ensembl chain: TCW; at ___ on 08 June 2022;
 if true; then
   # Initialize directory.
