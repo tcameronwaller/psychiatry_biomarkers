@@ -213,7 +213,7 @@ fi
 # Annotate records for genetic features with rsIDs in new chromosomal genotype files.
 
 # UCSC chain: TCW; at 11:20:17 on 08 June 2022; running
-# Ensembl chain: TCW; at ___ on 08 June 2022;
+# Ensembl chain: TCW; at 13:08:51 on 08 June 2022; queue
 if true; then
   # Initialize directory.
   rm -r $path_directory_genotype_format_annotation_vcf

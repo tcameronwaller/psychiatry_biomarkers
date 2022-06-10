@@ -37,14 +37,20 @@ fi
 
 # Execute procedure(s).
 
+# UK Biobank
 #python3 $path_package/interface.py main --path_dock $path_dock --assembly # TCW; 30 March 2022
 #python3 $path_package/interface.py main --path_dock $path_dock --importation # TCW; 31 March 2022
-python3 $path_package/interface.py main --path_dock $path_dock --organization # TCW; 07 June 2022
+#python3 $path_package/interface.py main --path_dock $path_dock --organization # TCW; 07 June 2022
 #python3 $path_package/interface.py main --path_dock $path_dock --stratification # TCW; 09 April 2022, 11 April 2022
 
 #python3 $path_package/interface.py main --path_dock $path_dock --collection # TCW; 20 April 2022
 #python3 $path_package/interface.py main --path_dock $path_dock --regression # TCW; 20 April 2022
 #python3 $path_package/interface.py main --path_dock $path_dock --description # TCW; 01 June 2022
+
+# Bipolar Biobank
+python3 $path_package/interface.py main --path_dock $path_dock --assembly_bipolar # TCW; 10 June 2022
+
+
 
 #python3 $path_package/interface.py main --path_dock $path_dock --scratch
 

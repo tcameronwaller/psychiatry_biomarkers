@@ -28,6 +28,10 @@ import description
 import regression
 import collection
 import scratch
+
+import assembly_bipolar
+
+
 #import plot
 #import utility
 
@@ -169,6 +173,13 @@ def define_main_subparser(subparsers=None):
         action="store_true",
         help=(
             "Assemble phenotype information from UK Biobank."
+        )
+    )
+    parser_main.add_argument(
+        "-assembly_bipolar", "--assembly_bipolar", dest="assembly_bipolar",
+        action="store_true",
+        help=(
+            "Assemble phenotype information from Bipolar Biobank."
         )
     )
     parser_main.add_argument(
@@ -325,6 +336,13 @@ def evaluate_main_parameters(arguments):
         print("... executing assembly procedure ...")
         # Execute procedure.
         assembly.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.assembly_bipolar:
+        # Report status.
+        print("... executing assembly_bipolar procedure ...")
+        # Execute procedure.
+        assembly_bipolar.execute_procedure(
             path_dock=arguments.path_dock
         )
     if arguments.importation:

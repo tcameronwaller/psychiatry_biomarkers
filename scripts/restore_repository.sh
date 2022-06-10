@@ -53,6 +53,18 @@ mv uk_biobank-main $path_uk_biobank
 mv "$path_uk_biobank/package" "$path_uk_biobank/uk_biobank"
 cp -r "$path_uk_biobank/uk_biobank" "$path_repository/${project}/uk_biobank"
 
+# Repository: bipolar_biobank
+# Scripts remain within original repository's structure.
+# Python code transfers to a sub-package within main package.
+echo "access current version of the bipolar_biobank repository..."
+cd $path_process
+wget https://github.com/tcameronwaller/bipolar_biobank/archive/main.zip
+unzip main.zip
+rm main.zip
+mv bipolar_biobank-main $path_bipolar_biobank
+mv "$path_bipolar_biobank/package" "$path_bipolar_biobank/bipolar_biobank"
+cp -r "$path_bipolar_biobank/bipolar_biobank" "$path_repository/${project}/bipolar_biobank"
+
 # Repository: promiscuity
 # Scripts remain within original repository's structure.
 # Python code transfers to sub-package.
@@ -73,5 +85,7 @@ cp -r "$path_repository/parameters" "$path_parameters/parameters"
 mv "$path_parameters/parameters" "$path_parameters/${project}"
 cp -r "$path_uk_biobank/parameters" "$path_parameters/parameters"
 mv "$path_parameters/parameters" "$path_parameters/uk_biobank"
+cp -r "$path_bipolar_biobank/parameters" "$path_parameters/parameters"
+mv "$path_parameters/parameters" "$path_parameters/bipolar_biobank"
 cp -r "$path_promiscuity/parameters" "$path_parameters/parameters"
 mv "$path_parameters/parameters" "$path_parameters/promiscuity"
