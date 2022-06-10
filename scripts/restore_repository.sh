@@ -13,6 +13,7 @@ cd ~/paths
 path_process=$(<"./process_${project}.txt")
 path_repository="$path_process/${project}"
 path_uk_biobank="$path_process/uk_biobank"
+path_bipolar_biobank="$path_process/bipolar_biobank"
 path_promiscuity="$path_process/promiscuity"
 path_parameters="$path_process/dock/parameters"
 
@@ -24,6 +25,7 @@ set -x
 echo "remove previous versions of the repositories..."
 rm -r $path_repository
 rm -r $path_uk_biobank
+rm -r $path_bipolar_biobank
 rm -r $path_promiscuity
 rm -r $path_parameters
 
