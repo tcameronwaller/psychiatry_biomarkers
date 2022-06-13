@@ -195,68 +195,16 @@ def execute_procedure(
     # Pause procedure.
     time.sleep(5.0)
 
-    # Initialize directories.
-    paths = ukb_organization.initialize_directories(
-        restore=True,
-        path_dock=path_dock,
-    )
-    # Read source information from file.
-    # Exclusion identifiers are "eid".
-    source = ukb_organization.read_source(
-        source="importation",
-        path_dock=path_dock,
-        report=True,
-    )
-    # Organize variables for persons' genotypes, sex, age, and body mass index
-    # across the UK Biobank.
-    pail_basis = ukb_organization.execute_genotype_assessment_basis(
-        table=source["table_phenotypes"],
-        path_dock=path_dock,
-        report=True,
-    )
-    if True:
-        # Organize variables for persons' sex hormones across the UK Biobank.
-        pail_hormone = ukb_organization.execute_sex_hormones(
-            table=pail_basis["table"],
-            path_dock=path_dock,
-            report=True,
-        )
-        # Organize variables for female menstruation across the UK Biobank.
-        pail_female = ukb_organization.execute_female_menstruation(
-            table=pail_hormone["table"],
-            report=True,
-        )
-        # Organize variables for persons' alcohol consumption across the UK Biobank.
-        pail_alcohol = ukb_organization.execute_alcohol(
-            table=pail_female["table"],
-            report=True,
-        )
-        # Organize variables for persons' mental health across the UK Biobank.
-        pail_psychology = ukb_organization.execute_psychology_psychiatry(
-            table=pail_alcohol["table"],
-            path_dock=path_dock,
-            report=True,
-        )
-        #print(pail_psychology["table_clean"].columns.to_list())
-    if False:
-        # Organize variables for female menstruation across the UK Biobank.
-        pail_female = ukb_organization.execute_female_menstruation(
-            table=pail_basis["table"],
-            report=True,
-        )
+    utility.print_terminal_partition(level=1)
+    print(path_dock)
+    print("version check: 1")
+    # Pause procedure.
+    time.sleep(5.0)
 
-    # Collect information.
-    information = dict()
-    information["organization"] = dict()
-    #information["organization"]["table_phenotypes"] = pail_basis["table"]
-    #information["organization"]["table_phenotypes"] = pail_hormone["table"]
-    #information["organization"]["table_phenotypes"] = pail_female["table"]
-    information["organization"]["table_phenotypes"] = pail_psychology["table"]
-    # Write product information to file.
-    ukb_organization.write_product(
-        paths=paths,
-        information=information
-    )
+    # Execute assembly procedure from uk_biobank package.
+    uk_biobank.organization.execute_procedure(path_dock=path_dock)
+    utility.print_terminal_partition(level=1)
+    print("From package 'uk_biobank', procedure 'organization' is complete.")
     pass
 
 
