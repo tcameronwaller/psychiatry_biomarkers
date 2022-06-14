@@ -29,8 +29,9 @@ import regression
 import collection
 import scratch
 
-import assembly_bipolar
-
+# Call subpackage module execution functions directly.
+import bipolar_biobank.assembly
+import bipolar_biobank.organization
 
 #import plot
 #import utility
@@ -56,9 +57,9 @@ def define_interface_parsers():
     """
 
     # Define description.
-    description = define_general_description()
+    description = define_description_general()
     # Define epilog.
-    epilog = define_general_epilog()
+    epilog = define_epilog_general()
     # Define arguments.
     parser = argparse.ArgumentParser(
         description=description,
@@ -66,13 +67,16 @@ def define_interface_parsers():
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     subparsers = parser.add_subparsers(title="procedures")
-    parser_main = define_main_subparser(subparsers=subparsers)
+    parser_main = define_subparser_main(subparsers=subparsers)
+    parser_bipolar_biobank = define_subparser_bipolar_biobank(
+        subparsers=subparsers
+    )
     # TODO: add other subparsers here...
     # Parse arguments.
     return parser.parse_args()
 
 
-def define_general_description():
+def define_description_general():
     """
     Defines description for terminal interface.
 
@@ -97,7 +101,7 @@ def define_general_description():
     return description
 
 
-def define_general_epilog():
+def define_epilog_general():
     """
     Defines epilog for terminal interface.
 
@@ -119,7 +123,7 @@ def define_general_epilog():
     return epilog
 
 
-def define_main_subparser(subparsers=None):
+def define_subparser_main(subparsers=None):
     """
     Defines subparser for procedures that adapt a model of human metabolism.
 
@@ -134,11 +138,11 @@ def define_main_subparser(subparsers=None):
     """
 
     # Define description.
-    description = define_main_description()
+    description = define_description_main()
     # Define epilog.
-    epilog = define_main_epilog()
+    epilog = define_epilog_main()
     # Define parser.
-    parser_main = subparsers.add_parser(
+    parser = subparsers.add_parser(
         name="main",
         description=description,
         epilog=epilog,
@@ -146,14 +150,14 @@ def define_main_subparser(subparsers=None):
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     # Define arguments.
-    parser_main.add_argument(
+    parser.add_argument(
         "-path_dock", "--path_dock", dest="path_dock", type=str, required=True,
         help=(
             "Path to dock directory for source and product " +
             "directories and files."
         )
     )
-    parser_main.add_argument(
+    parser.add_argument(
         "-genetic_correlation", "--genetic_correlation",
         dest="genetic_correlation",
         action="store_true",
@@ -161,42 +165,35 @@ def define_main_subparser(subparsers=None):
             "Genetic correlations for metabolites from multiple GWAS."
         )
     )
-    parser_main.add_argument(
+    parser.add_argument(
         "-aggregation", "--aggregation", dest="aggregation",
         action="store_true",
         help=(
             "Aggregation of genetic scores for metabolites across UK Biobank."
         )
     )
-    parser_main.add_argument(
+    parser.add_argument(
         "-assembly", "--assembly", dest="assembly",
         action="store_true",
         help=(
             "Assemble phenotype information from UK Biobank."
         )
     )
-    parser_main.add_argument(
-        "-assembly_bipolar", "--assembly_bipolar", dest="assembly_bipolar",
-        action="store_true",
-        help=(
-            "Assemble phenotype information from Bipolar Biobank."
-        )
-    )
-    parser_main.add_argument(
+    parser.add_argument(
         "-importation", "--importation", dest="importation",
         action="store_true",
         help=(
             "Assemble phenotype information from UK Biobank."
         )
     )
-    parser_main.add_argument(
+    parser.add_argument(
         "-organization", "--organization", dest="organization",
         action="store_true",
         help=(
             "Organize phenotype information from UK Biobank."
         )
     )
-    parser_main.add_argument(
+    parser.add_argument(
         "-stratification", "--stratification",
         dest="stratification",
         action="store_true",
@@ -205,7 +202,7 @@ def define_main_subparser(subparsers=None):
             "and covariates for genetic analyses (especially GWAS in PLINK2)."
         )
     )
-    parser_main.add_argument(
+    parser.add_argument(
         "-description", "--description",
         dest="description",
         action="store_true",
@@ -214,7 +211,7 @@ def define_main_subparser(subparsers=None):
             "and plots."
         )
     )
-    parser_main.add_argument(
+    parser.add_argument(
         "-regression", "--regression",
         dest="regression",
         action="store_true",
@@ -222,7 +219,7 @@ def define_main_subparser(subparsers=None):
             "Regression analyses of phenotypes within cohorts."
         )
     )
-    parser_main.add_argument(
+    parser.add_argument(
         "-collection", "--collection",
         dest="collection",
         action="store_true",
@@ -230,7 +227,7 @@ def define_main_subparser(subparsers=None):
             "Collection and summary of reports from genotypic analyses."
         )
     )
-    parser_main.add_argument(
+    parser.add_argument(
         "-scratch", "--scratch",
         dest="scratch",
         action="store_true",
@@ -239,12 +236,67 @@ def define_main_subparser(subparsers=None):
         )
     )
     # Define behavior.
-    parser_main.set_defaults(func=evaluate_main_parameters)
+    parser.set_defaults(func=evaluate_parameters_main)
     # Return parser.
-    return parser_main
+    return parser
 
 
-def define_main_description():
+def define_subparser_bipolar_biobank(subparsers=None):
+    """
+    Defines subparser for procedures that adapt a model of human metabolism.
+
+    arguments:
+        subparsers (object): reference to subparsers' container
+
+    raises:
+
+    returns:
+        (object): reference to parser
+
+    """
+
+    # Define description.
+    description = define_description_bipolar_biobank()
+    # Define epilog.
+    epilog = define_epilog_bipolar_biobank()
+    # Define parser.
+    parser = subparsers.add_parser(
+        name="bipolar_biobank",
+        description=description,
+        epilog=epilog,
+        help="Help for bipolar_biobank routine.",
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    # Define arguments.
+    parser.add_argument(
+        "-path_dock", "--path_dock", dest="path_dock", type=str, required=True,
+        help=(
+            "Path to dock directory for source and product " +
+            "directories and files."
+        )
+    )
+    parser.add_argument(
+        "-assembly", "--assembly", dest="assembly",
+        action="store_true",
+        help=(
+            "Assemble phenotype information from Bipolar Biobank."
+        )
+    )
+    parser.add_argument(
+        "-organization", "--organization", dest="organization",
+        action="store_true",
+        help=(
+            "Organize phenotype information from Bipolar Biobank."
+        )
+    )
+
+    # Define behavior.
+    parser.set_defaults(func=evaluate_parameters_bipolar_biobank)
+    # Return parser.
+    return parser
+
+
+def define_description_main():
     """
     Defines description for terminal interface.
 
@@ -271,7 +323,7 @@ def define_main_description():
     return description
 
 
-def define_main_epilog():
+def define_epilog_main():
     """
     Defines epilog for terminal interface.
 
@@ -300,7 +352,63 @@ def define_main_epilog():
     return epilog
 
 
-def evaluate_main_parameters(arguments):
+def define_description_bipolar_biobank():
+    """
+    Defines description for terminal interface.
+
+    arguments:
+
+    raises:
+
+    returns:
+        (str): description for terminal interface
+
+    """
+
+    description = textwrap.dedent("""\
+        --------------------------------------------------
+        --------------------------------------------------
+        --------------------------------------------------
+
+        Package's main procedure
+
+        Do stuff.
+
+        --------------------------------------------------
+    """)
+    return description
+
+
+def define_epilog_bipolar_biobank():
+    """
+    Defines epilog for terminal interface.
+
+    arguments:
+
+    raises:
+
+    returns:
+        (str): epilog for terminal interface
+
+    """
+
+    epilog = textwrap.dedent("""\
+
+        --------------------------------------------------
+        main routine
+
+        --------------------------------------------------
+        additional notes...
+
+
+        --------------------------------------------------
+        --------------------------------------------------
+        --------------------------------------------------
+    """)
+    return epilog
+
+
+def evaluate_parameters_main(arguments):
     """
     Evaluates parameters for model procedure.
 
@@ -336,13 +444,6 @@ def evaluate_main_parameters(arguments):
         print("... executing assembly procedure ...")
         # Execute procedure.
         assembly.execute_procedure(
-            path_dock=arguments.path_dock
-        )
-    if arguments.assembly_bipolar:
-        # Report status.
-        print("... executing assembly_bipolar procedure ...")
-        # Execute procedure.
-        assembly_bipolar.execute_procedure(
             path_dock=arguments.path_dock
         )
     if arguments.importation:
@@ -395,6 +496,40 @@ def evaluate_main_parameters(arguments):
             path_dock=arguments.path_dock
         )
     pass
+
+
+def evaluate_parameters_bipolar_biobank(arguments):
+    """
+    Evaluates parameters for model procedure.
+
+    arguments:
+        arguments (object): arguments from terminal
+
+    raises:
+
+    returns:
+
+    """
+
+    print("--------------------------------------------------")
+    print("... call to bipolar_biobank routine ...")
+    # Execute procedure.
+    if arguments.assembly:
+        # Report status.
+        print("... executing assembly procedure ...")
+        # Execute procedure.
+        bipolar_biobank.assembly.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.organization:
+        # Report status.
+        print("... executing organization procedure ...")
+        # Execute procedure.
+        bipolar_biobank.organization.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    pass
+
 
 
 ###############################################################################
