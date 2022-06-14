@@ -32,6 +32,7 @@ import scratch
 # Call subpackage module execution functions directly.
 import bipolar_biobank.assembly
 import bipolar_biobank.organization
+import bipolar_biobank.regression
 
 #import plot
 #import utility
@@ -289,6 +290,13 @@ def define_subparser_bipolar_biobank(subparsers=None):
             "Organize phenotype information from Bipolar Biobank."
         )
     )
+    parser.add_argument(
+        "-regression", "--regression", dest="regression",
+        action="store_true",
+        help=(
+            "Regression analyses on phenotype information from Bipolar Biobank."
+        )
+    )
 
     # Define behavior.
     parser.set_defaults(func=evaluate_parameters_bipolar_biobank)
@@ -526,6 +534,13 @@ def evaluate_parameters_bipolar_biobank(arguments):
         print("... executing organization procedure ...")
         # Execute procedure.
         bipolar_biobank.organization.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.regression:
+        # Report status.
+        print("... executing regression procedure ...")
+        # Execute procedure.
+        bipolar_biobank.regression.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass
