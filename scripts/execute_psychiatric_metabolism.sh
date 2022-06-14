@@ -48,8 +48,8 @@ fi
 #python3 $path_package/interface.py main --path_dock $path_dock --description # TCW; 01 June 2022
 
 # Bipolar Biobank
-#python3 $path_package/interface.py bipolar_biobank --path_dock $path_dock --bipolar_assembly # TCW; 13 June 2022
-python3 $path_package/interface.py bipolar_biobank --path_dock $path_dock --bipolar_organization # TCW; 13 June 2022
+#python3 $path_package/interface.py bipolar_biobank --path_dock $path_dock --assembly # TCW; 13 June 2022
+python3 $path_package/interface.py bipolar_biobank --path_dock $path_dock --organization # TCW; 13 June 2022
 
 
 
