@@ -33,6 +33,9 @@ import scratch
 import bipolar_biobank.assembly
 import bipolar_biobank.organization
 import bipolar_biobank.regression
+import bipolar_biobank.cita_assembly
+#import bipolar_biobank.cita_organization
+#import bipolar_biobank.cita_regression
 
 #import plot
 #import utility
@@ -298,6 +301,14 @@ def define_subparser_bipolar_biobank(subparsers=None):
         )
     )
 
+    parser.add_argument(
+        "-cita_assembly", "--cita_assembly", dest="cita_assembly",
+        action="store_true",
+        help=(
+            "Assemble phenotype information from CITA Biobank."
+        )
+    )
+
     # Define behavior.
     parser.set_defaults(func=evaluate_parameters_bipolar_biobank)
     # Return parser.
@@ -541,6 +552,13 @@ def evaluate_parameters_bipolar_biobank(arguments):
         print("... executing regression procedure ...")
         # Execute procedure.
         bipolar_biobank.regression.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.cita_assembly:
+        # Report status.
+        print("... executing cita_assembly procedure ...")
+        # Execute procedure.
+        bipolar_biobank.cita_assembly.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass
