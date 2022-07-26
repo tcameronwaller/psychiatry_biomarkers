@@ -3,6 +3,13 @@
 #chmod u+x script.sh
 #chmod -R 777
 
+# TODO: TCW; 25 July 2022
+# TODO: "psychiatric_metabolism" and "sexy_alcohol" will become the main driver packages with the "interface.py".
+# TODO: These main driver packages will have subpackages: "uk_biobank", "local_studies"
+# TODO: Change name of the "main" parser to "uk_biobank", then call uk_biobank procedures directly from "interface.py"
+# TODO: 
+
+
 ################################################################################
 # Activate Python Virtual Environment.
 # Read private, local file paths.
