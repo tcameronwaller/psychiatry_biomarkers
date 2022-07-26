@@ -21,7 +21,6 @@ import textwrap
 # Custom.
 
 import scratch
-
 import uk_biobank.interface
 import stragglers.interface
 
@@ -240,58 +239,9 @@ def evaluate_parameters_main(arguments):
     print("--------------------------------------------------")
     print("... call to main routine ...")
     # Execute procedure.
-    if arguments.assembly:
-        # Report status.
-        print("... executing assembly procedure ...")
-        # Execute procedure.
-        assembly.execute_procedure(
-            path_dock=arguments.path_dock
-        )
-    if arguments.importation:
-        # Report status.
-        print("... executing importation procedure ...")
-        # Execute procedure.
-        importation.execute_procedure(
-            path_dock=arguments.path_dock
-        )
-    if arguments.organization:
-        # Report status.
-        print("... executing organization procedure ...")
-        # Execute procedure.
-        organization.execute_procedure(
-            path_dock=arguments.path_dock
-        )
-    if arguments.stratification:
-        # Report status.
-        print("... executing stratification procedure ...")
-        # Execute procedure.
-        stratification.execute_procedure(
-            path_dock=arguments.path_dock
-        )
-    if arguments.description:
-        # Report status.
-        print("... executing description procedure ...")
-        # Execute procedure.
-        description.execute_procedure(
-            path_dock=arguments.path_dock
-        )
-    if arguments.regression:
-        # Report status.
-        print("... executing regression procedure ...")
-        # Execute procedure.
-        regression.execute_procedure(
-            path_dock=arguments.path_dock
-        )
-    if arguments.collection:
-        # Report status.
-        print("... executing collection procedure ...")
-        # Execute procedure.
-        collection.execute_procedure(
-            path_dock=arguments.path_dock
-        )
     if arguments.scratch:
         # Report status.
-        print("... executing scratch procedure ...")
+        print("... executing 'scratch' procedure ...")
         # Execute procedure.
         scratch.execute_procedure(
             path_dock=arguments.path_dock

@@ -58,10 +58,10 @@ fi
 #python3 $path_package/interface.py uk_biobank --path_dock $path_dock --collection # TCW; 20 April 2022
 
 # Routine: stragglers
-#python3 $path_package/interface.py stragglers --path_dock $path_dock --bipolar_assembly # TCW; 15 June 2022
-#python3 $path_package/interface.py stragglers --path_dock $path_dock --bipolar_organization # TCW; 20 June 2022
-#python3 $path_package/interface.py stragglers --path_dock $path_dock --bipolar_regression # TCW; 20 June 2022
-python3 $path_package/interface.py stragglers --path_dock $path_dock --cita_assembly # TCW; 06 July 2022
+#python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_assembly # TCW; 15 June 2022
+#python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_organization # TCW; 20 June 2022
+#python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_regression # TCW; 20 June 2022
+python3 $path_package/interface.py stragglers --path_dock $path_dock --mcita_assembly # TCW; 06 July 2022
 
 ################################################################################
 # Deactivate Python Virtual Environment.
