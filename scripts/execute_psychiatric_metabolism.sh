@@ -7,7 +7,7 @@
 # TODO: "psychiatric_metabolism" and "sexy_alcohol" will become the main driver packages with the "interface.py".
 # TODO: These main driver packages will have subpackages: "uk_biobank", "local_studies"
 # TODO: Change name of the "main" parser to "uk_biobank", then call uk_biobank procedures directly from "interface.py"
-# TODO: 
+# TODO:
 
 
 ################################################################################
@@ -44,35 +44,24 @@ fi
 
 # Execute procedure(s).
 
-# UK Biobank
+# Routine: main
 #python3 $path_package/interface.py main --path_dock $path_dock --assembly # TCW; 30 March 2022
-#python3 $path_package/interface.py main --path_dock $path_dock --importation # TCW; 31 March 2022
-#python3 $path_package/interface.py main --path_dock $path_dock --organization # TCW; 07 June 2022
-#python3 $path_package/interface.py main --path_dock $path_dock --stratification # TCW; 09 April 2022, 11 April 2022
-
-#python3 $path_package/interface.py main --path_dock $path_dock --collection # TCW; 20 April 2022
-#python3 $path_package/interface.py main --path_dock $path_dock --regression # TCW; 20 April 2022
-#python3 $path_package/interface.py main --path_dock $path_dock --description # TCW; 01 June 2022
-
-# Bipolar Biobank
-#python3 $path_package/interface.py bipolar_biobank --path_dock $path_dock --assembly # TCW; 15 June 2022
-#python3 $path_package/interface.py bipolar_biobank --path_dock $path_dock --organization # TCW; 20 June 2022
-#python3 $path_package/interface.py bipolar_biobank --path_dock $path_dock --regression # TCW; 20 June 2022
-
-# CITA Biobank <-- this is temporary here... it will move to "sexy_alcohol" (TCW; 06 July 2022)
-python3 $path_package/interface.py bipolar_biobank --path_dock $path_dock --cita_assembly # TCW; 06 July 2022
-
-
 #python3 $path_package/interface.py main --path_dock $path_dock --scratch
 
-# Collect and organize heritability estimations for metabolites from GWAS
-# summary statistics of multiple studies on the human metabolome.
-#python3 $path_package/interface.py main --path_dock $path_dock --genetic_correlation
+# Routine: uk_biobank
+#python3 $path_package/interface.py uk_biobank --path_dock $path_dock --assembly # TCW; 30 March 2022
+#python3 $path_package/interface.py uk_biobank --path_dock $path_dock --importation # TCW; 31 March 2022
+#python3 $path_package/interface.py uk_biobank --path_dock $path_dock --organization # TCW; 07 June 2022
+#python3 $path_package/interface.py uk_biobank --path_dock $path_dock --stratification # TCW; 09 April 2022, 11 April 2022
+#python3 $path_package/interface.py uk_biobank --path_dock $path_dock --description # TCW; 01 June 2022
+#python3 $path_package/interface.py uk_biobank --path_dock $path_dock --regression # TCW; 20 April 2022
+#python3 $path_package/interface.py uk_biobank --path_dock $path_dock --collection # TCW; 20 April 2022
 
-# Collect and aggregate genetic scores for metabolites across the UK Biobank.
-#python3 $path_package/interface.py main --path_dock $path_dock --aggregation
-
-
+# Routine: stragglers
+#python3 $path_package/interface.py stragglers --path_dock $path_dock --bipolar_assembly # TCW; 15 June 2022
+#python3 $path_package/interface.py stragglers --path_dock $path_dock --bipolar_organization # TCW; 20 June 2022
+#python3 $path_package/interface.py stragglers --path_dock $path_dock --bipolar_regression # TCW; 20 June 2022
+python3 $path_package/interface.py stragglers --path_dock $path_dock --cita_assembly # TCW; 06 July 2022
 
 ################################################################################
 # Deactivate Python Virtual Environment.
