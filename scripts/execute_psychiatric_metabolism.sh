@@ -45,7 +45,6 @@ fi
 # Execute procedure(s).
 
 # Routine: main
-#python3 $path_package/interface.py main --path_dock $path_dock --assembly # TCW; 30 March 2022
 #python3 $path_package/interface.py main --path_dock $path_dock --scratch
 
 # Routine: uk_biobank
