@@ -12,7 +12,9 @@ path_plink2=$(<"./tools_plink2.txt")
 path_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_process}/dock"
 
-path_directory_genetic_reference_prscs="${path_directory_dock}/access/genetic_reference_prscs"
+reference_population="1000_genomes"
+#reference_population="uk_biobank"
+path_directory_genetic_reference_prscs="${path_directory_dock}/access/genetic_reference_prscs/${reference_population}"
 host="ucsc"
 #host="ensembl"
 path_directory_genotypes_snp_bim="${path_directory_dock}/genotypes_snp_bim/mayo_bipolar_biobank_grch37_${host}_snp_bim"
