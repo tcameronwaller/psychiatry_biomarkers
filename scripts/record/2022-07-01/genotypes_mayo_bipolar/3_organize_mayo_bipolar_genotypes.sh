@@ -43,7 +43,7 @@ path_file_translations_chromosomes_mayo="${path_parameters}/promiscuity/translat
 path_file_dbsnp_grch37="${path_dock}/access/dbsnp/grch37_format/GCF_000001405.25.gz"
 path_directory_genotype_format_annotation_vcf="${path_directory_mayo_genotype_parent}/grch37_${host}_format_annotation_vcf"
 
-#### work in progress... ###
+#### work in progress... ### no longer relevant to this driver script as of 18 August 2022 (TCW)
 # Extraction of relevant genetic features to file in BIM format.
 path_genotype_snp_relevance_bim="${path_mayo_bipolar_genotype_format}/genotype_snp_relevance_bim"
 
@@ -55,7 +55,7 @@ path_script_combine_vcf="${path_promiscuity_scripts}/utility/bcftools/1_submit_b
 path_script_split_vcf_chromosomes="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_split_genotype_vcf_by_chromosomes.sh"
 path_script_preparation_format_annotation="${path_promiscuity_scripts}/utility/bcftools/1_submit_batch_chromosomes_preparation_format_annotation_genotype_vcf.sh"
 
-#### work in progress... ###
+#### work in progress... ### no longer relevant to this driver script as of 18 August 2022 (TCW)
 path_script_drive_extract_vcf_to_bim="${path_promiscuity_scripts}/utility/plink/drive_directory_all_extract_vcf_snps_to_plink_bim.sh"
 
 ###########################################################################
@@ -251,6 +251,7 @@ fi
 # TODO: TCW; 18 August 2022
 # TODO: this function below (extraction of SNP info to BIM) is specific to use in PRS-CSX
 # TODO: move this function to the the driver scripts for PRS-CSX
+# TODO: see scripts within "/.../2022-09-26/prscs_polygenic_scores/"
 
 
 ###########################################################################

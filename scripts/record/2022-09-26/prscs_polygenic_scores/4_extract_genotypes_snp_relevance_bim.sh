@@ -8,8 +8,8 @@ path_plink2=$(<"./tools_plink2.txt")
 path_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_process}/dock"
 
-host="ucsc"
-#host="ensembl"
+#host="ucsc"
+host="ensembl"
 path_directory_genotypes_vcf="${path_directory_dock}/access/mayo_bipolar_biobank_genotypes/grch37_${host}_format_annotation_vcf"
 path_directory_genotypes_snp_bim="${path_directory_dock}/genotypes_snp_bim/mayo_bipolar_biobank_grch37_${host}_snp_bim"
 
@@ -31,7 +31,7 @@ set -x
 ################################################################################
 # Extract relevant genetic features (SNPs) to from VCF to BIM format.
 
-# UCSC chain: TCW; ___ 2022; ___
+# UCSC chain: TCW; 18 August 2022; complete
 # Ensembl chain: TCW; ___ 2022; ___
 if true; then
   # Organize specific paths and parameters.
