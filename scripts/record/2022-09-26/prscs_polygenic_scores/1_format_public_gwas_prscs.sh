@@ -32,7 +32,6 @@ mkdir -p $path_gwas_product_container
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-#path_script_drive_format_gwas="${path_promiscuity_scripts}/utility/prscs_polygenic_score/drive_format_gwas_prscs.sh"
 path_script_format_gwas="${path_promiscuity_scripts}/gwas_process/format_gwas_prscs/format_gwas_prscs_34002096_mullins_2021_all_no_mayo.sh"
 
 ################################################################################
