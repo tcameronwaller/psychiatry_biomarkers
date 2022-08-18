@@ -16,8 +16,8 @@ path_source_gwas_summary_compression="${path_dock}/gwas_format_prscs/34002096_mu
 path_source_gwas_summary="${path_dock}/gwas_format_prscs/34002096_mullins_2021_all_no_mayo/gwas_format.txt"
 host="ucsc"
 #host="ensembl"
-path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_genotype_grch37_${host}_format"
-path_genotype_snp_bim_directory="${path_mayo_bipolar_genotype_format}/genotype_snp_relevance_bim"
+path_mayo_bipolar_genotype_format="${path_dock}/access/mayo_bipolar_biobank_genotypes/grch37_${host}_format_annotation_vcf"
+path_genotype_snp_bim_directory="${path_mayo_bipolar_genotype_format}/grch37_${host}_snp_relevance_bim"
 path_genetic_reference_prscs="${path_dock}/access/genetic_reference_prscs"
 path_product_allele_effect_directory="${path_dock}/prscs_allelic_effects_${host}"
 

@@ -245,6 +245,14 @@ if true; then
   $report
 fi
 
+
+
+
+# TODO: TCW; 18 August 2022
+# TODO: this function below (extraction of SNP info to BIM) is specific to use in PRS-CSX
+# TODO: move this function to the the driver scripts for PRS-CSX
+
+
 ###########################################################################
 # Extract information from VCF to BIM.
 
