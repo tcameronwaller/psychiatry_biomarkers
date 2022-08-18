@@ -47,10 +47,10 @@ if true; then
   gzip --decompress --stdout $path_file_gwas_summary_compression > $path_file_gwas_summary
   count_gwas_samples=411778
   # file pattern: "genotype_grch37_chromosome_*.vcf.gz"
-  prefix_genotype_snp_bim_file="genotype_grch37_chromosome_" # do not expand with full path yet
-  suffix_genotype_snp_bim_file=".vcf.gz" # omit the ".bim" suffix
+  prefix_file_genotype_snp_bim="genotype_grch37_chromosome_" # do not expand with full path yet
+  suffix_file_genotype_snp_bim=".vcf.gz" # omit the ".bim" suffix
   population_ancestry="EUR"
-  name_file_product_prefix="bpd"
+  name_file_allele_effect_prefix="bpd"
   chromosome_x="false"
   threads=1
   report="true"
@@ -59,12 +59,12 @@ if true; then
   $path_file_gwas_summary \
   $count_gwas_samples \
   $path_directory_genotypes_snp_bim \
-  $prefix_genotype_snp_bim_file \
-  $suffix_genotype_snp_bim_file \
+  $prefix_file_genotype_snp_bim \
+  $suffix_file_genotype_snp_bim \
   $path_directory_genetic_reference_prscs \
   $population_ancestry \
   $path_directory_allele_effect \
-  $name_file_product_prefix \
+  $name_file_allele_effect_prefix \
   $chromosome_x \
   $threads \
   $path_directory_promiscuity_scripts \
