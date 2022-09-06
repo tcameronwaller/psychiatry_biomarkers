@@ -58,8 +58,8 @@ fi
 
 # Routine: stragglers
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_assembly # TCW; 6 September 2022
-python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_organization # TCW; 6 September 2022
-#python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_regression # TCW; 6 September 2022
+#python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_organization # TCW; 6 September 2022
+python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_regression # TCW; 6 September 2022
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mcita_assembly # TCW; 06 July 2022
 
 ################################################################################
