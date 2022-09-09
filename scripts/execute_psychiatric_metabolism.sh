@@ -57,9 +57,11 @@ fi
 #python3 $path_package/interface.py uk_biobank --path_dock $path_dock --collection # TCW; 20 April 2022
 
 # Routine: stragglers
+
+python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_prioritize_supplement # TCW; 12 September 2022
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_assembly # TCW; 6 September 2022
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_organization # TCW; 7 September 2022
-python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_regression # TCW; 7 September 2022
+#python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_regression # TCW; 7 September 2022
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mcita_assembly # TCW; 06 July 2022
 
 ################################################################################
