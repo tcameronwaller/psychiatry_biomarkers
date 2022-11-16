@@ -34,7 +34,7 @@ path_directory_product="${path_dock}/bipolar_body/gwas_access"
 # Scripts.
 
 # Initialize directories.
-#rm -r $path_directory_product
+rm -r $path_directory_product
 mkdir -p $path_directory_product
 
 # Report.
@@ -100,7 +100,7 @@ for study_details in "${studies[@]}"; do
   path_file_source="${array[0]}"
   path_file_product="${array[1]}"
   # Copy the source file path to the product file path.
-  #cp $path_file_source $path_file_product
+  cp $path_file_source $path_file_product
   # Report.
   if [[ "$report" == "true" ]]; then
     echo "----------"
