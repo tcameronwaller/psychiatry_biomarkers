@@ -3,8 +3,10 @@
 ###########################################################################
 ###########################################################################
 ###########################################################################
-# TODO: TCW; 15 November 2022
-# TODO: verify the file paths and file names against the "table_bipolar_body_gwas_summary.ods"
+# Review: TCW; 16 November 2022
+# Verified that file paths and file names match those in file
+# "table_bipolar_body_gwas_summary.ods".
+
 
 # next script in pipeline
 # 1. translate format of all GWAS summary stats files to the common team format
@@ -27,13 +29,16 @@ path_bipolar_batzler=$(<"./mayo_bipolar_batzler.txt")
 path_bipolar_coombes=$(<"./mayo_bipolar_coombes.txt")
 
 path_dock="$path_process/dock"
-path_directory_product="${path_dock}/gwas_access"
+path_directory_product="${path_dock}/bipolar_body/gwas_access"
 
 # Scripts.
 
 # Initialize directories.
 #rm -r $path_directory_product
 mkdir -p $path_directory_product
+
+# Report.
+report="true"
 
 ###########################################################################
 # Execute procedure.
@@ -95,13 +100,23 @@ for study_details in "${studies[@]}"; do
   path_file_source="${array[0]}"
   path_file_product="${array[1]}"
   # Copy the source file path to the product file path.
-  cp $path_file_source $path_file_product
+  #cp $path_file_source $path_file_product
+  # Report.
+  if [[ "$report" == "true" ]]; then
+    echo "----------"
+    echo "Source file path:"
+    echo $path_file_source
+    echo "Product file path:"
+    echo $path_file_product
+    echo "----------"
+  fi
 done
 
 ################################################################################
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
+  echo "Script complete:"
   echo "1_access_copy_gwas.sh"
   echo "----------"
 fi
