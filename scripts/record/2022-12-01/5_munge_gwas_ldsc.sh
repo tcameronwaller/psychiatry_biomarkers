@@ -17,19 +17,20 @@
 
 ################################################################################
 # Organize paths.
-
 # Read private, local file paths.
 cd ~/paths
 path_process=$(<"./process_psychiatric_metabolism.txt")
 
 path_dock="$path_process/dock"
-path_directory_source="${path_dock}/bipolar_body/gwas_format_team"
-path_directory_product="${path_dock}/bipolar_body/gwas_format_ldsc"
+path_directory_source="${path_dock}/bipolar_body/gwas_format_ldsc"
+path_directory_product="${path_dock}/bipolar_body/gwas_munge_ldsc"
+path_directory_reference="${path_dock}/bipolar_body/reference_ldsc"
+path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_directory_format="${path_promiscuity_scripts}/gwas_process/format_gwas_ldsc"
-path_script="${path_directory_format}/constrain_translate_gwas_team.sh"
+path_directory_ldsc="${path_promiscuity_scripts}/utility/ldsc"
+path_script="${path_directory_ldsc}/munge_gwas_ldsc.sh"
 
 # Initialize directories.
 rm -r $path_directory_product
