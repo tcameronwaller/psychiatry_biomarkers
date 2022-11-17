@@ -17,6 +17,7 @@
 
 ################################################################################
 # Organize paths.
+
 # Read private, local file paths.
 cd ~/paths
 path_process=$(<"./process_psychiatric_metabolism.txt")
