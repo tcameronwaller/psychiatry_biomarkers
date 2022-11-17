@@ -27,7 +27,7 @@ path_directory_product="${path_dock}/bipolar_body/gwas_format_team"
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_directory_format_team="${path_promiscuity_scripts}/gwas_process/format_gwas_team"
+path_directory_format="${path_promiscuity_scripts}/gwas_process/format_gwas_team"
 
 # Initialize directories.
 rm -r $path_directory_product
@@ -63,12 +63,12 @@ studies+=(
 # delimiter: white space
 # CHROM POS ID REF ALT A1 A1_FREQ TEST OBS_CT BETA SE T_STAT P
 studies+=(
-  "${path_directory_format_team}/translate_gwas_plink_linear.sh;\
+  "${path_directory_format}/translate_gwas_plink_linear.sh;\
   ${path_directory_source}/bmi_bipolar_control_ukb.txt.gz;\
   ${path_directory_product}/bmi_bipolar_control_ukb.txt.gz"
 )
 studies+=(
-  "${path_directory_format_team}/translate_gwas_plink_linear.sh;\
+  "${path_directory_format}/translate_gwas_plink_linear.sh;\
   ${path_directory_source}/bmi_bipolar_case_ukb.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_ukb.txt.gz"
 )
@@ -79,7 +79,7 @@ studies+=(
 # STD_RE PVALUE_RE2 STAT1_RE2 STAT2_RE2 PVALUE_BE I_SQUARE Q PVALUE_Q TAU_SQUARE
 # PVALUES_OF_STUDIES(Tab_delimitered) MVALUES_OF_STUDIES(Tab_delimitered)
 studies+=(
-  "${path_directory_format_team}/translate_gwas_metasoft_body_bipolar.sh;\
+  "${path_directory_format}/translate_gwas_metasoft_body_bipolar.sh;\
   ${path_directory_source}/bmi_bipolar_case_pgc_ukb_metasoft.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_ukb_metasoft.txt.gz"
 )
@@ -88,12 +88,12 @@ studies+=(
 # delimiter: comma
 # RSID CHROM POS A1 A2 inMeta QEp b se pval
 studies+=(
-  "${path_directory_format_team}/translate_gwas_r_metafor_body_bipolar.sh;\
+  "${path_directory_format}/translate_gwas_r_metafor_body_bipolar.sh;\
   ${path_directory_source}/bmi_bipolar_case_pgc_ukb_rma.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rma.txt.gz"
 )
 studies+=(
-  "${path_directory_format_team}/translate_gwas_r_metafor_body_bipolar.sh;\
+  "${path_directory_format}/translate_gwas_r_metafor_body_bipolar.sh;\
   ${path_directory_source}/bmi_bipolar_case_pgc_ukb_rmafe.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rmafe.txt.gz"
 )
@@ -102,12 +102,12 @@ studies+=(
 # delimiter: comma
 # SNP A1 A2 QEp b se pval
 studies+=(
-  "${path_directory_format_team}/translate_gwas_pgc_body_bipolar.sh;\
+  "${path_directory_format}/translate_gwas_pgc_body_bipolar.sh;\
   ${path_directory_source}/bmi_bipolar_case_pgc_ma.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_ma.txt.gz"
 )
 studies+=(
-  "${path_directory_format_team}/translate_gwas_pgc_body_bipolar.sh;\
+  "${path_directory_format}/translate_gwas_pgc_body_bipolar.sh;\
   ${path_directory_source}/bmi_bipolar_case_pgc_mafe.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_mafe.txt.gz"
 )
@@ -116,7 +116,7 @@ studies+=(
 # delimiter: white space
 # SNP CHR POS A1 A2 QEp b se pval
 studies+=(
-  "${path_directory_format_team}/translate_gwas_pgc_fuma_body_bipolar.sh;\
+  "${path_directory_format}/translate_gwas_pgc_fuma_body_bipolar.sh;\
   ${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_mafe_fuma.txt.gz"
 )
@@ -159,7 +159,7 @@ done
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "2_format_standard_gwas.sh"
+  echo "2_format_gwas_team.sh"
   echo "----------"
 fi
 
