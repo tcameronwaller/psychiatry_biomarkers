@@ -46,30 +46,39 @@ report="true"
 studies=()
 # [regression type] ; [full path to source file of GWAS summary statistics] ; [full path to product file of GWAS summary statistics]
 
-studies+=(
-  "${path_directory_source}/bmi_giant_ukb.txt.gz;\
-  ${path_directory_product}/bmi_giant_ukb.txt.gz"
-)
-studies+=(
-  "${path_directory_source}/bmi_giant.txt.gz;\
-  ${path_directory_product}/bmi_giant.txt.gz"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_control_ukb.txt.gz;\
-  ${path_directory_product}/bmi_bipolar_control_ukb.txt.gz"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_case_pgc_ukb_metasoft.txt.gz;\
-  ${path_directory_product}/bmi_bipolar_case_pgc_ukb_metasoft.txt.gz"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_case_pgc_ukb_rma.txt.gz;\
-  ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rma.txt.gz"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_case_pgc_ukb_rmafe.txt.gz;\
-  ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rmafe.txt.gz"
-)
+if false; then
+
+  studies+=(
+    "${path_directory_source}/bmi_giant_ukb.txt.gz;\
+    ${path_directory_product}/bmi_giant_ukb.txt.gz"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_giant.txt.gz;\
+    ${path_directory_product}/bmi_giant.txt.gz"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_control_ukb.txt.gz;\
+    ${path_directory_product}/bmi_bipolar_control_ukb.txt.gz"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_case_pgc_ukb_metasoft.txt.gz;\
+    ${path_directory_product}/bmi_bipolar_case_pgc_ukb_metasoft.txt.gz"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_case_pgc_ukb_rma.txt.gz;\
+    ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rma.txt.gz"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_case_pgc_ukb_rmafe.txt.gz;\
+    ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rmafe.txt.gz"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_case_ukb.txt.gz;\
+    ${path_directory_product}/bmi_bipolar_case_ukb.txt.gz"
+  )
+
+fi
+
 studies+=(
   "${path_directory_source}/bmi_bipolar_case_pgc_ma.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_ma.txt.gz"
@@ -81,10 +90,6 @@ studies+=(
 studies+=(
   "${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_mafe_fuma.txt.gz"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_case_ukb.txt.gz;\
-  ${path_directory_product}/bmi_bipolar_case_ukb.txt.gz"
 )
 
 ################################################################################

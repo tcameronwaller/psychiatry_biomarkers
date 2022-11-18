@@ -46,30 +46,37 @@ report="true"
 studies=()
 # [regression type] ; [full path to source file of GWAS summary statistics] ; [full path to product file of GWAS summary statistics]
 
-studies+=(
-  "${path_directory_source}/bmi_giant_ukb.txt.gz;\
-  ${path_directory_product}/bmi_giant_ukb"
-)
-studies+=(
-  "${path_directory_source}/bmi_giant.txt.gz;\
-  ${path_directory_product}/bmi_giant"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_control_ukb.txt.gz;\
-  ${path_directory_product}/bmi_bipolar_control_ukb"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_case_pgc_ukb_metasoft.txt.gz;\
-  ${path_directory_product}/bmi_bipolar_case_pgc_ukb_metasoft"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_case_pgc_ukb_rma.txt.gz;\
-  ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rma"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_case_pgc_ukb_rmafe.txt.gz;\
-  ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rmafe"
-)
+if false; then
+  studies+=(
+    "${path_directory_source}/bmi_giant_ukb.txt.gz;\
+    ${path_directory_product}/bmi_giant_ukb"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_giant.txt.gz;\
+    ${path_directory_product}/bmi_giant"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_control_ukb.txt.gz;\
+    ${path_directory_product}/bmi_bipolar_control_ukb"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_case_pgc_ukb_metasoft.txt.gz;\
+    ${path_directory_product}/bmi_bipolar_case_pgc_ukb_metasoft"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_case_pgc_ukb_rma.txt.gz;\
+    ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rma"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_case_pgc_ukb_rmafe.txt.gz;\
+    ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rmafe"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_case_ukb.txt.gz;\
+    ${path_directory_product}/bmi_bipolar_case_ukb"
+  )
+fi
+
 studies+=(
   "${path_directory_source}/bmi_bipolar_case_pgc_ma.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_ma"
@@ -81,10 +88,6 @@ studies+=(
 studies+=(
   "${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.txt.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_mafe_fuma"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_case_ukb.txt.gz;\
-  ${path_directory_product}/bmi_bipolar_case_ukb"
 )
 
 ###########################################################################
