@@ -11,7 +11,11 @@
 # 3. LDSC Munge assigned rsIDs to these SNPs.
 # 4. LDSC kept ___ SNPs from interpretation of original identifiers.
 # 5. LDSC Munge did not interpret the SNPs with novel identifiers in format "[chromosome]:[base-pair position]".
+# - - "   split($1, a, "_"); (b = a[1]); sub(/chr/, "", b); print (b ":" a[2]), $2, $3, toupper($4), toupper($5), "NA", $7, $8, $9, (3717), "NA", (1), "NA", "NA"   "
 # 6. LDSC Munge did not interpret the SNPs with novel identifiers in format "[chromosome]_[base-pair position]".
+# - - "   split($1, a, "_"); (b = a[1]); sub(/chr/, "", b); print (b "_" a[2]), $2, $3, toupper($4), toupper($5), "NA", $7, $8, $9, (3717), "NA", (1), "NA", "NA"   "
+# 7. LDSC Munge did not interpret the SNPs with novel identifiers in format "[chromosome]_[base-pair position]_[ambiguous allele]".
+# - - "   split($1, a, "_"); (b = a[1]); sub(/chr/, "", b); print (b "_" a[2] "_" a[3]), $2, $3, toupper($4), toupper($5), "NA", $7, $8, $9, (3717), "NA", (1), "NA", "NA"   "
 
 ###########################################################################
 ###########################################################################
@@ -56,7 +60,7 @@ head $path_file_gwas_source_decompress
 # Translation to Team format.
 echo "SNP CHR BP A1 A2 A1AF BETA SE P N Z INFO NCASE NCONT" > $path_file_gwas_format_team
 zcat $path_file_gwas_source | awk 'BEGIN {FS = " "; OFS = " "} NR > 1 {
-  split($1, a, "_"); (b = a[1]); sub(/chr/, "", b); print (b "_" a[2] "_" a[3]), $2, $3, toupper($4), toupper($5), "NA", $7, $8, $9, (3717), "NA", (1), "NA", "NA"
+  print $1, $2, $3, toupper($4), toupper($5), "NA", $7, $8, $9, (3717), "NA", (1), "NA", "NA"
 }' >> $path_file_gwas_format_team
 head $path_file_gwas_format_team
 
