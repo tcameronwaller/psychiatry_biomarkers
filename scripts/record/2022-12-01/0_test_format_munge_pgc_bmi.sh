@@ -56,7 +56,7 @@ head $path_file_gwas_source_decompress
 if true; then
   # One-step format directly to LDSC.
   echo "SNP A1 A2 N BETA P" > $path_file_gwas_format_ldsc
-  zcat $path_file_gwas_source | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), (3717), $7, $9}' >> $path_file_gwas_format
+  zcat $path_file_gwas_source | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), (3717), $7, $9}' >> $path_file_gwas_format_ldsc
   head $path_file_gwas_format_ldsc
 else
   # Translation to Team format.
