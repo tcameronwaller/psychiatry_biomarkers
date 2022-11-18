@@ -5,9 +5,11 @@
 ###########################################################################
 # Review: TCW; __ November 2022
 
-# next script in pipeline
-# 1. translate format of all GWAS summary stats files to the common team format
-# 2. translate format of all GWAS summary stats files to the LDSC format
+# Notes; TCW; 18 November 2022:
+# 1. LDSC Munge did interpret successfully the SNPs with original identifiers.
+# 2. Original SNP identifier format was "chr[chromosome]_[base-pair position]_[ambiguous allele]".
+# 3. LDSC Munge assigned rsIDs to these SNPs.
+# 4. LDSC Munge did not interpret the SNPs with novel identifiers in format "[chromosome]:[base-pair position]".
 
 ###########################################################################
 ###########################################################################
@@ -49,16 +51,10 @@ head $path_file_gwas_source_decompress
 #zcat $path_file_gwas_source | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), 4332, $7, $9}' >> $path_file_gwas_format
 #head $path_file_gwas_format_ldsc
 
-# Notes:
-# 1. LDSC Munge did interpret successfully the SNPs with original identifiers.
-# 2. Original format was "chr[chromosome]_[base-pair position]_[allele 1]_[allele_2]".
-# 3. LDSC Munge assigned rsIDs to these SNPs.
-# 4. LDSC Munge did not interpret the SNPs with novel identifiers in format "[chromosome]:[base-pair position]".
-
 # Translation to Team format.
 echo "SNP CHR BP A1 A2 A1AF BETA SE P N Z INFO NCASE NCONT" > $path_file_gwas_format_team
 zcat $path_file_gwas_source | awk 'BEGIN {FS = " "; OFS = " "} NR > 1 {
-  split($1, a, "_"); (b = a[1]); sub(/chr/, "", b); print (b ":" a[2]), $2, $3, toupper($4), toupper($5), "NA", $7, $8, $9, (3717), "NA", (1), "NA", "NA"
+  split($1, a, "_"); (b = a[1]); sub(/chr/, "", b); print (b "_" a[2]), $2, $3, toupper($4), toupper($5), "NA", $7, $8, $9, (3717), "NA", (1), "NA", "NA"
 }' >> $path_file_gwas_format_team
 head $path_file_gwas_format_team
 
