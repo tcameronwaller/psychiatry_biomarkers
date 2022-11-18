@@ -13,8 +13,6 @@
 ###########################################################################
 ###########################################################################
 
-
-
 ################################################################################
 # Organize paths.
 
@@ -27,7 +25,8 @@ path_dock="$path_process/dock"
 path_directory_source="${path_dock}/bipolar_body/gwas_access"
 path_directory_product="${path_dock}/bipolar_body/test_format_munge_pgc_bmi"
 path_file_gwas_source="${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.txt.gz"
-path_file_gwas_format="${path_directory_product}/gwas_format_ldsc.txt"
+path_file_gwas_format_team="${path_directory_product}/gwas_format_team.txt"
+path_file_gwas_format_ldsc="${path_directory_product}/gwas_format_ldsc.txt"
 path_file_base_gwas_munge="${path_directory_product}/gwas_munge_ldsc"
 path_directory_reference="${path_dock}/bipolar_body/reference_ldsc"
 path_file_alleles="${path_directory_reference}/alleles/w_hm3.snplist"
@@ -41,13 +40,26 @@ mkdir -p $path_directory_product
 ###########################################################################
 # Execute procedure.
 
-echo "SNP A1 A2 N BETA P" > $path_file_gwas_format
-zcat $path_file_gwas_source | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), 4332, $7, $9}' >> $path_file_gwas_format
-head $path_file_gwas_format
+# One-step format directly to LDSC.
+#echo "SNP A1 A2 N BETA P" > $path_file_gwas_format_ldsc
+#zcat $path_file_gwas_source | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), 4332, $7, $9}' >> $path_file_gwas_format
+#head $path_file_gwas_format_ldsc
 
-#--signed-sumstats BETA,0 \ # I don't think this argument is consequential.
+# Translation to Team format.
+echo "SNP CHR BP A1 A2 A1AF BETA SE P N Z INFO NCASE NCONT" > $path_file_gwas_format_team
+zcat $path_file_gwas_source | awk 'BEGIN {FS = " "; OFS = " "} NR > 1 {
+  split($1, a, "_"); (b = a[1]); sub(/chr/, "", b); print (b ":" a[2]), $2, $3, toupper($4), toupper($5), "NA", $7, $8, $9, (3717), "NA", (1), "NA", "NA"
+}' >> $path_file_gwas_format_team
+
+# Translation to LDSC format.
+echo "SNP A1 A2 N BETA P" > $path_file_gwas_format_ldsc
+cat $path_file_gwas_format_team | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {
+  print $1, toupper($4), toupper($5), $10, $7, $9
+}' >> $path_file_gwas_format_ldsc
+
+# Munge GWAS summary statistics in LDSC.
 $path_ldsc/munge_sumstats.py \
---sumstats $path_file_gwas_format \
+--sumstats $path_file_gwas_format_ldsc \
 --signed-sumstats BETA,0 \
 --merge-alleles $path_file_alleles \
 --out $path_file_base_gwas_munge \
