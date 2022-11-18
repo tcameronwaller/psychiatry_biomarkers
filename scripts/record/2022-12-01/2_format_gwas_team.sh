@@ -46,7 +46,7 @@ studies=()
 
 ##########
 
-if false; then
+if true; then
   # format group: already in team standard format
   # delimiter: white space
   # SNP CHR BP A1 A2 A1AF BETA SE P N Z INFO NCASE NCONT
@@ -115,7 +115,7 @@ studies+=(
   ${path_directory_product}/bmi_bipolar_case_pgc_mafe.txt.gz"
 )
 
-# format group: FUMA
+# format group: PGC FUMA
 # delimiter: white space
 # SNP CHR POS A1 A2 QEp b se pval
 studies+=(
