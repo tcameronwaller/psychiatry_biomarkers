@@ -52,6 +52,7 @@ mkdir -p $path_directory_product
 
 gunzip -cvf $path_file_gwas_source > $path_file_gwas_source_decompress
 head $path_file_gwas_source_decompress
+wc -l $path_file_gwas_source_decompress
 
 if false; then
   # One-step format directly to LDSC.
