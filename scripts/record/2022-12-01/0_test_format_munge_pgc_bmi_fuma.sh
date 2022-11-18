@@ -33,8 +33,8 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
 path_directory_source="${path_dock}/bipolar_body/gwas_access"
 path_directory_product="${path_dock}/bipolar_body/test_format_munge_pgc_bmi"
-path_file_gwas_source="${path_directory_source}/bmi_bipolar_case_pgc_mafe.txt.gz"
-path_file_gwas_source_decompress="${path_directory_source}/bmi_bipolar_case_pgc_mafe.txt"
+path_file_gwas_source="${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.txt.gz"
+path_file_gwas_source_decompress="${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.txt"
 path_file_gwas_format_team="${path_directory_product}/gwas_format_team.txt"
 path_file_gwas_format_ldsc="${path_directory_product}/gwas_format_ldsc.txt"
 path_file_base_gwas_munge="${path_directory_product}/gwas_munge_ldsc"
@@ -53,7 +53,7 @@ mkdir -p $path_directory_product
 gunzip -cvf $path_file_gwas_source > $path_file_gwas_source_decompress
 head $path_file_gwas_source_decompress
 
-if false; then
+if true; then
   # One-step format directly to LDSC.
   echo "SNP A1 A2 N BETA P" > $path_file_gwas_format_ldsc
   zcat $path_file_gwas_source | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), (3717), $7, $9}' >> $path_file_gwas_format_ldsc
@@ -61,8 +61,8 @@ if false; then
 else
   # Translation to Team format.
   echo "SNP CHR BP A1 A2 A1AF BETA SE P N Z INFO NCASE NCONT" > $path_file_gwas_format_team
-  zcat $path_file_gwas_source | awk 'BEGIN {FS = ","; OFS = " "} NR > 1 {
-    (a = $1); split(a, b, "_"); (c = b[1]); sub(/chr/, "", c); print a, c, b[2], toupper($2), toupper($3), "NA", $5, $6, $7, (3717), "NA", (1), "NA", "NA"
+  zcat $path_file_gwas_source | awk 'BEGIN {FS = " "; OFS = " "} NR > 1 {
+    print $1, $2, $3, toupper($4), toupper($5), "NA", $7, $8, $9, (3717), "NA", (1), "NA", "NA"
   }' >> $path_file_gwas_format_team
   head $path_file_gwas_format_team
 
