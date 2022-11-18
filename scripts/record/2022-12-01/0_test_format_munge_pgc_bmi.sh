@@ -33,7 +33,10 @@ path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
 path_directory_source="${path_dock}/bipolar_body/gwas_access"
 path_directory_product="${path_dock}/bipolar_body/test_format_munge_pgc_bmi"
-path_file_gwas_source="${path_directory_source}/bmi_bipolar_case_pgc_mafe.txt.gz"
+path_file_gwas_source="${path_directory_source}/bmi_bipolar_case_pgc_ma.txt.gz"
+#path_file_gwas_source="${path_directory_source}/bmi_bipolar_case_pgc_mafe.txt.gz"
+
+
 path_file_gwas_source_decompress="${path_directory_source}/bmi_bipolar_case_pgc_mafe.txt"
 path_file_gwas_format_team="${path_directory_product}/gwas_format_team.txt"
 path_file_gwas_format_ldsc="${path_directory_product}/gwas_format_ldsc.txt"
