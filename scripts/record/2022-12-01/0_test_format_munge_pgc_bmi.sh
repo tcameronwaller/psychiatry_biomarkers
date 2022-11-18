@@ -40,22 +40,32 @@ mkdir -p $path_directory_product
 ###########################################################################
 # Execute procedure.
 
+head $path_file_gwas_source
+
 # One-step format directly to LDSC.
 #echo "SNP A1 A2 N BETA P" > $path_file_gwas_format_ldsc
 #zcat $path_file_gwas_source | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {print $1, toupper($4), toupper($5), 4332, $7, $9}' >> $path_file_gwas_format
 #head $path_file_gwas_format_ldsc
+
+# Notes:
+# 1. LDSC Munge did interpret successfully the SNPs with original identifiers.
+# 2. Original format was "chr[chromosome]_[base-pair position]_[allele 1]_[allele_2]".
+# 3. LDSC Munge assigned rsIDs to these SNPs.
+# 4. LDSC Munge did not interpret the SNPs with novel identifiers in format "[chromosome]:[base-pair position]".
 
 # Translation to Team format.
 echo "SNP CHR BP A1 A2 A1AF BETA SE P N Z INFO NCASE NCONT" > $path_file_gwas_format_team
 zcat $path_file_gwas_source | awk 'BEGIN {FS = " "; OFS = " "} NR > 1 {
   split($1, a, "_"); (b = a[1]); sub(/chr/, "", b); print (b ":" a[2]), $2, $3, toupper($4), toupper($5), "NA", $7, $8, $9, (3717), "NA", (1), "NA", "NA"
 }' >> $path_file_gwas_format_team
+head $path_file_gwas_format_team
 
 # Translation to LDSC format.
 echo "SNP A1 A2 N BETA P" > $path_file_gwas_format_ldsc
 cat $path_file_gwas_format_team | awk 'BEGIN { FS=" "; OFS=" " } NR > 1 {
   print $1, toupper($4), toupper($5), $10, $7, $9
 }' >> $path_file_gwas_format_ldsc
+head $path_file_gwas_format_ldsc
 
 # Munge GWAS summary statistics in LDSC.
 $path_ldsc/munge_sumstats.py \
