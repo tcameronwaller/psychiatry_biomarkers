@@ -25,6 +25,7 @@ path_dock="$path_process/dock"
 path_directory_source="${path_dock}/bipolar_body/gwas_access"
 path_directory_product="${path_dock}/bipolar_body/test_format_munge_pgc_bmi"
 path_file_gwas_source="${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.txt.gz"
+path_file_gwas_source_decompress="${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.txt"
 path_file_gwas_format_team="${path_directory_product}/gwas_format_team.txt"
 path_file_gwas_format_ldsc="${path_directory_product}/gwas_format_ldsc.txt"
 path_file_base_gwas_munge="${path_directory_product}/gwas_munge_ldsc"
@@ -40,7 +41,8 @@ mkdir -p $path_directory_product
 ###########################################################################
 # Execute procedure.
 
-head $path_file_gwas_source
+gunzip -cvf $path_file_gwas_source > $path_file_gwas_source_decompress
+head $path_file_gwas_source_decompress
 
 # One-step format directly to LDSC.
 #echo "SNP A1 A2 N BETA P" > $path_file_gwas_format_ldsc
