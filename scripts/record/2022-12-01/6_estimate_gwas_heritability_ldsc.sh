@@ -68,14 +68,19 @@ studies+=(
   "${path_directory_source}/bmi_bipolar_case_pgc_ukb_rmafe.sumstats.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_ukb_rmafe"
 )
-studies+=(
-  "${path_directory_source}/bmi_bipolar_case_pgc_ma.sumstats.gz;\
-  ${path_directory_product}/bmi_bipolar_case_pgc_ma"
-)
-studies+=(
-  "${path_directory_source}/bmi_bipolar_case_pgc_mafe.sumstats.gz;\
-  ${path_directory_product}/bmi_bipolar_case_pgc_mafe"
-)
+if false; then
+  # Even after extensive trouble-shooting, LDSC Munge is unable to process these
+  # GWAS summary statistics.
+  # TCW; 21 November 2022
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_case_pgc_ma.sumstats.gz;\
+    ${path_directory_product}/bmi_bipolar_case_pgc_ma"
+  )
+  studies+=(
+    "${path_directory_source}/bmi_bipolar_case_pgc_mafe.sumstats.gz;\
+    ${path_directory_product}/bmi_bipolar_case_pgc_mafe"
+  )
+fi
 studies+=(
   "${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.sumstats.gz;\
   ${path_directory_product}/bmi_bipolar_case_pgc_mafe_fuma"
@@ -99,8 +104,7 @@ for study_details in "${studies[@]}"; do
   /usr/bin/bash "${path_script}" \
   $path_file_source \
   $path_file_base_product \
-  $path_file_alleles \
-  $response \
+  $path_directory_disequilibrium \
   $threads \
   $report
   # Report.
@@ -121,7 +125,7 @@ done
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "5_munge_gwas_ldsc.sh"
+  echo "6_estimate_gwas_heritability_ldsc.sh"
   echo "----------"
 fi
 

@@ -5,6 +5,14 @@
 ###########################################################################
 # Review: TCW; __ November 2022
 
+# Even after extensive trouble-shooting, LDSC Munge is unable to process these
+# GWAS summary statistics.
+# 1. bmi_bipolar_case_pgc_ma.txt.gz
+# 2. bmi_bipolar_case_pgc_mafe.txt.gz
+
+# TCW; 21 November 2022
+
+
 ###########################################################################
 ###########################################################################
 ###########################################################################
@@ -21,7 +29,6 @@ path_directory_source="${path_dock}/bipolar_body/gwas_format_ldsc"
 path_directory_product="${path_dock}/bipolar_body/gwas_munge_ldsc"
 path_directory_reference="${path_dock}/bipolar_body/reference_ldsc"
 path_file_alleles="${path_directory_reference}/alleles/w_hm3.snplist"
-#path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Scripts.
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
