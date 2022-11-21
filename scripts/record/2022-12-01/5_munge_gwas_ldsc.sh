@@ -46,7 +46,7 @@ report="true"
 studies=()
 # [regression type] ; [full path to source file of GWAS summary statistics] ; [full path to product file of GWAS summary statistics]
 
-if false; then
+if true; then
   studies+=(
     "${path_directory_source}/bmi_giant_ukb.txt.gz;\
     ${path_directory_product}/bmi_giant_ukb"

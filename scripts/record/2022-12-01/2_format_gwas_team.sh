@@ -46,7 +46,7 @@ studies=()
 
 ##########
 
-if false; then
+if true; then
   # format group: already in team standard format
   # delimiter: white space
   # SNP CHR BP A1 A2 A1AF BETA SE P N Z INFO NCASE NCONT
