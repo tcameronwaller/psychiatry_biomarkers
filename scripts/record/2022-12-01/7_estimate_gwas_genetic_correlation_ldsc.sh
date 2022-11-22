@@ -83,10 +83,10 @@ comparisons+=(
 # Execute procedure.
 
 # Organize information for batch instances.
-for study_details in "${studies[@]}"; do
+for comparison in "${comparisons[@]}"; do
   # Separate fields from instance.
   # [regression type] ; [full path to source file of GWAS summary statistics] ; [full path to product file of GWAS summary statistics]
-  IFS=";" read -r -a array <<< "${study_details}"
+  IFS=";" read -r -a array <<< "${comparison}"
   path_file_base_product="${array[0]}"
   path_file_source_primary="${array[1]}"
   path_file_source_secondary="${array[2]}"
