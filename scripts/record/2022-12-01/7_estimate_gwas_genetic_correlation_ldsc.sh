@@ -68,12 +68,12 @@ comparisons+=(
   ${path_directory_source}/bmi_bipolar_control_ukb.sumstats.gz"
 )
 comparisons+=(
-  "${path_directory_product}/bmi_pgc_ukb_bipolar_case_rma_versus_bmi_giant;\
+  "${path_directory_product}/bmi_pgc_ukb_bipolar_case_rma_versus_bmi_ukb_bipolar_control;\
   ${path_directory_source}/bmi_bipolar_case_pgc_ukb_rma.sumstats.gz;\
   ${path_directory_source}/bmi_bipolar_control_ukb.sumstats.gz"
 )
 comparisons+=(
-  "${path_directory_product}/bmi_pgc_ukb_bipolar_case_metasoft_versus_bmi_giant;\
+  "${path_directory_product}/bmi_pgc_ukb_bipolar_case_metasoft_versus_bmi_ukb_bipolar_control;\
   ${path_directory_source}/bmi_bipolar_case_pgc_ukb_metasoft.sumstats.gz;\
   ${path_directory_source}/bmi_bipolar_control_ukb.sumstats.gz"
 )
@@ -83,7 +83,7 @@ comparisons+=(
   ${path_directory_source}/bmi_giant_ukb.sumstats.gz"
 )
 comparisons+=(
-  "${path_directory_product}/bmi_pgc_bipolar_case_mafe_fuma_versus_bmi_giant_ukb;\
+  "${path_directory_product}/bmi_pgc_bipolar_case_mafe_fuma_versus_bmi_giant;\
   ${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.sumstats.gz;\
   ${path_directory_source}/bmi_giant.sumstats.gz"
 )
