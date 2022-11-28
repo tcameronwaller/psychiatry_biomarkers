@@ -49,7 +49,10 @@ studies=()
 if true; then
   # format group: already in team standard format
   # delimiter: white space
-  # SNP CHR BP A1 A2 A1AF BETA SE P N Z INFO NCASE NCONT
+  # rsID: Yes
+  # chromosome prefix ("chr"): No
+  # columns: SNP CHR BP A1 A2 A1AF BETA SE P N Z INFO NCASE NCONT
+  # Review: TCW; 23 November 2022
   studies+=(
     "none;\
     ${path_directory_source}/bmi_giant_ukb.txt.gz;\
@@ -63,7 +66,10 @@ if true; then
 
   # format group: PLINK2 linear
   # delimiter: white space
-  # CHROM POS ID REF ALT A1 A1_FREQ TEST OBS_CT BETA SE T_STAT P
+  # rsID: Yes
+  # chromosome prefix ("chr"): No
+  # columns: CHROM POS ID REF ALT A1 A1_FREQ TEST OBS_CT BETA SE T_STAT P
+  # Review: TCW; 23 November 2022
   studies+=(
     "${path_directory_format}/translate_gwas_plink_linear.sh;\
     ${path_directory_source}/bmi_bipolar_control_ukb.txt.gz;\
@@ -77,9 +83,12 @@ if true; then
 
   # format group: Metasoft
   # delimiter: white space; tab
-  # RSID CHROM POS A1 A2 inMeta #STUDY PVALUE_FE BETA_FE STD_FE PVALUE_RE BETA_RE
+  # rsID: Yes
+  # chromosome prefix ("chr"): No
+  # columns: RSID CHROM POS A1 A2 inMeta #STUDY PVALUE_FE BETA_FE STD_FE PVALUE_RE BETA_RE
   # STD_RE PVALUE_RE2 STAT1_RE2 STAT2_RE2 PVALUE_BE I_SQUARE Q PVALUE_Q TAU_SQUARE
   # PVALUES_OF_STUDIES(Tab_delimitered) MVALUES_OF_STUDIES(Tab_delimitered)
+  # Review: TCW; 23 November 2022
   studies+=(
     "${path_directory_format}/translate_gwas_metasoft_body_bipolar.sh;\
     ${path_directory_source}/bmi_bipolar_case_pgc_ukb_metasoft.txt.gz;\
@@ -88,7 +97,10 @@ if true; then
 
   # format group: R rma
   # delimiter: comma
-  # RSID CHROM POS A1 A2 inMeta QEp b se pval
+  # rsID: Yes
+  # chromosome prefix ("chr"): No
+  # columns: RSID CHROM POS A1 A2 inMeta QEp b se pval
+  # Review: TCW; 23 November 2022
   studies+=(
     "${path_directory_format}/translate_gwas_r_metafor_body_bipolar.sh;\
     ${path_directory_source}/bmi_bipolar_case_pgc_ukb_rma.txt.gz;\
@@ -103,7 +115,10 @@ fi
 
 # format group: PGC
 # delimiter: comma
-# SNP A1 A2 QEp b se pval
+# rsID: No
+# chromosome prefix ("chr"): Yes
+# columns: SNP A1 A2 QEp b se pval
+# Review: TCW; 23 November 2022
 studies+=(
   "${path_directory_format}/translate_gwas_pgc_body_bipolar.sh;\
   ${path_directory_source}/bmi_bipolar_case_pgc_ma.txt.gz;\
@@ -117,7 +132,10 @@ studies+=(
 
 # format group: PGC FUMA
 # delimiter: white space
-# SNP CHR POS A1 A2 QEp b se pval
+# rsID: No
+# chromosome prefix ("chr"): Yes
+# columns: SNP CHR POS A1 A2 QEp b se pval
+# Review: TCW; 23 November 2022
 studies+=(
   "${path_directory_format}/translate_gwas_pgc_fuma_body_bipolar.sh;\
   ${path_directory_source}/bmi_bipolar_case_pgc_mafe_fuma.txt.gz;\

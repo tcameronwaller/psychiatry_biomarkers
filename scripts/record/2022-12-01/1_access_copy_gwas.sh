@@ -3,14 +3,10 @@
 ###########################################################################
 ###########################################################################
 ###########################################################################
+# Review: TCW; 23 November 2022
 # Review: TCW; 16 November 2022
-# Verified that file paths and file names match those in file
-# "table_bipolar_body_gwas_summary.ods".
-
-
-# next script in pipeline
-# 1. translate format of all GWAS summary stats files to the common team format
-# 2. translate format of all GWAS summary stats files to the LDSC format
+# TCW confirmed that the file paths and file names for GWAS summary statistics
+# match those in file "table_gwas_summary_heritability_ldsc.ods".
 
 ###########################################################################
 ###########################################################################
@@ -23,7 +19,7 @@
 # Read private, local file paths.
 cd ~/paths
 path_process=$(<"./process_psychiatric_metabolism.txt")
-path_gwas_summaries_waller=$(<"./gwas_summaries_waller_metabolism.txt")
+#path_gwas_summaries_waller=$(<"./gwas_summaries_waller_metabolism.txt")
 path_gwas_summaries_team=$(<"./gwas_summaries_team.txt")
 path_bipolar_batzler=$(<"./mayo_bipolar_batzler.txt")
 path_bipolar_coombes=$(<"./mayo_bipolar_coombes.txt")
