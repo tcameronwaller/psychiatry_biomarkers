@@ -53,7 +53,7 @@ fi
 #python3 $path_package/interface.py uk_biobank --path_dock $path_dock --organization # TCW; 07 June 2022
 #python3 $path_package/interface.py uk_biobank --path_dock $path_dock --stratification # TCW; 09 April 2022 <-- no longer executable
 #python3 $path_package/interface.py uk_biobank --path_dock $path_dock --genotype # TCW; 10 November 2022
-python3 $path_package/interface.py uk_biobank --path_dock $path_dock --description # TCW; 12 December 2022
+#python3 $path_package/interface.py uk_biobank --path_dock $path_dock --description # TCW; 12 December 2022
 #python3 $path_package/interface.py uk_biobank --path_dock $path_dock --regression # TCW; 1 November 2022
 #python3 $path_package/interface.py uk_biobank --path_dock $path_dock --collection # TCW; 20 April 2022
 
@@ -64,6 +64,7 @@ python3 $path_package/interface.py uk_biobank --path_dock $path_dock --descripti
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_extraction # TCW; 28 November 2022
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_assembly # TCW; 14 September 2022
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_organization # TCW; 14 September 2022
+python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_description # TCW; 16 December 2022
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_regression # TCW; 22 September 2022
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mcita_assembly # TCW; 06 July 2022
 
