@@ -46,11 +46,28 @@ report="true"
 ################################################################################
 # Execute procedure.
 
+# Collect files.
 #cd $path_directory_source
 readarray -d "" -t paths_files_source < <(find $path_directory_source -maxdepth 1 -mindepth 1 -type f -name "*.txt.gz" -print0)
+count_paths_files_source=${#paths_files_source[@]}
+
+# Report.
+if [[ "$report" == "true" ]]; then
+  echo "----------"
+  echo "Source directory:"
+  echo $path_directory_source
+  echo "count of files: " $count_paths_files_source
+  echo "first file: " ${paths_files_source[0]} # notice base-zero indexing
+  echo "last file: " ${paths_files_source[$count_paths_files_source - 1]}
+  echo "Product directory:"
+  echo $path_directory_product
+  echo "----------"
+fi
+
 for path_file_source in "${paths_files_source[@]}"; do
   echo $path_file_source
 done
+
 
 ################################################################################
 
