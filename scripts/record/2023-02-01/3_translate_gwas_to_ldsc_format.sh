@@ -48,7 +48,12 @@ report="true"
 
 # Collect files.
 #cd $path_directory_source
-readarray -d "" -t paths_files_source < <(find $path_directory_source -maxdepth 1 -mindepth 1 -type f -name "*.txt.gz" -print0)
+# Bash version 4.4 introduced the "-d" option for "readarray".
+#readarray -d "" -t paths_files_source < <(find $path_directory_source -maxdepth 1 -mindepth 1 -type f -name "*.txt.gz" -print0)
+paths_files_source=()
+while IFS= read -r -d $'\0'; do
+  paths_files_source+=("$REPLY")
+done < <(find $path_directory_source -maxdepth 1 -mindepth 1 -type f -name "*.txt.gz" -print0)
 count_paths_files_source=${#paths_files_source[@]}
 
 # Report.
