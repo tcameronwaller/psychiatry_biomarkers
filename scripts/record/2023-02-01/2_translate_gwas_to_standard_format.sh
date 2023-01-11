@@ -40,7 +40,6 @@ path_script_drive_translations="${path_promiscuity_scripts}/utility/drive_transl
 # Initialize directories.
 rm -r $path_directory_product
 mkdir -p $path_directory_product
-
 cd $path_directory_product
 
 ###########################################################################
