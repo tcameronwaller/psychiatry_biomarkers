@@ -14,9 +14,9 @@
 
 # Read private, local file paths.
 cd ~/paths
-path_process=$(<"./process_psychiatric_metabolism.txt")
+path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 
-path_directory_dock="$path_process/dock"
+path_directory_dock="$path_directory_process/dock"
 path_directory_source="${path_directory_dock}/epilepsy/gwas_munge_ldsc"
 path_directory_product="${path_directory_dock}/epilepsy/gwas_genetic_correlation_ldsc"
 path_directory_reference="${path_directory_dock}/hormone_genetics/reference_ldsc"
