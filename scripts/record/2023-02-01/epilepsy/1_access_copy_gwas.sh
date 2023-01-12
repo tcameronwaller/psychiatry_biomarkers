@@ -28,7 +28,7 @@ path_directory_product="${path_directory_dock}/epilepsy/gwas_format_standard"
 # Scripts.
 
 # Initialize directories.
-#rm -r $path_directory_product
+rm -r $path_directory_product
 mkdir -p $path_directory_product
 
 # Report.

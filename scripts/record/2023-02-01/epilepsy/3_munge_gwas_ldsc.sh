@@ -37,7 +37,7 @@ path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/script
 path_file_script="${path_directory_promiscuity_scripts}/utility/ldsc/munge_gwas_ldsc.sh"
 
 # Initialize directories.
-#rm -r $path_directory_product
+rm -r $path_directory_product
 mkdir -p $path_directory_product
 
 ################################################################################

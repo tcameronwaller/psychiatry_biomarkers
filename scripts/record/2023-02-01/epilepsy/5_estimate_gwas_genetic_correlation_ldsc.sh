@@ -27,7 +27,7 @@ path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/script
 path_file_script="${path_directory_promiscuity_scripts}/utility/ldsc/estimate_gwas_genetic_correlation_ldsc.sh"
 
 # Initialize directories.
-#rm -r $path_directory_product
+rm -r $path_directory_product
 mkdir -p $path_directory_product
 
 ################################################################################
