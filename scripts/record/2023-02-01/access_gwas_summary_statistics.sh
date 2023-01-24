@@ -8,6 +8,9 @@
 
 # Delimiter of each line must be either Tab or a single Space.
 
+# TCW; 20 January 2023
+# I think this file was an early, incomplete draft of a script that is not in the "promiscuity" repository.
+
 ################################################################################
 # Organize arguments.
 
