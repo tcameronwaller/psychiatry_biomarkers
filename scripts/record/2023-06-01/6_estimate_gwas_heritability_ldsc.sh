@@ -34,7 +34,7 @@ path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_
 
 # Scripts.
 path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_directory_ldsc="${path_directory_promiscuity_scripts}/utility/ldsc"
+path_directory_ldsc="${path_directory_promiscuity_scripts}/ldsc"
 path_file_script="${path_directory_ldsc}/estimate_gwas_heritability_ldsc.sh"
 
 # Initialize directories.

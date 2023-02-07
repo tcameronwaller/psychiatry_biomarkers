@@ -11,7 +11,7 @@ path_dock="${path_process}/dock"
 path_directory_reference="${path_dock}/hormone_genetics/reference_ldsc"
 
 path_promiscuity_scripts="${path_process}/promiscuity/scripts"
-path_script_access="${path_promiscuity_scripts}/utility/ldsc/access_ldsc_genetic_references.sh"
+path_script_access="${path_promiscuity_scripts}/ldsc/access_ldsc_genetic_references.sh"
 
 ###########################################################################
 # Execute procedure.

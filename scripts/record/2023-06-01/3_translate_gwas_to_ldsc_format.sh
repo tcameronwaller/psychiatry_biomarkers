@@ -25,13 +25,14 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="${path_directory_process}/dock"
-path_directory_source="${path_dock}/hormone_genetics/gwas_format_standard"
+#path_directory_source="${path_dock}/hormone_genetics/gwas_format_standard"
+path_directory_source="${path_dock}/hormone_genetics/gwas_from_team_collection"
 path_directory_product="${path_dock}/hormone_genetics/gwas_format_ldsc"
 # Files.
 
 # Scripts.
 path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_file_script="${path_directory_promiscuity_scripts}/gwas_process/format_gwas_ldsc/constrain_translate_gwas_team.sh"
+path_file_script="${path_directory_promiscuity_scripts}/ldsc/constrain_translate_gwas_standard_to_ldsc.sh"
 
 # Initialize directories.
 rm -r $path_directory_product
