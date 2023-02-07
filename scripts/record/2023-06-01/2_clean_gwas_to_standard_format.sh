@@ -35,7 +35,7 @@ path_directory_product="${path_directory_dock}/hormone_genetics/gwas_format_stan
 path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-01-24.tsv"
 # Scripts.
 path_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_directory_script="${path_promiscuity_scripts}/gwas_process/format_gwas_team"
+path_directory_script="${path_promiscuity_scripts}/gwas_format/translate_format_raw_to_standard"
 path_script_drive_translations="${path_promiscuity_scripts}/utility/drive_translations_gwas_to_standard_format.sh"
 
 # Initialize directories.
@@ -51,6 +51,12 @@ report="true"
 ###########################################################################
 # Execute procedure.
 ###########################################################################
+
+# TODO:
+# 1. find all GWAS sumstats files within the previous directory (prelim) in standard format.
+# 2. call a "pipeline" script within "promiscuity" that connects the various steps
+
+
 
 /usr/bin/bash $path_script_drive_translations \
 $path_file_translation \
