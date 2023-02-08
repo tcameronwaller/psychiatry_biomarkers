@@ -24,10 +24,12 @@
 # Directories.
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-path_dock="${path_directory_process}/dock"
-path_directory_source="${path_dock}/hormone_genetics/gwas_format_ldsc"
-path_directory_product="${path_dock}/hormone_genetics/gwas_munge_ldsc"
-path_directory_reference="${path_dock}/hormone_genetics/reference_ldsc"
+path_directory_dock="${path_directory_process}/dock"
+#path_directory_source="${path_directory_dock}/hormone_genetics/gwas_format_ldsc"
+path_directory_source="${path_directory_dock}/test_compare_gwas2vcf_in_ldsc/gwas_format_ldsc"
+#path_directory_product="${path_directory_dock}/hormone_genetics/gwas_munge_ldsc"
+path_directory_product="${path_directory_dock}/test_compare_gwas2vcf_in_ldsc/gwas_munge_ldsc"
+path_directory_reference="${path_directory_dock}/hormone_genetics/reference_ldsc"
 path_file_alleles="${path_directory_reference}/alleles/w_hm3.snplist"
 
 # Files.
