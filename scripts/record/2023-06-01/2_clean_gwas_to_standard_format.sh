@@ -24,19 +24,17 @@
 
 # Directories.
 cd ~/paths
-path_bgzip=$(<"./tools_waller_bgzip.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-path_directory_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
-path_directory_parent_source="${path_directory_gwas_summaries}"
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_product="${path_directory_dock}/hormone_genetics/gwas_format_standard"
+path_directory_source="${path_directory_dock}/hormone_genetics/gwas_format_standard"
+path_directory_product="${path_directory_dock}/hormone_genetics/gwas_vcf_thyroid"
+#path_directory_product="${path_directory_dock}/hormone_genetics/gwas_vcf_hormones"
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-01-24.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-09.tsv"
 # Scripts.
 path_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_directory_script="${path_promiscuity_scripts}/gwas_format/translate_format_raw_to_standard"
-path_script_drive_translations="${path_promiscuity_scripts}/utility/drive_translations_gwas_to_standard_format.sh"
+path_script_submit_batch="${path_promiscuity_scripts}/gwas_clean/1_submit_batch_pipe_gwas_clean.sh"
 
 # Initialize directories.
 rm -r $path_directory_product
@@ -52,16 +50,12 @@ report="true"
 # Execute procedure.
 ###########################################################################
 
-# TODO:
-# 1. find all GWAS sumstats files within the previous directory (prelim) in standard format.
-# 2. call a "pipeline" script within "promiscuity" that connects the various steps
-
-
-
-/usr/bin/bash $path_script_drive_translations \
+/usr/bin/bash $path_script_submit_batch \
 $path_file_translation \
-$path_directory_parent_source \
-$path_directory_script \
+$path_directory_source \
 $path_directory_product \
-$path_bgzip \
 $report
+
+
+
+#
