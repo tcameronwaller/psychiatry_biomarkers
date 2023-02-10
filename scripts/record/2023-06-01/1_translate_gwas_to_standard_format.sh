@@ -32,7 +32,7 @@ path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 path_directory_product="${path_directory_dock}/hormone_genetics/gwas_format_standard"
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-07.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-09.tsv"
 # Scripts.
 path_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
 path_directory_script="${path_promiscuity_scripts}/gwas_format/translate_format_raw_to_standard"
