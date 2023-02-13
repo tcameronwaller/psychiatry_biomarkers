@@ -92,7 +92,7 @@ comparisons+=(
 comparisons+=(
   "${path_directory_product}/teumer_tsh_against_zhou_tsh;\
   ${path_directory_source}/30367059_teumer_2018_tsh_all.sumstats.gz;\
-  ${path_directory_source}/32769997_zhou_2020.sumstats.gz"
+  ${path_directory_source}/32769997_zhou_2020_tsh.sumstats.gz"
 )
 
 ###########################################################################
