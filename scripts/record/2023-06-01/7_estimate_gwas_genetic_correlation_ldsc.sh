@@ -49,34 +49,51 @@ comparisons=()
 comparisons+=(
   "${path_directory_product}/hypothyroidism_against_hyperthyroidism;\
   ${path_directory_source}/30367059_teumer_2018_hypothyroidism.sumstats.gz;\
-  ${path_directory_source}/EPILEPSYgen_ILAEC_TE.sumstats.gz"
+  ${path_directory_source}/30367059_teumer_2018_hyperthyroidism.sumstats.gz"
 )
 comparisons+=(
   "${path_directory_product}/hypothyroidism_against_tsh;\
   ${path_directory_source}/30367059_teumer_2018_hypothyroidism.sumstats.gz;\
-  ${path_directory_source}/EPILEPSYgen_ILAEC_TE.sumstats.gz"
+  ${path_directory_source}/30367059_teumer_2018_tsh_all.sumstats.gz"
+)
+comparisons+=(
+  "${path_directory_product}/hypothyroidism_against_ft4;\
+  ${path_directory_source}/30367059_teumer_2018_hypothyroidism.sumstats.gz;\
+  ${path_directory_source}/30367059_teumer_2018_ft4_all.sumstats.gz"
 )
 comparisons+=(
   "${path_directory_product}/hyperthyroidism_against_tsh;\
   ${path_directory_source}/30367059_teumer_2018_hyperthyroidism.sumstats.gz;\
-  ${path_directory_source}/EPILEPSYgen_ILAEC_TE.sumstats.gz"
+  ${path_directory_source}/30367059_teumer_2018_tsh_all.sumstats.gz"
 )
+comparisons+=(
+  "${path_directory_product}/hyperthyroidism_against_ft4;\
+  ${path_directory_source}/30367059_teumer_2018_hyperthyroidism.sumstats.gz;\
+  ${path_directory_source}/30367059_teumer_2018_ft4_all.sumstats.gz"
+)
+
 comparisons+=(
   "${path_directory_product}/tsh_against_ft4;\
-  ${path_directory_source}/BDI_PGC3_EUR.sumstats.gz;\
-  ${path_directory_source}/EPILEPSYgen_ILAEC_TE.sumstats.gz"
+  ${path_directory_source}/30367059_teumer_2018_tsh_all.sumstats.gz;\
+  ${path_directory_source}/30367059_teumer_2018_ft4_all.sumstats.gz"
 )
+
 comparisons+=(
   "${path_directory_product}/tsh_female_against_tsh_male;\
-  ${path_directory_source}/BDI_PGC3_EUR.sumstats.gz;\
-  ${path_directory_source}/EPILEPSYgen_ILAEC_TE.sumstats.gz"
+  ${path_directory_source}/30367059_teumer_2018_tsh_female.sumstats.gz;\
+  ${path_directory_source}/30367059_teumer_2018_tsh_male.sumstats.gz"
 )
 comparisons+=(
   "${path_directory_product}/ft4_female_against_ft4_male;\
-  ${path_directory_source}/BDI_PGC3_EUR.sumstats.gz;\
-  ${path_directory_source}/EPILEPSYgen_ILAEC_TE.sumstats.gz"
+  ${path_directory_source}/30367059_teumer_2018_ft4_female.sumstats.gz;\
+  ${path_directory_source}/30367059_teumer_2018_ft4_male.sumstats.gz"
 )
 
+comparisons+=(
+  "${path_directory_product}/teumer_tsh_against_zhou_tsh;\
+  ${path_directory_source}/30367059_teumer_2018_tsh_all.sumstats.gz;\
+  ${path_directory_source}/32769997_zhou_2020.sumstats.gz"
+)
 
 ###########################################################################
 # Execute procedure.
