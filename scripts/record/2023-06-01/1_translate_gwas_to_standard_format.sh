@@ -24,7 +24,7 @@
 
 # Directories.
 cd ~/paths
-path_bgzip=$(<"./tools_waller_bgzip.txt")
+path_bgzip=$(<"./tools_bgzip.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_directory_parent_source="${path_directory_gwas_summaries}"
