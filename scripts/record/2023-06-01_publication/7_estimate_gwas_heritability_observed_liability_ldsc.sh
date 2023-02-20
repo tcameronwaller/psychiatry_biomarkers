@@ -99,7 +99,7 @@ do
     # scales.
     if [ "$type" == "logistic" ] && [ "$prevalence_sample" != "NA" ] && [ "$prevalence_population" != "NA" ]; then
       scale="liability"
-    else [ "$fill_observations" == "1" ] && [ "$fill_case_control" == "1" ]; then
+    else
       scale="linear"
     fi
     # Call LDSC.
