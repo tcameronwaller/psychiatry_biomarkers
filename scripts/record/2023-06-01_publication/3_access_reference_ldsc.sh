@@ -19,3 +19,12 @@ path_script_access="${path_promiscuity_scripts}/ldsc/access_ldsc_genetic_referen
 
 /usr/bin/bash "${path_script_access}" \
 $path_directory_reference
+
+################################################################################
+# Report.
+if [[ "$report" == "true" ]]; then
+  echo "----------"
+  echo "Script complete:"
+  echo "3_access_reference_ldsc.sh"
+  echo "----------"
+fi
