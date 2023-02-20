@@ -100,7 +100,7 @@ do
     if [ "$type" == "logistic" ] && [ "$prevalence_sample" != "NA" ] && [ "$prevalence_population" != "NA" ]; then
       scale="liability"
     else
-      scale="linear"
+      scale="observed"
     fi
     # Call LDSC.
     /usr/bin/bash "${path_file_script}" \
