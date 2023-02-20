@@ -25,11 +25,11 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
-path_directory_source="${path_directory_dock}/hormone_genetics/gwas_munge_ldsc"
+path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-17/gwas_munge_ldsc"
 #path_directory_source="${path_directory_dock}/test_compare_gwas2vcf_in_ldsc/gwas_munge_ldsc"
-path_directory_product="${path_directory_dock}/hormone_genetics/gwas_heritability_ldsc"
+path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-17/gwas_heritability_ldsc"
 #path_directory_product="${path_directory_dock}/test_compare_gwas2vcf_in_ldsc/gwas_heritability_ldsc"
-path_directory_reference="${path_directory_dock}/hormone_genetics/reference_ldsc"
+path_directory_reference="${path_directory_dock}/hormone_genetics_tcw_2023-02-17/reference_ldsc"
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Files.
