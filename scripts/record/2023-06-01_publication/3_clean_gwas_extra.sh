@@ -30,11 +30,11 @@ cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-22/gwas_vcf_process"
-path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-22/gwas_extra_process"
+path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_vcf_process"
+path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_extra_process"
 #path_directory_product="${path_directory_dock}/hormone_genetics/gwas_vcf_hormones"
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-22.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-24.tsv"
 # Scripts.
 path_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
 path_script_impute_gwas_allele_frequency="${path_promiscuity_scripts}/gwas_clean/impute_gwas_allele_frequency.sh"
