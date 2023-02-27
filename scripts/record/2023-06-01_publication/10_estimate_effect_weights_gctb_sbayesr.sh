@@ -68,6 +68,11 @@ threads=1
 report="true"
 
 
+# TODO: TCW; 27 February 2023
+# TODO: need a new parameter for each GWAS sum stats <-- "observations_variant"
+# TODO: derive from the "fill_observations" parameter in the GWAS format translation parameter table.
+
+
 
 ################################################################################
 # Report.
