@@ -104,7 +104,7 @@ done
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "6_estimate_gwas_heritability_ldsc.sh"
+  echo "7_estimate_gwas_heritability_ldsc.sh"
   echo "----------"
 fi
 
