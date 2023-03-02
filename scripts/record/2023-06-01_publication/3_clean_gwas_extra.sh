@@ -32,7 +32,6 @@ path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_vcf_process"
 path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_extra_process"
-#path_directory_product="${path_directory_dock}/hormone_genetics/gwas_vcf_hormones"
 # Files.
 path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-24.tsv"
 # Scripts.
@@ -57,6 +56,8 @@ report="true"
 # Copy the GWAS summary statistics from the GWAS2VCF procedure.
 
 cp -r $path_directory_source $path_directory_product
+mv "${path_directory_product}/gwas_vcf_process/*.txt.gz" $path_directory_product
+rm -r "${path_directory_product}/gwas_vcf_process"
 
 # Perform extra procedures on the sets of GWAS summary statistics for which they
 # are necessary.
