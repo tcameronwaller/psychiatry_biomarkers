@@ -97,7 +97,7 @@ done
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "4_translate_gwas_to_ldsc_format.sh"
+  echo "5_translate_gwas_to_ldsc_format.sh"
   echo "----------"
 fi
 
