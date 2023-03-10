@@ -13,6 +13,7 @@
 
 
 # TODO: TCW; 10 March 2023
+# 0. start using a more legit reference genome sequence in GWAS2VCF
 # 1. translate to BED format for CrossMap
 # 2. map in CrossMap GRCh37 to GRCh38
 # 3. translate to format for PLINK2 --score
