@@ -43,7 +43,7 @@ path_directory_product="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-0
 path_file_grch37="${path_directory_source}/BMI_GIANTUKB_EUR_tcw_2023-03-01_chromosomes.snpRes"
 path_file_grch37_ucsc_bed="${path_directory_product}/BMI_GIANTUKB_EUR_grch37.bed.gz"
 #path_file_chain_grch37_to_grch38="${path_directory_reference}/assembly_chains/ucsc/hg19ToHg38.over.chain.gz"
-path_file_chain_grch37_to_grch38="${path_directory_reference}/assembly_chains/ensembl/GRCh37_to_GRCh38.chain.gz"
+path_file_chain_grch37_to_grch38="${path_directory_reference}/crossmap/ensembl/GRCh37_to_GRCh38.chain.gz"
 path_file_grch38_ucsc_bed="${path_directory_product}/BMI_GIANTUKB_EUR_grch38.bed.gz"
 path_file_grch38="${path_directory_product}/BMI_GIANTUKB_EUR_grch38_standard.txt.gz"
 
