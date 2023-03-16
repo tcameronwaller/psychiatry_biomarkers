@@ -30,6 +30,7 @@ path_file_dbsnp="${path_directory_dbsnp}/GCF_000001405.40.gz"
 
 name_file_genotypes_prefix="MERGED.maf0.dosR20.3.noDups.chr"
 name_file_genotypes_suffix=".dose.vcf.gz"
+name_file_genotypes_suffix_index=".dose.vcf.gz.tbi"
 chromosome="10"
 
 path_file_genotypes_source="${path_directory_genotypes_source}/${name_file_genotypes_prefix}${chromosome}${name_file_genotypes_suffix}"
