@@ -8,7 +8,19 @@
 ################################################################################
 # Note
 
+# Within the Variant Call Format (VCF) files, the source genotypes use
+# identifiers for variant records with format
+# "chr[chromosome]:[position]:[reference allele]:[alternate allele]".
+# Change this format to
+# "[chromosome]_[position]_[reference allele]_[alternate allele]".
+
 # TODO: I need to run this annotation step for the genotypes on all chromosomes... need to submit array batch job.
+
+# TODO: change the identifier of variants to [chromosome number]_[position]_[alternate allele]
+# -I, --set-id [+]FORMAT
+#    assign ID on the fly. The format is the same as in the query command (see below). By default all existing IDs are replaced. If the format string is preceded by "+", only missing IDs will be set. For example, one can use
+#    bcftools annotate --set-id +'%CHROM\_%POS\_%REF\_%FIRST_ALT' file.vcf
+
 
 ################################################################################
 # Organize paths.
@@ -68,10 +80,22 @@ set -x
 ##########
 # Introduce dbSNP identifiers to genotype files.
 
-if true; then
+if false; then
   /usr/bin/bash $path_script_annotate \
   $path_file_genotypes_product \
   $path_file_genotypes_annotation \
+  $path_file_dbsnp \
+  $threads \
+  $path_bcftools \
+  $report
+fi
+
+##########
+# Assign identifiers to variants.
+
+if true; then
+  /usr/bin/bash $path_script_identifier \
+  $path_file_genotypes_product \
   $path_file_dbsnp \
   $threads \
   $path_bcftools \

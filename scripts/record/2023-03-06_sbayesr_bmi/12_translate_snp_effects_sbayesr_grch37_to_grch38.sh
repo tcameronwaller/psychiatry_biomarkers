@@ -50,7 +50,8 @@ path_file_grch38="${path_directory_product}/BMI_GIANTUKB_EUR_grch38_standard.txt
 # Scripts.
 path_script_ucsc_bed="${path_directory_process}/promiscuity/scripts/gctb/translate_snp_effects_sbayesr_to_ucsc_bed.sh"
 path_script_map="${path_directory_process}/promiscuity/scripts/crossmap/map_genomic_feature_bed.sh"
-path_script_standard="${path_directory_process}/promiscuity/scripts/gctb/translate_snp_effects_ucsc_bed_to_standard.sh"
+#path_script_standard="${path_directory_process}/promiscuity/scripts/gctb/translate_snp_effects_ucsc_bed_to_standard.sh"
+path_script_standard="${path_directory_process}/promiscuity/scripts/gctb/translate_snp_effects_ucsc_bed_to_standard_identifier.sh"
 
 # Initialize directories.
 rm -r $path_directory_product
