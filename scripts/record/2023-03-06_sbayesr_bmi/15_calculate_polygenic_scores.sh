@@ -17,7 +17,7 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_source_genotypes="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-01/mayo_bipolar_disorder_genotypes_1_2_merge"
+path_directory_source_genotypes="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-01/genotypes_mayo_bpd_1_2_merge_annotation"
 path_directory_source_effects="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-01/sbayesr_snp_effects_grch38"
 path_directory_product="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-01/test_polygenic_scores"
 
@@ -73,7 +73,7 @@ fi
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script:"
-  echo "14_calculate_polygenic_scores.sh"
+  echo "15_calculate_polygenic_scores.sh"
   echo "----------"
 fi
 

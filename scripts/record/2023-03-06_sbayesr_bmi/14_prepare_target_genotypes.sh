@@ -8,7 +8,7 @@
 ################################################################################
 # Note
 
-
+# TODO: I need to run this annotation step for the genotypes on all chromosomes... need to submit array batch job.
 
 ################################################################################
 # Organize paths.
