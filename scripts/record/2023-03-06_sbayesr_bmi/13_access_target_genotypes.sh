@@ -44,7 +44,7 @@ cd $path_directory_product
 # Echo each command to console.
 set -x
 
-cp "${path_directory_source}/${name_file_genotypes_prefix}*${name_file_genotypes_suffix}*" $path_directory_product
+cp ${path_directory_source}/${name_file_genotypes_prefix}*${name_file_genotypes_suffix}* $path_directory_product
 #cp "$path_file_genotypes_source" "$path_file_genotypes_product"
 #mv "$path_target_container/MERGED" "$path_target_mayo_bipolar_genotype"
 
