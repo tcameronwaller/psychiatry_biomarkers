@@ -8,7 +8,10 @@
 ################################################################################
 # Note
 
-# TODO: I might need to annotate the Mayo genotypes first...
+# TODO: TCW; 16 March 2023
+# TODO: I do NOT need to change the variant identifiers in the VCFs.
+# TODO: I can just translate the format of the allelic effects to have matching
+# TODO: identifiers.
 
 ################################################################################
 # Organize paths.
@@ -32,7 +35,8 @@ path_file_source_genotypes="${path_directory_source_genotypes}/${name_file_genot
 
 name_file_product_prefix="BMI_GIANTUKB_EUR_chromosome_"
 name_file_product_suffix=".txt.gz"
-path_file_product="${path_directory_product}/${name_file_product_prefix}${chromosome}${name_file_product_suffix}"
+name_base_file_product="${name_file_product_prefix}${chromosome}${name_file_product_suffix}"
+#path_file_product="${path_directory_product}/${name_file_product_prefix}${chromosome}${name_file_product_suffix}"
 
 # Scripts.
 path_script_drive_calculate="${path_directory_process}/promiscuity/scripts/plink/calculate_polygenic_score.sh"
@@ -58,7 +62,8 @@ if true; then
   /usr/bin/bash $path_script_drive_calculate \
   $path_file_source_effects \
   $path_file_source_genotypes \
-  $path_file_product \
+  $path_directory_product \
+  $name_base_file_product \
   $threads \
   $report
 fi
