@@ -8,19 +8,21 @@
 ################################################################################
 # Note
 
-# Within the Variant Call Format (VCF) files, the source genotypes use
+# Within the Variant Call Format (VCF) files, the relevant genotypes use
 # identifiers for variant records with format
 # "chr[chromosome]:[position]:[reference allele]:[alternate allele]".
-# Change this format to
-# "[chromosome]_[position]_[reference allele]_[alternate allele]".
 
-# TODO: I need to run this annotation step for the genotypes on all chromosomes... need to submit array batch job.
+# The BCFTools "--set-id" method would be useful to change the format of variant
+# identifiers in the genotype VCF files.
+# bcftools annotate --set-id +'%CHROM\_%POS\_%REF\_%FIRST_ALT' file.vcf
+# However, changing variant identifiers in the genotype VCF files requires
+# considerable computational effort.
 
-# TODO: change the identifier of variants to [chromosome number]_[position]_[alternate allele]
-# -I, --set-id [+]FORMAT
-#    assign ID on the fly. The format is the same as in the query command (see below). By default all existing IDs are replaced. If the format string is preceded by "+", only missing IDs will be set. For example, one can use
-#    bcftools annotate --set-id +'%CHROM\_%POS\_%REF\_%FIRST_ALT' file.vcf
-
+# Rather than changing the format of variant identifiers in the genotype VCF
+# files, change the identifiers of variants (SNPs) in the allelic effects to
+# match those of the genotypes on which to calculate polygenic scores.
+# This latter process requires less computational effort and runs in a previous
+# step.
 
 ################################################################################
 # Organize paths.
@@ -31,10 +33,9 @@ path_bcftools=$(<"./tools_bcftools.txt")
 path_directory_reference=$(<"./reference_tcw.txt")
 path_directory_dbsnp="${path_directory_reference}/dbsnp/grch38_chromosome/"
 
-path_directory_genotypes_source=$(<"./mayo_bipolar_disorder_genotypes_1_2_merge.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_genotypes_product="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-01/mayo_bipolar_disorder_genotypes_1_2_merge"
+path_directory_genotypes_source="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-01/mayo_bipolar_disorder_genotypes_1_2_merge"
 path_directory_genotypes_annotation="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-01/genotypes_mayo_bpd_1_2_merge_annotation"
 
 # Files.
@@ -51,6 +52,7 @@ path_file_genotypes_annotation="${path_directory_genotypes_annotation}/${name_fi
 
 # Scripts.
 path_script_annotate="${path_directory_process}/promiscuity/scripts/bcftools/annotate_dbsnp_identifiers_vcf.sh"
+path_script_identifier="${path_directory_process}/promiscuity/scripts/bcftools/assign_variant_identifiers_vcf.sh"
 
 # Initialize directories.
 #rm -r $path_directory_genotypes_product
@@ -72,17 +74,12 @@ report="true"
 # Echo each command to console.
 set -x
 
-#cp -r "$path_directory_genotypes_source" "$path_directory_genotypes_product" # <-- Use this for all chromosomes
-#cp "$path_file_genotypes_source" "$path_file_genotypes_product"
-#mv "$path_target_container/MERGED" "$path_target_mayo_bipolar_genotype"
-
-
 ##########
 # Introduce dbSNP identifiers to genotype files.
 
 if false; then
   /usr/bin/bash $path_script_annotate \
-  $path_file_genotypes_product \
+  $path_file_genotypes_source \
   $path_file_genotypes_annotation \
   $path_file_dbsnp \
   $threads \
@@ -93,9 +90,9 @@ fi
 ##########
 # Assign identifiers to variants.
 
-if true; then
+if false; then
   /usr/bin/bash $path_script_identifier \
-  $path_file_genotypes_product \
+  $path_file_genotypes_source \
   $path_file_dbsnp \
   $threads \
   $path_bcftools \
