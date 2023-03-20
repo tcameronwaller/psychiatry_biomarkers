@@ -22,7 +22,8 @@ path_directory_product="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-0
 
 # Files.
 name_file_source_prefix="BMI_GIANTUKB_EUR_chromosome_"
-#name_file_source_suffix=".sscore"
+name_file_source_suffix=".sscore"
+name_file_source_not=".vars" # exclude the files that are lists of SNPs used in calculation of scores
 path_file_product="${path_directory_product}/BMI_GIANTUKB_EUR_combination.tsv"
 
 # Scripts.
@@ -40,6 +41,8 @@ cd $path_directory_product
 /usr/bin/bash $path_script_combine_standardize \
 $path_directory_source \
 $name_file_source_prefix \
+$name_file_source_suffix \
+$name_file_source_not \
 $path_file_product
 
 
