@@ -38,7 +38,7 @@ path_directory_product_2="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023
 path_directory_product_3="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_effects_3"
 
 path_directory_ld_matrix_1="${path_directory_product_1}/ukbEURu_hm3_shrunk_sparse"
-path_directory_ld_matrix_2="${path_directory_product_2}/ukbEURu_imp_v3_HM3_n50k.chisq10"
+path_directory_ld_matrix_2=$path_directory_product_2
 path_directory_ld_matrix_3="${path_directory_product_3}/band_ukb_10k_hm3"
 
 # Files.
@@ -52,20 +52,21 @@ name_file_ld_matrix_1_prefix="ukbEURu_hm3_chr"
 name_file_ld_matrix_1_suffix="_v3_50k.ldm.sparse"
 
 # sbayesr_2_ld_eur_ukb_50k_hm3_ss_chi
+# This LD matrix is a single file and is not divided by chromosome.
 path_file_ld_matrix_2_source="${path_directory_reference}/gctb/ukbEURu_imp_v3_HM3_n50k.chisq10.zip"
 path_file_ld_matrix_2_product="${path_directory_product_2}/ukbEURu_imp_v3_HM3_n50k.chisq10.zip"
-name_file_ld_matrix_2_prefix="___"
-name_file_ld_matrix_2_suffix="___"
+path_file_base_ld_matrix_2="${path_directory_ld_matrix_2}/ukbEURu_imp_v3_HM3_n50k.chisq10.ldm.sparse"
 
 # sbayesr_3_ld_eur_ukb_10k_hm3_band
 path_file_ld_matrix_3_source="${path_directory_reference}/gctb/band_ukb_10k_hm3.zip"
 path_file_ld_matrix_3_product="${path_directory_product_3}/band_ukb_10k_hm3.zip"
-name_file_ld_matrix_3_prefix="___"
-name_file_ld_matrix_3_suffix="___"
+name_file_ld_matrix_3_prefix="band_chr"
+name_file_ld_matrix_3_suffix=".ldm.sparse"
 
 # product
 name_file_product_prefix="BMI_GIANTUKB_EUR_"
 name_file_product_suffix="_tcw_2023-03-21" # Suffix must not be an empty string.
+path_file_base_product_2="${path_directory_product_2}/BMI_GIANTUKB_EUR_tcw_2023-03-21"
 
 # Scripts.
 path_script_gwas_format="${path_directory_process}/promiscuity/scripts/gctb/constrain_translate_gwas_standard_to_gctb.sh"
@@ -74,9 +75,9 @@ path_script_batch_run_sbayesr="${path_directory_process}/promiscuity/scripts/gct
 path_script_run_sbayesr="${path_directory_process}/promiscuity/scripts/gctb/run_gctb_sbayesr.sh"
 
 # Initialize directories.
-rm -r $path_directory_product_1
-rm -r $path_directory_product_2
-rm -r $path_directory_product_3
+#rm -r $path_directory_product_1
+#rm -r $path_directory_product_2
+#rm -r $path_directory_product_3
 mkdir -p $path_directory_product_1
 mkdir -p $path_directory_product_2
 mkdir -p $path_directory_product_3
@@ -116,7 +117,7 @@ fi
 ##########
 # 1. Prepare GWAS summary statistics.
 
-if false; then
+if true; then
   /usr/bin/bash $path_script_gwas_format \
   $path_file_gwas_source \
   $path_file_gwas_product \
@@ -128,7 +129,7 @@ fi
 ##########
 # 2. Prepare LD matrices.
 
-if true; then
+if false; then
   # 1.
   cp $path_file_ld_matrix_1_source $path_file_ld_matrix_1_product
   unzip $path_file_ld_matrix_1_product -d $path_directory_product_1
@@ -145,15 +146,15 @@ fi
 ##########
 # 3. Prepare and submit batch of jobs for processing on each chromosome.
 
-if false; then
+if true; then
   # 1.
   cd $path_directory_product_1
   /usr/bin/bash $path_script_submit_batch \
   $path_file_gwas_product \
-  $path_directory_ld_matrix \
-  $name_file_ld_matrix_prefix \
-  $name_file_ld_matrix_suffix \
-  $path_directory_product \
+  $path_directory_ld_matrix_1 \
+  $name_file_ld_matrix_1_prefix \
+  $name_file_ld_matrix_1_suffix \
+  $path_directory_product_1 \
   $name_file_product_prefix \
   $name_file_product_suffix \
   $observations_variant \
@@ -163,12 +164,36 @@ if false; then
   $path_gctb \
   $threads \
   $report
-
-  # 2.
-  cd $path_directory_product_2
-
   # 3.
   cd $path_directory_product_3
+  /usr/bin/bash $path_script_submit_batch \
+  $path_file_gwas_product \
+  $path_directory_ld_matrix_3 \
+  $name_file_ld_matrix_3_prefix \
+  $name_file_ld_matrix_3_suffix \
+  $path_directory_product_3 \
+  $name_file_product_prefix \
+  $name_file_product_suffix \
+  $observations_variant \
+  $chromosome_x \
+  $path_script_batch_run_sbayesr \
+  $path_script_run_sbayesr \
+  $path_gctb \
+  $threads \
+  $report
+fi
+
+if false; then
+  # 2.
+  cd $path_directory_product_2
+  /usr/bin/bash $path_script_run_sbayesr \
+  $path_file_gwas_product \
+  $path_file_base_ld_matrix_2 \
+  $path_file_base_product_2 \
+  $observations_variant \
+  $path_gctb \
+  $threads \
+  $report
 fi
 
 
