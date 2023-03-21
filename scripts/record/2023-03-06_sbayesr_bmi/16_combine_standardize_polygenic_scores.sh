@@ -46,8 +46,13 @@ mkdir -p $path_directory_product_2
 mkdir -p $path_directory_product_3
 cd $path_directory_product_1
 
-###########################################################################
+################################################################################
 # Organize parameters.
+
+
+
+###########################################################################
+# Execute procedure.
 
 # Combine polygenic scores across chromosomes.
 
