@@ -38,9 +38,9 @@ path_file_product_3="${path_directory_product_3}/BMI_GIANTUKB_EUR_combination.ts
 path_script_combine_scores="${path_directory_process}/promiscuity/scripts/plink/combine_sum_polygenic_scores.sh"
 
 # Initialize directories.
-rm -r $path_directory_product_1
-rm -r $path_directory_product_2
-rm -r $path_directory_product_3
+#rm -r $path_directory_product_1 # Source and product directories are the same.
+#rm -r $path_directory_product_2
+#rm -r $path_directory_product_3
 mkdir -p $path_directory_product_1
 mkdir -p $path_directory_product_2
 mkdir -p $path_directory_product_3
