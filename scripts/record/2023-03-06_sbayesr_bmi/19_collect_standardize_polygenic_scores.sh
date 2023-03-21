@@ -29,8 +29,8 @@ path_directory_source="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03
 path_directory_product="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/polygenic_scores_comparison/BMI_GIANTUKB_EUR_collection"
 
 # Files.
-name_file_source_prefix=""
-name_file_source_suffix=".txt"
+name_file_source_prefix="score_" # Must not be empty string.
+name_file_source_suffix=".txt" # Must not be empty string.
 name_file_source_not=".place_holder" # exclude any files that include this character string in file name
 path_file_product="${path_directory_product}/scores_collection.tsv"
 

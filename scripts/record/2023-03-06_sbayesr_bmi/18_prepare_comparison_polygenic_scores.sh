@@ -64,12 +64,12 @@ path_file_source_ldpred2="${path_directory_source}/scores_ldpred2.txt"
 path_file_source_ldpred2_2="${path_directory_source}/scores_ldpred2_2.txt"
 path_file_source_prsice2="${path_directory_source}/scores_prsice2.txt"
 
-path_file_product_sbayesr_1="${path_directory_product}/bmi_sbayesr_1.txt"
-path_file_product_sbayesr_2="${path_directory_product}/bmi_sbayesr_2.txt"
-path_file_product_sbayesr_3="${path_directory_product}/bmi_sbayesr_3.txt"
-path_file_product_ldpred2="${path_directory_product}/bmi_ldpred2.txt"
-path_file_product_ldpred2_2="${path_directory_product}/bmi_ldpred2_2.txt"
-path_file_product_prsice2="${path_directory_product}/bmi_prsice2.txt"
+path_file_product_sbayesr_1="${path_directory_product}/score_bmi_sbayesr_1.txt"
+path_file_product_sbayesr_2="${path_directory_product}/score_bmi_sbayesr_2.txt"
+path_file_product_sbayesr_3="${path_directory_product}/score_bmi_sbayesr_3.txt"
+path_file_product_ldpred2="${path_directory_product}/score_bmi_ldpred2.txt"
+path_file_product_ldpred2_2="${path_directory_product}/score_bmi_ldpred2_2.txt"
+path_file_product_prsice2="${path_directory_product}/score_bmi_prsice2.txt"
 
 # Initialize directories.
 rm -r $path_directory_product
