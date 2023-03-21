@@ -17,34 +17,66 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_source="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-01/test_polygenic_scores"
-path_directory_product="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-01/test_polygenic_scores"
+
+path_directory_source_1="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_1_polygenic_scores"
+path_directory_source_2="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_2_polygenic_scores"
+path_directory_source_3="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_3_polygenic_scores"
+
+path_directory_product_1="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_1_polygenic_scores"
+path_directory_product_2="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_2_polygenic_scores"
+path_directory_product_3="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_3_polygenic_scores"
 
 # Files.
 name_file_source_prefix="BMI_GIANTUKB_EUR_chromosome_"
 name_file_source_suffix=".sscore"
 name_file_source_not=".vars" # exclude the files that are lists of SNPs used in calculation of scores
-path_file_product="${path_directory_product}/BMI_GIANTUKB_EUR_combination.tsv"
+path_file_product_1="${path_directory_product_1}/BMI_GIANTUKB_EUR_combination.tsv"
+path_file_product_2="${path_directory_product_2}/BMI_GIANTUKB_EUR_combination.tsv"
+path_file_product_3="${path_directory_product_3}/BMI_GIANTUKB_EUR_combination.tsv"
 
 # Scripts.
-path_script_combine_standardize="${path_directory_process}/promiscuity/scripts/plink/combine_standardize_polygenic_scores.sh"
+path_script_combine_scores="${path_directory_process}/promiscuity/scripts/plink/combine_sum_polygenic_scores.sh"
 
 # Initialize directories.
-#rm -r $path_directory_product
-mkdir -p $path_directory_product
-cd $path_directory_product
+rm -r $path_directory_product_1
+rm -r $path_directory_product_2
+rm -r $path_directory_product_3
+mkdir -p $path_directory_product_1
+mkdir -p $path_directory_product_2
+mkdir -p $path_directory_product_3
+cd $path_directory_product_1
 
 ###########################################################################
 # Organize parameters.
 
-# Calculate polygenic scores for a single chromosome.
-/usr/bin/bash $path_script_combine_standardize \
-$path_directory_source \
+# Combine polygenic scores across chromosomes.
+
+# 1.
+cd $path_directory_product_1
+/usr/bin/bash $path_script_combine_scores \
+$path_directory_source_1 \
 $name_file_source_prefix \
 $name_file_source_suffix \
 $name_file_source_not \
-$path_file_product
+$path_file_product_1
 
+# 2.
+cd $path_directory_product_2
+/usr/bin/bash $path_script_combine_scores \
+$path_directory_source_2 \
+$name_file_source_prefix \
+$name_file_source_suffix \
+$name_file_source_not \
+$path_file_product_2
+
+# 3.
+cd $path_directory_product_3
+/usr/bin/bash $path_script_combine_scores \
+$path_directory_source_3 \
+$name_file_source_prefix \
+$name_file_source_suffix \
+$name_file_source_not \
+$path_file_product_3
 
 
 ################################################################################

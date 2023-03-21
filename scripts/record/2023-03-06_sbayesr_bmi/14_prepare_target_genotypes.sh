@@ -8,6 +8,8 @@
 ################################################################################
 # Note
 
+# This procedure is unnecessary!
+
 # Within the Variant Call Format (VCF) files, the relevant genotypes use
 # identifiers for variant records with format
 # "chr[chromosome]:[position]:[reference allele]:[alternate allele]".
@@ -56,10 +58,10 @@ path_script_identifier="${path_directory_process}/promiscuity/scripts/bcftools/a
 
 # Initialize directories.
 #rm -r $path_directory_genotypes_product
-rm -r $path_directory_genotypes_annotation
+#rm -r $path_directory_genotypes_annotation
 #mkdir -p $path_directory_genotypes_product
-mkdir -p $path_directory_genotypes_annotation
-cd $path_directory_genotypes_product
+#mkdir -p $path_directory_genotypes_annotation
+#cd $path_directory_genotypes_product
 
 ###########################################################################
 # Organize parameters.
