@@ -4,8 +4,8 @@
 ################################################################################
 ################################################################################
 # Author: T. Cameron Waller
-# Date, first execution: __ February 2023
-# Date, last execution: __ February 2023
+# Date, first execution: 1 March 2023
+# Date, last execution: 21 March 2023
 ################################################################################
 ################################################################################
 ################################################################################
@@ -117,7 +117,7 @@ fi
 ##########
 # 1. Prepare GWAS summary statistics.
 
-if true; then
+if false; then
   /usr/bin/bash $path_script_gwas_format \
   $path_file_gwas_source \
   $path_file_gwas_product \
@@ -146,7 +146,7 @@ fi
 ##########
 # 3. Prepare and submit batch of jobs for processing on each chromosome.
 
-if true; then
+if false; then
   # 1.
   cd $path_directory_product_1
   /usr/bin/bash $path_script_submit_batch \
@@ -183,7 +183,7 @@ if true; then
   $report
 fi
 
-if false; then
+if true; then
   # 2.
   cd $path_directory_product_2
   /usr/bin/bash $path_script_run_sbayesr \
