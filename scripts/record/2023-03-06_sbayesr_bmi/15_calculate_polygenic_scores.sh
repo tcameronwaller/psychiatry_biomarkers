@@ -4,7 +4,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 15 March 2023
 # Date, last execution: 21 March 2023
-# Review: TCW; ___
+# Review: TCW; 21 March 2023
 ################################################################################
 # Note
 
@@ -18,7 +18,7 @@ cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
 path_directory_source_genotypes="${path_directory_dock}/genotypes_mayo_bipolar_disorder_1_2_merge"
-path_directory_source_effects="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-01/sbayesr_snp_effects_grch38"
+path_directory_source_effects="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_effects_grch38"
 path_directory_product_1="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_1_polygenic_scores"
 path_directory_product_2="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_2_polygenic_scores"
 path_directory_product_3="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_3_polygenic_scores"
@@ -70,7 +70,7 @@ for chromosome in "${chromosomes[@]}"; do
   # 1.
   cd $path_directory_product_1
   /usr/bin/bash $path_script_drive_calculate \
-  $path_file_source_effects \
+  $path_file_source_effects_1 \
   $path_file_source_genotypes \
   $path_directory_product_1 \
   $name_base_file_product \
@@ -79,7 +79,7 @@ for chromosome in "${chromosomes[@]}"; do
   # 2.
   cd $path_directory_product_2
   /usr/bin/bash $path_script_drive_calculate \
-  $path_file_source_effects \
+  $path_file_source_effects_2 \
   $path_file_source_genotypes \
   $path_directory_product_2 \
   $name_base_file_product \
@@ -88,7 +88,7 @@ for chromosome in "${chromosomes[@]}"; do
   # 3.
   cd $path_directory_product_3
   /usr/bin/bash $path_script_drive_calculate \
-  $path_file_source_effects \
+  $path_file_source_effects_3 \
   $path_file_source_genotypes \
   $path_directory_product_3 \
   $name_base_file_product \
