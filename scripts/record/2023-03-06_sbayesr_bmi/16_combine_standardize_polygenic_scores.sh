@@ -30,9 +30,9 @@ path_directory_product_3="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023
 name_file_source_prefix="BMI_GIANTUKB_EUR_chromosome_"
 name_file_source_suffix=".sscore"
 name_file_source_not=".vars" # exclude the files that are lists of SNPs used in calculation of scores
-path_file_product_1="${path_directory_product_1}/BMI_GIANTUKB_EUR_combination.tsv"
-path_file_product_2="${path_directory_product_2}/BMI_GIANTUKB_EUR_combination.tsv"
-path_file_product_3="${path_directory_product_3}/BMI_GIANTUKB_EUR_combination.tsv"
+path_file_product_1="${path_directory_product_1}/BMI_GIANTUKB_EUR_combination.txt"
+path_file_product_2="${path_directory_product_2}/BMI_GIANTUKB_EUR_combination.txt"
+path_file_product_3="${path_directory_product_3}/BMI_GIANTUKB_EUR_combination.txt"
 
 # Scripts.
 path_script_combine_scores="${path_directory_process}/promiscuity/scripts/plink/combine_sum_polygenic_scores.sh"

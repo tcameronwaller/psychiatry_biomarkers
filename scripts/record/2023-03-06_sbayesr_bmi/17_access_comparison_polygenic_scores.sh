@@ -34,9 +34,9 @@ path_directory_product="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-0
 path_file_source_ldpred2="${path_directory_source_ldpred2}/BMI_GIANTUKB_EUR.LDpred2.auto.gz"
 path_file_source_ldpred2_2="${path_directory_source_ldpred2_2}/BMI_GIANTUKB_EUR.LDpred2.auto.gz"
 path_file_source_prsice2="${path_directory_source_prsice2}/BMI_GIANTUKB_EUR.best.gz"
-path_file_source_sbayesr_1="${path_directory_source_sbayesr_1}/BMI_GIANTUKB_EUR_combination.tsv"
-path_file_source_sbayesr_2="${path_directory_source_sbayesr_2}/BMI_GIANTUKB_EUR_combination.tsv"
-path_file_source_sbayesr_3="${path_directory_source_sbayesr_3}/BMI_GIANTUKB_EUR_combination.tsv"
+path_file_source_sbayesr_1="${path_directory_source_sbayesr_1}/BMI_GIANTUKB_EUR_combination.txt"
+path_file_source_sbayesr_2="${path_directory_source_sbayesr_2}/BMI_GIANTUKB_EUR_combination.txt"
+path_file_source_sbayesr_3="${path_directory_source_sbayesr_3}/BMI_GIANTUKB_EUR_combination.txt"
 
 path_file_product_compress_ldpred2="${path_directory_product}/scores_ldpred2.txt.gz"
 path_file_product_compress_ldpred2_2="${path_directory_product}/scores_ldpred2_2.txt.gz"
