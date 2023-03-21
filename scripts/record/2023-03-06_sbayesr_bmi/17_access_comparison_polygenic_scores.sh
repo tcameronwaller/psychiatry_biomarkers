@@ -28,7 +28,7 @@ path_directory_source_sbayesr_1="${path_directory_dock}/test_sbayesr_body_mass_t
 path_directory_source_sbayesr_2="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_2_polygenic_scores"
 path_directory_source_sbayesr_3="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_3_polygenic_scores"
 
-path_directory_product="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/polygenic_scores_sbayesr_ldpred2_prsice2/BMI_GIANTUKB_EUR"
+path_directory_product="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/polygenic_scores_sbayesr_ldpred2_prsice2/BMI_GIANTUKB_EUR_raw"
 
 # Files.
 path_file_source_ldpred2="${path_directory_source_ldpred2}/BMI_GIANTUKB_EUR.LDpred2.auto.gz"
