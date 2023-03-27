@@ -55,7 +55,7 @@ report="true"
 # Most sets of GWAS summary statistics do not need extra processing.
 # Copy the GWAS summary statistics from the GWAS2VCF procedure.
 
-cp "${path_directory_source}/*.txt.gz" $path_directory_product
+cp $path_directory_source/*.txt.gz $path_directory_product
 
 # Perform extra procedures on the sets of GWAS summary statistics for which they
 # are necessary.
