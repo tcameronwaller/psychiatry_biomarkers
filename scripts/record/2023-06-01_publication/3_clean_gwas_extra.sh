@@ -55,9 +55,7 @@ report="true"
 # Most sets of GWAS summary statistics do not need extra processing.
 # Copy the GWAS summary statistics from the GWAS2VCF procedure.
 
-cp -r $path_directory_source $path_directory_product
-mv "${path_directory_product}/gwas_vcf_process/*.txt.gz" $path_directory_product
-rm -r "${path_directory_product}/gwas_vcf_process"
+cp "${path_directory_source}/*.txt.gz" $path_directory_product
 
 # Perform extra procedures on the sets of GWAS summary statistics for which they
 # are necessary.
@@ -67,6 +65,15 @@ rm -r "${path_directory_product}/gwas_vcf_process"
 "${path_directory_product}/36093044_mathieu_2022_hypothyroidism.txt.gz" \
 $report
 
+/usr/bin/bash $path_script_impute_gwas_allele_frequency \
+"${path_directory_source}/30367059_teumer_2018_hypothyroidism.txt.gz" \
+"${path_directory_product}/30367059_teumer_2018_hypothyroidism_1kg_af.txt.gz" \
+$report
+
+/usr/bin/bash $path_script_impute_gwas_allele_frequency \
+"${path_directory_source}/30367059_teumer_2018_hyperthyroidism.txt.gz" \
+"${path_directory_product}/30367059_teumer_2018_hyperthyroidism_1kg_af.txt.gz" \
+$report
 
 
 #
