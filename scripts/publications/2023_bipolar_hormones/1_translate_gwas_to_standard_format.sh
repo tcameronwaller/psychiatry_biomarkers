@@ -34,9 +34,9 @@ path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/g
 # Files.
 path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-24.tsv"
 # Scripts.
-path_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_directory_script="${path_promiscuity_scripts}/gwas_format/translate_format_raw_to_standard"
-path_script_drive_translations="${path_promiscuity_scripts}/gwas_format/drive_translations_gwas_to_standard_format.sh"
+path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
+path_directory_script="${path_directory_promiscuity_scripts}/gwas_format/translate_format_raw_to_standard"
+path_script_drive_translations="${path_directory_promiscuity_scripts}/gwas_format/drive_translations_gwas_to_standard_format.sh"
 
 # Initialize directories.
 rm -r $path_directory_product
