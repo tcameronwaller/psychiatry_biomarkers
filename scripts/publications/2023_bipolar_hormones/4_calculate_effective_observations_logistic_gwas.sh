@@ -28,7 +28,7 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_extra_process"
-path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_logistic_effective_observations"
+path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_effective_observations"
 
 # Files.
 path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-24.tsv"
