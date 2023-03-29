@@ -25,7 +25,8 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
-path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_extra_process"
+#path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_extra_process"
+path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_effective_observations"
 path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_format_ldsc"
 
 # Files.
