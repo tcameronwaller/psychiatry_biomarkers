@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 15 March 2023
-# Date, last execution: 15 March 2023
-# Review: TCW; 15 March 2023
+# Date, last execution: 3 April 2023
+# Review: TCW; 3 April 2023
 ################################################################################
 # Note
 
@@ -24,7 +24,7 @@ path_directory_source=$(<"./genotypes_regeneron_mayo_bipolar_disorder_1_2_merge_
 
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_product="${path_directory_dock}/genotypes_mayo_bipolar_disorder_1_2_merge_mayo_control"
+path_directory_product="${path_directory_dock}/genotypes_regeneron_mayo_bipolar_disorder_1_2_merge_mayo_control"
 
 # Files.
 #name_file_genotypes_prefix="MERGED.maf0.dosR20.3.noDups.chr"
