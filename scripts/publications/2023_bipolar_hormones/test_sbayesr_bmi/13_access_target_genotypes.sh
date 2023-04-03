@@ -15,13 +15,20 @@
 
 # Directories.
 cd ~/paths
-path_directory_source=$(<"./genotypes_mayo_bipolar_disorder_1_2_merge.txt")
+
+# Regeneron genotypes of all ancestries in Mayo Bipolar Disorder 1-2-Merge cases
+#path_directory_source=$(<"./genotypes_regeneron_mayo_bipolar_disorder_1_2_merge.txt")
+
+# Regeneron genotypes of all ancestries in Mayo Bipolar Disorder 1-2-Merge cases and Mayo Clinic Biobank controls
+path_directory_source=$(<"./genotypes_regeneron_mayo_bipolar_disorder_1_2_merge_mayo_control.txt") # cases from Mayo Bipolar 1-2-Merge and controls from Mayo Clinic Biobank
+
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_product="${path_directory_dock}/genotypes_mayo_bipolar_disorder_1_2_merge"
+path_directory_product="${path_directory_dock}/genotypes_mayo_bipolar_disorder_1_2_merge_mayo_control"
 
 # Files.
-name_file_genotypes_prefix="MERGED.maf0.dosR20.3.noDups.chr"
+#name_file_genotypes_prefix="MERGED.maf0.dosR20.3.noDups.chr"
+name_file_genotypes_prefix="GWAS_MERGED_BPphe_wMCBBctrl.maf0.dosR20.3.noDups.noSM.chr"
 name_file_genotypes_suffix=".dose.vcf.gz"
 name_file_genotypes_suffix_index=".dose.vcf.gz.tbi"
 #chromosome="10"

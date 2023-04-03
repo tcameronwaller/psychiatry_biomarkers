@@ -121,10 +121,10 @@ cat $path_file_source_ldpred2_2 | awk 'BEGIN { FS=" "; OFS="\t" } NR > 1 {
 }' >> $path_file_product_ldpred2_2
 
 # PRSice2
-
+# Use column "Pt_0.05" for score calculated on probability threshold 0.05.
 echo -e "identifier\tscore" > $path_file_product_prsice2
 cat $path_file_source_prsice2 | awk 'BEGIN { FS=" "; OFS="\t" } NR > 1 {
-  print $2, $4
+  print $2, $10
 }' >> $path_file_product_prsice2
 
 

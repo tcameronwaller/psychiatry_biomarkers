@@ -23,6 +23,15 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
 path_directory_product="${path_directory_dock}/phenotypes_mayo_bipolar_disorder_1_2_merge"
 
+# PCA on Regeneron genotypes of all ancestries in Mayo Bipolar Disorder 1-2-Merge cases and Mayo Clinic Biobank controls
+# path = "genotype_regeneron_pca_mayo_bipolar_disorder_1_2_merge_mayo_control_all.txt"
+# file = "Top20_PCs.csv"
+
+# PCA on Regeneron genotypes of European ancestry in Mayo Bipolar Disorder 1-2-Merge cases and Mayo Clinic Biobank controls
+# path = "genotype_regeneron_pca_mayo_bipolar_disorder_1_2_merge_mayo_control_europe.txt"
+# file = "Top20_PCs.csv"
+
+
 # Files.
 name_file_identifier="210421_id_matching_gwas.csv" # file date: 21 April 2021
 name_file_genetic_sex_case="MERGED.maf0.01.dosR20.8.noDups.fam" # file date: 20 May 2022

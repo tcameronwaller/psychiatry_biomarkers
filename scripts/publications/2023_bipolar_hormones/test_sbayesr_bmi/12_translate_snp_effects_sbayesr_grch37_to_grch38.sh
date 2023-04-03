@@ -82,7 +82,7 @@ report="true"
 # Execute procedure.
 
 ##########
-# Translate SBayesR SNP effect weights to format for CrossMap.
+# Translate SBayesR SNP effect weights format from SBayesR to CrossMap UCSC BED.
 
 if true; then
   # 1.
@@ -130,7 +130,8 @@ if true; then
 fi
 
 ##########
-# Translate SBayesR SNP effect weights in CrossMap from GRCh37 to GRCh38.
+# Translate SBayesR SNP effect weights format from CrossMap UCSC BED to team standard with special identifiers.
+# The format of variant (SNP) identifiers must match the target genotypes.
 
 if true; then
   # 1.
