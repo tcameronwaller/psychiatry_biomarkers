@@ -36,7 +36,7 @@ name_file_genotypes_suffix_index=".dose.vcf.gz.tbi"
 #path_file_genotypes_product="${path_directory_product}/${name_file_genotypes_prefix}${chromosome}${name_file_genotypes_suffix}"
 
 # Initialize directories.
-rm -r $path_directory_product
+#rm -r $path_directory_product
 mkdir -p $path_directory_product
 cd $path_directory_product
 
