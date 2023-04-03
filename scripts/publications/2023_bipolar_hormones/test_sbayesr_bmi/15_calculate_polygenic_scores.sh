@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 15 March 2023
-# Date, last execution: 21 March 2023
+# Date, last execution: 3 April 2023
 # Review: TCW; 21 March 2023
 ################################################################################
 # Note
@@ -17,7 +17,8 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_source_genotypes="${path_directory_dock}/genotypes_mayo_bipolar_disorder_1_2_merge"
+#path_directory_source_genotypes="${path_directory_dock}/genotypes_mayo_bipolar_disorder_1_2_merge"
+path_directory_source_genotypes="${path_directory_dock}/genotypes_regeneron_mayo_bipolar_disorder_1_2_merge_mayo_control"
 path_directory_source_effects="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_effects_grch38"
 path_directory_product_1="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_1_polygenic_scores"
 path_directory_product_2="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023-03-21/sbayesr_2_polygenic_scores"
@@ -27,7 +28,10 @@ path_directory_product_3="${path_directory_dock}/test_sbayesr_body_mass_tcw_2023
 path_file_source_effects_1="${path_directory_source_effects}/BMI_GIANTUKB_EUR_1_grch38_standard.txt.gz"
 path_file_source_effects_2="${path_directory_source_effects}/BMI_GIANTUKB_EUR_2_grch38_standard.txt.gz"
 path_file_source_effects_3="${path_directory_source_effects}/BMI_GIANTUKB_EUR_3_grch38_standard.txt.gz"
-name_file_genotypes_prefix="MERGED.maf0.dosR20.3.noDups.chr"
+
+#name_file_genotypes_prefix="MERGED.maf0.dosR20.3.noDups.chr"
+#name_file_genotypes_suffix=".dose.vcf.gz"
+name_file_genotypes_prefix="GWAS_MERGED_BPphe_wMCBBctrl.maf0.dosR20.3.noDups.noSM.chr"
 name_file_genotypes_suffix=".dose.vcf.gz"
 name_file_product_prefix="BMI_GIANTUKB_EUR_chromosome_"
 name_file_product_suffix=""
