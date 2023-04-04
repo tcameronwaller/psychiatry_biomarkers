@@ -32,7 +32,7 @@ path_directory_reference="${path_directory_dock}/hormone_genetics_tcw_2023-02-24
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-24.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-04-04.tsv"
 
 # Files.
 
