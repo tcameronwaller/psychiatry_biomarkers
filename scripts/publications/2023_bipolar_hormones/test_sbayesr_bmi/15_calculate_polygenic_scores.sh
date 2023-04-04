@@ -59,7 +59,7 @@ cd $path_directory_product_1
 # Organize parameters.
 
 chromosome_x="false"
-threads=4
+threads=8
 report="true"
 
 ###########################################################################
@@ -70,7 +70,7 @@ if [[ "$chromosome_x" == "true" ]]; then
   chromosomes=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15" "16" "17" "18" "19" "20" "21" "22" "X")
 else
   #chromosomes=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15" "16" "17" "18" "19" "20" "21" "22") # temporarily disable
-  chromosomes=("3") # temporarily finish chromosome 3
+  chromosomes=("4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15" "16" "17" "18" "19" "20" "21" "22") # temporarily finish chromosomes
 fi
 for chromosome in "${chromosomes[@]}"; do
   # Define paths and names to files for current chromosome.
@@ -79,23 +79,23 @@ for chromosome in "${chromosomes[@]}"; do
   name_base_file_product="${name_file_product_prefix}${chromosome}${name_file_product_suffix}"
   # Calculate polygenic scores for a single chromosome.
   # 1.
-  #cd $path_directory_product_1
-  #/usr/bin/bash $path_script_drive_calculate \
-  #$path_file_source_effects_1 \
-  #$path_file_source_genotypes \
-  #$path_directory_product_1 \
-  #$name_base_file_product \
-  #$threads \
-  #$report
+  cd $path_directory_product_1
+  /usr/bin/bash $path_script_drive_calculate \
+  $path_file_source_effects_1 \
+  $path_file_source_genotypes \
+  $path_directory_product_1 \
+  $name_base_file_product \
+  $threads \
+  $report
   # 2.
-  #cd $path_directory_product_2
-  #/usr/bin/bash $path_script_drive_calculate \
-  #$path_file_source_effects_2 \
-  #$path_file_source_genotypes \
-  #$path_directory_product_2 \
-  #$name_base_file_product \
-  #$threads \
-  #$report
+  cd $path_directory_product_2
+  /usr/bin/bash $path_script_drive_calculate \
+  $path_file_source_effects_2 \
+  $path_file_source_genotypes \
+  $path_directory_product_2 \
+  $name_base_file_product \
+  $threads \
+  $report
   # 3.
   cd $path_directory_product_3
   /usr/bin/bash $path_script_drive_calculate \
