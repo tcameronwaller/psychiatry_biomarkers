@@ -3,10 +3,16 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 15 March 2023
-# Date, last execution: 3 April 2023
+# Date, last execution: 4 April 2023
 # Review: TCW; 21 March 2023
 ################################################################################
 # Note
+
+# When calculating polygenic scores on large cohorts of genotypes, this process
+# requires considerable computational resources and multiple hours of time.
+
+# Write a batch submission script to handle the parallelization across
+# chromosomes.
 
 
 
@@ -41,9 +47,9 @@ name_file_product_suffix=""
 path_script_drive_calculate="${path_directory_process}/promiscuity/scripts/plink/calculate_polygenic_score.sh"
 
 # Initialize directories.
-rm -r $path_directory_product_1
-rm -r $path_directory_product_2
-rm -r $path_directory_product_3
+#rm -r $path_directory_product_1 # Only remove previous if starting new.
+#rm -r $path_directory_product_2 # Only remove previous if starting new.
+#rm -r $path_directory_product_3 # Only remove previous if starting new.
 mkdir -p $path_directory_product_1
 mkdir -p $path_directory_product_2
 mkdir -p $path_directory_product_3
@@ -63,7 +69,8 @@ report="true"
 if [[ "$chromosome_x" == "true" ]]; then
   chromosomes=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15" "16" "17" "18" "19" "20" "21" "22" "X")
 else
-  chromosomes=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15" "16" "17" "18" "19" "20" "21" "22")
+  #chromosomes=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15" "16" "17" "18" "19" "20" "21" "22") # temporarily disable
+  chromosomes=("3") # temporarily finish chromosome 3
 fi
 for chromosome in "${chromosomes[@]}"; do
   # Define paths and names to files for current chromosome.
@@ -72,23 +79,23 @@ for chromosome in "${chromosomes[@]}"; do
   name_base_file_product="${name_file_product_prefix}${chromosome}${name_file_product_suffix}"
   # Calculate polygenic scores for a single chromosome.
   # 1.
-  cd $path_directory_product_1
-  /usr/bin/bash $path_script_drive_calculate \
-  $path_file_source_effects_1 \
-  $path_file_source_genotypes \
-  $path_directory_product_1 \
-  $name_base_file_product \
-  $threads \
-  $report
+  #cd $path_directory_product_1
+  #/usr/bin/bash $path_script_drive_calculate \
+  #$path_file_source_effects_1 \
+  #$path_file_source_genotypes \
+  #$path_directory_product_1 \
+  #$name_base_file_product \
+  #$threads \
+  #$report
   # 2.
-  cd $path_directory_product_2
-  /usr/bin/bash $path_script_drive_calculate \
-  $path_file_source_effects_2 \
-  $path_file_source_genotypes \
-  $path_directory_product_2 \
-  $name_base_file_product \
-  $threads \
-  $report
+  #cd $path_directory_product_2
+  #/usr/bin/bash $path_script_drive_calculate \
+  #$path_file_source_effects_2 \
+  #$path_file_source_genotypes \
+  #$path_directory_product_2 \
+  #$name_base_file_product \
+  #$threads \
+  #$report
   # 3.
   cd $path_directory_product_3
   /usr/bin/bash $path_script_drive_calculate \
