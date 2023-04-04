@@ -118,7 +118,7 @@ done < "${input}"
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "8_estimate_gwas_heritability_observed_liability_ldsc.sh"
+  echo "9_estimate_gwas_heritability_observed_liability_ldsc.sh"
   echo "----------"
 fi
 

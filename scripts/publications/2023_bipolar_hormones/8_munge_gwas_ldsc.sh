@@ -105,7 +105,7 @@ done
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "7_munge_gwas_ldsc.sh"
+  echo "8_munge_gwas_ldsc.sh"
   echo "----------"
 fi
 
