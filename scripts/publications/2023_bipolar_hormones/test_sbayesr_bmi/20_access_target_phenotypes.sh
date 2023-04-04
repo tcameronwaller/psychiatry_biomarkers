@@ -8,33 +8,41 @@
 ################################################################################
 # Note
 
-
+# Refer to the script in the stragglers repository (TCW; 4 April 2023).
 
 ################################################################################
 # Organize paths.
 
 # Directories.
 cd ~/paths
-path_directory_genotypes=$(<"./genotypes_mayo_bipolar_disorder_1_2_merge.txt")
-path_directory_genotype_pca_all=$(<"./genotype_pca_mayo_bipolar_disorder_1_2_merge_all.txt")
-path_directory_genotype_pca_europe=$(<"./genotype_pca_mayo_bipolar_disorder_1_2_merge_europe.txt")
+
+
+# Genotypes of all ancestries in Mayo Bipolar Disorder Biobank 1-2-Merge cases
+#path_directory_genotypes=$(<"./genotypes_mayo_bipolar_disorder_1_2_merge.txt")
+# Regeneron genotypes of all ancestries in Mayo Bipolar Disorder 1-2-Merge cases
+#path_directory_genotypes=$(<"./genotypes_regeneron_mayo_bipolar_disorder_1_2_merge.txt")
+
+# Regeneron genotypes of all ancestries in Mayo Bipolar Disorder 1-2-Merge cases and Mayo Clinic Biobank controls
+path_directory_genotypes=$(<"./genotypes_regeneron_mayo_bipolar_disorder_1_2_merge_mayo_control.txt") # cases from Mayo Bipolar 1-2-Merge and controls from Mayo Clinic Biobank
+# PCA on Regeneron genotypes of all ancestries in Mayo Bipolar Disorder 1-2-Merge cases and Mayo Clinic Biobank controls
+# path = "genotype_regeneron_pca_mayo_bipolar_disorder_1_2_merge_mayo_control_all.txt"
+# file = "Top20_PCs.csv"
+path_directory_genotype_pca_all=$(<"./genotype_regeneron_pca_mayo_bipolar_disorder_1_2_merge_mayo_control_all.txt")
+# PCA on Regeneron genotypes of European ancestry in Mayo Bipolar Disorder 1-2-Merge cases and Mayo Clinic Biobank controls
+# path = "genotype_regeneron_pca_mayo_bipolar_disorder_1_2_merge_mayo_control_europe.txt"
+# file = "Top20_PCs.csv"
+path_directory_genotype_pca_europe=$(<"./genotype_regeneron_pca_mayo_bipolar_disorder_1_2_merge_mayo_control_europe.txt")
+
 path_directory_phenotypes=$(<"./phenotypes_mayo_bipolar_disorder.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
 path_directory_product="${path_directory_dock}/phenotypes_mayo_bipolar_disorder_1_2_merge"
 
-# PCA on Regeneron genotypes of all ancestries in Mayo Bipolar Disorder 1-2-Merge cases and Mayo Clinic Biobank controls
-# path = "genotype_regeneron_pca_mayo_bipolar_disorder_1_2_merge_mayo_control_all.txt"
-# file = "Top20_PCs.csv"
-
-# PCA on Regeneron genotypes of European ancestry in Mayo Bipolar Disorder 1-2-Merge cases and Mayo Clinic Biobank controls
-# path = "genotype_regeneron_pca_mayo_bipolar_disorder_1_2_merge_mayo_control_europe.txt"
-# file = "Top20_PCs.csv"
-
+# Update paths below this point (TCW; 4 April 2023)
 
 # Files.
 name_file_identifier="210421_id_matching_gwas.csv" # file date: 21 April 2021
-name_file_genetic_sex_case="MERGED.maf0.01.dosR20.8.noDups.fam" # file date: 20 May 2022
+name_file_genetic_sex_case="MERGED.maf0.01.dosR20.8.noDups.fam" # file date: 20 May 2022 <-- Need to update for new genotypes; TCW; 4 April 2023
 name_file_genotype_pca="Top20_PCs.csv" # file date: 23 May 2022
 name_file_genotype_pca_all="Top20_PCs_all.csv" # file date: 23 May 2022
 name_file_genotype_pca_europe="Top20_PCs_europe.csv" # file date: 23 May 2022
@@ -61,22 +69,11 @@ path_file_phenotype_supplement_5_source="${path_directory_phenotypes}/${name_fil
 path_file_phenotype_supplement_6_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_6}"
 path_file_phenotype_supplement_7_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_7}"
 
-
-
 path_file_identifier_product="${path_directory_product}/${name_file_identifier}"
 path_file_phenotype_product="${path_directory_product}/${name_file_phenotype}"
 path_file_genetic_sex_case_product="${path_directory_product}/${name_file_genetic_sex_case}"
 path_file_genotype_pca_all_product="${path_directory_product}/${name_file_genotype_pca_all}"
 path_file_genotype_pca_europe_product="${path_directory_product}/${name_file_genotype_pca_europe}"
-
-
-
-name_file_genotypes_prefix="MERGED.maf0.dosR20.3.noDups.chr"
-name_file_genotypes_suffix=".dose.vcf.gz"
-name_file_genotypes_suffix_index=".dose.vcf.gz.tbi"
-#chromosome="10"
-#path_file_genotypes_source="${path_directory_source}/${name_file_genotypes_prefix}${chromosome}${name_file_genotypes_suffix}"
-#path_file_genotypes_product="${path_directory_product}/${name_file_genotypes_prefix}${chromosome}${name_file_genotypes_suffix}"
 
 # Initialize directories.
 rm -r $path_directory_product
@@ -93,11 +90,6 @@ cd $path_directory_product
 
 # Echo each command to console.
 set -x
-
-cp ${path_directory_source}/${name_file_genotypes_prefix}*${name_file_genotypes_suffix}* $path_directory_product
-#cp "$path_file_genotypes_source" "$path_file_genotypes_product"
-#mv "$path_target_container/MERGED" "$path_target_mayo_bipolar_genotype"
-
 
 
 #
