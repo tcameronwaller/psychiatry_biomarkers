@@ -11,16 +11,9 @@
 ################################################################################
 # Note
 
+# TODO: TCW; 4 April 2023
+# PIPE: iterate on a list of child files within a parent directory
 
-# TODO: TCW; 10 March 2023
-# 0. start using a more legit reference genome sequence in GWAS2VCF
-# 1. translate to BED format for CrossMap
-# 2. map in CrossMap GRCh37 to GRCh38
-# 3. translate to format for PLINK2 --score <-- Might not need to do this... just tell PLINK which columns?
-# 4. apply PLINK2 --score
-
-# TODO: TCW; 21 March 2023
-# TODO: it would be cleaner to begin writing this procedure within a for loop
 
 
 ################################################################################

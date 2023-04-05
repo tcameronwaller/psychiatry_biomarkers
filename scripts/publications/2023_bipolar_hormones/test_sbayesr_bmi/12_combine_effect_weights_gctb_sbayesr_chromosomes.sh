@@ -11,6 +11,9 @@
 ################################################################################
 # Note
 
+# TODO: TCW; 4 April 2023
+# PIPE: iterate on a list of directories all within a main parent directory
+# PIPE: for each child directory, combine the SBayesR effects from each chromosome
 
 
 ################################################################################
