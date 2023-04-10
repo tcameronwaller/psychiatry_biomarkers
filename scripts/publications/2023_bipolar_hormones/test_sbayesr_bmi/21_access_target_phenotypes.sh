@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 31 August 2022
-# Date, last execution: 4 April 2023
-# Review: TCW; __ April 2023
+# Date, last execution: 10 April 2023
+# Review: TCW; 10 April 2023
 ################################################################################
 # Note
 
@@ -15,7 +15,7 @@
 
 # Directories.
 cd ~/paths
-
+path_directory_storage=$(<"./storage_waller_metabolism.txt")
 
 # Genotypes of all ancestries in Mayo Bipolar Disorder Biobank 1-2-Merge cases
 #path_directory_genotypes=$(<"./genotypes_mayo_bipolar_disorder_1_2_merge.txt")
@@ -43,9 +43,10 @@ name_file_identifier="210421_id_matching_gwas.csv" # file date: 21 April 2021
 #name_file_genetic_sex_case="MERGED.maf0.01.dosR20.8.noDups.fam" # file date: 20 May 2022 <-- Need to update for new genotypes; TCW; 4 April 2023
 name_file_genetic_sex_case="GWAS_MERGED_BPphe_wMCBBctrl.maf0.01.dosR20.8.noDups.noSM.fam" # file date: 10 February 2023
 name_file_genotype_pca="Top20_PCs.csv"
-name_file_genotype_pca_all="Top20_PCs_all.csv" # file date: ___
-name_file_genotype_pca_europe="Top20_PCs_europe.csv" # file date: ___
+name_file_genotype_pca_all="Top20_PCs_all.csv" # file date: 13 February 2023
+name_file_genotype_pca_europe="Top20_PCs_europe.csv" # file date: 13 February 2023
 
+# Phenotype data for Bipolar Disorder cases (mostly).
 name_file_phenotype="220513_BP_phenotypes.csv" # file date: 13 May 2022; Richard S. Pendegraft prepared and shared this file on 13 May 2022
 name_file_phenotype_supplement_1="220325_BP_phenotypes.csv" # file date: 31 March 2021
 name_file_phenotype_supplement_2="211221_BP_phenotypes.csv" # file date: 23 December 2021
@@ -55,10 +56,13 @@ name_file_phenotype_supplement_5="210422_BP_phenotypes.csv" # file date: 5 May 2
 name_file_phenotype_supplement_6="210330_BP_phenotypes.csv" # file date: 13 April 2021
 name_file_phenotype_supplement_7="phen_bp.csv" # file date: 5 September 2022
 
+# Phenotype data for controls.
+name_file_phenotype_control="gwas_TCF7L2_bib.csv" # file date: 9 September 2022; Joanna M. Biernacka shared this file on 9 September 2022
+
 path_file_identifier_source="${path_directory_phenotypes}/${name_file_identifier}"
 path_file_genetic_sex_case_source="${path_directory_genotypes}/${name_file_genetic_sex_case}"
-path_file_genotype_pca_all_source="${path_directory_genotype_pca_all}/${name_file_genotype_pca}"
-path_file_genotype_pca_europe_source="${path_directory_genotype_pca_europe}/${name_file_genotype_pca}"
+path_file_genotype_pca_all_source="${path_directory_genotype_pca_all}/${name_file_genotype_pca}" # file date: 13 February 2023
+path_file_genotype_pca_europe_source="${path_directory_genotype_pca_europe}/${name_file_genotype_pca}" # file date: 13 February 2023
 path_file_phenotype_source="${path_directory_phenotypes}/${name_file_phenotype}"
 path_file_phenotype_supplement_1_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_1}"
 path_file_phenotype_supplement_2_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_2}"
@@ -67,6 +71,7 @@ path_file_phenotype_supplement_4_source="${path_directory_phenotypes}/${name_fil
 path_file_phenotype_supplement_5_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_5}"
 path_file_phenotype_supplement_6_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_6}"
 path_file_phenotype_supplement_7_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_7}"
+path_file_phenotype_control_source="${path_directory_storage}/phenotypes/${name_file_phenotype_control}"
 
 path_file_identifier_product="${path_directory_product}/${name_file_identifier}"
 path_file_genetic_sex_case_product="${path_directory_product}/${name_file_genetic_sex_case}"
@@ -81,9 +86,10 @@ path_file_phenotype_supplement_4_product="${path_directory_product}/${name_file_
 path_file_phenotype_supplement_5_product="${path_directory_product}/${name_file_phenotype_supplement_5}"
 path_file_phenotype_supplement_6_product="${path_directory_product}/${name_file_phenotype_supplement_6}"
 path_file_phenotype_supplement_7_product="${path_directory_product}/${name_file_phenotype_supplement_7}"
+path_file_phenotype_control_product="${path_directory_product}/${name_file_phenotype_control}"
 
 # Initialize directories.
-rm -r $path_directory_product
+#rm -r $path_directory_product # Caution!
 mkdir -p $path_directory_product
 cd $path_directory_product
 
@@ -112,6 +118,7 @@ cp $path_file_phenotype_supplement_4_source $path_file_phenotype_supplement_4_pr
 cp $path_file_phenotype_supplement_5_source $path_file_phenotype_supplement_5_product
 cp $path_file_phenotype_supplement_6_source $path_file_phenotype_supplement_6_product
 cp $path_file_phenotype_supplement_7_source $path_file_phenotype_supplement_7_product
+cp $path_file_phenotype_control_source $path_file_phenotype_control_product
 
 
 #
