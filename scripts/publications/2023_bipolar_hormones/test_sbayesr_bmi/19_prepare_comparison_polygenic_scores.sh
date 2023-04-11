@@ -115,9 +115,13 @@ cat $path_file_source_ldpred2 | awk 'BEGIN { FS=" "; OFS="\t" } NR > 1 {
   print $2, $3
 }' >> $path_file_product_ldpred2
 
+# Identifiers from LDpred2_2 used underscore delimiters instead of hyphens.
+# Source format: "MAYO-CLINIC_#####_###########"
+# Product format: "MAYO-CLINIC-#####-###########"
+
 echo -e "identifier\tscore" > $path_file_product_ldpred2_2
 cat $path_file_source_ldpred2_2 | awk 'BEGIN { FS=" "; OFS="\t" } NR > 1 {
-  print $2, $3
+  (a = $2); sub(/_/,"-", a); print a, $3
 }' >> $path_file_product_ldpred2_2
 
 # PRSice2

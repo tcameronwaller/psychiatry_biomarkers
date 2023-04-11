@@ -17,6 +17,12 @@
 # Columns: identifier   score (TCW; 2023-03-21)
 #          1            2
 
+
+# TODO: TCW; 11 April 2023
+# TODO: need to resolve potential problem with identifiers on table merge in Python script?
+# TODO: inspect the "collection" table.
+
+
 ################################################################################
 # Organize paths.
 
