@@ -18,7 +18,7 @@ cd ~/paths
 path_directory_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
-path_directory_source="${path_gwas_summaries}/tcameronwaller/ukbiobank_sex_steroid_hormones_proteins_2022-07-14"
+path_directory_source="${path_directory_summaries}/tcameronwaller/ukbiobank_sex_steroid_hormones_proteins_2022-07-14"
 path_directory_product="${path_directory_dock}/gwas_tcw_hormones_fuma"
 
 # Scripts.
