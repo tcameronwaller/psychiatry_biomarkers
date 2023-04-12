@@ -4,7 +4,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 12 April 2023
 # Date, last execution: 12 April 2023
-# Review: TCW; __ April 2023
+# Review: TCW; 12 April 2023
 ################################################################################
 # Note
 
@@ -84,8 +84,7 @@ for study_details in "${studies[@]}"; do
   path_file_product_standard="${array[2]}"
   path_file_product_fuma="${array[3]}"
 
-  # Call scripts for format translation.
-
+  # Translate format to team standard.
   /usr/bin/bash $path_file_script_standard \
   $path_file_source \
   $path_file_product_standard \
@@ -96,6 +95,7 @@ for study_details in "${studies[@]}"; do
   "NA" \
   $report
 
+  # Translate format to abbreviation for upload to FUMA.
   /usr/bin/bash $path_file_script_fuma \
   $path_file_product_standard \
   $path_file_product_fuma \
@@ -107,7 +107,9 @@ done
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
-  echo "1_translate_gwas_format_standard.sh"
+  echo "Script complete:"
+  echo $0
+  echo "1_translate_gwas_format_standard_fuma.sh"
   echo "----------"
 fi
 
