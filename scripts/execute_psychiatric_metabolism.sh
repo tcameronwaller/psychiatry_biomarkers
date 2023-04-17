@@ -63,9 +63,9 @@ fi
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_extraction # TCW; 04 April 2023 <-- re-write this as a Python script for versatility
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_prioritize_supplement # TCW; 12 September 2022
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_assembly # TCW; 17 April 2023
-#python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_organization # TCW; 17 April 2023
+python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_organization # TCW; 17 April 2023
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_description # TCW; 16 December 2022
-python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_regression # TCW; 17 April 2023
+#python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_regression # TCW; 17 April 2023
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mcita_assembly # TCW; 06 July 2022
 
 ################################################################################
