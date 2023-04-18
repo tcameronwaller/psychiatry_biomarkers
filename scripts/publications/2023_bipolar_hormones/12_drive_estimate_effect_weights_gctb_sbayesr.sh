@@ -67,13 +67,13 @@ report="true"
 
 ##########
 # Prepare Linkage Disequilibrium (LD) correlation matrices.
-if false; then
+if true; then
   # 1.
-  cp $path_file_ld_matrix_1_source $path_file_ld_matrix_1_product
-  unzip $path_file_ld_matrix_1_product -d $path_directory_product
+  #cp $path_file_ld_matrix_1_source $path_file_ld_matrix_1_product
+  #unzip $path_file_ld_matrix_1_product -d $path_directory_product
   # 2.
-  cp $path_file_ld_matrix_2_source $path_file_ld_matrix_2_product
-  unzip $path_file_ld_matrix_2_product -d $path_directory_product
+  #cp $path_file_ld_matrix_2_source $path_file_ld_matrix_2_product
+  #unzip $path_file_ld_matrix_2_product -d $path_directory_product
   # 3.
   cp $path_file_ld_matrix_3_source $path_file_ld_matrix_3_product
   unzip $path_file_ld_matrix_3_product -d $path_directory_product
@@ -85,36 +85,36 @@ fi
 input=$path_file_translation
 while IFS=$' \t\n' read -r -a array
 do
-  # Report.
-  if [[ "$report" == "true" ]]; then
-    echo "----------"
-    echo "field 0, inclusion: ${array[0]}"
-    echo "field 1, directory: ${array[1]}"
-    echo "field 2, name: ${array[2]}"
-    echo "field 3, phenotype: ${array[3]}"
-    echo "field 4, sex: ${array[4]}"
-    echo "field 5, file: ${array[5]}"
-    echo "field 6, suffix: ${array[6]}"
-    echo "field 7, bgzip: ${array[7]}"
-    echo "field 8, gzip: ${array[8]}"
-    echo "field 9, type: ${array[9]}"
-    echo "field 10, fill_observations: ${array[10]}"
-    echo "field 11, observations: ${array[11]}"
-    echo "field 12, fill_case_control: ${array[12]}"
-    echo "field 13, cases: ${array[13]}"
-    echo "field 14, controls: ${array[14]}"
-    echo "field 15, prevalence_sample: ${array[15]}"
-    echo "field 16, prevalence_population: ${array[16]}"
-    echo "field 17, script: ${array[17]}"
-    echo "field 18, note: ${array[18]}"
-    echo "----------"
-  fi
   # Extract variables.
   inclusion="${array[0]}"
   name="${array[2]}"
   fill_observations="${array[10]}"
   # Execute procedure for current record's parameters.
   if [[ $inclusion == "1" ]]; then
+    # Report.
+    if [[ "$report" == "true" ]]; then
+      echo "----------"
+      echo "field 0, inclusion: ${array[0]}"
+      echo "field 1, directory: ${array[1]}"
+      echo "field 2, name: ${array[2]}"
+      echo "field 3, phenotype: ${array[3]}"
+      echo "field 4, sex: ${array[4]}"
+      echo "field 5, file: ${array[5]}"
+      echo "field 6, suffix: ${array[6]}"
+      echo "field 7, bgzip: ${array[7]}"
+      echo "field 8, gzip: ${array[8]}"
+      echo "field 9, type: ${array[9]}"
+      echo "field 10, fill_observations: ${array[10]}"
+      echo "field 11, observations: ${array[11]}"
+      echo "field 12, fill_case_control: ${array[12]}"
+      echo "field 13, cases: ${array[13]}"
+      echo "field 14, controls: ${array[14]}"
+      echo "field 15, prevalence_sample: ${array[15]}"
+      echo "field 16, prevalence_population: ${array[16]}"
+      echo "field 17, script: ${array[17]}"
+      echo "field 18, note: ${array[18]}"
+      echo "----------"
+    fi
     # Organize paths and parameters.
     path_file_gwas_source="${path_directory_source}/${name}${suffix_file_gwas_source}"
     path_file_gwas_product="${path_directory_product}/${name}${suffix_file_gwas_product}"
