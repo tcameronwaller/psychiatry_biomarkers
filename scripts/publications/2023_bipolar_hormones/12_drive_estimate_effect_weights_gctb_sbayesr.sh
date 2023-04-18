@@ -67,7 +67,7 @@ report="true"
 
 ##########
 # Prepare Linkage Disequilibrium (LD) correlation matrices.
-if true; then
+if false; then
   # 1.
   cp $path_file_ld_matrix_1_source $path_file_ld_matrix_1_product
   unzip $path_file_ld_matrix_1_product -d $path_directory_product

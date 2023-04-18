@@ -77,6 +77,7 @@ if true; then
   $path_directory_product \
   $name_file_effect_prefix \
   $name_file_effect_suffix \
+  $observations_variant \
   $chromosome_x \
   $path_script_batch_run_sbayesr \
   $path_script_run_sbayesr \
