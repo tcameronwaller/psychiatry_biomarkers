@@ -48,7 +48,7 @@ studies=()
 # [name of study for file prefix without delimiter] ; [name file suffix with delimiter]
 
 studies+=(
-  "32769997_zhou_2020;\
+  "32769997_zhou_2020_tsh;\
   _2023-04-18.snpRes"
 )
 studies+=(
