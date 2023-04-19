@@ -29,7 +29,7 @@ path_directory_dock="${path_directory_process}/dock" # parent directory for proc
 #path_directory_source_genotypes="${path_directory_dock}/genotypes_mayo_bipolar_disorder_1_2_merge"
 path_directory_source_genotypes="${path_directory_dock}/genotypes_regeneron_mayo_bipolar_disorder_1_2_merge_mayo_control"
 path_directory_source_effects="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/sbayesr_effects_grch38"
-path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/sbayesr_plink_polygenic_scores_short_queue_16g"
+path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/sbayesr_plink_polygenic_scores_med_queue_32g"
 
 # Files.
 path_file_source_effects="${path_directory_source_effects}/BMI_GIANTUKB_EUR_1_grch38_standard.txt.gz"
