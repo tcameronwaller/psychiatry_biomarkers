@@ -32,7 +32,7 @@ path_directory_source_effects="${path_directory_dock}/hormone_genetics_tcw_2023-
 path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/sbayesr_plink_polygenic_scores_med_queue_32g"
 
 # Files.
-path_file_source_effects="${path_directory_source_effects}/BMI_GIANTUKB_EUR_1_grch38_standard.txt.gz"
+path_file_source_effects="${path_directory_source_effects}/32769997_zhou_2020_tsh.txt.gz"
 name_file_product_prefix="32769997_zhou_2020_tsh_chromosome_"
 name_file_product_suffix="_tcw" # only include suffix for base file name without the final suffix of format or type
 #path_file_product="${path_directory_product}/${name_file_product_prefix}${chromosome}${name_file_product_suffix}"
