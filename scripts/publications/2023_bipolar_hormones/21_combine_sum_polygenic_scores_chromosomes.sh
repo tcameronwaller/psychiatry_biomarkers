@@ -25,7 +25,7 @@ path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/s
 name_file_source_prefix="32769997_zhou_2020_tsh_chromosome_"
 name_file_source_suffix="_tcw.sscore"
 name_file_source_not=".vars" # exclude the files that are lists of SNPs used in calculation of scores
-path_file_product="${path_directory_product}/32769997_zhou_2020_tsh.txt"
+path_file_product="${path_directory_product}/score_32769997_zhou_2020_tsh.txt"
 
 # Scripts.
 path_script_combine_scores="${path_directory_process}/promiscuity/scripts/plink/combine_sum_polygenic_scores.sh"
