@@ -29,7 +29,7 @@ path_directory_dock="${path_directory_process}/dock" # parent directory for proc
 #path_directory_source_genotypes="${path_directory_dock}/genotypes_mayo_bipolar_disorder_1_2_merge"
 path_directory_source_genotypes="${path_directory_dock}/genotypes_regeneron_mayo_bipolar_disorder_1_2_merge_mayo_control"
 path_directory_source_effects="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/sbayesr_effects_grch38"
-path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/sbayesr_plink_polygenic_scores_16g_per_cpu"
+path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/sbayesr_plink_polygenic_scores_16g_per_cpu_index_test"
 
 # Files.
 path_file_source_effects="${path_directory_source_effects}/32769997_zhou_2020_tsh.txt.gz"
