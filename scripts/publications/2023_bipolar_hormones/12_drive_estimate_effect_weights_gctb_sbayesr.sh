@@ -8,6 +8,10 @@
 ################################################################################
 # Note
 
+# TODO: TCW; 18 April 2023
+# TODO: It might or might not be helpful to organize all files for each set of GWAS summary statistics within
+# TODO: a separate child directory...
+
 
 
 ################################################################################
