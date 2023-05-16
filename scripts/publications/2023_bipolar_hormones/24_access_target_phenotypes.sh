@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 31 August 2022
-# Date, last execution: 10 April 2023
+# Date, last execution: 10 April 2023 <-- Need to re-run for newer pheno data (TCW; 16 May 2023)
 # Review: TCW; 10 April 2023
 ################################################################################
 # Note
