@@ -8,7 +8,8 @@
 ################################################################################
 # Note
 
-
+# Plan to keep all variables from the 13 May 2022 phenotype data for Bipolar
+# Disorder cases with a designating prefix "2022-05-13_".
 
 ################################################################################
 # Organize paths.
@@ -47,7 +48,9 @@ name_file_genotype_pca_all="Top20_PCs_all.csv" # file date: 13 February 2023
 name_file_genotype_pca_europe="Top20_PCs_europe.csv" # file date: 13 February 2023
 
 # Phenotype data for Bipolar Disorder cases (mostly).
-name_file_phenotype="220513_BP_phenotypes.csv" # file date: 13 May 2022; Richard S. Pendegraft prepared and shared this file on 13 May 2022
+
+name_file_phenotype_case_old="220513_BP_phenotypes.csv" # file date: 13 May 2022; Richard S. Pendegraft prepared and shared this file on 13 May 2022
+name_file_phenotype_case_new="thyroid_prs.csv" # file date: 25 April 2023; Richard S. Pendegraft and Brandon J. Coombes, PhD prepared and shared this file on 25 April 2023
 name_file_phenotype_supplement_1="220325_BP_phenotypes.csv" # file date: 31 March 2021
 name_file_phenotype_supplement_2="211221_BP_phenotypes.csv" # file date: 23 December 2021
 name_file_phenotype_supplement_3="210902_BP_phenotypes.csv" # file date: 2 September 2021
@@ -63,7 +66,8 @@ path_file_identifier_source="${path_directory_phenotypes}/${name_file_identifier
 path_file_genetic_sex_case_source="${path_directory_genotypes}/${name_file_genetic_sex_case}"
 path_file_genotype_pca_all_source="${path_directory_genotype_pca_all}/${name_file_genotype_pca}" # file date: 13 February 2023
 path_file_genotype_pca_europe_source="${path_directory_genotype_pca_europe}/${name_file_genotype_pca}" # file date: 13 February 2023
-path_file_phenotype_source="${path_directory_phenotypes}/${name_file_phenotype}"
+path_file_phenotype_case_old_source="${path_directory_phenotypes}/${name_file_phenotype_case_old}"
+path_file_phenotype_case_new_source="${path_directory_phenotypes}/${name_file_phenotype_case_new}"
 path_file_phenotype_supplement_1_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_1}"
 path_file_phenotype_supplement_2_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_2}"
 path_file_phenotype_supplement_3_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_3}"
@@ -77,7 +81,8 @@ path_file_identifier_product="${path_directory_product}/${name_file_identifier}"
 path_file_genetic_sex_case_product="${path_directory_product}/${name_file_genetic_sex_case}"
 path_file_genotype_pca_all_product="${path_directory_product}/${name_file_genotype_pca_all}"
 path_file_genotype_pca_europe_product="${path_directory_product}/${name_file_genotype_pca_europe}"
-path_file_phenotype_product="${path_directory_product}/${name_file_phenotype}"
+path_file_phenotype_case_old_product="${path_directory_product}/${name_file_phenotype_case_old}"
+path_file_phenotype_case_new_product="${path_directory_product}/${name_file_phenotype_case_new}"
 
 path_file_phenotype_supplement_1_product="${path_directory_product}/${name_file_phenotype_supplement_1}"
 path_file_phenotype_supplement_2_product="${path_directory_product}/${name_file_phenotype_supplement_2}"
@@ -110,7 +115,8 @@ cp $path_file_genetic_sex_case_source $path_file_genetic_sex_case_product
 cp $path_file_genotype_pca_all_source $path_file_genotype_pca_all_product
 cp $path_file_genotype_pca_europe_source $path_file_genotype_pca_europe_product
 
-cp $path_file_phenotype_source $path_file_phenotype_product
+cp $path_file_phenotype_case_old_source $path_file_phenotype_case_old_product
+cp $path_file_phenotype_case_new_source $path_file_phenotype_case_new_product
 cp $path_file_phenotype_supplement_1_source $path_file_phenotype_supplement_1_product
 cp $path_file_phenotype_supplement_2_source $path_file_phenotype_supplement_2_product
 cp $path_file_phenotype_supplement_3_source $path_file_phenotype_supplement_3_product
