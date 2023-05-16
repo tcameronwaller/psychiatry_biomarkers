@@ -8,8 +8,8 @@
 ################################################################################
 # Note
 
-# Plan to keep all variables from the 13 May 2022 phenotype data for Bipolar
-# Disorder cases with a designating prefix "2022-05-13_".
+# Plan to keep all phenotype variables from the 13 May 2022 phenotype data set
+# for Bipolar Disorder cases with a name prefix "2022-05-13_".
 
 ################################################################################
 # Organize paths.
@@ -67,7 +67,7 @@ path_file_genetic_sex_case_source="${path_directory_genotypes}/${name_file_genet
 path_file_genotype_pca_all_source="${path_directory_genotype_pca_all}/${name_file_genotype_pca}" # file date: 13 February 2023
 path_file_genotype_pca_europe_source="${path_directory_genotype_pca_europe}/${name_file_genotype_pca}" # file date: 13 February 2023
 path_file_phenotype_case_old_source="${path_directory_phenotypes}/${name_file_phenotype_case_old}"
-path_file_phenotype_case_new_source="${path_directory_phenotypes}/${name_file_phenotype_case_new}"
+path_file_phenotype_case_new_source="${path_directory_storage}/phenotypes/${name_file_phenotype_case_new}"
 path_file_phenotype_supplement_1_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_1}"
 path_file_phenotype_supplement_2_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_2}"
 path_file_phenotype_supplement_3_source="${path_directory_phenotypes}/${name_file_phenotype_supplement_3}"
