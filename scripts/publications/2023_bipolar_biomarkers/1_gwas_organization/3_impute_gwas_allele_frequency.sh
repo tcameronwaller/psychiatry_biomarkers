@@ -15,6 +15,16 @@
 # summary statistics after completion of the GWAS2VCF procedure.
 # 1. Imputation of frequencies of effect alleles
 
+# Need imputation of allele frequencies
+# 36093044_mathieu_2022
+# 35459240_said_2022
+# 34017140_mbatchou_2021
+# 29875488_sun_2018
+# 24586183_medici_2014
+
+# Do not need imputation of allele frequencies (was just testing)
+# 30367059_teumer_2018
+
 
 ################################################################################
 ################################################################################
