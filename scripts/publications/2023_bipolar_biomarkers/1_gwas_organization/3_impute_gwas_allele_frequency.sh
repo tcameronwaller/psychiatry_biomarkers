@@ -58,9 +58,8 @@ cd $path_directory_product
 
 report="true"
 
-###########################################################################
+################################################################################
 # Execute procedure.
-###########################################################################
 
 # Most sets of GWAS summary statistics do not need extra processing.
 # Copy the GWAS summary statistics from the GWAS2VCF procedure.
