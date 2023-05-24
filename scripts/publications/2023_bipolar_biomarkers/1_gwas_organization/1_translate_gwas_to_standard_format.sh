@@ -4,6 +4,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 23 December 2022
 # Date, last execution: 24 May 2023
+# Date, review: 24 May 2023
 ################################################################################
 # Note
 
@@ -20,11 +21,9 @@ path_directory_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_directory_parent_source="${path_directory_gwas_summaries}"
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-#path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-24/1_gwas_format_standard"
-path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-24_test/1_gwas_format_standard"
+path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-25/1_gwas_format_standard"
 # Files.
-#path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-05-23.tsv"
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-05-24_temp_test.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-05-23.tsv"
 
 # Scripts.
 path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"

@@ -5,7 +5,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 23 December 2022
-# Date, last execution: 24 February 2023
+# Date, last execution: 25 May 2023
+# Date, review: 24 May 2023
 ################################################################################
 ################################################################################
 ################################################################################
@@ -27,11 +28,11 @@ cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_format_standard"
-path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_vcf_process"
-#path_directory_product="${path_directory_dock}/hormone_genetics/gwas_vcf_hormones"
+
+path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-25/3_gwas_allele_frequency"
+path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-25/4_gwas_clean_gwas2vcf"
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-24.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-05-23.tsv"
 # Scripts.
 path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
 path_script_submit_batch="${path_directory_promiscuity_scripts}/gwas_clean/1_submit_batch_pipe_gwas_clean.sh"

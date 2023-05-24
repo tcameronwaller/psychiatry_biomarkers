@@ -1,21 +1,19 @@
 #!/bin/bash
 
 ################################################################################
-################################################################################
-################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 27 March 2023
 # Date, last execution: 27 March 2023
-################################################################################
-################################################################################
+# Date, review: 24 May 2023
 ################################################################################
 # Note
 
-
-
-################################################################################
-################################################################################
-################################################################################
+# Perform this procedure judiciously.
+# It is important not to calculate the effective observations repetitively.
+# It is probably inadvisable to calculate effective observations in a collection
+# of GWAS summary statistics before storage or before sharing with other users.
+# Rather, calculate effective observations as appropriate immediately before
+# analyses.
 
 
 
@@ -27,8 +25,9 @@ cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_extra_process"
-path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_effective_observations"
+
+path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-25/4_gwas_clean_gwas2vcf"
+path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-25/5_gwas_effective_observations"
 
 # Files.
 path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-24.tsv"
