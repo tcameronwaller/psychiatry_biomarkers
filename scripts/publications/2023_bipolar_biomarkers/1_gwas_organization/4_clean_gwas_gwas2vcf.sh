@@ -6,7 +6,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 23 December 2022
 # Date, last execution: 25 May 2023
-# Date, review: 24 May 2023
+# Date, review: 25 May 2023
 ################################################################################
 ################################################################################
 ################################################################################
@@ -38,7 +38,7 @@ path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/script
 path_script_submit_batch="${path_directory_promiscuity_scripts}/gwas_clean/1_submit_batch_pipe_gwas_clean.sh"
 
 # Initialize directories.
-rm -r $path_directory_product
+rm -r $path_directory_product # caution
 mkdir -p $path_directory_product
 cd $path_directory_product
 

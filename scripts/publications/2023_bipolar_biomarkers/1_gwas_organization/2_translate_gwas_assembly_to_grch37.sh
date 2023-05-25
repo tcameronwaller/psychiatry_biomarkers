@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 24 May 2023
-# Date, last execution: 24 May 2023
-# Date, review: 24 May 2023
+# Date, last execution: 25 May 2023
+# Date, review: 25 May 2023
 ################################################################################
 # Note
 
@@ -41,6 +41,10 @@ path_file_chain_grch38_to_grch37="${path_directory_reference}/crossmap/ensembl/G
 path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
 path_script_map_assembly="${path_directory_promiscuity_scripts}/crossmap/map_gwas_standard_format_bed.sh"
 
+# Initialize directories.
+rm -r $path_directory_product # caution
+mkdir -p $path_directory_product
+cd $path_directory_product
 
 ###########################################################################
 # Organize parameters.

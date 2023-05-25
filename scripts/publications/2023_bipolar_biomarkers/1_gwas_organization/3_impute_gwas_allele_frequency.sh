@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 22 February 2023
-# Date, last execution: 24 May 2023
-# Date, review: 24 May 2023
+# Date, last execution: 25 May 2023
+# Date, review: 25 May 2023
 ################################################################################
 # Note
 
@@ -33,7 +33,7 @@ path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/script
 path_script_impute_gwas_allele_frequency="${path_directory_promiscuity_scripts}/gwas_clean/impute_gwas_allele_frequency.sh"
 
 # Initialize directories.
-rm -r $path_directory_product
+rm -r $path_directory_product # caution
 mkdir -p $path_directory_product
 cd $path_directory_product
 
