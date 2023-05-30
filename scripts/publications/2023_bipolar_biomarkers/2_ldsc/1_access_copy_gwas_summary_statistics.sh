@@ -14,9 +14,10 @@ name_source_directory="5_gwas_effective_observations" # Name of directory with s
 path_directory_source="${path_directory_gwas}/gwas_biomarkers_tcw_2023-05-25/${name_source_directory}"
 path_directory_product_parent="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-05-25"
 path_directory_product_child="${path_directory_product_parent}/${name_source_directory}"
-path_directory_product="${path_directory_product_parent}/gwas_summaries_source"
+path_directory_product="${path_directory_product_parent}/1_gwas_summaries_source"
 
 # Initialize directories.
+rm -r $path_directory_product_parent # caution
 rm -r $path_directory_product # caution
 mkdir -p $path_directory_product_parent
 cd $path_directory_product_parent
