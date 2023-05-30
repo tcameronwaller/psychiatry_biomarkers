@@ -12,7 +12,7 @@ cd ~/paths
 path_process=$(<"./process_psychiatric_metabolism.txt")
 
 path_dock="${path_process}/dock"
-path_directory_reference="${path_dock}/hormone_genetics_tcw_2023-02-24/reference_ldsc"
+path_directory_reference="${path_dock}/gwas_biomarkers_tcw_2023-05-25/reference_ldsc"
 
 path_directory_promiscuity_scripts="${path_process}/promiscuity/scripts"
 path_script_access="${path_directory_promiscuity_scripts}/ldsc/access_ldsc_genetic_references.sh"
@@ -29,6 +29,6 @@ $path_directory_reference
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "3_access_reference_ldsc.sh"
+  echo "1_access_reference_ldsc.sh"
   echo "----------"
 fi

@@ -21,8 +21,8 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
-path_directory_source="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/gwas_effective_observations"
-path_directory_product="${path_directory_dock}/hormone_genetics_tcw_2023-02-24/plots_qq_gwas"
+path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-25/gwas_effective_observations"
+path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-25/plots_qq_gwas"
 
 # Files.
 name_file_source_prefix="_20" # must not be empty string
@@ -60,7 +60,7 @@ $path_directory_product
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "5_create_qq_plots.sh"
+  echo "6_create_qq_plots.sh"
   echo "----------"
 fi
 

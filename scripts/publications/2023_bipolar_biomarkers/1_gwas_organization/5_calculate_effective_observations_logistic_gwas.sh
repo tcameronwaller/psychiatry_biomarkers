@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 27 March 2023
-# Date, last execution: 27 March 2023
-# Date, review: 24 May 2023
+# Date, last execution: 30 May 2023
+# Date, review: 30 May 2023
 ################################################################################
 # Note
 
@@ -30,7 +30,7 @@ path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-25/4_g
 path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-05-25/5_gwas_effective_observations"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-02-24.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-05-23.tsv"
 
 # Files.
 
@@ -106,7 +106,7 @@ done < "${input}"
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "4_calculate_effective_observations_logistic_gwas.sh"
+  echo "5_calculate_effective_observations_logistic_gwas.sh"
   echo "----------"
 fi
 
