@@ -134,7 +134,7 @@ done
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "9_estimate_gwas_genetic_correlation_ldsc.sh"
+  echo "6_estimate_gwas_genetic_correlation_ldsc.sh"
   echo "----------"
 fi
 

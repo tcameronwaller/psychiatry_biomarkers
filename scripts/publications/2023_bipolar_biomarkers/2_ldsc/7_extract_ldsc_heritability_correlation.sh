@@ -44,7 +44,7 @@ path_directory_dock="${path_directory_process}/dock"
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "11_extract_ldsc_heritability_correlation.sh"
+  echo "7_extract_ldsc_heritability_correlation.sh"
   echo "----------"
 fi
 

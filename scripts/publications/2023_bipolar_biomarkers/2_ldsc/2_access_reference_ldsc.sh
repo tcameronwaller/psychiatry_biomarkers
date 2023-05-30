@@ -29,6 +29,6 @@ $path_directory_reference
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "1_access_reference_ldsc.sh"
+  echo "2_access_reference_ldsc.sh"
   echo "----------"
 fi
