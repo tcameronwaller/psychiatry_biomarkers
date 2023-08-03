@@ -2,9 +2,9 @@
 
 ################################################################################
 # Author: T. Cameron Waller
-# Date, first execution: 24 May 2023
-# Date, last execution: 6 June 2023
-# Date, review: 25 May 2023
+# Date, first execution: 2 August 2023
+# Date, last execution: 2 August 2023
+# Date, review: _ August 2023
 ################################################################################
 # Note
 
@@ -28,8 +28,8 @@ cd ~/paths
 path_directory_reference=$(<"./reference_tcw.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-06-06/1_gwas_format_standard"
-path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-06-06/2_gwas_assembly_grch37"
+path_directory_source="${path_directory_dock}/gwas_disorders_tcw_2023-08-02/1_gwas_format_standard"
+path_directory_product="${path_directory_dock}/gwas_disorders_tcw_2023-08-02/2_gwas_assembly_grch37"
 # Files.
 #path_file_chain_ncbi36_to_grch37="${path_directory_reference}/crossmap/ucsc/hg18ToHg19.over.chain.gz"
 #path_file_chain_grch37_to_grch38="${path_directory_reference}/crossmap/ucsc/hg19ToHg38.over.chain.gz"
@@ -38,8 +38,8 @@ path_file_chain_ncbi36_to_grch37="${path_directory_reference}/crossmap/ensembl/N
 path_file_chain_grch37_to_grch38="${path_directory_reference}/crossmap/ensembl/GRCh37_to_GRCh38.chain.gz"
 path_file_chain_grch38_to_grch37="${path_directory_reference}/crossmap/ensembl/GRCh38_to_GRCh37.chain.gz"
 # Scripts.
-path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_script_map_assembly="${path_directory_promiscuity_scripts}/crossmap/map_gwas_standard_format_bed.sh"
+path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+path_script_map_assembly="${path_directory_partner_scripts}/crossmap/map_gwas_standard_format_bed.sh"
 
 # Initialize directories.
 rm -r $path_directory_product # caution
@@ -65,60 +65,14 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 # Translate genomic assemblies to GRCh37.
 
 ##########
-# 36635386_chen_2023 (GRCh38 to GRCh37)
+# 36477530_saunders_2022 (GRCh38 to GRCh37)
 
-# UCSC: 15,428,167 lines to 15,396,790 lines (TCW; 24 May 2023)
-# Ensembl: 15,428,167 lines to 15,384,987 lines (TCW; 24 May 2023)
+# UCSC:
+# Ensembl: ___ lines to ___ lines (TCW; _ August 2023)
 /usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/36635386_chen_2023_cortisol.txt.gz" \
-"${path_directory_product}/36635386_chen_2023_cortisol.txt.gz" \
+"${path_directory_source}/36477530_saunders_2022_alcohol.txt.gz" \
+"${path_directory_product}/36477530_saunders_2022_alcohol.txt.gz" \
 $path_file_chain_grch38_to_grch37 \
-$threads \
-$report
-
-/usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/36635386_chen_2023_thyroxine_total.txt.gz" \
-"${path_directory_product}/36635386_chen_2023_thyroxine_total.txt.gz" \
-$path_file_chain_grch38_to_grch37 \
-$threads \
-$report
-
-##########
-# 34662886_backman_2021 (GRCh38 to GRCh37)
-
-/usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/34662886_backman_2021_albumin.txt.gz" \
-"${path_directory_product}/34662886_backman_2021_albumin.txt.gz" \
-$path_file_chain_grch38_to_grch37 \
-$threads \
-$report
-
-##########
-# 34017140_mbatchou_2021 (GRCh38 to GRCh37)
-
-/usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/34017140_mbatchou_2021_albumin.txt.gz" \
-"${path_directory_product}/34017140_mbatchou_2021_albumin.txt.gz" \
-$path_file_chain_grch38_to_grch37 \
-$threads \
-$report
-
-##########
-# 24586183_medici_2014 (NCBI36-hg18 to GRCh37)
-
-# UCSC: 2,425,175 lines to 2,424,714 lines (TCW; 24 May 2023)
-# Ensembl: 2,425,175 lines to 2,424,987 lines (TCW; 24 May 2023)
-/usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/24586183_medici_2014_thyroid_peroxidase_antibody.txt.gz" \
-"${path_directory_product}/24586183_medici_2014_thyroid_peroxidase_antibody.txt.gz" \
-$path_file_chain_ncbi36_to_grch37 \
-$threads \
-$report
-
-/usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/24586183_medici_2014_thyroid_peroxidase_reactivity.txt.gz" \
-"${path_directory_product}/24586183_medici_2014_thyroid_peroxidase_reactivity.txt.gz" \
-$path_file_chain_ncbi36_to_grch37 \
 $threads \
 $report
 
