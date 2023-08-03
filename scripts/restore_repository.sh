@@ -17,7 +17,7 @@ path_process=$(<"./process_${project}.txt")
 # Define paths.
 path_parameters="$path_process/dock/parameters" # parent directory for parameter information from multiple repositories
 path_repository="$path_process/${project}" # main project repository
-path_promiscuity="$path_process/promiscuity" # general utility functionality relevant to multiple projects
+path_partner="$path_process/partner" # general utility functionality relevant to multiple projects
 path_stragglers="$path_process/stragglers" # functionality specific to smaller studies and data sets
 path_uk_biobank="$path_process/uk_biobank" # functionality specific to data from UK Biobank
 
@@ -29,7 +29,7 @@ set -x
 echo "remove previous versions of the repositories..."
 rm -r $path_parameters
 rm -r $path_repository
-rm -r $path_promiscuity
+rm -r $path_partner
 rm -r $path_stragglers
 rm -r $path_uk_biobank
 
@@ -47,17 +47,17 @@ mv "$path_repository/package" "$path_repository/${project}"
 ##########
 # Organize and restore supplemental sub-repositories.
 
-# Repository: promiscuity
+# Repository: partner
 # Scripts remain within original repository's structure.
 # Python code transfers to sub-package.
-echo "access current version of the promiscuity repository..."
+echo "access current version of the partner repository..."
 cd $path_process
-wget https://github.com/tcameronwaller/promiscuity/archive/main.zip
+wget https://github.com/tcameronwaller/partner/archive/main.zip
 unzip main.zip
 rm main.zip
-mv promiscuity-main $path_promiscuity
-mv "$path_promiscuity/package" "$path_promiscuity/promiscuity"
-cp -r "$path_promiscuity/promiscuity" "$path_repository/${project}/promiscuity"
+mv partner-main $path_partner
+mv "$path_partner/package" "$path_partner/partner"
+cp -r "$path_partner/partner" "$path_repository/${project}/partner"
 
 # Repository: stragglers
 # Scripts remain within original repository's structure.
@@ -89,8 +89,8 @@ cp -r "$path_uk_biobank/uk_biobank" "$path_repository/${project}/uk_biobank"
 mkdir -p $path_parameters
 cp -r "$path_repository/parameters" "$path_parameters/parameters"
 mv "$path_parameters/parameters" "$path_parameters/${project}"
-cp -r "$path_promiscuity/parameters" "$path_parameters/parameters"
-mv "$path_parameters/parameters" "$path_parameters/promiscuity"
+cp -r "$path_partner/parameters" "$path_parameters/parameters"
+mv "$path_parameters/parameters" "$path_parameters/partner"
 cp -r "$path_stragglers/parameters" "$path_parameters/parameters"
 mv "$path_parameters/parameters" "$path_parameters/stragglers"
 cp -r "$path_uk_biobank/parameters" "$path_parameters/parameters"
