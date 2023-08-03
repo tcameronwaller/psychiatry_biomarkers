@@ -4,7 +4,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 2 August 2023
 # Date, last execution: 2 August 2023
-# Date, review: _ August 2023
+# Date, review: 2 August 2023
 ################################################################################
 # Note
 
@@ -50,7 +50,5 @@ $path_directory_script \
 $path_directory_product \
 $path_bgzip \
 $report
-
-
 
 #
