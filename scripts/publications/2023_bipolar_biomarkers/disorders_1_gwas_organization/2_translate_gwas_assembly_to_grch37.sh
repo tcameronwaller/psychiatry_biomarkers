@@ -68,7 +68,7 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 # 36477530_saunders_2022 (GRCh38 to GRCh37)
 
 # UCSC:
-# Ensembl: ___ lines to ___ lines (TCW; _ August 2023)
+# Ensembl: 13,268,541 lines to 13,254,829 lines (TCW; 3 August 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/36477530_saunders_2022_alcohol.txt.gz" \
 "${path_directory_product}/36477530_saunders_2022_alcohol.txt.gz" \
