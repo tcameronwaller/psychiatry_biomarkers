@@ -24,6 +24,7 @@ path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabol
 #path_directory_product="${path_directory_dock}/gwas_disorders_tcw_2023-08-02/1_gwas_format_standard"
 path_directory_product="${path_directory_dock}/gwas_disorders_tcw_2023-08-02/1_gwas_format_standard_test"
 # Files.
+#path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-08-02.tsv"
 path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-08-02_test.tsv"
 
 # Scripts.
