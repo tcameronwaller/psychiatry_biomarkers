@@ -2,7 +2,7 @@
 
 ################################################################################
 # Author: T. Cameron Waller
-# Date, first execution: 25 May 2023
+# Date, first execution: 3 August 2023
 # Date, last execution: 3 August 2023
 # Date, review: 3 August 2023
 ################################################################################
@@ -20,8 +20,8 @@ path_directory_gwas="${path_directory_gwas_summaries}/organization"
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 name_source_directory="5_gwas_effective_observations" # Name of directory with source GWAS summary statistics.
-path_directory_source="${path_directory_gwas}/gwas_biomarkers_tcw_2023-06-06/${name_source_directory}"
-path_directory_product_parent="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06"
+path_directory_source="${path_directory_gwas}/gwas_disorders_tcw_2023-08-02/${name_source_directory}"
+path_directory_product_parent="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-02"
 path_directory_product_child="${path_directory_product_parent}/${name_source_directory}"
 path_directory_product="${path_directory_product_parent}/1_gwas_summaries_source"
 
