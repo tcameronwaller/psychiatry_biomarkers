@@ -17,9 +17,9 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
-path_directory_reference="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-05-25/2_reference_ldsc"
-path_directory_source="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-05-25/4_gwas_munge_ldsc"
-path_directory_product="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-05-25/6_gwas_correlation_ldsc"
+path_directory_reference="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/2_reference_ldsc"
+path_directory_source="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/4_gwas_munge_ldsc"
+path_directory_product="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/6_gwas_correlation_ldsc"
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Scripts.
