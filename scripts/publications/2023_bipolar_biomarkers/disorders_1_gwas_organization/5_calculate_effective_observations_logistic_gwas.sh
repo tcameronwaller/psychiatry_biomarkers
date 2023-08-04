@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 27 March 2023
-# Date, last execution: 3 August 2023
-# Date, review: 3 August 2023
+# Date, last execution: 4 August 2023
+# Date, review: 4 August 2023
 ################################################################################
 # Note
 
@@ -139,7 +139,6 @@ done < "${input}"
 # Replace GWAS summary statistics from study "30482948_walters_2018" so as to
 # avoid redundant calculation of effective observations.
 
-# Imputation: 9,225,634 lines to 2,861,129 lines (TCW; 3 August 2023)
 cp "${path_directory_source}/30482948_walters_2018_eur_all.txt.gz" \
 "${path_directory_product}/30482948_walters_2018_eur_all.txt.gz"
 
