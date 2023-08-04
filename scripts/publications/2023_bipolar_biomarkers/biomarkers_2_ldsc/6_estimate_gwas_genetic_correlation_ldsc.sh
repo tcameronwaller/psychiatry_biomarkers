@@ -23,8 +23,8 @@ path_directory_product="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Scripts.
-path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_directory_ldsc="${path_directory_promiscuity_scripts}/ldsc"
+path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
 path_file_script="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
 
 # Initialize directories.

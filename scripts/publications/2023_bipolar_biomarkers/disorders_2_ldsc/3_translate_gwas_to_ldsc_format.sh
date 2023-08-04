@@ -23,8 +23,8 @@ path_directory_product="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-0
 # Files.
 
 # Scripts.
-path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_file_script="${path_directory_promiscuity_scripts}/ldsc/constrain_translate_gwas_standard_to_ldsc.sh"
+path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+path_file_script="${path_directory_partner_scripts}/ldsc/constrain_translate_gwas_standard_to_ldsc.sh"
 
 # Initialize directories.
 rm -r $path_directory_product

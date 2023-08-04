@@ -29,8 +29,8 @@ path_file_alleles="${path_directory_reference}/alleles/w_hm3.snplist"
 # Files.
 
 # Scripts.
-path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_directory_ldsc="${path_directory_promiscuity_scripts}/ldsc"
+path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
 path_file_script="${path_directory_ldsc}/munge_gwas_ldsc.sh"
 
 # Initialize directories.

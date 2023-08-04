@@ -23,8 +23,8 @@ path_directory_product_parent="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2
 path_directory_product_child="${path_directory_product_parent}/ldsc"
 path_directory_product="${path_directory_product_parent}/2_reference_ldsc"
 
-path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_script_access="${path_directory_promiscuity_scripts}/ldsc/access_ldsc_genetic_references.sh"
+#path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+#path_script_access="${path_directory_partner_scripts}/ldsc/access_ldsc_genetic_references.sh"
 
 # Initialize directories.
 rm -r $path_directory_product # caution
