@@ -32,6 +32,7 @@ path_file_script="${path_directory_ldsc}/munge_gwas_ldsc.sh"
 # Initialize directories.
 rm -r $path_directory_product
 mkdir -p $path_directory_product
+cd $path_directory_product
 
 ################################################################################
 # Organize parameters.
