@@ -72,7 +72,7 @@ for path_file_source in "${paths_files_source[@]}"; do
   name_base_file_product="$(basename $path_file_source .txt.gz)"
   path_file_base_product="${path_directory_product}/${name_base_file_product}" # hopefully unique
   # Translate GWAS summary statistics to format for LDSC.
-  /usr/bin/bash "${path_file_script}" \
+  /usr/bin/bash $path_file_script \
   $path_file_source \
   $path_file_base_product \
   $path_file_alleles \
