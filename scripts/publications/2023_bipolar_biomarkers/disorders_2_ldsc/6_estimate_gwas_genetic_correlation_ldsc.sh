@@ -253,7 +253,7 @@ if true; then
     echo $comparison >> $path_file_batch_instances
   done
   # Call first script in series for batch execution.
-  /user/bin/bash $path_file_script_ldsc_correlation_batch_1 \
+  /usr/bin/bash $path_file_script_ldsc_correlation_batch_1 \
   $path_file_batch_instances \
   $path_directory_product_parent \
   $path_directory_disequilibrium \
