@@ -2,9 +2,9 @@
 
 ################################################################################
 # Author: T. Cameron Waller
-# Date, first execution: 3 August 2023
-# Date, last execution: 3 August 2023
-# Date, review: 3 August 2023
+# Date, first execution: 6 August 2023
+# Date, last execution: 6 August 2023
+# Date, review: 6 August 2023
 ################################################################################
 # Note
 
@@ -183,14 +183,34 @@ if true; then
   done
 fi
 
-###########################################################################
+
+
+################################################################################
+# Report.
+
+count_comparisons=${#comparisons[@]}
+
+# Report.
+if [[ "$report" == "true" ]]; then
+  echo "----------"
+  echo "Source directory:"
+  echo $path_directory_source
+  echo "count of comparisons: " $count_comparisons
+  echo "first file: " ${comparisons[0]} # notice base-zero indexing
+  echo "last file: " ${comparisons[$count_comparisons - 1]}
+  echo "----------"
+fi
+
+sleep 5s
+
+################################################################################
 # Execute procedure.
 
 
 
 ##########
 # Simple iteration.
-if false; then
+if true; then
   for comparison in "${comparisons[@]}"; do
     # Separate fields from instance.
     # [regression type] ; [full path to source file of GWAS summary statistics] ; [full path to product file of GWAS summary statistics]
@@ -226,7 +246,7 @@ fi
 
 ##########
 # Batch parallelization.
-if true; then
+if false; then
   # Organize batch job instances.
   for comparison in "${comparisons[@]}"; do
     # Define parameters in array instance for batch job.
