@@ -45,7 +45,7 @@ import pandas
 import scipy.stats
 
 # Custom
-import promiscuity.utility as utility
+import partner.utility as utility
 
 ###############################################################################
 # Functionality

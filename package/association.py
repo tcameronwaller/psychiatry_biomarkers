@@ -33,7 +33,7 @@ import statsmodels.api
 import statsmodels.stats.outliers_influence
 
 # Custom
-import promiscuity.utility as utility
+import partner.utility as utility
 import uk_biobank.assembly
 import uk_biobank.organization
 
