@@ -33,8 +33,8 @@ pandas.options.mode.chained_assignment = None # default = "warn"
 # Custom
 import partner.utility as utility
 import partner.plot as plot
-import uk_biobank.organization as ukb_organization
-import uk_biobank.stratification as ukb_strat
+#import uk_biobank.organization as ukb_organization
+#import uk_biobank.stratification as ukb_strat
 
 
 ###############################################################################
