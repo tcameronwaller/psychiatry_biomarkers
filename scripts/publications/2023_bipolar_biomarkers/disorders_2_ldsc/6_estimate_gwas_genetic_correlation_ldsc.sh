@@ -210,7 +210,7 @@ sleep 5s
 
 ##########
 # Simple iteration.
-if true; then
+if false; then
   for comparison in "${comparisons[@]}"; do
     # Separate fields from instance.
     # [regression type] ; [full path to source file of GWAS summary statistics] ; [full path to product file of GWAS summary statistics]
@@ -246,7 +246,7 @@ fi
 
 ##########
 # Batch parallelization.
-if false; then
+if true; then
   # Organize batch job instances.
   for comparison in "${comparisons[@]}"; do
     # Define parameters in array instance for batch job.
