@@ -14,6 +14,9 @@
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
 
+# TCW; 6 August 2023
+# batch job 85730
+
 ################################################################################
 # Organize paths.
 
