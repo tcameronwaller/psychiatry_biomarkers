@@ -31,8 +31,8 @@ import pandas
 pandas.options.mode.chained_assignment = None # default = "warn"
 
 # Custom
-import promiscuity.utility as utility
-import promiscuity.plot as plot
+import partner.utility as utility
+import partner.plot as plot
 import uk_biobank.organization as ukb_organization
 import uk_biobank.stratification as ukb_strat
 
