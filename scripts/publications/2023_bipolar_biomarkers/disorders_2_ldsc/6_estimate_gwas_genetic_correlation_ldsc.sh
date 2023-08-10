@@ -17,6 +17,10 @@
 # TCW; 6 August 2023
 # batch job 85730
 
+# TCW; 10 August 2023
+# count of batch instances: 2,232
+# batch job: 89467
+
 ################################################################################
 # Organize paths.
 
