@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 6 August 2023
-# Date, last execution: 6 August 2023
-# Date, review: 6 August 2023
+# Date, last execution: 10 August 2023
+# Date, review: 10 August 2023
 ################################################################################
 # Note
 
@@ -93,33 +93,65 @@ primaries+=("30482948_walters_2018_male")
 
 ##########
 # Secondary studies.
+
+# Note: TCW; 10 August 2023
+# This list of secondary studies includes most of the GWAS summary statistics in
+# the collection of biomarkers and thyroid disorders from TCW in 2023.
+# The few exceptions are the 2019 GWAS from Pott et al (PubMed:31169883) that
+# were repeated with larger sample sizes in 2021 (PubMed:34822396).
+
 # Define array of secondary studies.
 secondaries=()
 # Thyroid physiology.
 secondaries+=("32769997_zhou_2020_thyroid_hormone")
+secondaries+=("30367059_teumer_2018_thyroid_hormone_all")
 secondaries+=("30367059_teumer_2018_thyroid_hormone_female")
 secondaries+=("30367059_teumer_2018_thyroid_hormone_male")
 secondaries+=("36635386_chen_2023_thyroxine_total")
+secondaries+=("33441150_dennis_2021_thyroxine_total")
 secondaries+=("30367059_teumer_2018_thyroxine_free_all")
+secondaries+=("33441150_dennis_2021_thyroxine_free")
 secondaries+=("30367059_teumer_2018_thyroxine_free_female")
 secondaries+=("30367059_teumer_2018_thyroxine_free_male")
 secondaries+=("29875488_sun_2018_thyroid_peroxidase")
 secondaries+=("24586183_medici_2014_thyroid_peroxidase_antibody")
 secondaries+=("24586183_medici_2014_thyroid_peroxidase_reactivity")
 secondaries+=("33441150_dennis_2021_parathyrin")
+secondaries+=("29875488_sun_2018_parathyrin")
+
 secondaries+=("36093044_mathieu_2022_hypothyroidism")
+secondaries+=("00000000_neale_2020_hypothyroidism_self")
+secondaries+=("00000000_neale_2020_hypothyroidism_icd")
+secondaries+=("34594039_sakaue_2021_hypothyroidism")
+secondaries+=("30367059_teumer_2018_hypothyroidism")
 secondaries+=("00000000_neale_2020_hyperthyroidism_self")
+secondaries+=("00000000_neale_2020_hyperthyroidism_icd")
+secondaries+=("34594039_sakaue_2021_hyperthyroidism")
+secondaries+=("30367059_teumer_2018_hyperthyroidism")
 secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity")
 secondaries+=("34594039_sakaue_2021_hashimoto")
 secondaries+=("34594039_sakaue_2021_graves")
 
 # Sex hormones.
 secondaries+=("32042192_ruth_2020_testosterone_female")
+secondaries+=("33587031_sinnott-armstrong_2021_testosterone_primary_female")
+secondaries+=("33587031_sinnott-armstrong_2021_testosterone_secondary_female")
+secondaries+=("31169883_pott_2019_testosterone_female")
 secondaries+=("32042192_ruth_2020_testosterone_male")
+secondaries+=("33587031_sinnott-armstrong_2021_testosterone_primary_male")
+secondaries+=("33587031_sinnott-armstrong_2021_testosterone_secondary_male")
+secondaries+=("31169883_pott_2019_testosterone_male")
 secondaries+=("32042192_ruth_2020_testosterone_bioavailable_female")
+secondaries+=("33587031_sinnott-armstrong_2021_testosterone_bioavailable_female")
 secondaries+=("32042192_ruth_2020_testosterone_bioavailable_male")
+secondaries+=("33587031_sinnott-armstrong_2021_testosterone_bioavailable_male")
+
 secondaries+=("34255042_schmitz_2021_estradiol_female")
+secondaries+=("31169883_pott_2019_estradiol_female")
 secondaries+=("34255042_schmitz_2021_estradiol_male")
+secondaries+=("32042192_ruth_2020_estradiol_male")
+secondaries+=("31169883_pott_2019_estradiol_male")
+
 secondaries+=("34822396_pott_2021_progesterone_female")
 secondaries+=("34822396_pott_2021_progesterone_male")
 secondaries+=("34822396_pott_2021_hydroxyprogesterone_female")
@@ -131,29 +163,51 @@ secondaries+=("34822396_pott_2021_androstenedione_male")
 secondaries+=("31169883_pott_2019_dheas_female")
 secondaries+=("31169883_pott_2019_dheas_male")
 secondaries+=("33441150_dennis_2021_follitropin")
+secondaries+=("29875488_sun_2018_follitropin")
 secondaries+=("29875488_sun_2018_follistatin")
 secondaries+=("33587031_sinnott-armstrong_2021_lutropin")
+secondaries+=("29875488_sun_2018_lutropin")
+secondaries+=("33441150_dennis_2021_lutropin")
+secondaries+=("29875488_sun_2018_lutropin_beta")
+
 secondaries+=("32042192_ruth_2020_shbg_bmi_all")
-secondaries+=("32042192_ruth_2020_shbg_bmi_female")
-secondaries+=("32042192_ruth_2020_shbg_bmi_male")
 secondaries+=("32042192_ruth_2020_shbg_all")
+secondaries+=("00000000_neale_2020_shbg")
+secondaries+=("32042192_ruth_2020_shbg_bmi_female")
 secondaries+=("32042192_ruth_2020_shbg_female")
+secondaries+=("33587031_sinnott-armstrong_2021_shbg_female")
+secondaries+=("32042192_ruth_2020_shbg_bmi_male")
 secondaries+=("32042192_ruth_2020_shbg_male")
-
-
+secondaries+=("33587031_sinnott-armstrong_2021_shbg_male")
 
 # Biomarkers.
 secondaries+=("34226706_barton_2021_albumin")
+secondaries+=("34662886_backman_2021_albumin")
+secondaries+=("34017140_mbatchou_2021_albumin")
+secondaries+=("00000000_neale_2020_albumin")
+
 secondaries+=("32059762_manousaki_2020_vitamin_d")
+secondaries+=("00000000_neale_2020_vitamin_d")
+secondaries+=("33441150_dennis_2021_vitamin_d")
+
 secondaries+=("36635386_chen_2023_cortisol")
+secondaries+=("33441150_dennis_2021_cortisol")
+secondaries+=("31169883_pott_2019_cortisol_all")
 secondaries+=("31169883_pott_2019_cortisol_female")
 secondaries+=("31169883_pott_2019_cortisol_male")
+
 secondaries+=("35459240_said_2022_c_reactive_protein")
+secondaries+=("36376304_koskeridis_2022_c_reactive_protein")
+secondaries+=("00000000_neale_2020_c_reactive_protein")
+secondaries+=("33441150_dennis_2021_c_reactive_protein")
+
 secondaries+=("35078996_gudjonsson_2022_complement_c3")
+secondaries+=("33441150_dennis_2021_complement_c3")
 secondaries+=("35078996_gudjonsson_2022_complement_c4")
+secondaries+=("33441150_dennis_2021_complement_c4")
+secondaries+=("29875488_sun_2018_complement_c4")
 secondaries+=("00000000_neale_2020_hemoglobin_glycation")
-
-
+secondaries+=("33441150_dennis_2021_hemoglobin_glycation")
 
 ##########
 # Organize multi-dimensional array of information about comparisons.
