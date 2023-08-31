@@ -68,7 +68,7 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 # 36477530_saunders_2022 (GRCh38 to GRCh37)
 
 # UCSC:
-# Ensembl: 13,268,541 lines to 13,254,829 lines (TCW; 3 August 2023)
+# Ensembl: 13,268,541 lines to 13,254,829 lines (TCW; 31 August 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/36477530_saunders_2022_alcohol_all.txt.gz" \
 "${path_directory_product}/36477530_saunders_2022_alcohol_all.txt.gz" \
@@ -77,7 +77,7 @@ $threads \
 $report
 
 # UCSC:
-# Ensembl: ___ lines to ___ lines (TCW; __ August 2023)
+# Ensembl: 13,422,054 lines to 13,408,726 lines (TCW; 31 August 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/36477530_saunders_2022_alcohol_no_ukb.txt.gz" \
 "${path_directory_product}/36477530_saunders_2022_alcohol_no_ukb.txt.gz" \
@@ -86,7 +86,7 @@ $threads \
 $report
 
 # UCSC:
-# Ensembl: ___ lines to ___ lines (TCW; __ August 2023)
+# Ensembl: 13,763,313 lines to 13,712,881 lines (TCW; 31 August 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/36477530_saunders_2022_tobacco_all.txt.gz" \
 "${path_directory_product}/36477530_saunders_2022_tobacco_all.txt.gz" \
@@ -95,7 +95,7 @@ $threads \
 $report
 
 # UCSC:
-# Ensembl: ___ lines to ___ lines (TCW; __ August 2023)
+# Ensembl: 13,924,396 lines to 13,874,259 lines (TCW; 31 August 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/36477530_saunders_2022_tobacco_no_ukb.txt.gz" \
 "${path_directory_product}/36477530_saunders_2022_tobacco_no_ukb.txt.gz" \
