@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 2 August 2023
-# Date, last execution: 2 August 2023
-# Date, review: 2 August 2023
+# Date, last execution: 31 August 2023
+# Date, review: 31 August 2023
 ################################################################################
 # Note
 
@@ -28,8 +28,8 @@ cd ~/paths
 path_directory_reference=$(<"./reference_tcw.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_source="${path_directory_dock}/gwas_disorders_tcw_2023-08-02/1_gwas_format_standard"
-path_directory_product="${path_directory_dock}/gwas_disorders_tcw_2023-08-02/2_gwas_assembly_grch37"
+path_directory_source="${path_directory_dock}/gwas_disorders_tcw_2023-08-31/1_gwas_format_standard"
+path_directory_product="${path_directory_dock}/gwas_disorders_tcw_2023-08-31/2_gwas_assembly_grch37"
 # Files.
 #path_file_chain_ncbi36_to_grch37="${path_directory_reference}/crossmap/ucsc/hg18ToHg19.over.chain.gz"
 #path_file_chain_grch37_to_grch38="${path_directory_reference}/crossmap/ucsc/hg19ToHg38.over.chain.gz"
@@ -70,8 +70,35 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 # UCSC:
 # Ensembl: 13,268,541 lines to 13,254,829 lines (TCW; 3 August 2023)
 /usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/36477530_saunders_2022_alcohol.txt.gz" \
-"${path_directory_product}/36477530_saunders_2022_alcohol.txt.gz" \
+"${path_directory_source}/36477530_saunders_2022_alcohol_all.txt.gz" \
+"${path_directory_product}/36477530_saunders_2022_alcohol_all.txt.gz" \
+$path_file_chain_grch38_to_grch37 \
+$threads \
+$report
+
+# UCSC:
+# Ensembl: ___ lines to ___ lines (TCW; __ August 2023)
+/usr/bin/bash $path_script_map_assembly \
+"${path_directory_source}/36477530_saunders_2022_alcohol_no_ukb.txt.gz" \
+"${path_directory_product}/36477530_saunders_2022_alcohol_no_ukb.txt.gz" \
+$path_file_chain_grch38_to_grch37 \
+$threads \
+$report
+
+# UCSC:
+# Ensembl: ___ lines to ___ lines (TCW; __ August 2023)
+/usr/bin/bash $path_script_map_assembly \
+"${path_directory_source}/36477530_saunders_2022_tobacco_all.txt.gz" \
+"${path_directory_product}/36477530_saunders_2022_tobacco_all.txt.gz" \
+$path_file_chain_grch38_to_grch37 \
+$threads \
+$report
+
+# UCSC:
+# Ensembl: ___ lines to ___ lines (TCW; __ August 2023)
+/usr/bin/bash $path_script_map_assembly \
+"${path_directory_source}/36477530_saunders_2022_tobacco_no_ukb.txt.gz" \
+"${path_directory_product}/36477530_saunders_2022_tobacco_no_ukb.txt.gz" \
 $path_file_chain_grch38_to_grch37 \
 $threads \
 $report

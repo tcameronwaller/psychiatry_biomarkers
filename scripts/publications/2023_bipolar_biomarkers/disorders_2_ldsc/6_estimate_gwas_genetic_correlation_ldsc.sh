@@ -70,7 +70,13 @@ report="true"
 # Primary studies.
 # Define array of primary studies.
 primaries=()
-primaries+=("36477530_saunders_2022_alcohol")
+primaries+=("36477530_saunders_2022_alcohol_all")
+primaries+=("36477530_saunders_2022_alcohol_no_ukb")
+primaries+=("36477530_saunders_2022_tobacco_all")
+primaries+=("36477530_saunders_2022_tobacco_no_ukb")
+primaries+=("35396580_trubetskoy_2022_all")
+primaries+=("35396580_trubetskoy_2022_female")
+primaries+=("35396580_trubetskoy_2022_male")
 primaries+=("34099189_blokland_2022_mdd_female")
 primaries+=("34099189_blokland_2022_mdd_male")
 primaries+=("34099189_blokland_2022_rmdd_female")
@@ -87,13 +93,19 @@ primaries+=("34002096_mullins_2021_bd_all")
 primaries+=("34002096_mullins_2021_bd_no_ukb")
 primaries+=("34002096_mullins_2021_bd_1")
 primaries+=("34002096_mullins_2021_bd_2")
-primaries+=("30643251_liu_2019_all")
-primaries+=("30643251_liu_2019_no_ukb")
+primaries+=("30718901_howard_2019_pgc_ukb")
+primaries+=("30718901_howard_2019_pgc")
+primaries+=("30643251_liu_2019_alcohol_all")
+primaries+=("30643251_liu_2019_alcohol_no_ukb")
+primaries+=("30643251_liu_2019_tobacco_all")
+primaries+=("30643251_liu_2019_tobacco_no_ukb")
 primaries+=("30482948_walters_2018_eur_all")
 primaries+=("30482948_walters_2018_eur_unrel_meta")
 primaries+=("30482948_walters_2018_eur_unrel_genotype")
 primaries+=("30482948_walters_2018_female")
 primaries+=("30482948_walters_2018_male")
+primaries+=("29700475_wray_2018_pgc_ukb")
+primaries+=("29700475_wray_2018_pgc")
 
 ##########
 # Secondary studies.
@@ -106,6 +118,7 @@ primaries+=("30482948_walters_2018_male")
 
 # Define array of secondary studies.
 secondaries=()
+
 # Thyroid physiology.
 secondaries+=("32769997_zhou_2020_thyroid_hormone")
 secondaries+=("30367059_teumer_2018_thyroid_hormone_all")
@@ -185,9 +198,9 @@ secondaries+=("32042192_ruth_2020_shbg_male")
 secondaries+=("33587031_sinnott-armstrong_2021_shbg_male")
 
 # Biomarkers.
+secondaries+=("34017140_mbatchou_2021_albumin")
 secondaries+=("34226706_barton_2021_albumin")
 secondaries+=("34662886_backman_2021_albumin")
-secondaries+=("34017140_mbatchou_2021_albumin")
 secondaries+=("00000000_neale_2020_albumin")
 
 secondaries+=("32059762_manousaki_2020_vitamin_d")
