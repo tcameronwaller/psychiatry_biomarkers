@@ -13,13 +13,9 @@
 # script "6_call_submit_gwas_ldsc_genetic_correlation.sh" in the directory
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
-
-# TCW; 6 August 2023
-# batch job 85730
-
-# TCW; 10 August 2023
-# count of batch instances: 2,232
-# batch job: 89467
+# TCW; 5 September 2023
+# count of batch instances: 3,255
+# batch job: 194801
 
 ################################################################################
 # Organize paths.
