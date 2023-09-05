@@ -118,18 +118,21 @@ secondaries=()
 # Thyroid physiology.
 
 secondaries+=("34594039_sakaue_2021_hyperthyroidism")
-secondaries+=("00000000_neale_2020_hyperthyroidism_self")
 secondaries+=("00000000_neale_2020_hyperthyroidism_icd")
+secondaries+=("00000000_neale_2020_hyperthyroidism_self")
 secondaries+=("30367059_teumer_2018_hyperthyroidism")
 secondaries+=("36093044_mathieu_2022_hypothyroidism")
 secondaries+=("34594039_sakaue_2021_hypothyroidism")
-secondaries+=("00000000_neale_2020_hypothyroidism_self")
 secondaries+=("00000000_neale_2020_hypothyroidism_icd")
+secondaries+=("00000000_neale_2020_hypothyroidism_self")
 secondaries+=("30367059_teumer_2018_hypothyroidism")
 secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity")
 secondaries+=("34594039_sakaue_2021_hashimoto")
 secondaries+=("34594039_sakaue_2021_graves")
 
+secondaries+=("24586183_medici_2014_thyroid_peroxidase_reactivity")
+secondaries+=("24586183_medici_2014_thyroid_peroxidase_antibody")
+secondaries+=("29875488_sun_2018_thyroid_peroxidase")
 secondaries+=("32769997_zhou_2020_thyroid_hormone")
 secondaries+=("30367059_teumer_2018_thyroid_hormone_all")
 secondaries+=("30367059_teumer_2018_thyroid_hormone_female")
@@ -142,9 +145,8 @@ secondaries+=("30367059_teumer_2018_thyroxine_free_female")
 secondaries+=("30367059_teumer_2018_thyroxine_free_male")
 secondaries+=("33441150_dennis_2021_parathyrin")
 secondaries+=("29875488_sun_2018_parathyrin")
-secondaries+=("29875488_sun_2018_thyroid_peroxidase")
-secondaries+=("24586183_medici_2014_thyroid_peroxidase_antibody")
-secondaries+=("24586183_medici_2014_thyroid_peroxidase_reactivity")
+
+
 
 # Sex hormones.
 
