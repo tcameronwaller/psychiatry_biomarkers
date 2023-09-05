@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 27 March 2023
-# Date, last execution: 31 August 2023
-# Date, review: 4 August 2023
+# Date, last execution: 5 September 2023
+# Date, review: 5 September 2023
 ################################################################################
 # Note
 
@@ -153,6 +153,15 @@ cp "${path_directory_source}/30482948_walters_2018_female.txt.gz" \
 
 cp "${path_directory_source}/30482948_walters_2018_male.txt.gz" \
 "${path_directory_product}/30482948_walters_2018_male.txt.gz"
+
+
+
+##########
+# 30718901_howard_2019
+# These GWAS summary statistics were missing genomic coordinates (chromosome and
+# base position) and would need further preparation to be useful.
+
+rm "${path_directory_product}/30718901_howard_2019_pgc_ukb.txt.gz"
 
 
 
