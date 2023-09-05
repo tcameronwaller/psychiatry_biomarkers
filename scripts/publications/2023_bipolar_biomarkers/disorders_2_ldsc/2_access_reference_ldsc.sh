@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 25 May 2023
-# Date, last execution: 4 August 2023
+# Date, last execution: 5 September 2023
 # Date, review: 4 August 2023
 ################################################################################
 # Note
@@ -19,7 +19,7 @@ path_directory_reference=$(<"./reference_tcw.txt")
 path_directory_reference_ldsc="${path_directory_reference}/ldsc" # accession: TCW; 2 March 2023
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
-path_directory_product_parent="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-02"
+path_directory_product_parent="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31"
 path_directory_product_child="${path_directory_product_parent}/ldsc"
 path_directory_product="${path_directory_product_parent}/2_reference_ldsc"
 

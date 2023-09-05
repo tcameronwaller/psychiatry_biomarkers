@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 6 August 2023
-# Date, last execution: 10 August 2023
+# Date, last execution: 5 September 2023
 # Date, review: 10 August 2023
 ################################################################################
 # Note
@@ -28,12 +28,12 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
-path_directory_reference="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-02/2_reference_ldsc"
+path_directory_reference="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/2_reference_ldsc"
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
-path_directory_source_primary="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-02/4_gwas_munge_ldsc"
+path_directory_source_primary="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/4_gwas_munge_ldsc"
 path_directory_source_secondary="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/4_gwas_munge_ldsc"
-path_directory_product_parent="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-02/6_gwas_correlation_ldsc"
+path_directory_product_parent="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/6_gwas_correlation_ldsc"
 path_directory_batch_logs="${path_directory_product_parent}/logs"
 
 # Files.
@@ -120,6 +120,20 @@ primaries+=("29700475_wray_2018_pgc")
 secondaries=()
 
 # Thyroid physiology.
+
+secondaries+=("34594039_sakaue_2021_hyperthyroidism")
+secondaries+=("00000000_neale_2020_hyperthyroidism_self")
+secondaries+=("00000000_neale_2020_hyperthyroidism_icd")
+secondaries+=("30367059_teumer_2018_hyperthyroidism")
+secondaries+=("36093044_mathieu_2022_hypothyroidism")
+secondaries+=("34594039_sakaue_2021_hypothyroidism")
+secondaries+=("00000000_neale_2020_hypothyroidism_self")
+secondaries+=("00000000_neale_2020_hypothyroidism_icd")
+secondaries+=("30367059_teumer_2018_hypothyroidism")
+secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity")
+secondaries+=("34594039_sakaue_2021_hashimoto")
+secondaries+=("34594039_sakaue_2021_graves")
+
 secondaries+=("32769997_zhou_2020_thyroid_hormone")
 secondaries+=("30367059_teumer_2018_thyroid_hormone_all")
 secondaries+=("30367059_teumer_2018_thyroid_hormone_female")
@@ -136,20 +150,8 @@ secondaries+=("24586183_medici_2014_thyroid_peroxidase_reactivity")
 secondaries+=("33441150_dennis_2021_parathyrin")
 secondaries+=("29875488_sun_2018_parathyrin")
 
-secondaries+=("36093044_mathieu_2022_hypothyroidism")
-secondaries+=("00000000_neale_2020_hypothyroidism_self")
-secondaries+=("00000000_neale_2020_hypothyroidism_icd")
-secondaries+=("34594039_sakaue_2021_hypothyroidism")
-secondaries+=("30367059_teumer_2018_hypothyroidism")
-secondaries+=("00000000_neale_2020_hyperthyroidism_self")
-secondaries+=("00000000_neale_2020_hyperthyroidism_icd")
-secondaries+=("34594039_sakaue_2021_hyperthyroidism")
-secondaries+=("30367059_teumer_2018_hyperthyroidism")
-secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity")
-secondaries+=("34594039_sakaue_2021_hashimoto")
-secondaries+=("34594039_sakaue_2021_graves")
-
 # Sex hormones.
+
 secondaries+=("32042192_ruth_2020_testosterone_female")
 secondaries+=("33587031_sinnott-armstrong_2021_testosterone_primary_female")
 secondaries+=("33587031_sinnott-armstrong_2021_testosterone_secondary_female")
@@ -199,8 +201,8 @@ secondaries+=("33587031_sinnott-armstrong_2021_shbg_male")
 
 # Biomarkers.
 secondaries+=("34017140_mbatchou_2021_albumin")
-secondaries+=("34226706_barton_2021_albumin")
 secondaries+=("34662886_backman_2021_albumin")
+secondaries+=("34226706_barton_2021_albumin")
 secondaries+=("00000000_neale_2020_albumin")
 
 secondaries+=("32059762_manousaki_2020_vitamin_d")
