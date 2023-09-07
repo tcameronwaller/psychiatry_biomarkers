@@ -22,13 +22,13 @@ cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_reference="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/2_reference_ldsc"
-path_directory_source="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/4_gwas_munge_ldsc"
-path_directory_product="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/5_gwas_heritability_ldsc"
+path_directory_reference="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/2_reference_ldsc"
+path_directory_source="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/4_gwas_munge_ldsc"
+path_directory_product="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/5_gwas_heritability_ldsc"
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-07_biomarkers.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-07_disorders.tsv"
 
 # Files.
 
