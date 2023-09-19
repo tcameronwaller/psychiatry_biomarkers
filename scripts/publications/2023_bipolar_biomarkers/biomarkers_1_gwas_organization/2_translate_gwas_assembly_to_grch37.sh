@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 24 May 2023
-# Date, last execution: 6 June 2023
-# Date, review: 25 May 2023
+# Date, last execution: 19 September 2023
+# Date, review: __ September 2023
 ################################################################################
 # Note
 
@@ -19,6 +19,8 @@
 # procedure wrote the appropriate files again, later than all others.
 
 
+# TODO: Add Saevarsdottir!!!
+
 
 ################################################################################
 # Organize paths.
@@ -28,8 +30,8 @@ cd ~/paths
 path_directory_reference=$(<"./reference_tcw.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-06-06/1_gwas_format_standard"
-path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-06-06/2_gwas_assembly_grch37"
+path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-19/1_gwas_format_standard"
+path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-19/2_gwas_assembly_grch37"
 # Files.
 #path_file_chain_ncbi36_to_grch37="${path_directory_reference}/crossmap/ucsc/hg18ToHg19.over.chain.gz"
 #path_file_chain_grch37_to_grch38="${path_directory_reference}/crossmap/ucsc/hg19ToHg38.over.chain.gz"
@@ -99,6 +101,16 @@ $report
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/34017140_mbatchou_2021_albumin.txt.gz" \
 "${path_directory_product}/34017140_mbatchou_2021_albumin.txt.gz" \
+$path_file_chain_grch38_to_grch37 \
+$threads \
+$report
+
+##########
+# 32581359_saevarsdottir_2020 (GRCh38 to GRCh37)
+
+/usr/bin/bash $path_script_map_assembly \
+"${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
+"${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
 $path_file_chain_grch38_to_grch37 \
 $threads \
 $report
