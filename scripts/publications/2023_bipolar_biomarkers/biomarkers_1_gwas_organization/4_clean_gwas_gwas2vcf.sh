@@ -29,13 +29,13 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 
-path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-06-06/3_gwas_allele_frequency"
-path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-06-06/4_gwas_clean_gwas2vcf"
+path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-19/3_gwas_allele_frequency"
+path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-19/4_gwas_clean_gwas2vcf"
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-06-06.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-19_biomarkers.tsv"
 # Scripts.
-path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_script_submit_batch="${path_directory_promiscuity_scripts}/gwas_clean/1_submit_batch_pipe_gwas_clean.sh"
+path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+path_script_submit_batch="${path_directory_partner_scripts}/gwas_clean/1_submit_batch_pipe_gwas_clean.sh"
 
 # Initialize directories.
 rm -r $path_directory_product # caution
