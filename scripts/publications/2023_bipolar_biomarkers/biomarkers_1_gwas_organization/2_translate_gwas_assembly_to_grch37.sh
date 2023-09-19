@@ -40,8 +40,8 @@ path_file_chain_ncbi36_to_grch37="${path_directory_reference}/crossmap/ensembl/N
 path_file_chain_grch37_to_grch38="${path_directory_reference}/crossmap/ensembl/GRCh37_to_GRCh38.chain.gz"
 path_file_chain_grch38_to_grch37="${path_directory_reference}/crossmap/ensembl/GRCh38_to_GRCh37.chain.gz"
 # Scripts.
-path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_script_map_assembly="${path_directory_promiscuity_scripts}/crossmap/map_gwas_standard_format_bed.sh"
+path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+path_script_map_assembly="${path_directory_partner_scripts}/crossmap/map_gwas_standard_format_bed.sh"
 
 # Initialize directories.
 rm -r $path_directory_product # caution

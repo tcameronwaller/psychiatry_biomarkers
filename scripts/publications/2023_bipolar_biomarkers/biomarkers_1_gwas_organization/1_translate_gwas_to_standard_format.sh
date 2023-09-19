@@ -4,7 +4,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 23 December 2022
 # Date, last execution: 19 September 2023
-# Date, review: __ September 2023
+# Date, review: 19 September 2023
 ################################################################################
 # Note
 
@@ -24,7 +24,7 @@ path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabol
 path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-19/1_gwas_format_standard"
 # Files.
 #path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-06-06.tsv"
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-19_biomarkers_test.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-19_biomarkers.tsv"
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
