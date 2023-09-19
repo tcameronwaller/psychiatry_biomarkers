@@ -67,7 +67,7 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 # 36635386_chen_2023 (GRCh38 to GRCh37)
 
 # UCSC: 15,428,167 lines to 15,396,790 lines (TCW; 24 May 2023)
-# Ensembl: 15,428,167 lines to 15,384,987 lines (TCW; 24 May 2023)
+# Ensembl: 15,428,167 lines to 15,384,987 lines (TCW; 19 September 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/36635386_chen_2023_cortisol.txt.gz" \
 "${path_directory_product}/36635386_chen_2023_cortisol.txt.gz" \
@@ -75,6 +75,7 @@ $path_file_chain_grch38_to_grch37 \
 $threads \
 $report
 
+# Ensembl: 15,431,007 lines to 15,387,813 lines (TCW; 19 September 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/36635386_chen_2023_thyroxine_total.txt.gz" \
 "${path_directory_product}/36635386_chen_2023_thyroxine_total.txt.gz" \
@@ -85,6 +86,7 @@ $report
 ##########
 # 34662886_backman_2021 (GRCh38 to GRCh37)
 
+# Ensembl: 502,524 lines to 499,614 lines (TCW; 19 September 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/34662886_backman_2021_albumin.txt.gz" \
 "${path_directory_product}/34662886_backman_2021_albumin.txt.gz" \
@@ -95,6 +97,7 @@ $report
 ##########
 # 34017140_mbatchou_2021 (GRCh38 to GRCh37)
 
+# Ensembl: 11,367,923 lines to 11,346,500 (TCW; 19 September 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/34017140_mbatchou_2021_albumin.txt.gz" \
 "${path_directory_product}/34017140_mbatchou_2021_albumin.txt.gz" \
@@ -105,6 +108,7 @@ $report
 ##########
 # 32581359_saevarsdottir_2020 (GRCh38 to GRCh37)
 
+# Ensembl: 44,690,177 lines to 43,529,207 (TCW; 19 September 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
 "${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
@@ -116,7 +120,7 @@ $report
 # 24586183_medici_2014 (NCBI36-hg18 to GRCh37)
 
 # UCSC: 2,425,175 lines to 2,424,714 lines (TCW; 24 May 2023)
-# Ensembl: 2,425,175 lines to 2,424,987 lines (TCW; 24 May 2023)
+# Ensembl: 2,425,175 lines to 2,424,987 lines (TCW; 19 September 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/24586183_medici_2014_thyroid_peroxidase_antibody.txt.gz" \
 "${path_directory_product}/24586183_medici_2014_thyroid_peroxidase_antibody.txt.gz" \
@@ -124,6 +128,7 @@ $path_file_chain_ncbi36_to_grch37 \
 $threads \
 $report
 
+# Ensembl: 2,425,175 lines to 2,424,987 lines (TCW; 19 September 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/24586183_medici_2014_thyroid_peroxidase_reactivity.txt.gz" \
 "${path_directory_product}/24586183_medici_2014_thyroid_peroxidase_reactivity.txt.gz" \

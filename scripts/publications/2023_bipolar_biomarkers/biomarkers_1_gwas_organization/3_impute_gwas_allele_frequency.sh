@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 22 February 2023
-# Date, last execution: 6 June 2023
-# Date, review: 25 May 2023
+# Date, last execution: 19 September 2023
+# Date, review: 19 September 2023
 ################################################################################
 # Note
 
@@ -29,8 +29,8 @@ path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-06-06/2_g
 path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-06-06/3_gwas_allele_frequency"
 # Files.
 # Scripts.
-path_directory_promiscuity_scripts="${path_directory_process}/promiscuity/scripts"
-path_script_impute_gwas_allele_frequency="${path_directory_promiscuity_scripts}/gwas_clean/impute_gwas_allele_frequency.sh"
+path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+path_script_impute_gwas_allele_frequency="${path_directory_partner_scripts}/gwas_clean/impute_gwas_allele_frequency.sh"
 
 # Initialize directories.
 rm -r $path_directory_product # caution
