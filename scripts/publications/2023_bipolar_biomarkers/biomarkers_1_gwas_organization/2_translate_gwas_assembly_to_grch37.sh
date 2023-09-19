@@ -4,7 +4,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 24 May 2023
 # Date, last execution: 19 September 2023
-# Date, review: __ September 2023
+# Date, review: 19 September 2023
 ################################################################################
 # Note
 
@@ -17,9 +17,6 @@
 
 # After running this script, check the product directory to make sure that this
 # procedure wrote the appropriate files again, later than all others.
-
-
-# TODO: Add Saevarsdottir!!!
 
 
 ################################################################################

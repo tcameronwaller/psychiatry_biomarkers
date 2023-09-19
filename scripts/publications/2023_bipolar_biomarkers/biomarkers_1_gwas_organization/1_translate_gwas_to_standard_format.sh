@@ -8,7 +8,11 @@
 ################################################################################
 # Note
 
+# count of files: 123
+# After format translation (and maybe before) the following study was an outlier
+# for its small size in terms of disk memory usage.
 
+# 34662886_backman_2021_albumin
 
 ################################################################################
 # Organize paths.
