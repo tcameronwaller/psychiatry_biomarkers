@@ -66,10 +66,10 @@ $report
 # 32769997_zhou_2020
 
 # records that raise checks: 2,993 of 22,397,081
-/usr/bin/bash $path_script_check \
-"${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
-$path_directory_parent_temporary \
-$report
+#/usr/bin/bash $path_script_check \
+#"${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
+#$path_directory_parent_temporary \
+#$report
 
 
 
