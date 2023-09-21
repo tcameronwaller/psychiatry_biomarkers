@@ -35,7 +35,7 @@ path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2
 # Files.
 
 # Scripts.
-path_file_script="${path_directory_process}/promiscuity/scripts/gwas_clean/calculate_effective_observations_logistic_gwas.sh"
+path_file_script="${path_directory_process}/partner/scripts/gwas_clean/calculate_effective_observations_logistic_gwas.sh"
 
 # Initialize directories.
 rm -r $path_directory_product
