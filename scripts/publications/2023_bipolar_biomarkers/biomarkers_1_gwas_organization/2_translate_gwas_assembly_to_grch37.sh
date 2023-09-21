@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 24 May 2023
-# Date, last execution: 19 September 2023
+# Date, last execution: 21 September 2023
 # Date, review: 19 September 2023
 ################################################################################
 # Note
@@ -27,8 +27,8 @@ cd ~/paths
 path_directory_reference=$(<"./reference_tcw.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-19/1_gwas_format_standard"
-path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-19/2_gwas_assembly_grch37"
+path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-21/1_gwas_format_standard"
+path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-21/2_gwas_assembly_grch37"
 # Files.
 #path_file_chain_ncbi36_to_grch37="${path_directory_reference}/crossmap/ucsc/hg18ToHg19.over.chain.gz"
 #path_file_chain_grch37_to_grch38="${path_directory_reference}/crossmap/ucsc/hg19ToHg38.over.chain.gz"
@@ -108,7 +108,7 @@ $report
 ##########
 # 32581359_saevarsdottir_2020 (GRCh38 to GRCh37)
 
-# Ensembl: 44,690,177 lines to 43,529,207 (TCW; 19 September 2023)
+# Ensembl: 44,690,177 lines to 43,529,207 (TCW; 21 September 2023)
 /usr/bin/bash $path_script_map_assembly \
 "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
 "${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
