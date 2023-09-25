@@ -15,6 +15,9 @@
 # After running this script, check the product directory to make sure that this
 # procedure wrote the appropriate files again, later than all others.
 
+# Make a copy of "Saevarsdottir 2020" and impute European allele frequencies
+# to test in case there were problems in the original allele frequencies.
+
 
 
 ################################################################################
@@ -25,8 +28,8 @@ cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-21/2_gwas_assembly_grch37"
-path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-21/3_gwas_allele_frequency"
+path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-25/2_gwas_assembly_grch37"
+path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-25/3_gwas_allele_frequency"
 # Files.
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
@@ -77,6 +80,14 @@ $report
 /usr/bin/bash $path_script_impute_gwas_allele_frequency \
 "${path_directory_source}/34017140_mbatchou_2021_albumin.txt.gz" \
 "${path_directory_product}/34017140_mbatchou_2021_albumin.txt.gz" \
+$report
+
+##########
+# 32581359_saevarsdottir_2020
+
+/usr/bin/bash $path_script_impute_gwas_allele_frequency \
+"${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
+"${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_imputation.txt.gz" \
 $report
 
 ##########
