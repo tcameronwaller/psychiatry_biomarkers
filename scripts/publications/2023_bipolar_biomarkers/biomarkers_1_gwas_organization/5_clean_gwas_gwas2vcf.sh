@@ -8,7 +8,11 @@
 ################################################################################
 # Note
 
-
+# The batch submitted at 11:37 Eastern Time on 26 September 2023 did not include
+# the set of GWAS summary statistics below.
+# 32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz
+# Consider running the GWAS2VCF procedure separately for this set of GWAS
+# summary statistics if the priority set for Saevarsdottir 2020 has problems.
 
 ################################################################################
 
