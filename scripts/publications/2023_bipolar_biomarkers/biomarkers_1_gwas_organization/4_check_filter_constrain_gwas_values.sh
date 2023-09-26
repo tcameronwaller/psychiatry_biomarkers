@@ -63,34 +63,47 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 ##########
 # 32581359_saevarsdottir_2020
 
-# records that raise checks: 0 of 43,529,207
+# records that raise checks: 1 of 43,529,207 (header line)
 /usr/bin/bash $path_script_check \
 "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
 $path_directory_parent_temporary \
 $report
 
-# records that raise checks: __ of __
+if true; then
+  /usr/bin/bash $path_script_filter \
+  "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
+  "${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
+  $report
+fi
+
+# records that raise checks: 7,106,273 of 17,412,123 (header line)
 /usr/bin/bash $path_script_check \
 "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
 $path_directory_parent_temporary \
 $report
 
+if true; then
+  /usr/bin/bash $path_script_filter \
+  "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
+  "${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
+  $report
+fi
+
 ##########
 # 32769997_zhou_2020
 
-# records that raise checks: 2,993 of 22,397,081
+# records that do not pass checks: 2,993 of 22,397,081 (header line)
 /usr/bin/bash $path_script_check \
 "${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
 $path_directory_parent_temporary \
 $report
 
-if false; then
+if true; then
   /usr/bin/bash $path_script_filter \
   "${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
   "${path_directory_product}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
   $report
 fi
-
 
 
 
