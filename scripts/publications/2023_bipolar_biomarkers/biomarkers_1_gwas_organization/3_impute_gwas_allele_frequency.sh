@@ -4,7 +4,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 22 February 2023
 # Date, last execution: 26 September 2023
-# Date, review: 19 September 2023
+# Date, review: 26 September 2023
 ################################################################################
 # Note
 
@@ -61,6 +61,8 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 ##########
 # 36093044_mathieu_2022
 
+# source lines: 10,836,151
+# product lines: 4,053,261
 /usr/bin/bash $path_script_impute_gwas_allele_frequency \
 "${path_directory_source}/36093044_mathieu_2022_hypothyroidism.txt.gz" \
 "${path_directory_product}/36093044_mathieu_2022_hypothyroidism.txt.gz" \
@@ -69,6 +71,8 @@ $report
 ##########
 # 35459240_said_2022
 
+# source lines: 11,106,738
+# product lines: 3,644,730
 /usr/bin/bash $path_script_impute_gwas_allele_frequency \
 "${path_directory_source}/35459240_said_2022_c_reactive_protein.txt.gz" \
 "${path_directory_product}/35459240_said_2022_c_reactive_protein.txt.gz" \
@@ -77,6 +81,8 @@ $report
 ##########
 # 34017140_mbatchou_2021
 
+# source lines: 11,346,500
+# product lines: 6,500,544
 /usr/bin/bash $path_script_impute_gwas_allele_frequency \
 "${path_directory_source}/34017140_mbatchou_2021_albumin.txt.gz" \
 "${path_directory_product}/34017140_mbatchou_2021_albumin.txt.gz" \
@@ -85,6 +91,8 @@ $report
 ##########
 # 32581359_saevarsdottir_2020
 
+# source lines: 43,529,207
+# product lines: 17,412,123
 /usr/bin/bash $path_script_impute_gwas_allele_frequency \
 "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
 "${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
@@ -131,11 +139,15 @@ $report
 ##########
 # 24586183_medici_2014
 
+# source lines: 2,424,987
+# product lines: 727,787
 /usr/bin/bash $path_script_impute_gwas_allele_frequency \
 "${path_directory_source}/24586183_medici_2014_thyroid_peroxidase_antibody.txt.gz" \
 "${path_directory_product}/24586183_medici_2014_thyroid_peroxidase_antibody.txt.gz" \
 $report
 
+# source lines: 2,424,987
+# product lines: 727,787
 /usr/bin/bash $path_script_impute_gwas_allele_frequency \
 "${path_directory_source}/24586183_medici_2014_thyroid_peroxidase_reactivity.txt.gz" \
 "${path_directory_product}/24586183_medici_2014_thyroid_peroxidase_reactivity.txt.gz" \
