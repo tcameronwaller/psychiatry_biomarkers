@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 22 February 2023
-# Date, last execution: 21 September 2023
+# Date, last execution: 26 September 2023
 # Date, review: 19 September 2023
 ################################################################################
 # Note
@@ -87,7 +87,7 @@ $report
 
 /usr/bin/bash $path_script_impute_gwas_allele_frequency \
 "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
-"${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_imputation.txt.gz" \
+"${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
 $report
 
 ##########
