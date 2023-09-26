@@ -70,19 +70,23 @@ $path_directory_parent_temporary \
 $report
 
 if true; then
+  # source lines: 43,529,207
+  # product lines: 43,529,207
   /usr/bin/bash $path_script_filter \
   "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
   "${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
   $report
 fi
 
-# records that raise checks: 7,106,273 of 17,412,123 (header line)
+# records that raise checks: 7,106,273 of 17,412,123 (header line); most due to allele frequencies of zero
 /usr/bin/bash $path_script_check \
 "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
 $path_directory_parent_temporary \
 $report
 
 if true; then
+  # source lines: 17,412,123
+  # product lines: 17,412,123
   /usr/bin/bash $path_script_filter \
   "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
   "${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
@@ -99,6 +103,8 @@ $path_directory_parent_temporary \
 $report
 
 if true; then
+  # source lines: 22,397,081
+  # product lines: 22,394,089
   /usr/bin/bash $path_script_filter \
   "${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
   "${path_directory_product}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
