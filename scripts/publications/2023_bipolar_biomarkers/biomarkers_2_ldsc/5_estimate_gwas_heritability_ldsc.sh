@@ -14,6 +14,13 @@
 # latest collection and gives correct values for the sample and population
 # prevalence of dichotomous traits.
 
+
+
+# TODO: TCW; 29 September 2023
+# Add an "extra" iteration instance for the alternative preparation of Saevarsdottir, 2020.
+# See the GWAS2VCF driver script for an example of how I did this before.
+
+
 ################################################################################
 # Organize paths.
 

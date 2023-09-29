@@ -14,6 +14,8 @@
 # Consider running the GWAS2VCF procedure separately for this set of GWAS
 # summary statistics if the priority set for Saevarsdottir 2020 has problems.
 
+# batch job: 235497 (27 September 2023)
+
 ################################################################################
 
 
