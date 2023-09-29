@@ -117,11 +117,17 @@ $path_directory_parent_temporary \
 $report
 
 if true; then
-  # source lines: ___
-  # product lines: ____
+  # source lines: 6,206,409
+  # product lines: 6,206,409
   /usr/bin/bash $path_script_filter \
   "${path_directory_source}/36376304_koskeridis_2022_c_reactive_protein.txt.gz" \
   "${path_directory_product}/36376304_koskeridis_2022_c_reactive_protein.txt.gz" \
+  $report
+
+  # records that do not pass checks: __ of ___ (header line)
+  /usr/bin/bash $path_script_check \
+  "${path_directory_product}/36376304_koskeridis_2022_c_reactive_protein.txt.gz" \
+  $path_directory_parent_temporary \
   $report
 fi
 
@@ -137,8 +143,8 @@ $path_directory_parent_temporary \
 $report
 
 if true; then
-  # source lines: ___
-  # product lines: ____
+  # source lines: 499,614
+  # product lines: 499,614
   /usr/bin/bash $path_script_filter \
   "${path_directory_source}/34662886_backman_2021_albumin.txt.gz" \
   "${path_directory_product}/34662886_backman_2021_albumin.txt.gz" \
@@ -157,8 +163,8 @@ $path_directory_parent_temporary \
 $report
 
 if true; then
-  # source lines: ___
-  # product lines: ____
+  # source lines: 5,515,076
+  # product lines: 5,268,582
   /usr/bin/bash $path_script_filter \
   "${path_directory_source}/34226706_barton_2021_albumin.txt.gz" \
   "${path_directory_product}/34226706_barton_2021_albumin.txt.gz" \
