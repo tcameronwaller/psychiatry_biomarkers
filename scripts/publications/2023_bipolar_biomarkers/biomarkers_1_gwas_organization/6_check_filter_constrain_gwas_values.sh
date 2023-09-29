@@ -30,6 +30,19 @@ report="true"
 ################################################################################
 # Execute procedure.
 
+##########
+# Copy the GWAS summary statistics from the previous process.
+# Most sets of GWAS summary statistics do not need extra processing.
+# Subsequent processes on a few studies will replace the appropriate files.
+cp $path_directory_source/*.txt.gz $path_directory_product
+
+##########
+# Remove files of GWAS summary statistics that are known problems.
+
+# 32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz
+
+
+
 
 ################################################################################
 # Report.
