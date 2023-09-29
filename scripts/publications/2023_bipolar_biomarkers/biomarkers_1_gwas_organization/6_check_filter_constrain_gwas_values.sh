@@ -40,7 +40,7 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 # Remove files of GWAS summary statistics that are known problems.
 
 # 32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz
-
+# 32242144_revez_2020_vitamin_d.txt.gz
 
 
 

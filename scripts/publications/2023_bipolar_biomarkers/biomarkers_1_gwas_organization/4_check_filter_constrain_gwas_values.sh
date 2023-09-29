@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 21 September 2023
-# Date, last execution: 26 September 2023
-# Date, review: 26 September 2023
+# Date, last execution: 29 September 2023
+# Date, review: 29 September 2023
 ################################################################################
 # Note
 
@@ -21,12 +21,37 @@
 # Zhou will need a filter to remove records (rows) with missing count of observations (sample size)...
 # either before or after GWAS2VCF.
 
+##########
 # TCW; 29 September 2023
-# None of the studies below include any characters other than "T", "C", "G", or
-# "A" in their designations of effect and other alleles.
+# None of the studies below have any missingness or nonsense characters (any
+# characters other than "T", "C", "G", or "A") in their designations of effect
+# and other alleles.
 # 32581359_saevarsdottir_2020_thyroid_autoimmunity
 # 32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute
 # 32769997_zhou_2020_thyroid_hormone
+
+##########
+# TCW; 29 September 2023
+# Review of other studies that failed LDpred2 polygenic score procedure.
+# 1. Studies that failed for unknown reason.
+# 34226706_barton_2021_albumin
+# 34662886_backman_2021_albumin
+# 36376304_koskeridis_2022_c_reactive_protein
+# 2. Studies that failed for probable reason of weak estimates of SNP
+# heritability.
+# 29875488_sun_2018_follistatin
+# 30367059_teumer_2018_hypothyroidism
+# 31169883_pott_2019_aldosterone_all
+# 31169883_pott_2019_androstenedione_female
+# 31169883_pott_2019_cortisol_female
+# 31169883_pott_2019_testosterone_female
+# 33441150_dennis_2021_lutropin
+# 33441150_dennis_2021_thyroxine_total
+# 34822396_pott_2021_aldosterone_all
+# 34822396_pott_2021_aldosterone_male
+# 34822396_pott_2021_progesterone_all
+# 34822396_pott_2021_progesterone_female
+# 34822396_pott_2021_testosterone_estradiol_female
 
 ################################################################################
 # Organize paths.
@@ -84,7 +109,8 @@ if true; then
   $report
 fi
 
-# records that raise checks: 7,106,273 of 17,412,123 (header line); most due to allele frequencies of zero
+# records that raise checks: 1 of 17,412,123 (header line)
+# records with allele frequency of zero: 7,106,273 (header line)
 /usr/bin/bash $path_script_check \
 "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
 $path_directory_parent_temporary \
@@ -102,7 +128,7 @@ fi
 ##########
 # 32769997_zhou_2020
 
-# records that do not pass checks: 2,993 of 22,397,081 (header line)
+# records that do not pass checks: 2,993 of 22,397,081 (header line); all due to missingness in count of observations
 /usr/bin/bash $path_script_check \
 "${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
 $path_directory_parent_temporary \
