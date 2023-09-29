@@ -77,8 +77,8 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_parent_temporary="${path_directory_process}/temporary_check_4"
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-25/3_gwas_allele_frequency"
-path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-25/4_filter_constrain_gwas_values"
+path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-29/3_gwas_allele_frequency"
+path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-29/4_filter_constrain_gwas_values"
 # Files.
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
