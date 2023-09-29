@@ -21,6 +21,12 @@
 # Zhou will need a filter to remove records (rows) with missing count of observations (sample size)...
 # either before or after GWAS2VCF.
 
+# TCW; 29 September 2023
+# None of the studies below include any characters other than "T", "C", "G", or
+# "A" in their designations of effect and other alleles.
+# 32581359_saevarsdottir_2020_thyroid_autoimmunity
+# 32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute
+# 32769997_zhou_2020_thyroid_hormone
 
 ################################################################################
 # Organize paths.

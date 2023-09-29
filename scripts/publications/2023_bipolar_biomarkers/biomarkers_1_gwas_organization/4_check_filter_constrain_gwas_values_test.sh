@@ -97,10 +97,10 @@ fi
 # 32769997_zhou_2020
 
 # records that do not pass checks: 2,993 of 22,397,081 (header line)
-#/usr/bin/bash $path_script_check \
-#"${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
-#$path_directory_parent_temporary \
-#$report
+/usr/bin/bash $path_script_check \
+"${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
+$path_directory_parent_temporary \
+$report
 
 if false; then
   # source lines: 22,397,081
