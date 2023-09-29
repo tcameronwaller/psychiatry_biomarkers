@@ -33,11 +33,9 @@
 ##########
 # TCW; 29 September 2023
 # Review of other studies that failed LDpred2 polygenic score procedure.
-# 1. Studies that failed for unknown reason.
-# 34226706_barton_2021_albumin
-# 34662886_backman_2021_albumin
-# 36376304_koskeridis_2022_c_reactive_protein
-# 2. Studies that failed for probable reason of weak estimates of SNP
+# These studies failed Anthony Batzler's implementation of LDpred2 polygenic
+# score procedure on 26 August 2023.
+# 1. Studies that failed for probable reason of weak estimates of SNP
 # heritability.
 # 29875488_sun_2018_follistatin
 # 30367059_teumer_2018_hypothyroidism
@@ -52,6 +50,23 @@
 # 34822396_pott_2021_progesterone_all
 # 34822396_pott_2021_progesterone_female
 # 34822396_pott_2021_testosterone_estradiol_female
+# 2. Studies that failed for miscellaneous reasons.
+# 36376304_koskeridis_2022_c_reactive_protein        (values of probability greater than zero but less than 1E-307)
+# 34662886_backman_2021_albumin                      (low count of total SNPs < 500, 000; low proportion map to HapMap2)
+# 34226706_barton_2021_albumin                       (missingness or zero in values of effect and standard error)
+# 32769997_zhou_2020_thyroid_hormone                 (missingness in values of count of observations)
+# 32581359_saevarsdottir_2020_thyroid_autoimmunity   (unknown reason even after thorough checks)
+#   This study originally failed LDpred2 procedure due to genomic coordinates in
+#   assembly GRCh38 instead of GRCh37.
+#   After correcting the assembly of genomic coordinates, there still seem to be
+#   problems with this study that cause errors in GWAS2VCF.
+#   https://github.com/pysam-developers/pysam/blob/master/pysam/libcbcf.pyx
+#   line 3249
+#    if b'' in values:
+#     raise ValueError('cannot set null allele')
+#   There might be a situation of a reference allele without any alternate alleles,
+#   and this situation might arise in the process of filters within GWAS2VCF.
+# 32242144_revez_2020_vitamin_d                      (original, raw GWAS summary statistics lacked genomic coordinates for chromosome and base position)
 
 ################################################################################
 # Organize paths.
@@ -91,6 +106,87 @@ report="true"
 # Subsequent processes on a few studies will replace the appropriate files.
 cp $path_directory_source/*.txt.gz $path_directory_product
 
+
+##########
+# 36376304_koskeridis_2022_c_reactive_protein
+
+# records that do not pass checks: 313 of 6,206,409 (header line); most due to values out of range in probability (p-value)
+/usr/bin/bash $path_script_check \
+"${path_directory_source}/36376304_koskeridis_2022_c_reactive_protein.txt.gz" \
+$path_directory_parent_temporary \
+$report
+
+if true; then
+  # source lines: ___
+  # product lines: ____
+  /usr/bin/bash $path_script_filter \
+  "${path_directory_source}/36376304_koskeridis_2022_c_reactive_protein.txt.gz" \
+  "${path_directory_product}/36376304_koskeridis_2022_c_reactive_protein.txt.gz" \
+  $report
+fi
+
+
+
+##########
+# 34662886_backman_2021_albumin
+
+# records that do not pass checks: 1 of 499,614 (header line)
+/usr/bin/bash $path_script_check \
+"${path_directory_source}/34662886_backman_2021_albumin.txt.gz" \
+$path_directory_parent_temporary \
+$report
+
+if true; then
+  # source lines: ___
+  # product lines: ____
+  /usr/bin/bash $path_script_filter \
+  "${path_directory_source}/34662886_backman_2021_albumin.txt.gz" \
+  "${path_directory_product}/34662886_backman_2021_albumin.txt.gz" \
+  $report
+fi
+
+
+
+##########
+# 34226706_barton_2021_albumin
+
+# records that do not pass checks: 246,495 of 5,515,076 (header line); most due to missingness in effect and standard error
+/usr/bin/bash $path_script_check \
+"${path_directory_source}/34226706_barton_2021_albumin.txt.gz" \
+$path_directory_parent_temporary \
+$report
+
+if true; then
+  # source lines: ___
+  # product lines: ____
+  /usr/bin/bash $path_script_filter \
+  "${path_directory_source}/34226706_barton_2021_albumin.txt.gz" \
+  "${path_directory_product}/34226706_barton_2021_albumin.txt.gz" \
+  $report
+fi
+
+
+
+##########
+# 32769997_zhou_2020
+
+# records that do not pass checks: 2,993 of 22,397,081 (header line); all due to missingness in count of observations
+/usr/bin/bash $path_script_check \
+"${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
+$path_directory_parent_temporary \
+$report
+
+if true; then
+  # source lines: 22,397,081
+  # product lines: 22,394,089
+  /usr/bin/bash $path_script_filter \
+  "${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
+  "${path_directory_product}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
+  $report
+fi
+
+
+
 ##########
 # 32581359_saevarsdottir_2020
 
@@ -122,24 +218,6 @@ if true; then
   /usr/bin/bash $path_script_filter \
   "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
   "${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz" \
-  $report
-fi
-
-##########
-# 32769997_zhou_2020
-
-# records that do not pass checks: 2,993 of 22,397,081 (header line); all due to missingness in count of observations
-/usr/bin/bash $path_script_check \
-"${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
-$path_directory_parent_temporary \
-$report
-
-if true; then
-  # source lines: 22,397,081
-  # product lines: 22,394,089
-  /usr/bin/bash $path_script_filter \
-  "${path_directory_source}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
-  "${path_directory_product}/32769997_zhou_2020_thyroid_hormone.txt.gz" \
   $report
 fi
 
