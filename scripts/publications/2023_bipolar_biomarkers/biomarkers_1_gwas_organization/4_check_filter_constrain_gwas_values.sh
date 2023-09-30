@@ -110,7 +110,7 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 ##########
 # 36376304_koskeridis_2022_c_reactive_protein
 
-# records that do not pass checks: 313 of 6,206,409 (header line); most due to values out of range in probability (p-value)
+# records that do not pass checks: 3 of 6,206,409 (header line); most due to values out of range in probability (p-value)
 /usr/bin/bash $path_script_check \
 "${path_directory_source}/36376304_koskeridis_2022_c_reactive_protein.txt.gz" \
 $path_directory_parent_temporary \
@@ -124,7 +124,7 @@ if true; then
   "${path_directory_product}/36376304_koskeridis_2022_c_reactive_protein.txt.gz" \
   $report
 
-  # records that do not pass checks: __ of ___ (header line)
+  # records that do not pass checks: 1 of 6,206,409 (header line)
   /usr/bin/bash $path_script_check \
   "${path_directory_product}/36376304_koskeridis_2022_c_reactive_protein.txt.gz" \
   $path_directory_parent_temporary \
