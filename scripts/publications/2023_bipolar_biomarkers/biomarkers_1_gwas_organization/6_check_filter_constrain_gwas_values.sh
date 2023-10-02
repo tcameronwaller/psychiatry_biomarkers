@@ -8,7 +8,16 @@
 ################################################################################
 # Note
 
+# Study: 32581359_saevarsdottir_2020_thyroid_autoimmunity
+# This study failed GWAS2VCF procedure for unknown reasons.
+# Rescue this study by copying set of GWAS summary statistics from organization
+# procedure 4 before GWAS2VCF.
 
+# Study: 32242144_revez_2020_vitamin_d
+# This study failed GWAS2VCF procedure due to missing information in the raw
+# GWAS summary statistics.
+# Remove this study from the collection.
+# It will be necessary to accommodate this exclusion in subsequent procedures.
 
 ################################################################################
 # Organize paths.
