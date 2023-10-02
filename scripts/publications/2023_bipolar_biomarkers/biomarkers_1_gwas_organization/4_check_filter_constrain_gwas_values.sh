@@ -17,7 +17,6 @@
 # 3. Remove records for any SNPs with missing counts of observations, as these
 # SNPs raise an error in LDpred2.
 
-
 # Zhou will need a filter to remove records (rows) with missing count of observations (sample size)...
 # either before or after GWAS2VCF.
 
