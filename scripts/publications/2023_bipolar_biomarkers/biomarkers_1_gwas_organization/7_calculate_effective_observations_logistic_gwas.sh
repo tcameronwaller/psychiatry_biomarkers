@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 27 March 2023
-# Date, last execution: 6 June 2023
-# Date, review: 30 May 2023
+# Date, last execution: 2 October 2023
+# Date, review: 2 October 2023
 ################################################################################
 # Note
 
@@ -26,11 +26,11 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 
-path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-06-06/4_gwas_clean_gwas2vcf"
-path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-06-06/5_gwas_effective_observations"
+path_directory_source="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-29/6_filter_constrain_gwas_values"
+path_directory_product="${path_directory_dock}/gwas_biomarkers_tcw_2023-09-29/7_gwas_effective_observations"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-06-06.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-29.tsv"
 
 # Files.
 
@@ -49,6 +49,13 @@ report="true"
 ################################################################################
 # Execute procedure.
 
+
+
+##########
+# Copy the GWAS summary statistics from the previous process.
+# Most sets of GWAS summary statistics do not need extra processing.
+# Subsequent processes on a few studies will replace the appropriate files.
+cp $path_directory_source/*.txt.gz $path_directory_product
 
 # Read lines from file and split fields within each line by space, tab, or new-line delimiters.
 input=$path_file_translation
@@ -96,17 +103,30 @@ do
       $report
     elif [ "$type" == "linear" ]; then
       # Copy source file to product file.
-      cp $path_file_source $path_file_product
+      #cp $path_file_source $path_file_product
+      echo "linear"
     fi
   fi
 done < "${input}"
+
+# Extra instance.
+path_file_source_extra="${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz"
+path_file_product_extra="${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz"
+type_extra="logistic"
+# Call script.
+/usr/bin/bash $path_file_script \
+$path_file_source_extra \
+$path_file_product_extra \
+$report
+
+
 
 ################################################################################
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "5_calculate_effective_observations_logistic_gwas.sh"
+  echo "7_calculate_effective_observations_logistic_gwas.sh"
   echo "----------"
 fi
 
