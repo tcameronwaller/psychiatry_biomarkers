@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 27 Decemboer 2022
-# Date, last execution: 7 September 2023
-# Date, review: 7 September 2023
+# Date, last execution: 3 October 2023
+# Date, review: 3 October 2023
 ################################################################################
 # Note
 
@@ -29,13 +29,13 @@ cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_reference="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/2_reference_ldsc"
-path_directory_source="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/4_gwas_munge_ldsc"
-path_directory_product="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/5_gwas_heritability_ldsc"
+path_directory_reference="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/2_reference_ldsc"
+path_directory_source="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/4_gwas_munge_ldsc"
+path_directory_product="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/5_gwas_heritability_ldsc"
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-07_biomarkers.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-29.tsv"
 
 # Files.
 
@@ -121,24 +121,43 @@ do
       scale="observed"
     fi
     # Call LDSC.
-    /usr/bin/bash "${path_file_script}" \
+    /usr/bin/bash $path_file_script \
     $path_file_source \
     $path_file_base_product \
     $path_directory_disequilibrium \
     $scale \
     $raw_prevalence_sample \
-    $raw_prevalence_population
+    $raw_prevalence_population \
     $threads \
     $report
   fi
 done < "${input}"
+
+# Extra instance.
+path_file_source_extra="${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.sumstats.gz"
+path_file_base_product_extra="${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute"
+scale_extra="liability"
+prevalence_sample_extra=0.040
+prevalence_population_extra=0.100
+# Call script.
+/usr/bin/bash $path_file_script \
+$path_file_source_extra \
+$path_file_base_product_extra \
+$path_directory_disequilibrium \
+$scale_extra \
+$prevalence_sample_extra \
+$prevalence_population_extra \
+$threads \
+$report
+
+
 
 ################################################################################
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "5_estimate_gwas_heritability_observed_liability_ldsc.sh"
+  echo "5_estimate_gwas_heritability_ldsc.sh"
   echo "----------"
 fi
 

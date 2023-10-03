@@ -4,7 +4,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 27 Decemboer 2022
 # Date, last execution: 7 September 2023
-# Date, review: 7 September 2023
+# Date, review: 3 October 2023
 ################################################################################
 # Note
 
@@ -114,24 +114,26 @@ do
       scale="observed"
     fi
     # Call LDSC.
-    /usr/bin/bash "${path_file_script}" \
+    /usr/bin/bash $path_file_script \
     $path_file_source \
     $path_file_base_product \
     $path_directory_disequilibrium \
     $scale \
     $raw_prevalence_sample \
-    $raw_prevalence_population
+    $raw_prevalence_population \
     $threads \
     $report
   fi
 done < "${input}"
+
+
 
 ################################################################################
 # Report.
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "5_estimate_gwas_heritability_observed_liability_ldsc.sh"
+  echo "5_estimate_gwas_heritability_ldsc.sh"
   echo "----------"
 fi
 

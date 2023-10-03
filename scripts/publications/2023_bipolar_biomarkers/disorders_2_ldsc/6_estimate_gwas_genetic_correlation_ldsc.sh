@@ -28,7 +28,7 @@ path_directory_reference="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 path_directory_source_primary="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/4_gwas_munge_ldsc"
-path_directory_source_secondary="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-06-06/4_gwas_munge_ldsc"
+path_directory_source_secondary="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/4_gwas_munge_ldsc"
 path_directory_product_parent="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/6_gwas_correlation_ldsc"
 path_directory_batch_logs="${path_directory_product_parent}/logs"
 
