@@ -14,8 +14,8 @@
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
 # TCW; 3 October 2023
-# count of batch instances: 3,255 <-- update
-# batch job: ___
+# count of batch instances: 3,570
+# batch job: 297710
 
 ################################################################################
 # Organize paths.
