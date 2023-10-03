@@ -36,8 +36,8 @@ path_directory_batch="${path_directory_product}/batch"
 # Files.
 path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-29.tsv"
 path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
-#path_file_batch_out="${path_directory_product_batch}/batch_out.txt"
-#path_file_batch_error="${path_directory_product_batch}/batch_error.txt"
+#path_file_batch_out="${path_directory_batch}/batch_out.txt"
+#path_file_batch_error="${path_directory_batch}/batch_error.txt"
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"

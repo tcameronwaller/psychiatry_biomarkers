@@ -4,7 +4,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 6 August 2023
 # Date, last execution: 3 October 2023
-# Date, review: 5 September 2023
+# Date, review: 3 October 2023
 ################################################################################
 # Note
 
@@ -13,9 +13,9 @@
 # script "6_call_submit_gwas_ldsc_genetic_correlation.sh" in the directory
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
-# TCW; 5 September 2023
-# count of batch instances: 3,255
-# batch job: 194801
+# TCW; 3 October 2023
+# count of batch instances: 3,255 <-- update
+# batch job: ___
 
 ################################################################################
 # Organize paths.
@@ -30,12 +30,12 @@ path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_
 path_directory_source_primary="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/4_gwas_munge_ldsc"
 path_directory_source_secondary="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/4_gwas_munge_ldsc"
 path_directory_product_parent="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/6_gwas_correlation_ldsc"
-path_directory_batch_logs="${path_directory_product_parent}/logs"
+path_directory_batch="${path_directory_product_parent}/batch"
 
 # Files.
-path_file_batch_instances="${path_directory_product_parent}/batch_instances.txt"
-path_file_batch_out="${path_directory_product_parent}/batch_out.txt"
-path_file_batch_error="${path_directory_product_parent}/batch_error.txt"
+path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
+#path_file_batch_out="${path_directory_batch}/batch_out.txt"
+#path_file_batch_error="${path_directory_batch}/batch_error.txt"
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
@@ -45,7 +45,9 @@ path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlati
 
 # Initialize directories.
 rm -r $path_directory_product_parent # caution
+rm -r $path_directory_batch # caution
 mkdir -p $path_directory_product_parent
+mkdir -p $path_directory_batch
 
 # Initialize files.
 rm $path_file_batch_instances
@@ -57,7 +59,7 @@ rm $path_file_batch_instances
 
 ##########
 # Common parameters.
-threads=4
+threads=2
 report="true"
 
 
@@ -117,21 +119,32 @@ secondaries=()
 
 # Thyroid physiology.
 
-secondaries+=("34594039_sakaue_2021_hyperthyroidism")
-secondaries+=("00000000_neale_2020_hyperthyroidism_icd")
-secondaries+=("00000000_neale_2020_hyperthyroidism_self")
-secondaries+=("30367059_teumer_2018_hyperthyroidism")
 secondaries+=("36093044_mathieu_2022_hypothyroidism")
-secondaries+=("34594039_sakaue_2021_hypothyroidism")
+secondaries+=("34594039_sakaue_2021_multi_hypothyroidism")
+secondaries+=("34594039_sakaue_2021_gc_hypothyroidism")
+secondaries+=("34594039_sakaue_2021_eur_hypothyroidism")
 secondaries+=("00000000_neale_2020_hypothyroidism_icd")
 secondaries+=("00000000_neale_2020_hypothyroidism_self")
 secondaries+=("30367059_teumer_2018_hypothyroidism")
-secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity")
-secondaries+=("34594039_sakaue_2021_hashimoto")
-secondaries+=("34594039_sakaue_2021_graves")
 
+secondaries+=("34594039_sakaue_2021_multi_hyperthyroidism")
+secondaries+=("34594039_sakaue_2021_gc_hyperthyroidism")
+secondaries+=("34594039_sakaue_2021_eur_hyperthyroidism")
+secondaries+=("00000000_neale_2020_hyperthyroidism_icd")
+secondaries+=("00000000_neale_2020_hyperthyroidism_self")
+secondaries+=("30367059_teumer_2018_hyperthyroidism")
+
+secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity")
+secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute")
+secondaries+=("34594039_sakaue_2021_multi_hashimoto")
+secondaries+=("34594039_sakaue_2021_gc_hashimoto")
+secondaries+=("34594039_sakaue_2021_eur_hashimoto")
+secondaries+=("34594039_sakaue_2021_multi_graves")
+secondaries+=("34594039_sakaue_2021_gc_graves")
+secondaries+=("34594039_sakaue_2021_eur_graves")
 secondaries+=("24586183_medici_2014_thyroid_peroxidase_reactivity")
 secondaries+=("24586183_medici_2014_thyroid_peroxidase_antibody")
+
 secondaries+=("29875488_sun_2018_thyroid_peroxidase")
 secondaries+=("32769997_zhou_2020_thyroid_hormone")
 secondaries+=("30367059_teumer_2018_thyroid_hormone_all")
@@ -145,8 +158,6 @@ secondaries+=("30367059_teumer_2018_thyroxine_free_female")
 secondaries+=("30367059_teumer_2018_thyroxine_free_male")
 secondaries+=("33441150_dennis_2021_parathyrin")
 secondaries+=("29875488_sun_2018_parathyrin")
-
-
 
 # Sex hormones.
 
@@ -325,6 +336,7 @@ if true; then
   # Call first script in series for batch execution.
   /usr/bin/bash $path_file_script_ldsc_correlation_batch_1 \
   $path_file_batch_instances \
+  $path_directory_batch \
   $path_directory_product_parent \
   $path_directory_disequilibrium \
   $path_directory_process \
