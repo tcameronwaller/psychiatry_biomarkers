@@ -35,7 +35,7 @@ path_directory_product="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-29.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-29_biomarkers.tsv"
 
 # Files.
 

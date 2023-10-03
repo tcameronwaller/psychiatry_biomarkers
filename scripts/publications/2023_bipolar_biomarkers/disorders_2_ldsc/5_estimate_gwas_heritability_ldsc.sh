@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 27 Decemboer 2022
-# Date, last execution: 7 September 2023
+# Date, last execution: 3 October 2023
 # Date, review: 3 October 2023
 ################################################################################
 # Note
@@ -28,7 +28,7 @@ path_directory_product="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-3
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-07_disorders.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-10-03_disorders.tsv"
 
 # Files.
 

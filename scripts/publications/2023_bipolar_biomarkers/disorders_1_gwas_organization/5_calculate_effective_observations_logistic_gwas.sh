@@ -28,6 +28,11 @@
 # traits.
 # 2. Replace the files from the "30482948_walters_2018" study.
 
+##########
+# 30718901_howard_2019_pgc_ukb
+# These GWAS summary statistics were missing genomic coordinates (chromosome and
+# base position) and would need further preparation to be useful.
+
 
 ################################################################################
 # Organize paths.
