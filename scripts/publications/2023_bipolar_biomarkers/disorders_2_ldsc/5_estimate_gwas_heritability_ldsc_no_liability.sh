@@ -2,7 +2,7 @@
 
 ################################################################################
 # Author: T. Cameron Waller
-# Date, first execution: 27 Decemboer 2022
+# Date, first execution: 5 October 2023
 # Date, last execution: 5 October 2023
 # Date, review: 5 October 2023
 ################################################################################
@@ -14,13 +14,6 @@
 # latest collection and gives correct values for the sample and population
 # prevalence of dichotomous traits.
 
-
-
-# TODO: TCW; 29 September 2023
-# Add an "extra" iteration instance for the alternative preparation of Saevarsdottir, 2020.
-# See the GWAS2VCF driver script for an example of how I did this before.
-
-
 ################################################################################
 # Organize paths.
 
@@ -29,20 +22,20 @@ cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_reference="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/2_reference_ldsc"
-path_directory_source="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/4_gwas_munge_ldsc"
-path_directory_product="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/5_gwas_heritability_ldsc"
+path_directory_reference="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/2_reference_ldsc"
+path_directory_source="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/4_gwas_munge_ldsc"
+path_directory_product="${path_directory_dock}/ldsc_gwas_disorders_tcw_2023-08-31/5_gwas_heritability_ldsc_no_liability"
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-29_biomarkers.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-10-03_disorders.tsv"
 
 # Files.
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
 path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
-path_file_script="${path_directory_ldsc}/estimate_gwas_heritability_observed_liability_scale_ldsc.sh"
+path_file_script="${path_directory_ldsc}/estimate_gwas_heritability_ldsc.sh"
 
 # Initialize directories.
 rm -r $path_directory_product
@@ -113,42 +106,15 @@ do
     # Organize paths.
     path_file_source="${path_directory_source}/${raw_name_study}.sumstats.gz"
     path_file_base_product="${path_directory_product}/${raw_name_study}"
-    # Determine whether to report SNP heritability on observed or liability
-    # scales.
-    if [ "$raw_type" == "logistic" ] && [ "$raw_prevalence_sample" != "NA" ] && [ "$raw_prevalence_population" != "NA" ]; then
-      scale="liability"
-    else
-      scale="observed"
-    fi
     # Call LDSC.
-    /usr/bin/bash $path_file_script \
+    /usr/bin/bash "${path_file_script}" \
     $path_file_source \
     $path_file_base_product \
     $path_directory_disequilibrium \
-    $scale \
-    $raw_prevalence_sample \
-    $raw_prevalence_population \
     $threads \
     $report
   fi
 done < "${input}"
-
-# Extra instance.
-path_file_source_extra="${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.sumstats.gz"
-path_file_base_product_extra="${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute"
-scale_extra="liability"
-prevalence_sample_extra=0.040
-prevalence_population_extra=0.100
-# Call script.
-/usr/bin/bash $path_file_script \
-$path_file_source_extra \
-$path_file_base_product_extra \
-$path_directory_disequilibrium \
-$scale_extra \
-$prevalence_sample_extra \
-$prevalence_population_extra \
-$threads \
-$report
 
 
 
