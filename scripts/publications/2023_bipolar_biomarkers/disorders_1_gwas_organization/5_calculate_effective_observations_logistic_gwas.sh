@@ -43,11 +43,12 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 
-path_directory_source="${path_directory_dock}/gwas_disorders_tcw_2023-08-31/4_gwas_clean_gwas2vcf"
+#path_directory_source="${path_directory_dock}/gwas_disorders_tcw_2023-08-31/4_gwas_clean_gwas2vcf"
+path_directory_source="${path_directory_dock}/gwas_disorders_tcw_2023-08-31/3_gwas_allele_frequency"
 path_directory_product="${path_directory_dock}/gwas_disorders_tcw_2023-08-31/5_gwas_effective_observations"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-08-31.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-10-03_disorders.tsv"
 
 # Files.
 
