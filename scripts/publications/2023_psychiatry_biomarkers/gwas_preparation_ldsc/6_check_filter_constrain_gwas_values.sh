@@ -16,6 +16,11 @@
 # 5_clean_gwas_gwas2vcf.sh
 # 6_check_filter_constrain_gwas_values.sh
 
+
+# Try to rescue
+
+
+
 # Study: 32581359_saevarsdottir_2020_thyroid_autoimmunity
 # This study failed GWAS2VCF procedure for unknown reasons.
 # Rescue this study by copying set of GWAS summary statistics from step 4 of
@@ -135,9 +140,9 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 ##########
 # Remove files of GWAS summary statistics that failed GWAS2VCF procedure.
 
-rm $path_directory_product/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz
-rm $path_directory_product/30718901_howard_2019_pgc_ukb.txt.gz
-rm $path_directory_product/32242144_revez_2020_vitamin_d.txt.gz
+#rm $path_directory_product/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz
+#rm $path_directory_product/30718901_howard_2019_pgc_ukb.txt.gz
+#rm $path_directory_product/32242144_revez_2020_vitamin_d.txt.gz
 
 
 
