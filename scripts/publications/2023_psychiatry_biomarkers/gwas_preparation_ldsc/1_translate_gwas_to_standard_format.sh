@@ -4,11 +4,11 @@
 # Author: T. Cameron Waller
 # Date, first execution: 23 December 2022
 # Date, last execution: 13 November 2023
-# Date, review: 19 September 2023
+# Date, review: 13 November 2023
 ################################################################################
 # Note
 
-# count of files: 123
+# count of files: __
 # After format translation (and maybe before) the following study was an outlier
 # for its small size in terms of disk memory usage.
 
