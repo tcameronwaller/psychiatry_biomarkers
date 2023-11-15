@@ -13,7 +13,7 @@
 # summary statistics for analysis in LDSC, LDpred2, or SBayesR.
 # 1. Remove any records (rows) with empty values (cells).
 # 2. Constrain probabilities (p-values) to double-float precision
-# (1E-308 to __).
+# (1E-308 to 1.0).
 # 3. Remove records for any SNPs with missing counts of observations, as these
 # SNPs raise an error in LDpred2.
 
