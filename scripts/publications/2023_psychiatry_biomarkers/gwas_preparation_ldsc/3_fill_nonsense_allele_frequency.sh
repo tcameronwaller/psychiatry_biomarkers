@@ -31,7 +31,8 @@ path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-
 path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-13/3_gwas_fill_nonsense_allele_frequency"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-13_abbreviation.tsv"
+#path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-13.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-13_alcohol_sex_hormones.tsv"
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
