@@ -8,6 +8,11 @@
 ################################################################################
 # Note
 
+# TODO:
+# Revert back to the full filter script.
+
+
+
 # Perform this procedure judiciously.
 # The purpose of this procedure is to run a few final checks to prepare GWAS
 # summary statistics for analysis in LDSC, LDpred2, or SBayesR.
@@ -43,7 +48,7 @@ path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
 path_script_check="${path_directory_partner_scripts}/gwas_clean/check_gwas_summary_values.sh"
-path_script_process="${path_directory_partner_scripts}/gwas_clean/filter_constrain_gwas_summary_values_lax.sh"
+path_script_process="${path_directory_partner_scripts}/gwas_clean/filter_constrain_gwas_summary_values.sh"
 path_script_driver="${path_directory_partner_scripts}/gwas_clean/drive_process_over_gwas.sh"
 
 # Initialize directories.
