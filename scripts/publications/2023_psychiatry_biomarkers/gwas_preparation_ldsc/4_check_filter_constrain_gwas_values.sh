@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 15 November 2023
-# Date, last execution: 15 November 2023
-# Date, review: 15 November 2023
+# Date, last execution: 16 November 2023
+# Date, review: 16 November 2023
 ################################################################################
 # Note
 
@@ -17,6 +17,11 @@
 # 3. Remove records for any SNPs with missing counts of observations, as these
 # SNPs raise an error in LDpred2.
 
+
+# TODO: TCW; 16 November 2023
+# I think that the filter on the allele designations might be too stringent.
+# GWAS2VCF might fill in the allele designations from the rsID.
+# LDSC does not actually need the allele designations.
 
 
 ################################################################################
@@ -38,7 +43,7 @@ path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
 path_script_check="${path_directory_partner_scripts}/gwas_clean/check_gwas_summary_values.sh"
-path_script_process="${path_directory_partner_scripts}/gwas_clean/filter_constrain_gwas_summary_values.sh"
+path_script_process="${path_directory_partner_scripts}/gwas_clean/filter_constrain_gwas_summary_values_lax.sh"
 path_script_driver="${path_directory_partner_scripts}/gwas_clean/drive_process_over_gwas.sh"
 
 # Initialize directories.
