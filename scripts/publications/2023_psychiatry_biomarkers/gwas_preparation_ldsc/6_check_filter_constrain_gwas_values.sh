@@ -8,6 +8,13 @@
 ################################################################################
 # Note
 
+# TODO:
+# I think I might still need to copy over the version before GWAS2VCF for the following study:
+# 30718901_howard_2019_pgc_ukb
+#   I think this set of GWAS sum stats was missing coordinates.
+
+
+
 # Temporary note about sequence of steps...
 # 1_translate_gwas_to_standard_format.sh
 # 2_translate_gwas_assembly_to_grch37.sh
