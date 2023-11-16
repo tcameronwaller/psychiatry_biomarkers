@@ -3,12 +3,12 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 23 December 2022
-# Date, last execution: 15 November 2023
-# Date, review: 15 November 2023
+# Date, last execution: 16 November 2023
+# Date, review: 16 November 2023
 ################################################################################
 # Note
 
-# batch job: 1745716 (78 instances; 15 November 2023)
+# batch job: _____ (78 instances; 16 November 2023)
 
 ################################################################################
 
@@ -121,12 +121,14 @@ do
 done < "${input}"
 
 # Extra instance.
-#path_file_gwas_source_extra="${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz"
-#path_file_gwas_product_extra="${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz"
-#type_extra="logistic"
-# Define and append a new batch instance.
-#instance_extra="${path_file_gwas_source_extra};${path_file_gwas_product_extra};${type_extra}"
-#echo $instance_extra >> $path_file_batch_instances
+if false; then
+  path_file_gwas_source_extra="${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz"
+  path_file_gwas_product_extra="${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz"
+  type_extra="logistic"
+  # Define and append a new batch instance.
+  instance_extra="${path_file_gwas_source_extra};${path_file_gwas_product_extra};${type_extra}"
+  echo $instance_extra >> $path_file_batch_instances
+fi
 
 ##########
 # Batch parallelization.
