@@ -108,7 +108,17 @@ do
   fi
 done < "${input}"
 
-
+if false; then
+  # Extra instance.
+  path_file_source_extra="${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz"
+  path_file_product_extra="${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.txt.gz"
+  type_extra="logistic"
+  # Call script.
+  /usr/bin/bash $path_file_script \
+  $path_file_source_extra \
+  $path_file_product_extra \
+  $report
+fi
 
 ##########
 # 30482948_walters_2018

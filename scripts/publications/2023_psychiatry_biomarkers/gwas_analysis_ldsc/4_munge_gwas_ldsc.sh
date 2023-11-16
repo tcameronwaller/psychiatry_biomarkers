@@ -2,9 +2,9 @@
 
 ################################################################################
 # Author: T. Cameron Waller
-# Date, first execution: 23 Decemboer 2022
-# Date, last execution: 3 October 2023
-# Date, review: 3 October 2023
+# Date, first execution: 27 Decemboer 2022
+# Date, last execution: 16 November 2023
+# Date, review: 16 November 2023
 ################################################################################
 # Note
 
@@ -17,23 +17,28 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
-path_directory_source="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/1_gwas_summaries_source"
-path_directory_product="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/3_gwas_format_ldsc"
+path_directory_reference="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/2_reference_ldsc"
+path_directory_source="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/3_gwas_format_ldsc"
+path_directory_product="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/4_gwas_munge_ldsc"
+path_file_alleles="${path_directory_reference}/alleles/w_hm3.snplist"
 
 # Files.
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
-path_file_script="${path_directory_partner_scripts}/ldsc/constrain_translate_gwas_standard_to_ldsc.sh"
+path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
+path_file_script="${path_directory_ldsc}/munge_gwas_ldsc.sh"
 
 # Initialize directories.
 rm -r $path_directory_product
 mkdir -p $path_directory_product
+cd $path_directory_product
 
 ################################################################################
 # Organize parameters.
 
-# Report.
+response="coefficient"
+threads=8
 report="true"
 
 ################################################################################
@@ -64,12 +69,15 @@ fi
 
 for path_file_source in "${paths_files_source[@]}"; do
   # Extract base name of file.
-  name_file_source="$(basename $path_file_source)"
-  path_file_product="${path_directory_product}/${name_file_source}" # hopefully unique
+  name_base_file_product="$(basename $path_file_source .txt.gz)"
+  path_file_base_product="${path_directory_product}/${name_base_file_product}" # hopefully unique
   # Translate GWAS summary statistics to format for LDSC.
-  /usr/bin/bash "${path_file_script}" \
+  /usr/bin/bash $path_file_script \
   $path_file_source \
-  $path_file_product \
+  $path_file_base_product \
+  $path_file_alleles \
+  $response \
+  $threads \
   $report
   # Report.
   if [[ "$report" == "true" ]]; then
@@ -79,7 +87,7 @@ for path_file_source in "${paths_files_source[@]}"; do
     echo "Source file path:"
     echo $path_file_source
     echo "Product file path:"
-    echo $path_file_product
+    echo $path_file_base_product
     echo "----------"
   fi
 done
@@ -89,7 +97,7 @@ done
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "3_translate_gwas_to_ldsc_format.sh"
+  echo "4_munge_gwas_ldsc.sh"
   echo "----------"
 fi
 

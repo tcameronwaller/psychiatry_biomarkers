@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 27 Decemboer 2022
-# Date, last execution: 5 October 2023
-# Date, review: 5 October 2023
+# Date, last execution: 16 November 2023
+# Date, review: 16 November 2023
 ################################################################################
 # Note
 
@@ -29,13 +29,13 @@ cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_reference="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/2_reference_ldsc"
-path_directory_source="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/4_gwas_munge_ldsc"
-path_directory_product="${path_directory_dock}/ldsc_gwas_biomarkers_tcw_2023-09-29/5_gwas_heritability_ldsc"
+path_directory_reference="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/2_reference_ldsc"
+path_directory_source="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/4_gwas_munge_ldsc"
+path_directory_product="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/5_gwas_heritability_ldsc"
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-09-29_biomarkers.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-13_alcohol_sex_hormones.tsv"
 
 # Files.
 
@@ -134,22 +134,23 @@ do
 done < "${input}"
 
 # Extra instance.
-path_file_source_extra="${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.sumstats.gz"
-path_file_base_product_extra="${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute"
-scale_extra="liability"
-prevalence_sample_extra=0.040
-prevalence_population_extra=0.100
-# Call script.
-/usr/bin/bash $path_file_script \
-$path_file_source_extra \
-$path_file_base_product_extra \
-$path_directory_disequilibrium \
-$scale_extra \
-$prevalence_sample_extra \
-$prevalence_population_extra \
-$threads \
-$report
-
+if false; then
+  path_file_source_extra="${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute.sumstats.gz"
+  path_file_base_product_extra="${path_directory_product}/32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute"
+  scale_extra="liability"
+  prevalence_sample_extra=0.040
+  prevalence_population_extra=0.100
+  # Call script.
+  /usr/bin/bash $path_file_script \
+  $path_file_source_extra \
+  $path_file_base_product_extra \
+  $path_directory_disequilibrium \
+  $scale_extra \
+  $prevalence_sample_extra \
+  $prevalence_population_extra \
+  $threads \
+  $report
+fi
 
 
 ################################################################################
