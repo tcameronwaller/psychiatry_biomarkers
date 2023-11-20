@@ -8,6 +8,11 @@
 ################################################################################
 # Note
 
+# TODO: TCW; 20 November 2023
+# Need to impute allele frequencies for 29325848_martin_2018 if these will be used
+# for polygenic scores. Probably not since they are for ADHD.
+
+
 # The purpose of this script is to impute missing frequencies of effect alleles
 # in GWAS summary statistics from the "European" superpopulation of the
 # 1000 Genomes Project.
