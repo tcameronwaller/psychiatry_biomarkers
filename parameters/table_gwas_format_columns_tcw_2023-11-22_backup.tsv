@@ -1,0 +1,51 @@
+study	assembly	effect_allele_designation	delimiter	SNP	CHR	BP	A1 (effect)	A2 (other)	A1AF	BETA	SE	P	N	Z	INFO	NCASE	NCONT	review_parameters	review_script	note													
+standard_team	GRCh37		space	1	2	3	4	5	6	7	8	9	10	11	12	13	14																
+36702997_demontis_2023	GRCh37	“A1”	space	2	1	3	4	5	[calc $6, $7]	[log($9)]	10	11	[calc $13, $14]	[NA]	8	13	14	TCW; 20 November 2023	TCW; 20 November 2023	Max value column 13: 38,691; Max value column 14: 275,986; Use the more common reported count of controls (186,843) for calculation of allele frequency.													
+36635386_chen_2023	GRCh38		space	9	1	2	3	4	5	6	7	8	[obs]	[NA]	[1.0]	[NA]	[NA]	TCW; 23 May 2023															
+36477530_saunders_2022	GRCh38	“EFFECT_ALLELE”	space	3	[extract $1]	2	4	5	6	7	8	9	10	[NA]	[1.0]	[NA; cases]	[NA; controls]	TCW; 30 October 2023	TCW; 30 October 2023														
+36376304_koskeridis_2022	GRCh37		space	1	2	3	4	5	6	7	8	10	[obs]	9	[1.0]	[NA]	[NA]	TCW; 29 September 2023	TCW; 29 September 2023	Line ending													
+36093044_mathieu_2022	GRCh37	“effect_allele”	space	1	2	3	4	5	[impute eur]	6	7	8	[obs]	[NA]	[1.0]	[cases]	[controls]	TCW; 14 September 2023	TCW; 18 September 2023														
+35459240_said_2022	GRCh37		space	1	2	3	4	5	[impute eur]	6	7	8	[obs]	[NA]	[1.0]	[NA]	[NA]	TCW; 23 May 2023															
+35396580_trubetskoy_2022_1	GRCh37	“A1”	space	2	1	3	4	5	[calc $6, $7]	9	10	11	[calc $12, $13]	[NA]	8	12	13	TCW; 29 August 2023	TCW; 30 August 2023	skip lines (NR>74)									137317	0.216537438362278			
+35396580_trubetskoy_2022_2_3	GRCh37	“A1”	space	2	1	3	4	5	[calc $6, $7]	[log($9)]	10	11	[calc $17, $18]	[NA]	8	17	18	TCW; 29 August 2023	TCW; 30 August 2023										361194	0.569572766021866			
+35078996_gudjonsson_2022	GRCh37		space	1	3	4	5	6	7	8	9	2	[obs]	[NA]	[1.0]	[NA]	[NA]	TCW; 23 May 2023											135638	0.213889795615857		361194	0.726994235475976
+34662886_backman_2021	GRCh38		space	1	2	3	5	4	13	9	14	12	[obs]	[NA]	[1.0]	[NA]	[NA]	TCW; 23 May 2023														135638	0.273005764524024
+34594039_sakaue_2021_multi	GRCh37	“Allele2”	space	1	2	3	5	4	[calc $6, $7, $8]	10	11	12	[obs]	[NA]	[1.0]	[cases]	[controls]	TCW; 18 September 2023	TCW; 18 September 2023	BBJ: up to 137,317 genotypes (21.7%); UK Biobank: up to 361,194 genotypes (57.0%); FinnGen: up to 135,638 genotypes (21.4%)									634149	1			
+34594039_sakaue_2021_eur	GRCh37	“Allele2”	space	1	2	3	5	4	[calc $6, $7]	9	10	11	[obs]	[NA]	[1.0]	[cases]	[controls]	TCW; 14 September 2023	TCW; 18 September 2023	UK Biobank: up to 361,194 genotypes (72.7%); FinnGen: up to 135,638 genotypes (27.3%)												496832	1
+34594039_sakaue_2021_gc	GRCh37	“effect_allele”	space	9	1	2	3	4	5	6	7	8	[obs]	[NA]	[1.0]	[cases]	[controls]	TCW; 14 September 2023	TCW; 18 September 2023														
+34226706_barton_2021	GRCh37		space	[cat 1, 2, 4]	1	2	4	5	6	10	11	15	[obs]	[NA]	7	[NA]	[NA]	TCW; 23 May 2023															
+34099189_blokland_2022	GRCh37	“A1”	space	1	16	17	2	3	4	8	9	10	18	[NA]	[1.0]	19	20	TCW; 29 August 2023	TCW; 30 August 2023														
+34017140_mbatchou_2021	GRCh38		space	[cat 1, 2, 4]	1	2	4	5	[impute eur]	6	7	3	[obs]	[NA]	[1.0]	[NA]	[NA]	TCW; 23 May 2023															
+34002096_mullins_2021_1_3_4	GRCh37	“A1”	space	3	1	2	4	5	[calc $10, $11]	6	7	8	[calc $14, $15]	[NA]	12	14	15	TCW; 2 August 2023	TCW; 30 August 2023	skip lines													
+34002096_mullins_2021_2	GRCh37	“A1”	space	2	1	3	4	5	[calc $6, $7]	[log($9)]	10	11	[calc $17, $18]	[NA]	8	17	18	TCW; 2 August 2023	TCW; 30 August 2023														
+33587031_sinnott-armstrong_2021_1	GRCh37		space	3	1	2	7	8	11	15	16	18	14	[NA]	[1.0]	[NA]	[NA]	TCW; 6 June 2023															
+33587031_sinnott-armstrong_2021_2	GRCh37		space	3	1	2	6	4	7	10	11	13	9	[NA]	[1.0]	[NA]	[NA]	TCW; 6 June 2023								346753	0.45902865478961						
+33441150_dennis_2021	GRCh37		space	2	1	3	4	5	7	8	9	10	6	[NA]	[1.0]	[NA]	[NA]	TCW; 23 May 2023								408653	0.54097134521039						
+32769997_zhou_2020	GRCh37	“Allele1”	space	[cat 1, 2, 3]	1	2	3	4	5	7	8	9	6	[NA]	[1.0]	[NA]	[NA]	TCW; 18 September 2023	TCW; 18 September 2023														
+32747698_matoba_2020	GRCh38	“Allele1”	space	[extract $3]	1	2	4	5	[impute eur]	6	7	8	10	[NA]	[1.0]	[cases]	[controls]	TCW; 21 November 2023	TCW; 21 November 2023														
+32581359_saevarsdottir_2020	GRCh38	“A1”	space	3	[extract $1]	2	5	4	[calc $6, $8]	[log($10)]	[calc $10, $11]	11	[obs]	[NA]	[calc $7, $9]	[cases]	[controls]	TCW; 14 September 2023	TCW; 18 September 2023	Iceland: up to 346,753 genotypes (45.9%); UK Biobank: up to 408,653 genotypes (54.1%)						755406	1						
+32242144_revez_2020	GRCh37		space	1	9	10	2	3	5	6	7	8	4	[NA]	[1.0]	[NA]	[NA]	TCW; 6 June 2023		original summary statistics missing chromosome and base position													
+32099098_polimanti_2020	GRCh37	“Allele1”	space	1	[NA]	[NA]	2	3	[impute eur]	5	[calc $5, $6]	6	11	[NA]	[1.0]	12	13	TCW; 22 November 2023	TCW; 22 November 2023														
+32059762_manousaki_2020	GRCh37		space	[cat 1, 2, 3]	1	2	3	4	5	6	7	8	9	[NA]	[1.0]	[NA]	[NA]	TCW; 23 May 2023															
+31748690_purves_2020_1	GRCh37	“Allele1” ?	space	1	2	3	4	5	[impute eur]	6	7	8	10	[NA]	[1.0]	[cases]	[controls]	TCW; 21 November 2023	TCW; 21 November 2023	error of sample sizes in code by BJC													
+31748690_purves_2020_2	GRCh37	“A2”	space	1	3	2	5	4	6	8	9	10	[obs]	[NA]	7	[cases]	[controls]	TCW; 21 November 2023	TCW; 21 November 2023														
+31594949_nievergelt_2019	GRCh37	“A1”	space	2	1	3	4	5	[calc $6, $7]	[log($9)]	10	11	[calc $17, $18]	[NA]	8	17	18	TCW; 21 November 2023	TCW; 21 November 2023														
+31308545_watson_2019	GRCh37	“ALT”	space	3	1	2	5	4	[impute eur]	6	7	8	[calc $12, $13]	[NA]	10	12	13	TCW; 22 November 2023	TCW; 22 November 2023	skip lines (NR>71)													
+30818990_yu_2019	GRCh37	“A1”	space	1	2	3	4	5	[impute eur]	[log($7)]	8	9	[obs]	[NA]	6	[cases]	[controls]	TCW; 22 November 2023	TCW; 22 November 2023														
+30804558_grove_2019	GRCh37	“A1”	space	2	1	3	4	5	[impute eur]	[log($7)]	8	9	[obs]	[NA]	6	[cases]	[controls]	TCW; 21 November 2023	TCW; 21 November 2023														
+30718901_howard_2019_1	GRCh37	“A1”	space	1	[NA]	[NA]	2	3	4	5	6	7	[obs]	[NA]	[1.0]	[cases]	[controls]	TCW; 29 August 2023	TCW; 30 August 2023														
+30718901_howard_2019_2	GRCh37	“A1”	space	2	1	3	4	5	[calc $6, $7]	[log($9)]	10	11	[calc $17, $18]	[NA]	8	17	18	TCW; 29 August 2023	TCW; 30 August 2023														
+30643251_liu_2019	GRCh37	“ALT”	space	3	1	2	5	4	6	9	10	8	11	[NA]	[1.0]	[NA; cases]	[NA; controls]	TCW; 30 October 2023	TCW; 30 October 2023														
+30482948_walters_2018_z	GRCh37	“A1”	space	[extract $2]	1	3	4	5	[impute eur]	6	[calc $6, $7]	7	8	[NA]	[1.0]	[cases]	[controls]	TCW; 2 August 2023	TCW; 2 August 2023	effective sample size already calculated													
+30482948_walters_2018_odds	GRCh37	“A1”	space	2	1	3	4	5	[impute eur]	[log($7)]	8	9	10	[NA]	6	[cases]	[controls]	TCW; 2 August 2023	TCW; 2 August 2023	effective sample size already calculated													
+30478444_demontis_2019	GRCh37	“A1”	space	2	1	3	4	5	[calc $6, $7]	[log($9)]	10	11	[calc $17, $18]	[NA]	8	17	18	TCW; 20 November 2023	TCW; 20 November 2023	Max value column 17: 19,099; Max value column 18: 34,194;													
+30367059_teumer_2018	GRCh37	“Allele1”	comma	1	[extract 1]	[extract 1]	2	3	4	5	6	7	8	[NA]	[1.0]	[NA; case]	[NA; control]	TCW; 18 September 2023	TCW; 18 September 2023														
+29875488_sun_2018	GRCh37		space	1	2	3	4	5	[impute eur]	6	7	9	[obs]	[NA]	[1.0]	[NA]	[NA]	TCW; 23 May 2023															
+29700475_wray_2018_1_2	GRCh37	“A1”	space	2	1	3	4	5	[calc $6, $7]	[log($9)]	10	11	[calc $17, $18]	[NA]	8	17	18	TCW; 29 August 2023	TCW; 30 August 2023														
+29325848_martin_2018	GRCh37	“effect_allele”	space	1	2	3	4	5	[impute eur]	6	7	8	[obs]	[NA]	[1.0]	[cases]	[controls]	TCW; 20 November 2023	TCW; 20 November 2023														
+28761083_arnold_2018	GRCh37	“A1”	space	2	1	3	4	5	[impute eur]	[log($7)]	8	9	[obs]	[NA]	6	[cases]	[controls]	TCW; 22 November 2023	TCW; 22 November 2023														
+24586183_medici_2014	NCBI36-hg18	“Allele1”	space	1	2	3	5	6	[impute eur]	7	8	4	11	[NA]	[1.0]	[NA; case]	[NA; control]	TCW; 18 September 2023	TCW; 18 September 2023														
+00000000_neale_2020	GRCh37	“alt”																															
+																																	
+Notes:																																	
+- For some down-stream analyses on GWAS summary statistics, it is a problem for there to be SNPs with missing counts of observations (sample size). Some sets of GWAS summary statistics (such as 32769997_zhou_2020) originally had counts of observations for most but not all SNPs, and in these situations there are two reasonable solutions. First, it might be reasonable to fill those missing values with the maximal count of observations. Second, it might be reasonable to remove those few SNPs with missing counts of observations. The second option might be preferable over the first to avoid giving artificial maximal-sample-size weight to a few SNPs while many other SNPs have accurate counts of observations that are less-than-maximal.																																	

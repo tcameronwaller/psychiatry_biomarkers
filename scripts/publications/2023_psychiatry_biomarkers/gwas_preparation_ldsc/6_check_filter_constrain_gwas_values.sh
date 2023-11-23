@@ -8,33 +8,15 @@
 ################################################################################
 # Note
 
-# TODO:
-# I think I might still need to copy over the version before GWAS2VCF for the following study:
-# 30718901_howard_2019_pgc_ukb
-#   I think this set of GWAS sum stats was missing coordinates.
-
-
-
-# Temporary note about sequence of steps...
-# 1_translate_gwas_to_standard_format.sh
-# 2_translate_gwas_assembly_to_grch37.sh
-# 3_fill_dummy_gwas_allele_frequency.sh
-# 4_check_filter_constrain_gwas_values.sh
-# 5_clean_gwas_gwas2vcf.sh
-# 6_check_filter_constrain_gwas_values.sh
-
-
-# Try to rescue
-
-
-
 # Study: 32581359_saevarsdottir_2020_thyroid_autoimmunity
+# TODO: TCW; 22 November 2023 --> Does this study still fail GWAS2VCF? I don't think so.
 # This study failed GWAS2VCF procedure for unknown reasons.
 # Rescue this study by copying set of GWAS summary statistics from step 4 of
 # preparation procedure before GWAS2VCF.
 
+# Study: 32099098_polimanti_2020
 # Study: 30718901_howard_2019_pgc_ukb
-# This study failed GWAS2VCF procedure because the original GWAS summary
+# These studies failed GWAS2VCF procedure because the original GWAS summary
 # statistics did not include information about chromosome and base-pair
 # coordinates. This information is not necessary for analysis in LDSC.
 # Rescue this study by copying set of GWAS summary statistics from step 4 of
@@ -146,19 +128,22 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 # Remove files of GWAS summary statistics that failed GWAS2VCF procedure.
 
 #rm $path_directory_product/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz
+#rm $path_directory_product/32099098_polimanti_2020_eur_opioid_dep_exposed.txt.gz
+#rm $path_directory_product/32099098_polimanti_2020_eur_opioid_dep_unexposed.txt.gz
+#rm $path_directory_product/32099098_polimanti_2020_eur_opioid_exposure.txt.gz
 #rm $path_directory_product/30718901_howard_2019_pgc_ukb.txt.gz
 #rm $path_directory_product/32242144_revez_2020_vitamin_d.txt.gz
 
-
-
 ##########
 # Copy GWAS summary statistics from before GWAS2VCF where appropriate.
-# This should not be necessary.
+# Some studies will be useful for analysis in LDSC even if they lack sufficient
+# information to pass filters in GWAS2VCF.
 
 #cp $path_directory_source_rescue/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz $path_directory_product
+#cp $path_directory_source/32099098_polimanti_2020_eur_opioid_dep_exposed.txt.gz $path_directory_product
+#cp $path_directory_source/32099098_polimanti_2020_eur_opioid_dep_unexposed.txt.gz $path_directory_product
+#cp $path_directory_source/32099098_polimanti_2020_eur_opioid_exposure.txt.gz $path_directory_product
 #cp $path_directory_source_rescue/30718901_howard_2019_pgc_ukb.txt.gz $path_directory_product
-
-
 
 ################################################################################
 # Report.
