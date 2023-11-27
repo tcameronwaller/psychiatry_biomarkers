@@ -3,15 +3,10 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 15 November 2023
-# Date, last execution: 26 November 2023
-# Date, review: 16 November 2023
+# Date, last execution: 27 November 2023
+# Date, review: 27 November 2023
 ################################################################################
 # Note
-
-# TODO:
-# Revert back to the full filter script.
-
-
 
 # Perform this procedure judiciously.
 # The purpose of this procedure is to run a few final checks to prepare GWAS
@@ -42,7 +37,7 @@ path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11
 path_directory_parent_temporary="${path_directory_process}/temporary_check_7"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
+path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
@@ -65,14 +60,14 @@ report="true"
 # Execute procedure.
 
 /usr/bin/bash $path_script_driver \
-$path_file_translation \
+$path_file_table_parameter \
 $path_directory_source \
 $path_directory_product \
 $path_script_process \
 $report
 
 # Remove temporary, intermediate files.
-#rm -r $path_directory_parent_temporary
+rm -r $path_directory_parent_temporary
 
 
 
