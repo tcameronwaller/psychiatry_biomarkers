@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 14 November 2023
-# Date, last execution: 26 November 2023
-# Date, review: 15 November 2023
+# Date, last execution: 27 November 2023
+# Date, review: 27 November 2023
 ################################################################################
 # Note
 
@@ -31,8 +31,7 @@ path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-
 path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/3_gwas_fill_nonsense_allele_frequency"
 
 # Files.
-#path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-13.tsv"
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-13_alcohol_sex_hormones.tsv"
+path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
@@ -53,7 +52,7 @@ report="true"
 # Execute procedure.
 
 /usr/bin/bash $path_script_driver \
-$path_file_translation \
+$path_file_table_parameter \
 $path_directory_source \
 $path_directory_product \
 $path_script_process \
