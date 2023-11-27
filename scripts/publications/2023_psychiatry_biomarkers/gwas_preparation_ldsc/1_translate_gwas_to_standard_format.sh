@@ -8,7 +8,7 @@
 ################################################################################
 # Note
 
-# count of files: __
+# count of files: 190
 # After format translation (and maybe before) the following study was an outlier
 # for its small size in terms of disk memory usage.
 
@@ -27,8 +27,7 @@ path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26_test_temp/1_gwas_format_standard"
 # Files.
-#path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
-path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26_test.tsv"
+path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
