@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 23 December 2022
-# Date, last execution: 13 November 2023
-# Date, review: 13 November 2023
+# Date, last execution: 26 November 2023
+# Date, review: 26 November 2023
 ################################################################################
 # Note
 
@@ -25,13 +25,13 @@ path_directory_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_directory_parent_source="${path_directory_gwas_summaries}"
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-13/1_gwas_format_standard"
+path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26_test_temp/1_gwas_format_standard"
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-13.tsv"
+#path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
+path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26_test.tsv"
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
-path_directory_script="${path_directory_partner_scripts}/gwas_format/translate_format_raw_to_standard"
 path_script_drive_translations="${path_directory_partner_scripts}/gwas_format/drive_translations_gwas_to_standard_format.sh"
 
 # Initialize directories.
@@ -48,10 +48,10 @@ report="true"
 # Execute procedure.
 
 /usr/bin/bash $path_script_drive_translations \
-$path_file_translation \
+$path_file_table_parameter \
 $path_directory_parent_source \
-$path_directory_script \
 $path_directory_product \
+$path_directory_partner_scripts \
 $path_bgzip \
 $report
 
