@@ -91,7 +91,7 @@ inclusion	directory	name	phenotype	sex	file	suffix	bgzip	gzip	type	fill_observat
 1	33441150_dennis_2021	33441150_dennis_2021_thyroxine_free	thyroxine_free_ft4	all	GCST90012662_buildGRCh37.tsv.gz	.tsv.gz	0	0	linear	0	26231	0	NA	NA	NA	NA	translate_gwas_33441150_dennis_2021.sh	.
 1	33441150_dennis_2021	33441150_dennis_2021_parathyrin	parathyrin_pth	all	GCST90012708_buildGRCh37.tsv.gz	.tsv.gz	0	0	linear	0	6708	0	NA	NA	NA	NA	translate_gwas_33441150_dennis_2021.sh	.
 1	33096046_johnson_2020	33096046_johnson_2020_eur_all	cannabis_use_disorder	all	CUD_EUR_full_public_11.14.2020.gz	.gz	0	0	logistic	0	375180	0	17193	357987	0.046	0.020	translate_gwas_33096046_johnson_2020_1.sh	.
-1	33096046_johnson_2020	33096046_johnson_2020_eur_unrelated	cannabis_use_disorder		CUD_EUR_casecontrol_public_11.14.2020.gz	.gz	0	0	logistic	0	357072	0	13990	343082	0.039	0.020	translate_gwas_33096046_johnson_2020_2.sh	.
+1	33096046_johnson_2020	33096046_johnson_2020_eur_unrelated	cannabis_use_disorder	all	CUD_EUR_casecontrol_public_11.14.2020.gz	.gz	0	0	logistic	0	357072	0	13990	343082	0.039	0.020	translate_gwas_33096046_johnson_2020_2.sh	.
 1	32769997_zhou_2020	32769997_zhou_2020_thyroid_hormone	thyroid_stimulating_hormone_tsh	all	2020_Zhou_et_al_TSH_meta_HUNT-MGI-ThyroidOmics.txt	.txt	0	1	linear	0	119715	0	NA	NA	NA	NA	translate_gwas_32769997_zhou_2020.sh	.
 1	32747698_matoba_2020	32747698_matoba_2020_europe	autism	all	ASD_SPARK_EUR_iPSYCH_PGC.tsv.gz	.tsv.gz	0	0	logistic	0	55420	1	22916	32504	0.413	0.030	translate_gwas_32747698_matoba_2020.sh	.
 1	32581359_saevarsdottir_2020	32581359_saevarsdottir_2020_thyroid_autoimmunity	autoimmune_thyroid_disease_aitd	all	AITD2020.gz	.gz	0	0	logistic	1	755406	1	30234	725172	0.040	0.100	translate_gwas_32581359_saevarsdottir_2020.sh	.

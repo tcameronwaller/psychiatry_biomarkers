@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 14 November 2023
-# Date, last execution: 15 November 2023
+# Date, last execution: 26 November 2023
 # Date, review: 15 November 2023
 ################################################################################
 # Note
@@ -27,8 +27,8 @@ cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-13/2_gwas_assembly_grch37"
-path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-13/3_gwas_fill_nonsense_allele_frequency"
+path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/2_gwas_assembly_grch37"
+path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/3_gwas_fill_nonsense_allele_frequency"
 
 # Files.
 #path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-13.tsv"

@@ -23,13 +23,12 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 
-path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-13/4_filter_constrain_gwas_values"
-path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-13/5_gwas_clean_gwas2vcf"
+path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/4_filter_constrain_gwas_values"
+path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/5_gwas_clean_gwas2vcf"
 path_directory_batch="${path_directory_product}/batch"
 
 # Files.
-#path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-13.tsv"
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-13_alcohol_sex_hormones.tsv"
+path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
 path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
 #path_file_batch_out="${path_directory_batch}/batch_out.txt"
 #path_file_batch_error="${path_directory_batch}/batch_error.txt"

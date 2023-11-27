@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 24 May 2023
-# Date, last execution: 14 November 2023
-# Date, review: 13 November 2023
+# Date, last execution: 26 November 2023
+# Date, review: 26 November 2023
 ################################################################################
 # Note
 
@@ -27,8 +27,8 @@ cd ~/paths
 path_directory_reference=$(<"./reference_tcw.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-13/1_gwas_format_standard"
-path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-13/2_gwas_assembly_grch37"
+path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/1_gwas_format_standard"
+path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/2_gwas_assembly_grch37"
 # Files.
 #path_file_chain_ncbi36_to_grch37="${path_directory_reference}/crossmap/ucsc/hg18ToHg19.over.chain.gz"
 #path_file_chain_grch37_to_grch38="${path_directory_reference}/crossmap/ucsc/hg19ToHg38.over.chain.gz"
@@ -206,6 +206,17 @@ $path_file_chain_grch38_to_grch37 \
 $threads \
 $report
 
+
+##########
+# 32747698_matoba_2020
+
+# Ensembl: _____ lines to ____ lines (TCW; __ November 2023)
+/usr/bin/bash $path_script_map_assembly \
+"${path_directory_source}/32747698_matoba_2020_europe.txt.gz" \
+"${path_directory_product}/32747698_matoba_2020_europe.txt.gz" \
+$path_file_chain_grch38_to_grch37 \
+$threads \
+$report
 
 
 ##########
