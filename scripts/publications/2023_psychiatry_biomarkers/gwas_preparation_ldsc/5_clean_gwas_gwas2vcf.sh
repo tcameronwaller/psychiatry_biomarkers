@@ -3,12 +3,12 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 23 December 2022
-# Date, last execution: 16 November 2023
-# Date, review: 16 November 2023
+# Date, last execution: 27 November 2023
+# Date, review: 27 November 2023
 ################################################################################
 # Note
 
-# batch job: 1842958 (78 instances; 16 November 2023)
+# batch job: ___ (___ instances; 27 November 2023)
 
 ################################################################################
 
@@ -28,7 +28,7 @@ path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11
 path_directory_batch="${path_directory_product}/batch"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
+path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
 path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
 #path_file_batch_out="${path_directory_batch}/batch_out.txt"
 #path_file_batch_error="${path_directory_batch}/batch_error.txt"
@@ -59,7 +59,7 @@ report="true"
 # Organize batch instances.
 
 # Read lines from file and split fields within each line by space, tab, or new-line delimiters.
-input=$path_file_translation
+input=$path_file_table_parameter
 while IFS=$' \t\n' read -r -a array
 do
 

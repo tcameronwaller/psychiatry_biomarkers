@@ -17,12 +17,33 @@
 # 3. Remove records for any SNPs with missing counts of observations, as these
 # SNPs raise an error in LDpred2.
 
-
-# TODO: TCW; 16 November 2023
-# I think that the filter on the allele designations might be too stringent.
-# GWAS2VCF might fill in the allele designations from the rsID.
-# LDSC does not actually need the allele designations.
-
+# Note: TCW; 27 November 2023
+# In the filters, the following studies lost some proportion of their original
+# SNPs.
+# A few of these studies lost 0.1% or more of their original SNPs.
+# 37872160_williams_2023
+# 34226706_barton_2021_albumin
+# 34002096_mullins_2021_bd_no_ukb
+# 34002096_mullins_2021_bd_1
+# 33587031_sinnott-armstrong_2021_testosterone_secondary_female
+# 33587031_sinnott-armstrong_2021_testosterone_secondary_male
+# 33587031_sinnott-armstrong_2021_testosterone_bioavailable_female
+# 33587031_sinnott-armstrong_2021_testosterone_bioavailable_male
+# 33587031_sinnott-armstrong_2021_shbg_female
+# 33587031_sinnott-armstrong_2021_shbg_male
+# 32769997_zhou_2020_thyroid_hormone
+# 32099098_polimanti_2020_eur_opioid_dep_exposed
+# 32099098_polimanti_2020_eur_opioid_dep_unexposed
+# 32099098_polimanti_2020_eur_opioid_exposure
+# 31748690_purves_2020_ukb
+# 29700475_wray_2018_pgc_ukb
+# 00000000_neale_2020_hypothyroidism_self
+# 00000000_neale_2020_hypothyroidism_icd
+# 00000000_neale_2020_hyperthyroidism_self
+# 00000000_neale_2020_hyperthyroidism_icd
+# 00000000_neale_2020_vitamin_d
+# 00000000_neale_2020_shbg
+# 00000000_neale_2020_albumin
 
 ################################################################################
 # Organize paths.
