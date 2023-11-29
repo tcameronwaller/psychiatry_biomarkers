@@ -8,6 +8,13 @@
 ################################################################################
 # Note
 
+# To redirect both standard output and standard error to the same file, use
+# "&> ./standard_output_error.txt"
+
+# $ nohup {file_script.sh} &> {path/file_standard_out_error.txt} &
+# To monitor progress in the output, use "tail -f standard_output_error.txt".
+# To stop a nohup process, use "kill -9 {process identifier}".
+
 # Perform this procedure judiciously.
 # The purpose of this procedure is to run a few final checks to prepare GWAS
 # summary statistics for analysis in LDSC, LDpred2, or SBayesR.
@@ -82,12 +89,6 @@ set -o xtrace
 ################################################################################
 # Execute procedure.
 
-# To redirect both standard output and standard error to the same file, use
-# "&> ./standard_output_error.txt"
-
-# To monitor progress in the output, use "tail -f standard_output_error.txt".
-# To stop a nohup process, use "kill -9 {process identifier}".
-
 if false; then
   nohup srun --chdir $path_directory_batch \
   --partition=cpu-med --nodes=1 --ntasks-per-node=1 --time=1-00:00:00 \
@@ -99,15 +100,14 @@ if false; then
   $report \
   1> "${path_directory_log}/standard_output.txt" \
   2> "${path_directory_log}/standard_error.txt"
-else
-  nohup /usr/bin/bash $path_script_driver \
-  $path_file_table_parameter \
-  $path_directory_source \
-  $path_directory_product \
-  $path_script_process \
-  $report \
-  &> "${path_directory_log}/standard_out_error.txt" &
 fi
+
+/usr/bin/bash $path_script_driver \
+$path_file_table_parameter \
+$path_directory_source \
+$path_directory_product \
+$path_script_process \
+$report
 
 
 
