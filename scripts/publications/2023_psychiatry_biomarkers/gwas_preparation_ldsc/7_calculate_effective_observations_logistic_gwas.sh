@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 27 March 2023
-# Date, last execution: 20 November 2023
-# Date, review: 17 November 2023
+# Date, last execution: 29 November 2023
+# Date, review: 29 November 2023
 ################################################################################
 # Note
 
@@ -20,21 +20,38 @@
 ################################################################################
 # Organize paths.
 
-# Directories.
-cd ~/paths
-path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-path_directory_dock="${path_directory_process}/dock"
-path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
+if false; then
+  # Directories.
+  cd ~/paths
+  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+  path_directory_dock="${path_directory_process}/dock"
+  path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
+  #path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/5_gwas_clean_gwas2vcf"
+  path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/6_filter_constrain_gwas_values"
+  path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/7_gwas_effective_observations"
 
-#path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/5_gwas_clean_gwas2vcf"
-path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/6_filter_constrain_gwas_values"
-path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/7_gwas_effective_observations"
+  # Files.
+  path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
 
-# Files.
-path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
+  # Scripts.
+  path_file_script="${path_directory_process}/partner/scripts/gwas_clean/calculate_effective_observations_logistic_gwas.sh"
+fi
 
-# Scripts.
-path_file_script="${path_directory_process}/partner/scripts/gwas_clean/calculate_effective_observations_logistic_gwas.sh"
+if true; then
+  # Directories.
+  cd ~/paths
+  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+  path_directory_dock="${path_directory_process}/dock"
+  path_directory_parameters="${path_directory_dock}/parameters_alternate/psychiatric_metabolism"
+  path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/6_filter_constrain_gwas_values_prior_1"
+  path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/7_gwas_effective_observations_prior_1"
+
+  # Files.
+  path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
+
+  # Scripts.
+  path_file_script="${path_directory_process}/partner_alternate/scripts/gwas_clean/calculate_effective_observations_logistic_gwas.sh"
+fi
 
 # Initialize directories.
 rm -r $path_directory_product

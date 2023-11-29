@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 6 August 2023
-# Date, last execution: 20 November 2023
+# Date, last execution: 29 November 2023
 # Date, review: 16 November 2023
 ################################################################################
 # Note
@@ -24,12 +24,13 @@
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
-path_directory_reference="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/2_reference_ldsc"
-path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 
-path_directory_source_primary="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/4_gwas_munge_ldsc"
-path_directory_source_secondary="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/4_gwas_munge_ldsc"
-path_directory_product_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/6_gwas_correlation_ldsc"
+path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26"
+path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
+path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
+path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
+path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc"
+path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 path_directory_batch="${path_directory_product_parent}/batch"
 
 # Files.

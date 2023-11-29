@@ -20,7 +20,7 @@
 
 # $ nohup bash {file_script.sh} &> {/path/standard_out_error.txt} &
 
-# nohup process identifier: ___ (TCW; 29 November 2023)
+# nohup process identifier: 221970 (TCW; 29 November 2023 14:25 Eastern Time)
 
 ##########
 # Other Notes
@@ -33,6 +33,18 @@
 # (1E-308 to 1.0).
 # 3. Remove records for any SNPs with missing counts of observations, as these
 # SNPs raise an error in LDpred2.
+
+# Note: TCW; 29 November 2023
+# There might not be substantial differences between the "prior_1" sets of GWAS
+# summary statistics that went through process 4 in the batch of 26 November
+# and those in the batch of 29 November 2023.
+# The main difference was that for the batch of 29 November 2023, I separated
+# the filter and constraint blocks of code so that all filters and all
+# constraints would apply independently to each record in the GWAS summary
+# statistics.
+# In the batch of 26 November 2023, there was potential that some filter or
+# constraint steps would be ignored if a record had already passed a conditional
+# that came previously in the sequence of "else if" conditional expressions.
 
 # Note: TCW; 27 November 2023
 # In the filters, the following studies lost some proportion of their original

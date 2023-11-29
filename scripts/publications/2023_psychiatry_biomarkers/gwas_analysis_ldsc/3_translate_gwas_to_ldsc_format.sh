@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 23 Decemboer 2022
-# Date, last execution: 20 November 2023
+# Date, last execution: 29 November 2023
 # Date, review: 16 November 2023
 ################################################################################
 # Note
@@ -13,18 +13,41 @@
 ################################################################################
 # Organize paths.
 
-# Directories.
-cd ~/paths
-path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-path_directory_dock="${path_directory_process}/dock"
-path_directory_source="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/1_gwas_summaries_source"
-path_directory_product="${path_directory_dock}/ldsc_gwas_tcw_2023-11-13/3_gwas_format_ldsc"
+if false; then
+  # Directories.
+  cd ~/paths
+  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+  path_directory_dock="${path_directory_process}/dock"
 
-# Files.
+  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26"
+  path_directory_source="${path_directory_group_parent}/1_gwas_summaries_source"
+  path_directory_product="${path_directory_group_parent}/3_gwas_format_ldsc"
 
-# Scripts.
-path_directory_partner_scripts="${path_directory_process}/partner/scripts"
-path_file_script="${path_directory_partner_scripts}/ldsc/constrain_translate_gwas_standard_to_ldsc.sh"
+  # Files.
+
+  # Scripts.
+  path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+  path_file_script="${path_directory_partner_scripts}/ldsc/constrain_translate_gwas_standard_to_ldsc.sh"
+fi
+
+if true; then
+  # Directories.
+  cd ~/paths
+  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+  path_directory_dock="${path_directory_process}/dock"
+
+  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_prior_1"
+  path_directory_source="${path_directory_group_parent}/1_gwas_summaries_source"
+  path_directory_product="${path_directory_group_parent}/3_gwas_format_ldsc"
+
+  # Files.
+
+  # Scripts.
+  path_directory_partner_scripts="${path_directory_process}/partner_alternate/scripts"
+  path_file_script="${path_directory_partner_scripts}/ldsc/constrain_translate_gwas_standard_to_ldsc.sh"
+fi
+
+
 
 # Initialize directories.
 rm -r $path_directory_product
