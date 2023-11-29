@@ -55,6 +55,7 @@ path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/3_gwas_fill_nonsense_allele_frequency"
 path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/4_filter_constrain_gwas_values"
+path_directory_log="${path_directory_product}/log"
 path_directory_parent_temporary="${path_directory_process}/temporary_check_7"
 
 # Files.
@@ -76,16 +77,39 @@ cd $path_directory_product
 # Organize parameters.
 
 report="true"
+set -o xtrace
 
 ################################################################################
 # Execute procedure.
 
-/usr/bin/bash $path_script_driver \
-$path_file_table_parameter \
-$path_directory_source \
-$path_directory_product \
-$path_script_process \
-$report
+# To redirect both standard output and standard error to the same file, use
+# "&> ./standard_output_error.txt"
+
+# To monitor progress in the output, use "tail -f standard_output_error.txt".
+# To stop a nohup process, use "kill -9 {process identifier}".
+
+if false; then
+  nohup srun --chdir $path_directory_batch \
+  --partition=cpu-med --nodes=1 --ntasks-per-node=1 --time=1-00:00:00 \
+  --pty bash -i $path_script_driver \
+  $path_file_table_parameter \
+  $path_directory_source \
+  $path_directory_product \
+  $path_script_process \
+  $report \
+  1> "${path_directory_log}/standard_output.txt" \
+  2> "${path_directory_log}/standard_error.txt"
+else
+  nohup /usr/bin/bash $path_script_driver \
+  $path_file_table_parameter \
+  $path_directory_source \
+  $path_directory_product \
+  $path_script_process \
+  $report \
+  &> "${path_directory_log}/standard_out_error.txt" &
+fi
+
+
 
 # Remove temporary, intermediate files.
 rm -r $path_directory_parent_temporary
