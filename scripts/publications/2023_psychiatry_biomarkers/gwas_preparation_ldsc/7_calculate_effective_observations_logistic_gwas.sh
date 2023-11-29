@@ -26,12 +26,12 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 
-path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/5_gwas_clean_gwas2vcf"
-#path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/6_filter_constrain_gwas_values"
+#path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/5_gwas_clean_gwas2vcf"
+path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/6_filter_constrain_gwas_values"
 path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/7_gwas_effective_observations"
 
 # Files.
-path_file_translation="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
+path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
 
 # Scripts.
 path_file_script="${path_directory_process}/partner/scripts/gwas_clean/calculate_effective_observations_logistic_gwas.sh"
@@ -57,7 +57,7 @@ report="true"
 cp $path_directory_source/*.txt.gz $path_directory_product
 
 # Read lines from file and split fields within each line by space, tab, or new-line delimiters.
-input=$path_file_translation
+input=$path_file_table_parameter
 while IFS=$' \t\n' read -r -a array
 do
   # Report.
