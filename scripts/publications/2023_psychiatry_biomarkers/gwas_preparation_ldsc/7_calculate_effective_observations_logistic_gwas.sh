@@ -37,7 +37,7 @@ if false; then
   path_file_script="${path_directory_process}/partner/scripts/gwas_clean/calculate_effective_observations_logistic_gwas.sh"
 fi
 
-if true; then
+if false; then
   # Directories.
   cd ~/paths
   path_directory_process=$(<"./process_psychiatric_metabolism.txt")
@@ -52,6 +52,24 @@ if true; then
   # Scripts.
   path_file_script="${path_directory_process}/partner_alternate/scripts/gwas_clean/calculate_effective_observations_logistic_gwas.sh"
 fi
+
+if true; then
+  # Directories.
+  cd ~/paths
+  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+  path_directory_dock="${path_directory_process}/dock"
+  path_directory_parameters="${path_directory_dock}/parameters_alternate/psychiatric_metabolism"
+  path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/3_gwas_fill_nonsense_allele_frequency"
+  path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/7_gwas_effective_observations_bypass_1"
+
+  # Files.
+  path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
+
+  # Scripts.
+  path_file_script="${path_directory_process}/partner_alternate/scripts/gwas_clean/calculate_effective_observations_logistic_gwas.sh"
+fi
+
+
 
 # Initialize directories.
 rm -r $path_directory_product
