@@ -11,7 +11,7 @@
 # To redirect both standard output and standard error to the same file, use
 # "&> ./standard_output_error.txt"
 
-# $ nohup {file_script.sh} &> {path/file_standard_out_error.txt} &
+# $ nohup bash {file_script.sh} &> {path/file_standard_out_error.txt} &
 # To monitor progress in the output, use "tail -f standard_output_error.txt".
 # To stop a nohup process, use "kill -9 {process identifier}".
 
