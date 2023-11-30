@@ -8,7 +8,10 @@
 ################################################################################
 # Note
 
-
+# The "prior_1" version of GWAS summary statistics from study
+# "37872160_williams_2023" failed the LDSC munge procedure on 30 November 2023
+# because these summary statistics originally lacked rsIDs for SNPs. Hopefully
+# it will be possible to run a successful procedure in GWAS2VCF.
 
 ################################################################################
 # Organize paths.
@@ -33,7 +36,7 @@ if false; then
   path_file_script="${path_directory_ldsc}/munge_gwas_ldsc.sh"
 fi
 
-if true; then
+if false; then
   # Directories.
   cd ~/paths
   path_directory_process=$(<"./process_psychiatric_metabolism.txt")
@@ -53,7 +56,7 @@ if true; then
   path_file_script="${path_directory_ldsc}/munge_gwas_ldsc.sh"
 fi
 
-if false; then
+if true; then
   # Directories.
   cd ~/paths
   path_directory_process=$(<"./process_psychiatric_metabolism.txt")

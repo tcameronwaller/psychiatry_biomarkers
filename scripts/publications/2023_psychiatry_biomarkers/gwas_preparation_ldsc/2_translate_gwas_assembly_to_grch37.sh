@@ -18,6 +18,10 @@
 # After running this script, check the product directory to make sure that this
 # procedure wrote the appropriate files again, later than all others.
 
+# Note: TCW; 30 November 2023
+# It is not definitively clear whether GWAS summary statistics from study
+# "37872160_williams_2023" need translation from GRCh38 to GRCh37.
+
 
 ################################################################################
 # Organize paths.
