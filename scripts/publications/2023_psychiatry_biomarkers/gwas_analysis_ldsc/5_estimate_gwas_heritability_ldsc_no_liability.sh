@@ -39,7 +39,7 @@ if false; then
   path_file_script="${path_directory_ldsc}/estimate_gwas_heritability_ldsc.sh"
 fi
 
-if true; then
+if false; then
   # Directories.
   cd ~/paths
   path_directory_process=$(<"./process_psychiatric_metabolism.txt")
@@ -63,7 +63,7 @@ if true; then
   path_file_script="${path_directory_ldsc}/estimate_gwas_heritability_ldsc.sh"
 fi
 
-if false; then
+if true; then
   # Directories.
   cd ~/paths
   path_directory_process=$(<"./process_psychiatric_metabolism.txt")
