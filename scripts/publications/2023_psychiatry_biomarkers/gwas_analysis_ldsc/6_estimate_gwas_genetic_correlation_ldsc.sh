@@ -14,7 +14,7 @@
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
 # SLURM batch job: 2448364, 2448365, 2448366 (group: "prior_1"; instances: 8,316; date: 30 November 2023)
-# SLURM batch job: ___ (group: "bypass_1"; instances: 8,316; date: 30 November 2023)
+# SLURM batch job: 2456845, 2456846, 2456847 (group: "bypass_1"; instances: 8,316; date: 30 November 2023)
 
 
 ################################################################################
