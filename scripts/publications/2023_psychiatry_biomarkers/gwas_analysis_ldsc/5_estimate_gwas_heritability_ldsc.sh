@@ -14,8 +14,6 @@
 # latest collection and gives correct values for the sample and population
 # prevalence of dichotomous traits.
 
-
-
 # TODO: TCW; 29 September 2023
 # Add an "extra" iteration instance for the alternative preparation of Saevarsdottir, 2020.
 # See the GWAS2VCF driver script for an example of how I did this before.
@@ -48,7 +46,7 @@ if false; then
   path_file_script="${path_directory_ldsc}/estimate_gwas_heritability_observed_liability_scale_ldsc.sh"
 fi
 
-if true; then
+if false; then
   # Directories.
   cd ~/paths
   path_directory_process=$(<"./process_psychiatric_metabolism.txt")
@@ -72,7 +70,7 @@ if true; then
   path_file_script="${path_directory_ldsc}/estimate_gwas_heritability_observed_liability_scale_ldsc.sh"
 fi
 
-if false; then
+if true; then
   # Directories.
   cd ~/paths
   path_directory_process=$(<"./process_psychiatric_metabolism.txt")

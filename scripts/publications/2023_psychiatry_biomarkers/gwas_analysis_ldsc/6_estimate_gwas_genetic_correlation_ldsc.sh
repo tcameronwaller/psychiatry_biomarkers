@@ -13,7 +13,8 @@
 # script "6_call_submit_gwas_ldsc_genetic_correlation.sh" in the directory
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
-# SLURM batch job: ___ (8,316 instances; 30 November 2023)
+# SLURM batch job: 2448364, 2448365, 2448366 (group: "prior_1"; instances: 8,316; date: 30 November 2023)
+# SLURM batch job: ___ (group: "bypass_1"; instances: 8,316; date: 30 November 2023)
 
 
 ################################################################################
