@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 6 August 2023
-# Date, last execution: 29 November 2023
-# Date, review: __ November 2023
+# Date, last execution: 30 November 2023
+# Date, review: 30 November 2023
 ################################################################################
 # Note
 
@@ -13,9 +13,8 @@
 # script "6_call_submit_gwas_ldsc_genetic_correlation.sh" in the directory
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
-# TCW; 3 October 2023
-# count of batch instances: 3,570
-# batch job: 297710
+# SLURM batch job: ___ (___ instances; 30 November 2023)
+
 
 ################################################################################
 # Organize paths.
@@ -265,9 +264,9 @@ secondaries+=("33587031_sinnott-armstrong_2021_testosterone_bioavailable_male")
 
 secondaries+=("31169883_pott_2019_estradiol_all")
 secondaries+=("34255042_schmitz_2021_estradiol_female")
+secondaries+=("31169883_pott_2019_estradiol_female")
 secondaries+=("34255042_schmitz_2021_estradiol_male")
 secondaries+=("32042192_ruth_2020_estradiol_male")
-secondaries+=("31169883_pott_2019_estradiol_female")
 secondaries+=("31169883_pott_2019_estradiol_male")
 secondaries+=("34822396_pott_2021_testosterone_estradiol_all")
 secondaries+=("34822396_pott_2021_testosterone_estradiol_female")
@@ -324,7 +323,7 @@ secondaries+=("34662886_backman_2021_albumin")
 secondaries+=("34226706_barton_2021_albumin")
 secondaries+=("00000000_neale_2020_albumin")
 secondaries+=("32059762_manousaki_2020_vitamin_d")
-#secondaries+=("32242144_revez_2020_vitamin_d")
+secondaries+=("32242144_revez_2020_vitamin_d")
 secondaries+=("00000000_neale_2020_vitamin_d")
 secondaries+=("33441150_dennis_2021_vitamin_d")
 secondaries+=("36635386_chen_2023_cortisol")
