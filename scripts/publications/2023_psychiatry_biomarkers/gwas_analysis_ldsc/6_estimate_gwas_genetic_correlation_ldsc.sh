@@ -65,7 +65,7 @@ if true; then
   #path_file_batch_error="${path_directory_batch}/batch_error.txt"
 
   # Scripts.
-  path_directory_partner_scripts="${path_directory_process}/partner_alternate/scripts"
+  path_directory_partner_scripts="${path_directory_process}/partner/scripts"
   path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
   path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
   path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
@@ -91,7 +91,7 @@ if false; then
   #path_file_batch_error="${path_directory_batch}/batch_error.txt"
 
   # Scripts.
-  path_directory_partner_scripts="${path_directory_process}/partner_alternate/scripts"
+  path_directory_partner_scripts="${path_directory_process}/partner/scripts"
   path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
   path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
   path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
