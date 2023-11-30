@@ -46,7 +46,7 @@ if false; then
   path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
 fi
 
-if true; then
+if false; then
   # Directories.
   cd ~/paths
   path_directory_process=$(<"./process_psychiatric_metabolism.txt")
@@ -72,7 +72,7 @@ if true; then
   path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
 fi
 
-if false; then
+if true; then
   # Directories.
   cd ~/paths
   path_directory_process=$(<"./process_psychiatric_metabolism.txt")
