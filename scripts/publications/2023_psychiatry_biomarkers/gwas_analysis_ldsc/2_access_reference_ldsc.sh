@@ -29,7 +29,7 @@ if false; then
   #path_script_access="${path_directory_partner_scripts}/ldsc/access_ldsc_genetic_references.sh"
 fi
 
-if true; then
+if false; then
   # Read private, local file paths.
   cd ~/paths
   path_directory_reference=$(<"./reference_tcw.txt")
@@ -45,7 +45,7 @@ if true; then
   #path_script_access="${path_directory_partner_scripts}/ldsc/access_ldsc_genetic_references.sh"
 fi
 
-if false; then
+if true; then
   # Read private, local file paths.
   cd ~/paths
   path_directory_reference=$(<"./reference_tcw.txt")
