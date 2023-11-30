@@ -63,6 +63,30 @@ if true; then
   path_file_script="${path_directory_ldsc}/estimate_gwas_heritability_ldsc.sh"
 fi
 
+if false; then
+  # Directories.
+  cd ~/paths
+  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+  path_directory_dock="${path_directory_process}/dock"
+  path_directory_parameters="${path_directory_dock}/parameters_alternate/psychiatric_metabolism"
+
+  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_bypass_1"
+  path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
+  path_directory_source="${path_directory_group_parent}/4_gwas_munge_ldsc"
+  path_directory_product="${path_directory_group_parent}/5_gwas_heritability_ldsc_no_liability"
+  path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
+
+  # Files.
+  path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
+
+  # Files.
+
+  # Scripts.
+  path_directory_partner_scripts="${path_directory_process}/partner_alternate/scripts"
+  path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
+  path_file_script="${path_directory_ldsc}/estimate_gwas_heritability_ldsc.sh"
+fi
+
 
 
 # Initialize directories.

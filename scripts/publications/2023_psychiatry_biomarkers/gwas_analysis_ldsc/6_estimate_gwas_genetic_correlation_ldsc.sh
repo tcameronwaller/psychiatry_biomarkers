@@ -20,29 +20,85 @@
 ################################################################################
 # Organize paths.
 
-# Directories.
-cd ~/paths
-path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-path_directory_dock="${path_directory_process}/dock"
+if false; then
+  # Directories.
+  cd ~/paths
+  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+  path_directory_dock="${path_directory_process}/dock"
 
-path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26"
-path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
-path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
-path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
-path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc"
-path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
-path_directory_batch="${path_directory_product_parent}/batch"
+  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26"
+  path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
+  path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
+  path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
+  path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc"
+  path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
+  path_directory_batch="${path_directory_product_parent}/batch"
 
-# Files.
-path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
-#path_file_batch_out="${path_directory_batch}/batch_out.txt"
-#path_file_batch_error="${path_directory_batch}/batch_error.txt"
+  # Files.
+  path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
+  #path_file_batch_out="${path_directory_batch}/batch_out.txt"
+  #path_file_batch_error="${path_directory_batch}/batch_error.txt"
 
-# Scripts.
-path_directory_partner_scripts="${path_directory_process}/partner/scripts"
-path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
-path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
-path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
+  # Scripts.
+  path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+  path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
+  path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
+  path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
+fi
+
+if true; then
+  # Directories.
+  cd ~/paths
+  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+  path_directory_dock="${path_directory_process}/dock"
+
+  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_prior_1"
+  path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
+  path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
+  path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
+  path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc"
+  path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
+  path_directory_batch="${path_directory_product_parent}/batch"
+
+  # Files.
+  path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
+  #path_file_batch_out="${path_directory_batch}/batch_out.txt"
+  #path_file_batch_error="${path_directory_batch}/batch_error.txt"
+
+  # Scripts.
+  path_directory_partner_scripts="${path_directory_process}/partner_alternate/scripts"
+  path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
+  path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
+  path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
+fi
+
+if false; then
+  # Directories.
+  cd ~/paths
+  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+  path_directory_dock="${path_directory_process}/dock"
+
+  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_bypass_1"
+  path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
+  path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
+  path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
+  path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc"
+  path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
+  path_directory_batch="${path_directory_product_parent}/batch"
+
+  # Files.
+  path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
+  #path_file_batch_out="${path_directory_batch}/batch_out.txt"
+  #path_file_batch_error="${path_directory_batch}/batch_error.txt"
+
+  # Scripts.
+  path_directory_partner_scripts="${path_directory_process}/partner_alternate/scripts"
+  path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
+  path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
+  path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
+fi
+
+
 
 # Initialize directories.
 rm -r $path_directory_product_parent # caution
@@ -69,6 +125,7 @@ report="true"
 # Primary studies.
 # Define array of primary studies.
 primaries=()
+primaries+=("36702997_demontis_2023_adhd")
 primaries+=("36477530_saunders_2022_alcohol_all")
 primaries+=("36477530_saunders_2022_alcohol_no_ukb")
 primaries+=("36477530_saunders_2022_tobacco_all")
@@ -98,6 +155,19 @@ primaries+=("34002096_mullins_2021_bd_all")
 primaries+=("34002096_mullins_2021_bd_no_ukb")
 primaries+=("34002096_mullins_2021_bd_1")
 primaries+=("34002096_mullins_2021_bd_2")
+primaries+=("33096046_johnson_2020_eur_all")
+primaries+=("33096046_johnson_2020_eur_unrelated")
+primaries+=("32747698_matoba_2020_europe")
+primaries+=("32099098_polimanti_2020_eur_opioid_dep_exposed")
+primaries+=("32099098_polimanti_2020_eur_opioid_dep_unexposed")
+primaries+=("32099098_polimanti_2020_eur_opioid_exposure")
+primaries+=("31748690_purves_2020_meta")
+primaries+=("31748690_purves_2020_ukb")
+primaries+=("31594949_nievergelt_2019_trans_all")
+primaries+=("31594949_nievergelt_2019_europe_all")
+primaries+=("31308545_watson_2019")
+primaries+=("30818990_yu_2019")
+primaries+=("30804558_grove_2019")
 primaries+=("30718901_howard_2019_pgc_ukb")
 primaries+=("30718901_howard_2019_pgc")
 primaries+=("30643251_liu_2019_alcohol_all")
@@ -115,8 +185,12 @@ primaries+=("30482948_walters_2018_eur_unrel_meta")
 primaries+=("30482948_walters_2018_eur_unrel_genotype")
 primaries+=("30482948_walters_2018_female")
 primaries+=("30482948_walters_2018_male")
+primaries+=("30478444_demontis_2019_adhd")
 primaries+=("29700475_wray_2018_pgc_ukb")
 primaries+=("29700475_wray_2018_pgc")
+primaries+=("29325848_martin_2018_adhd_female")
+primaries+=("29325848_martin_2018_adhd_male")
+primaries+=("28761083_arnold_2018")
 
 ##########
 # Secondary studies.
@@ -148,7 +222,7 @@ secondaries+=("00000000_neale_2020_hyperthyroidism_self")
 secondaries+=("30367059_teumer_2018_hyperthyroidism")
 
 secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity")
-secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute")
+#secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity_af_impute")
 secondaries+=("34594039_sakaue_2021_multi_hashimoto")
 secondaries+=("34594039_sakaue_2021_gc_hashimoto")
 secondaries+=("34594039_sakaue_2021_eur_hashimoto")
@@ -156,9 +230,10 @@ secondaries+=("34594039_sakaue_2021_multi_graves")
 secondaries+=("34594039_sakaue_2021_gc_graves")
 secondaries+=("34594039_sakaue_2021_eur_graves")
 secondaries+=("24586183_medici_2014_thyroid_peroxidase_reactivity")
-secondaries+=("24586183_medici_2014_thyroid_peroxidase_antibody")
 
+secondaries+=("24586183_medici_2014_thyroid_peroxidase_antibody")
 secondaries+=("29875488_sun_2018_thyroid_peroxidase")
+secondaries+=("37872160_williams_2023")
 secondaries+=("32769997_zhou_2020_thyroid_hormone")
 secondaries+=("30367059_teumer_2018_thyroid_hormone_all")
 secondaries+=("30367059_teumer_2018_thyroid_hormone_female")
