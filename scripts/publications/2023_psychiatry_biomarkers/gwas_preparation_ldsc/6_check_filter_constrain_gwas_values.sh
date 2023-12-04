@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 2 October 2023
-# Date, last execution: 29 November 2023
-# Date, review: 29 November 2023
+# Date, last execution: 4 December 2023
+# Date, review: 4 December 2023
 ################################################################################
 # Note
 
@@ -14,6 +14,10 @@
 # This study failed GWAS2VCF procedure for unknown reasons.
 # Rescue this study by copying set of GWAS summary statistics from step 4 of
 # preparation procedure before GWAS2VCF.
+
+# Note: TCW; 4 December 2023
+# After translation from GRCh38 to GRCh37, the study "37872160_williams_2023"
+# completed the GWAS2VCF procedure with 10,152,437 SNPs.
 
 # Note: TCW; 28 November 2023
 # The following studies failed the GWAS2VCF procedure.
@@ -53,39 +57,20 @@
 ################################################################################
 # Organize paths.
 
-if false; then
-  # Directories.
-  cd ~/paths
-  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-  path_directory_dock="${path_directory_process}/dock"
-  path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-  path_directory_source_rescue="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/4_filter_constrain_gwas_values"
-  path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/5_gwas_clean_gwas2vcf"
-  path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/6_filter_constrain_gwas_values"
-  path_directory_parent_temporary="${path_directory_process}/temporary_check_9"
+# Directories.
+cd ~/paths
+path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+path_directory_dock="${path_directory_process}/dock"
+path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
+path_directory_source_rescue="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/4_filter_constrain_gwas_values"
+path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/5_gwas_clean_gwas2vcf"
+path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/6_filter_constrain_gwas_values"
+path_directory_parent_temporary="${path_directory_process}/temporary_check_9"
 
-  # Files.
-  # Scripts.
-  path_directory_partner_scripts="${path_directory_process}/partner/scripts"
-  path_script_check="${path_directory_partner_scripts}/gwas_clean/check_gwas_summary_values.sh"
-fi
-
-if true; then
-  # Directories.
-  cd ~/paths
-  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-  path_directory_dock="${path_directory_process}/dock"
-  path_directory_parameters="${path_directory_dock}/parameters_alternate/psychiatric_metabolism"
-  path_directory_source_rescue="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/4_filter_constrain_gwas_values_prior_1"
-  path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/5_gwas_clean_gwas2vcf_prior_1"
-  path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/6_filter_constrain_gwas_values_prior_1"
-  path_directory_parent_temporary="${path_directory_process}/temporary_check_9_alternate"
-
-  # Files.
-  # Scripts.
-  path_directory_partner_scripts="${path_directory_process}/partner_alternate/scripts"
-  path_script_check="${path_directory_partner_scripts}/gwas_clean/check_gwas_summary_values.sh"
-fi
+# Files.
+# Scripts.
+path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+path_script_check="${path_directory_partner_scripts}/gwas_clean/check_gwas_summary_values.sh"
 
 # Initialize directories.
 rm -r $path_directory_parent_temporary # caution
@@ -127,7 +112,6 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 ##########
 # Remove files of GWAS summary statistics that failed GWAS2VCF procedure.
 
-rm $path_directory_product/37872160_williams_2023.txt.gz
 rm $path_directory_product/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz
 rm $path_directory_product/32242144_revez_2020_vitamin_d.txt.gz
 rm $path_directory_product/32099098_polimanti_2020_eur_opioid_dep_exposed.txt.gz
@@ -140,7 +124,6 @@ rm $path_directory_product/30718901_howard_2019_pgc_ukb.txt.gz
 # Some studies will be useful for analysis in LDSC even if they lack sufficient
 # information to pass filters in GWAS2VCF.
 
-cp $path_directory_source_rescue/37872160_williams_2023.txt.gz $path_directory_product
 cp $path_directory_source_rescue/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz $path_directory_product
 cp $path_directory_source_rescue/32242144_revez_2020_vitamin_d.txt.gz $path_directory_product
 cp $path_directory_source_rescue/32099098_polimanti_2020_eur_opioid_dep_exposed.txt.gz $path_directory_product

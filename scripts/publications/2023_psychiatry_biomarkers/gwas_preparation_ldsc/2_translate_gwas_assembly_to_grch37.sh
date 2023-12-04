@@ -18,10 +18,16 @@
 # After running this script, check the product directory to make sure that this
 # procedure wrote the appropriate files again, later than all others.
 
-# Note: TCW; 30 November 2023
-# It is not definitively clear whether GWAS summary statistics from study
-# "37872160_williams_2023" need translation from GRCh38 to GRCh37.
-
+# Note: TCW; 4 December 2023
+# From the publication article and supplement, it is not definitively clear
+# whether the original GWAS summary statistics from study
+# "37872160_williams_2023" (57,524,163 SNPs) used coordinates from human genome
+# assembly GRCh37 or GRCh38. Without translation from GRCh38 to GRCh37, the GWAS
+# summary statistics from study "37872160_williams_2023" failed the GWAS2VCF
+# procedure on 27 November 2023 and on 29 November 2023. After a trial
+# translation from GRCh38 to GRCh37 on 30 November 2023, the GWAS summary
+# statistics from study "37872160_williams_2023" (54,848,929 SNPs after map to
+# GRCh37) completed the GWAS2VCF procedure with 10,152,437 SNPs.
 
 ################################################################################
 # Organize paths.
@@ -67,6 +73,17 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 ##########
 # Translate genomic assemblies to GRCh37.
 
+##########
+# 37872160_williams_2023 (GRCh38 to GRCh37)
+
+# UCSC:
+# Ensembl:
+/usr/bin/bash $path_script_map_assembly \
+"${path_directory_source}/37872160_williams_2023.txt.gz" \
+"${path_directory_product}/37872160_williams_2023.txt.gz" \
+$path_file_chain_grch38_to_grch37 \
+$threads \
+$report
 
 
 ##########
