@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 27 Decemboer 2022
-# Date, last execution: 30 November 2023
-# Date, review: 30 November 2023
+# Date, last execution: 4 December 2023
+# Date, review: 4 December 2023
 ################################################################################
 # Note
 
@@ -16,66 +16,23 @@
 ################################################################################
 # Organize paths.
 
-if false; then
-  # Directories.
-  cd ~/paths
-  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-  path_directory_dock="${path_directory_process}/dock"
+# Directories.
+cd ~/paths
+path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+path_directory_dock="${path_directory_process}/dock"
 
-  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26"
-  path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
-  path_directory_source="${path_directory_group_parent}/3_gwas_format_ldsc"
-  path_directory_product="${path_directory_group_parent}/4_gwas_munge_ldsc"
-  path_file_alleles="${path_directory_reference}/alleles/w_hm3.snplist"
+path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_2023-12-04"
+path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
+path_directory_source="${path_directory_group_parent}/3_gwas_format_ldsc"
+path_directory_product="${path_directory_group_parent}/4_gwas_munge_ldsc"
+path_file_alleles="${path_directory_reference}/alleles/w_hm3.snplist"
 
-  # Files.
+# Files.
 
-  # Scripts.
-  path_directory_partner_scripts="${path_directory_process}/partner/scripts"
-  path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
-  path_file_script="${path_directory_ldsc}/munge_gwas_ldsc.sh"
-fi
-
-if false; then
-  # Directories.
-  cd ~/paths
-  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-  path_directory_dock="${path_directory_process}/dock"
-
-  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_prior_1"
-  path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
-  path_directory_source="${path_directory_group_parent}/3_gwas_format_ldsc"
-  path_directory_product="${path_directory_group_parent}/4_gwas_munge_ldsc"
-  path_file_alleles="${path_directory_reference}/alleles/w_hm3.snplist"
-
-  # Files.
-
-  # Scripts.
-  path_directory_partner_scripts="${path_directory_process}/partner_alternate/scripts"
-  path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
-  path_file_script="${path_directory_ldsc}/munge_gwas_ldsc.sh"
-fi
-
-if true; then
-  # Directories.
-  cd ~/paths
-  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-  path_directory_dock="${path_directory_process}/dock"
-
-  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_bypass_1"
-  path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
-  path_directory_source="${path_directory_group_parent}/3_gwas_format_ldsc"
-  path_directory_product="${path_directory_group_parent}/4_gwas_munge_ldsc"
-  path_file_alleles="${path_directory_reference}/alleles/w_hm3.snplist"
-
-  # Files.
-
-  # Scripts.
-  path_directory_partner_scripts="${path_directory_process}/partner_alternate/scripts"
-  path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
-  path_file_script="${path_directory_ldsc}/munge_gwas_ldsc.sh"
-fi
-
+# Scripts.
+path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
+path_file_script="${path_directory_ldsc}/munge_gwas_ldsc.sh"
 
 # Initialize directories.
 rm -r $path_directory_product

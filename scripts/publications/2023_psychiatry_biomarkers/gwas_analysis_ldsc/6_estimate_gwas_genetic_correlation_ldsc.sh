@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 6 August 2023
-# Date, last execution: 30 November 2023
-# Date, review: 30 November 2023
+# Date, last execution: 4 December 2023
+# Date, review: 4 December 2023
 ################################################################################
 # Note
 
@@ -20,85 +20,29 @@
 ################################################################################
 # Organize paths.
 
-if false; then
-  # Directories.
-  cd ~/paths
-  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-  path_directory_dock="${path_directory_process}/dock"
+# Directories.
+cd ~/paths
+path_directory_process=$(<"./process_psychiatric_metabolism.txt")
+path_directory_dock="${path_directory_process}/dock"
 
-  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26"
-  path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
-  path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
-  path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
-  path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc"
-  path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
-  path_directory_batch="${path_directory_product_parent}/batch"
+path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_2023-12-04"
+path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
+path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
+path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
+path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc"
+path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
+path_directory_batch="${path_directory_product_parent}/batch"
 
-  # Files.
-  path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
-  #path_file_batch_out="${path_directory_batch}/batch_out.txt"
-  #path_file_batch_error="${path_directory_batch}/batch_error.txt"
+# Files.
+path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
+#path_file_batch_out="${path_directory_batch}/batch_out.txt"
+#path_file_batch_error="${path_directory_batch}/batch_error.txt"
 
-  # Scripts.
-  path_directory_partner_scripts="${path_directory_process}/partner/scripts"
-  path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
-  path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
-  path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
-fi
-
-if false; then
-  # Directories.
-  cd ~/paths
-  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-  path_directory_dock="${path_directory_process}/dock"
-
-  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_prior_1"
-  path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
-  path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
-  path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
-  path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc"
-  path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
-  path_directory_batch="${path_directory_product_parent}/batch"
-
-  # Files.
-  path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
-  #path_file_batch_out="${path_directory_batch}/batch_out.txt"
-  #path_file_batch_error="${path_directory_batch}/batch_error.txt"
-
-  # Scripts.
-  path_directory_partner_scripts="${path_directory_process}/partner/scripts"
-  path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
-  path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
-  path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
-fi
-
-if true; then
-  # Directories.
-  cd ~/paths
-  path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-  path_directory_dock="${path_directory_process}/dock"
-
-  path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_bypass_1"
-  path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
-  path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
-  path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
-  path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc"
-  path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
-  path_directory_batch="${path_directory_product_parent}/batch"
-
-  # Files.
-  path_file_batch_instances="${path_directory_batch}/batch_instances.txt"
-  #path_file_batch_out="${path_directory_batch}/batch_out.txt"
-  #path_file_batch_error="${path_directory_batch}/batch_error.txt"
-
-  # Scripts.
-  path_directory_partner_scripts="${path_directory_process}/partner/scripts"
-  path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
-  path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
-  path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
-fi
-
-
+# Scripts.
+path_directory_partner_scripts="${path_directory_process}/partner/scripts"
+path_directory_ldsc="${path_directory_partner_scripts}/ldsc"
+path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_correlation_ldsc.sh"
+path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
 
 # Initialize directories.
 rm -r $path_directory_product_parent # caution
