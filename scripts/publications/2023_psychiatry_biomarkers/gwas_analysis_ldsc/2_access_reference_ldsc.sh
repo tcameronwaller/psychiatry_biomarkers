@@ -20,7 +20,7 @@ path_directory_reference_ldsc="${path_directory_reference}/ldsc" # accession: TC
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 
-path_directory_group_parent="${path_directory_dock}/ldsc_gwas_tcw_2023-11-26_2023-12-04"
+path_directory_group_parent="${path_directory_dock}/gwas_2023-11-26_ldsc_2023-12-04"
 path_directory_product_child="${path_directory_group_parent}/ldsc"
 path_directory_product="${path_directory_group_parent}/2_reference_ldsc"
 
