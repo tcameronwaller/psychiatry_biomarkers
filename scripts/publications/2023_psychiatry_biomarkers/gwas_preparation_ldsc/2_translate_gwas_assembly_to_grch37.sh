@@ -4,7 +4,7 @@
 # Author: T. Cameron Waller
 # Date, first execution: 24 May 2023
 # Date, last execution: 26 November 2023
-# Date, review: 26 November 2023
+# Date, review: 13 December 2023
 ################################################################################
 # Note
 
@@ -18,16 +18,46 @@
 # After running this script, check the product directory to make sure that this
 # procedure wrote the appropriate files again, later than all others.
 
-# Note: TCW; 4 December 2023
+# Note: TCW; 13 December 2023
+# 1. Description of situation
 # From the publication article and supplement, it is not definitively clear
 # whether the original GWAS summary statistics from study
-# "37872160_williams_2023" (57,524,163 SNPs) used coordinates from human genome
-# assembly GRCh37 or GRCh38. Without translation from GRCh38 to GRCh37, the GWAS
-# summary statistics from study "37872160_williams_2023" failed the GWAS2VCF
-# procedure on 27 November 2023 and on 29 November 2023. After a trial
-# translation from GRCh38 to GRCh37 on 30 November 2023, the GWAS summary
-# statistics from study "37872160_williams_2023" (54,848,929 SNPs after map to
-# GRCh37) completed the GWAS2VCF procedure with 10,152,437 SNPs.
+# "37872160_williams_2023" used coordinates from human genome assembly GRCh37 or
+# GRCh38. This set of GWAS summary statistics had 57,524,163 SNPs after format
+# translation to standard.
+# 2. Without any attempt to translate from GRCh38 to GRCh37
+# On 13 December 2023, without an attempt to translate from GRCh38 to GRCh37 but
+# with prior filters on SNPs (script file:
+# "filter_constrain_gwas_summary_values.sh"; 57,523,911 SNPs), the filtered GWAS
+# summary statistics completed a procedure
+# (script file: "fill_reference_snp_cluster_identifier.sh") that filled SNP
+# rsIDs from dbSNP (GRCh37). Of the 57,523,911 SNPs originally in the GWAS
+# summary statistics, 36,107,225 SNPs (62.8%) matched the dbSNP reference
+# successfully.
+# 3. With attempt to translate from GRCh38 to GRCh37
+# On 30 November 2023, the source GWAS summary statistics with 57,524,163
+# original SNPs completed an attempt to map from GRCh38 to GRCh37 (Crossmap;
+# Ensembl chain) with 54,848,929 final SNPs, and these same GWAS summary
+# statistics subsequently completed the GWAS2VCF procedure with 10,152,437 SNPs
+# on 4 December 2023.
+# Separately, on 13 December 2023, the source GWAS summary statistics with
+# 57,524,163 original SNPs completed an attempt to map from GRCh38 to GRCh37
+# (Crossmap; Ensembl chain) with 54,848,929 final SNPs. These same GWAS summary
+# statistics (54,848,929 SNPs) then completed a procedure
+# (script file: "fill_reference_snp_cluster_identifier.sh") that filled SNP
+# rsIDs from dbSNP (GRCh37). Of the 54,848,929 SNPs originally in the GWAS
+# summary statistics, 4,073,715 SNPs (7.4%) matched the dbSNP reference
+# successfully. The fact that these SNPs matched on the basis of chromosome,
+# position, reference allele, and alternate allele does not necessarily mean
+# that the human genome assemblies were both correct and the same.
+# 4. Assessment
+# Without an attempt to map from GRCh38 to GRCh37, a much greater proportion of
+# the SNPs from the original GWAS summary statistics (63% compared to 7%)
+# matched successfully with SNPs from the dbSNP reference (GRCh37). This
+# evidence suggests that the original GWAS summary statistics from study
+# "37872160_williams_2023" used the GRCh37 assembly of the human genome.
+
+
 
 ################################################################################
 # Organize paths.
@@ -73,17 +103,6 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 ##########
 # Translate genomic assemblies to GRCh37.
 
-##########
-# 37872160_williams_2023 (GRCh38 to GRCh37)
-
-# UCSC:
-# Ensembl:
-/usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/37872160_williams_2023.txt.gz" \
-"${path_directory_product}/37872160_williams_2023.txt.gz" \
-$path_file_chain_grch38_to_grch37 \
-$threads \
-$report
 
 
 ##########

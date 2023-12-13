@@ -141,7 +141,7 @@ rm -r $path_directory_parent_temporary
 if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
-  echo "6_check_filter_constrain_gwas_values.sh"
+  echo "7_check_filter_constrain_gwas_values.sh"
   echo "----------"
 fi
 
