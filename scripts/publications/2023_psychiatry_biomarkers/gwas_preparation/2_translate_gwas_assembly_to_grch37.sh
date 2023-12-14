@@ -26,10 +26,10 @@
 # GRCh38. This set of GWAS summary statistics had 57,524,163 SNPs after format
 # translation to standard.
 # 2. Without any attempt to translate from GRCh38 to GRCh37
-# On 13 December 2023, without an attempt to translate from GRCh38 to GRCh37 but
-# with prior filters on SNPs (script file:
-# "filter_constrain_gwas_summary_values.sh"; 57,523,911 SNPs), the filtered GWAS
-# summary statistics completed a procedure
+# On 13 December 2023 and again on 14 December 2023, without any prior attempt
+# to translate from GRCh38 to GRCh37 but with prior filters on SNPs (script
+# file: "filter_constrain_gwas_summary_values.sh"; 57,523,911 SNPs), the
+# filtered GWAS summary statistics completed a procedure
 # (script file: "fill_reference_snp_cluster_identifier.sh") that filled SNP
 # rsIDs from dbSNP (GRCh37). Of the 57,523,911 SNPs originally in the GWAS
 # summary statistics, 36,107,225 SNPs (62.8%) matched the dbSNP reference

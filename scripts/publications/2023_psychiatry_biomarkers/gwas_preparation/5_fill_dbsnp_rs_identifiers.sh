@@ -67,3 +67,7 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 "${path_directory_product}/37872160_williams_2023.txt.gz" \
 $strict \
 $report
+
+
+
+#
