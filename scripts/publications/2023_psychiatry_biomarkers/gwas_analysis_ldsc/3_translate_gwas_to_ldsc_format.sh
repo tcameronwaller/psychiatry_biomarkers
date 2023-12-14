@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 23 Decemboer 2022
-# Date, last execution: 4 December 2023
+# Date, last execution: 14 December 2023
 # Date, review: 4 December 2023
 ################################################################################
 # Note
@@ -13,14 +13,19 @@
 ################################################################################
 # Organize paths.
 
+# Identifiers or designators of parameter version, preparation batch, and
+# analysis batch.
+identifier_analysis="gwas_2023-12-14_test_ldsc_2023-12-14"
+identifier_parameter="tcw_2023-12-14_test"
+
 # Directories.
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 
-path_directory_group_parent="${path_directory_dock}/gwas_2023-11-26_ldsc_2023-12-04"
+path_directory_group_parent="${path_directory_dock}/${identifier_analysis}"
 #path_directory_source="${path_directory_group_parent}/1_gwas_summaries_source"
-path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/7_gwas_effective_observations"
+path_directory_source="${path_directory_group_parent}/8_gwas_effective_observations"
 path_directory_product="${path_directory_group_parent}/3_gwas_format_ldsc"
 
 # Files.
