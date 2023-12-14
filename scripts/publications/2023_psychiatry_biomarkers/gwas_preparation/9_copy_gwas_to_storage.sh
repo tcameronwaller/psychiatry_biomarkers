@@ -13,6 +13,10 @@
 ################################################################################
 # Organize paths.
 
+# Identifiers or designators of parameter version and preparation batch.
+identifier_preparation="tcw_2023-12-14_test"
+identifier_parameter="tcw_2023-12-14_test"
+
 # Directories.
 cd ~/paths
 path_directory_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
@@ -22,8 +26,8 @@ path_directory_dock="${path_directory_process}/dock"
 path_directory_parent_source=$path_directory_dock
 path_directory_parent_product="${path_directory_gwas_summaries}/organization"
 
-path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-13"
-path_directory_product="${path_directory_gwas_summaries}/organization/gwas_preparation_ldsc_tcw_2023-11-13"
+path_directory_source="${path_directory_dock}/gwas_preparation_${identifier_preparation}"
+path_directory_product="${path_directory_gwas_summaries}/organization/gwas_preparation_${identifier_preparation}"
 
 # Initialize directories.
 rm -r $path_directory_product # caution

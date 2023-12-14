@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 14 November 2023
-# Date, last execution: 27 November 2023
+# Date, last execution: 14 December 2023
 # Date, review: 27 November 2023
 ################################################################################
 # Note
@@ -22,16 +22,20 @@
 ################################################################################
 # Organize paths.
 
+# Identifiers or designators of parameter version and preparation batch.
+identifier_preparation="tcw_2023-12-14_test"
+identifier_parameter="tcw_2023-12-14_test"
+
 # Directories.
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
-path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/2_gwas_assembly_grch37"
-path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/3_gwas_fill_nonsense_allele_frequency"
+path_directory_source="${path_directory_dock}/gwas_preparation_${identifier_preparation}/2_gwas_assembly_grch37"
+path_directory_product="${path_directory_dock}/gwas_preparation_${identifier_preparation}/3_gwas_fill_nonsense_allele_frequency"
 
 # Files.
-path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_tcw_2023-11-26.tsv"
+path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_${identifier_parameter}.tsv"
 
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"

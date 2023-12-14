@@ -62,13 +62,18 @@
 ################################################################################
 # Organize paths.
 
+# Identifiers or designators of parameter version and preparation batch.
+identifier_preparation="tcw_2023-12-14_test"
+identifier_parameter="tcw_2023-12-14_test"
+
 # Directories.
 cd ~/paths
 path_directory_reference=$(<"./reference_tcw.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_source="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/1_gwas_format_standard"
-path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11-26/2_gwas_assembly_grch37"
+path_directory_source="${path_directory_dock}/gwas_preparation_${identifier_preparation}/1_gwas_format_standard"
+path_directory_product="${path_directory_dock}/gwas_preparation_${identifier_preparation}/2_gwas_assembly_grch37"
+
 # Files.
 #path_file_chain_ncbi36_to_grch37="${path_directory_reference}/crossmap/ucsc/hg18ToHg19.over.chain.gz"
 #path_file_chain_grch37_to_grch38="${path_directory_reference}/crossmap/ucsc/hg19ToHg38.over.chain.gz"
@@ -76,6 +81,7 @@ path_directory_product="${path_directory_dock}/gwas_preparation_ldsc_tcw_2023-11
 path_file_chain_ncbi36_to_grch37="${path_directory_reference}/crossmap/ensembl/NCBI36_to_GRCh37.chain.gz"
 path_file_chain_grch37_to_grch38="${path_directory_reference}/crossmap/ensembl/GRCh37_to_GRCh38.chain.gz"
 path_file_chain_grch38_to_grch37="${path_directory_reference}/crossmap/ensembl/GRCh38_to_GRCh37.chain.gz"
+
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
 path_script_map_assembly="${path_directory_partner_scripts}/crossmap/map_gwas_standard_format_bed.sh"
