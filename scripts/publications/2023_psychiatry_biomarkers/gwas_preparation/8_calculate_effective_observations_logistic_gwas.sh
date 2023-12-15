@@ -21,8 +21,8 @@
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="tcw_2023-12-14_test"
-identifier_parameter="tcw_2023-12-14_test"
+identifier_preparation="gwas_2023-12-15_test_ldsc_2023-12-15"
+identifier_parameter="tcw_2023-12-15_test"
 
 # Directories.
 cd ~/paths
@@ -30,9 +30,9 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 
-path_directory_source="${path_directory_dock}/gwas_preparation_${identifier_preparation}/5_fill_dbsnp_rs_identifiers"
+path_directory_source="${path_directory_dock}/${identifier_preparation}/5_fill_dbsnp_rs_identifiers"
 #path_directory_source="${path_directory_dock}/gwas_preparation_${identifier_preparation}/7_filter_constrain_gwas_values"
-path_directory_product="${path_directory_dock}/gwas_preparation_${identifier_preparation}/8_gwas_effective_observations"
+path_directory_product="${path_directory_dock}/${identifier_preparation}/8_gwas_effective_observations"
 
 # Files.
 path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_${identifier_parameter}.tsv"

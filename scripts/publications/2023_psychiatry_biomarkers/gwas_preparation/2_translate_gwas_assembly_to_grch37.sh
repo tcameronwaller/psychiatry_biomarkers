@@ -63,16 +63,16 @@
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="tcw_2023-12-14_test"
-identifier_parameter="tcw_2023-12-14_test"
+identifier_preparation="gwas_2023-12-15_test_ldsc_2023-12-15"
+identifier_parameter="tcw_2023-12-15_test"
 
 # Directories.
 cd ~/paths
 path_directory_reference=$(<"./reference_tcw.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
-path_directory_source="${path_directory_dock}/gwas_preparation_${identifier_preparation}/1_gwas_format_standard"
-path_directory_product="${path_directory_dock}/gwas_preparation_${identifier_preparation}/2_gwas_assembly_grch37"
+path_directory_source="${path_directory_dock}/${identifier_preparation}/1_gwas_format_standard"
+path_directory_product="${path_directory_dock}/${identifier_preparation}/2_gwas_assembly_grch37"
 
 # Files.
 #path_file_chain_ncbi36_to_grch37="${path_directory_reference}/crossmap/ucsc/hg18ToHg19.over.chain.gz"
