@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 15 November 2023
-# Date, last execution: 14 December 2023
-# Date, review: 29 November 2023
+# Date, last execution: 19 December 2023
+# Date, review: 19 December 2023
 ################################################################################
 # Note
 
@@ -83,8 +83,8 @@ set -o xtrace
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="gwas_2023-12-15_test_ldsc_2023-12-15"
-identifier_parameter="tcw_2023-12-15_test"
+identifier_preparation="gwas_2023-12-19_alcohol_sex_test_ldsc_2023-12-19"
+identifier_parameter="tcw_2023-12-19_alcohol_sex_test"
 
 # Directories.
 cd ~/paths
@@ -93,8 +93,6 @@ path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 path_directory_source="${path_directory_dock}/${identifier_preparation}/3_gwas_fill_nonsense_allele_frequency"
 path_directory_product="${path_directory_dock}/${identifier_preparation}/4_filter_constrain_gwas_values"
-#path_directory_log="${path_directory_product}/log"
-path_directory_parent_temporary="${path_directory_process}/temporary_check_7"
 
 # Files.
 path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_${identifier_parameter}.tsv"
@@ -102,13 +100,12 @@ path_file_table_parameter="${path_directory_parameters}/table_gwas_translation_$
 # Scripts.
 path_directory_partner_scripts="${path_directory_process}/partner/scripts"
 path_script_check="${path_directory_partner_scripts}/gwas_clean/check_gwas_summary_values.sh"
-path_script_process="${path_directory_partner_scripts}/gwas_clean/filter_constrain_gwas_summary_values.sh"
-path_script_driver="${path_directory_partner_scripts}/gwas_clean/drive_process_over_gwas.sh"
+path_file_script_process="${path_directory_partner_scripts}/gwas_clean/filter_constrain_gwas_summary_values.sh"
+path_file_script_driver="${path_directory_partner_scripts}/gwas_clean/drive_process_over_gwas.sh"
 
 # Initialize directories.
 rm -r $path_directory_product # caution
 mkdir -p $path_directory_product
-#mkdir -p $path_directory_parent_temporary
 cd $path_directory_product
 
 ################################################################################
@@ -122,24 +119,22 @@ report="true"
 # I have had some difficulty getting the srun to work predictably.
 #  nohup srun --chdir $path_directory_batch \
 #  --partition=cpu-med --nodes=1 --ntasks-per-node=1 --time=1-00:00:00 \
-#  --pty bash -i $path_script_driver \
+#  --pty bash -i $path_file_script_driver \
 #  $path_file_table_parameter \
 #  $path_directory_source \
 #  $path_directory_product \
-#  $path_script_process \
+#  $path_file_script_process \
 #  $report \
 #  1> "${path_directory_log}/standard_output.txt" \
 #  2> "${path_directory_log}/standard_error.txt"
 
-/usr/bin/bash $path_script_driver \
+/usr/bin/bash $path_file_script_driver \
 $path_file_table_parameter \
 $path_directory_source \
 $path_directory_product \
-$path_script_process \
+$path_file_script_process \
+$path_directory_partner_scripts \
 $report
-
-# Remove temporary, intermediate files.
-rm -r $path_directory_parent_temporary
 
 
 

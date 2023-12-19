@@ -3,25 +3,19 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 14 December 2023
-# Date, last execution: 15 December 2023
-# Date, review: 13 December 2023
+# Date, last execution: 19 December 2023
+# Date, review: 19 December 2023
 ################################################################################
 # Note
 
-
-# TODO: TCW; 14 December 2023
-# Also attempt the dbSNP rsID fill for other studies, including Sakaue, and Revez...
-
-
-# This procedure needs to be parallelized...
 
 
 ################################################################################
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="gwas_2023-12-15_test_ldsc_2023-12-15"
-identifier_parameter="tcw_2023-12-15_test"
+identifier_preparation="gwas_2023-12-19_alcohol_sex_test_ldsc_2023-12-19"
+identifier_parameter="tcw_2023-12-19_alcohol_sex_test"
 
 # Directories.
 cd ~/paths
@@ -79,23 +73,23 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 studies=()
 
 studies+=("37872160_williams_2023")
-studies+=("36635386_chen_2023_cortisol") # Unnecessary. Supplement.
-studies+=("36635386_chen_2023_thyroxine_total") # Unnecessary. Supplement.
+#studies+=("36635386_chen_2023_cortisol") # Unnecessary. Supplement.
+#studies+=("36635386_chen_2023_thyroxine_total") # Unnecessary. Supplement.
 studies+=("34662886_backman_2021_albumin")
 
-studies+=("34594039_sakaue_2021_multi_hypothyroidism")
-studies+=("34594039_sakaue_2021_multi_hyperthyroidism")
-studies+=("34594039_sakaue_2021_multi_hashimoto")
-studies+=("34594039_sakaue_2021_multi_graves")
+#studies+=("34594039_sakaue_2021_multi_hypothyroidism")
+#studies+=("34594039_sakaue_2021_multi_hyperthyroidism")
+#studies+=("34594039_sakaue_2021_multi_hashimoto")
+#studies+=("34594039_sakaue_2021_multi_graves")
 studies+=("34594039_sakaue_2021_eur_hypothyroidism")
 studies+=("34594039_sakaue_2021_eur_hyperthyroidism")
 studies+=("34594039_sakaue_2021_eur_hashimoto")
 studies+=("34594039_sakaue_2021_eur_graves")
-studies+=("34594039_sakaue_2021_eur_rheumatoid_arthritis")
-studies+=("34594039_sakaue_2021_gc_hypothyroidism")
-studies+=("34594039_sakaue_2021_gc_hyperthyroidism")
-studies+=("34594039_sakaue_2021_gc_hashimoto")
-studies+=("34594039_sakaue_2021_gc_graves")
+#studies+=("34594039_sakaue_2021_eur_rheumatoid_arthritis")
+#studies+=("34594039_sakaue_2021_gc_hypothyroidism")
+#studies+=("34594039_sakaue_2021_gc_hyperthyroidism")
+#studies+=("34594039_sakaue_2021_gc_hashimoto")
+#studies+=("34594039_sakaue_2021_gc_graves")
 
 studies+=("34226706_barton_2021_albumin")
 studies+=("34017140_mbatchou_2021_albumin")
@@ -105,8 +99,8 @@ studies+=("33587031_sinnott-armstrong_2021_testosterone_primary_male")
 studies+=("33587031_sinnott-armstrong_2021_lutropin")
 
 studies+=("32769997_zhou_2020_thyroid_hormone")
-studies+=("32581359_saevarsdottir_2020_thyroid_autoimmunity") # Unnecessary. Supplement.
-studies+=("32059762_manousaki_2020_vitamin_d")
+#studies+=("32581359_saevarsdottir_2020_thyroid_autoimmunity") # Unnecessary. Supplement.
+#studies+=("32059762_manousaki_2020_vitamin_d")
 
 studies+=("30367059_teumer_2018_thyroid_hormone_all")
 studies+=("30367059_teumer_2018_thyroid_hormone_female")
@@ -117,13 +111,13 @@ studies+=("30367059_teumer_2018_thyroxine_free_male")
 studies+=("30367059_teumer_2018_hypothyroidism")
 studies+=("30367059_teumer_2018_hyperthyroidism")
 
-studies+=("29875488_sun_2018_complement_c4")
-studies+=("29875488_sun_2018_follitropin")
-studies+=("29875488_sun_2018_follistatin")
-studies+=("29875488_sun_2018_lutropin")
-studies+=("29875488_sun_2018_lutropin_beta")
-studies+=("29875488_sun_2018_parathyrin")
-studies+=("29875488_sun_2018_thyroid_peroxidase")
+#studies+=("29875488_sun_2018_complement_c4")
+#studies+=("29875488_sun_2018_follitropin")
+#studies+=("29875488_sun_2018_follistatin")
+#studies+=("29875488_sun_2018_lutropin")
+#studies+=("29875488_sun_2018_lutropin_beta")
+#studies+=("29875488_sun_2018_parathyrin")
+#studies+=("29875488_sun_2018_thyroid_peroxidase")
 
 
 ##########
