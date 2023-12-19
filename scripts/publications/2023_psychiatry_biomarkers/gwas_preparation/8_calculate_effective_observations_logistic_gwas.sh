@@ -154,25 +154,50 @@ fi
 # Replace GWAS summary statistics from study "30482948_walters_2018" so as to
 # avoid redundant calculation of effective observations.
 
-rm "${path_directory_product}/30482948_walters_2018_eur_all.txt.gz"
-cp "${path_directory_source}/30482948_walters_2018_eur_all.txt.gz" \
-"${path_directory_product}/30482948_walters_2018_eur_all.txt.gz"
+# Alternate 1 has filled total observations and no calculation of effective
+# sample size.
 
-rm "${path_directory_product}/30482948_walters_2018_eur_unrel_meta.txt.gz"
-cp "${path_directory_source}/30482948_walters_2018_eur_unrel_meta.txt.gz" \
-"${path_directory_product}/30482948_walters_2018_eur_unrel_meta.txt.gz"
+# Alternate 2 preserves the original effective sample size.
 
-rm "${path_directory_product}/30482948_walters_2018_eur_unrel_genotype.txt.gz"
-cp "${path_directory_source}/30482948_walters_2018_eur_unrel_genotype.txt.gz" \
-"${path_directory_product}/30482948_walters_2018_eur_unrel_genotype.txt.gz"
+rm "${path_directory_product}/30482948_walters_2018_eur_all_alt_1.txt.gz"
+cp "${path_directory_source}/30482948_walters_2018_eur_all_alt_1.txt.gz" \
+"${path_directory_product}/30482948_walters_2018_eur_all_alt_1.txt.gz"
 
-rm "${path_directory_product}/30482948_walters_2018_female.txt.gz"
-cp "${path_directory_source}/30482948_walters_2018_female.txt.gz" \
-"${path_directory_product}/30482948_walters_2018_female.txt.gz"
+rm "${path_directory_product}/30482948_walters_2018_eur_all_alt_2.txt.gz"
+cp "${path_directory_source}/30482948_walters_2018_eur_all_alt_2.txt.gz" \
+"${path_directory_product}/30482948_walters_2018_eur_all_alt_2.txt.gz"
 
-rm "${path_directory_product}/30482948_walters_2018_male.txt.gz"
-cp "${path_directory_source}/30482948_walters_2018_male.txt.gz" \
-"${path_directory_product}/30482948_walters_2018_male.txt.gz"
+rm "${path_directory_product}/30482948_walters_2018_eur_unrel_meta_alt_1.txt.gz"
+cp "${path_directory_source}/30482948_walters_2018_eur_unrel_meta_alt_1.txt.gz" \
+"${path_directory_product}/30482948_walters_2018_eur_unrel_meta_alt_1.txt.gz"
+
+rm "${path_directory_product}/30482948_walters_2018_eur_unrel_meta_alt_2.txt.gz"
+cp "${path_directory_source}/30482948_walters_2018_eur_unrel_meta_alt_2.txt.gz" \
+"${path_directory_product}/30482948_walters_2018_eur_unrel_meta_alt_2.txt.gz"
+
+rm "${path_directory_product}/30482948_walters_2018_eur_unrel_genotype_alt_1.txt.gz"
+cp "${path_directory_source}/30482948_walters_2018_eur_unrel_genotype_alt_1.txt.gz" \
+"${path_directory_product}/30482948_walters_2018_eur_unrel_genotype_alt_1.txt.gz"
+
+rm "${path_directory_product}/30482948_walters_2018_eur_unrel_genotype_alt_2.txt.gz"
+cp "${path_directory_source}/30482948_walters_2018_eur_unrel_genotype_alt_2.txt.gz" \
+"${path_directory_product}/30482948_walters_2018_eur_unrel_genotype_alt_2.txt.gz"
+
+rm "${path_directory_product}/30482948_walters_2018_female_alt_1.txt.gz"
+cp "${path_directory_source}/30482948_walters_2018_female_alt_1.txt.gz" \
+"${path_directory_product}/30482948_walters_2018_female_alt_1.txt.gz"
+
+rm "${path_directory_product}/30482948_walters_2018_female_alt_2.txt.gz"
+cp "${path_directory_source}/30482948_walters_2018_female_alt_2.txt.gz" \
+"${path_directory_product}/30482948_walters_2018_female_alt_2.txt.gz"
+
+rm "${path_directory_product}/30482948_walters_2018_male_alt_1.txt.gz"
+cp "${path_directory_source}/30482948_walters_2018_male_alt_1.txt.gz" \
+"${path_directory_product}/30482948_walters_2018_male_alt_1.txt.gz"
+
+rm "${path_directory_product}/30482948_walters_2018_male_alt_2.txt.gz"
+cp "${path_directory_source}/30482948_walters_2018_male_alt_2.txt.gz" \
+"${path_directory_product}/30482948_walters_2018_male_alt_2.txt.gz"
 
 
 
