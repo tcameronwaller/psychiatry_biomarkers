@@ -8,7 +8,9 @@
 ################################################################################
 # Note
 
-
+# Note: TCW; 19 December 2023
+# I bypassed the dbSNP rsID fill procedure entirely because the process was
+# failing on the computational cluster due to running out of memory.
 
 ################################################################################
 # Organize paths.

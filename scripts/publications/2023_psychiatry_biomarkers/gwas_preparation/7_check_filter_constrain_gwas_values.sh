@@ -68,8 +68,8 @@ path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 
 path_directory_source_rescue="${path_directory_dock}/gwas_preparation_${identifier_preparation}/5_fill_dbsnp_rs_identifiers"
-path_directory_source="${path_directory_dock}/gwas_preparation_${identifier_preparation}/6_gwas_clean_gwas2vcf"
-path_directory_product="${path_directory_dock}/gwas_preparation_${identifier_preparation}/7_filter_constrain_gwas_values"
+path_directory_source="${path_directory_dock}/${identifier_preparation}/6_gwas_clean_gwas2vcf"
+path_directory_product="${path_directory_dock}/${identifier_preparation}/7_filter_constrain_gwas_values"
 path_directory_parent_temporary="${path_directory_process}/temporary_check_9"
 
 # Files.

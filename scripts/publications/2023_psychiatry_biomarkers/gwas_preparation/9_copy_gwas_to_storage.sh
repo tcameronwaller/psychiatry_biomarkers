@@ -26,8 +26,8 @@ path_directory_dock="${path_directory_process}/dock"
 path_directory_parent_source=$path_directory_dock
 path_directory_parent_product="${path_directory_gwas_summaries}/organization"
 
-path_directory_source="${path_directory_dock}/gwas_preparation_${identifier_preparation}"
-path_directory_product="${path_directory_gwas_summaries}/organization/gwas_preparation_${identifier_preparation}"
+path_directory_source="${path_directory_dock}/${identifier_preparation}"
+path_directory_product="${path_directory_gwas_summaries}/organization/${identifier_preparation}"
 
 # Initialize directories.
 rm -r $path_directory_product # caution
