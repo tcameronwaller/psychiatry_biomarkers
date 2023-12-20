@@ -203,7 +203,7 @@ sleep 5s
 # Submit to Slurm Scheduler.
 # Indices in array of batch jobs start at zero.
 
-if true; then
+if false; then
   sbatch --array 0-${index_array_maximum}:1 --chdir $path_directory_batch \
   $path_file_script_slurm_job \
   $path_file_batch_instances \
