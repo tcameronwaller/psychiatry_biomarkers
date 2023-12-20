@@ -13,6 +13,10 @@
 # script "6_call_submit_gwas_ldsc_genetic_correlation.sh" in the directory
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
+# TODO: TCW; 20 December 2023
+# I temporarily deactivated the batch submission to Slurm.
+
+
 # SLURM batch job: 2622900, 2622901, 2622902 (group: "main"; instances: 8,316; date: 6 December 2023)
 
 # SLURM batch job: 2448364, 2448365, 2448366 (group: "prior_1"; instances: 8,316; date: 30 November 2023)
@@ -22,12 +26,17 @@
 ################################################################################
 # Organize paths.
 
+# Identifiers or designators of parameter version, preparation batch, and
+# analysis batch.
+identifier_preparation="gwas_2023-12-19_alcohol_sex_test_ldsc_2023-12-19"
+identifier_parameter="tcw_2023-12-19_alcohol_sex_test"
+
 # Directories.
 cd ~/paths
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 
-path_directory_group_parent="${path_directory_dock}/gwas_2023-11-26_ldsc_2023-12-04"
+path_directory_group_parent="${path_directory_dock}/${identifier_analysis}"
 path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
 path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
 path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
@@ -128,14 +137,19 @@ primaries+=("30643251_liu_2019_tobacco_cessation_all")
 primaries+=("30643251_liu_2019_tobacco_cessation_no_ukb")
 primaries+=("30482948_walters_2018_eur_all")
 primaries+=("30482948_walters_2018_eur_all_alt_1")
+primaries+=("30482948_walters_2018_eur_all_alt_2")
 primaries+=("30482948_walters_2018_eur_unrel_meta")
 primaries+=("30482948_walters_2018_eur_unrel_meta_alt_1")
+primaries+=("30482948_walters_2018_eur_unrel_meta_alt_2")
 primaries+=("30482948_walters_2018_eur_unrel_genotype")
 primaries+=("30482948_walters_2018_eur_unrel_genotype_alt_1")
+primaries+=("30482948_walters_2018_eur_unrel_genotype_alt_2")
 primaries+=("30482948_walters_2018_female")
 primaries+=("30482948_walters_2018_female_alt_1")
+primaries+=("30482948_walters_2018_female_alt_2")
 primaries+=("30482948_walters_2018_male")
 primaries+=("30482948_walters_2018_male_alt_1")
+primaries+=("30482948_walters_2018_male_alt_2")
 primaries+=("30478444_demontis_2019_adhd")
 primaries+=("29700475_wray_2018_pgc_ukb")
 primaries+=("29700475_wray_2018_pgc")
@@ -391,7 +405,7 @@ fi
 
 ##########
 # Batch parallelization.
-if true; then
+if false; then
   # Organize batch job instances.
   for comparison in "${comparisons[@]}"; do
     # Define parameters in array instance for batch job.

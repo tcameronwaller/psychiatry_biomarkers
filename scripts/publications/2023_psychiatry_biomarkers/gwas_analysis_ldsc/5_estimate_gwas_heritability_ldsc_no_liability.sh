@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 8 September 2023
-# Date, last execution: 14 December 2023
-# Date, review: 5 December 2023
+# Date, last execution: 20 December 2023
+# Date, review: 20 December 2023
 ################################################################################
 # Note
 
@@ -17,8 +17,8 @@
 
 # Identifiers or designators of parameter version, preparation batch, and
 # analysis batch.
-identifier_analysis="gwas_2023-12-14_test_ldsc_2023-12-14"
-identifier_parameter="tcw_2023-12-14_test"
+identifier_preparation="gwas_2023-12-19_alcohol_sex_test_ldsc_2023-12-19"
+identifier_parameter="tcw_2023-12-19_alcohol_sex_test"
 
 # Directories.
 cd ~/paths
