@@ -26,7 +26,7 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
 
 path_directory_source="${path_directory_dock}/${identifier_preparation}/4_filter_constrain_gwas_values"
-path_directory_product="${path_directory_dock}/${identifier_preparation}/5_fill_dbsnp_rs_identifiers"
+path_directory_product="${path_directory_dock}/${identifier_preparation}/5_fill_dbsnp_rs_identifiers_test"
 path_directory_batch="${path_directory_product}/batch"
 
 # Files.
@@ -100,12 +100,12 @@ studies+=("34017140_mbatchou_2021_albumin")
 #studies+=("33587031_sinnott-armstrong_2021_testosterone_primary_male")
 #studies+=("33587031_sinnott-armstrong_2021_lutropin")
 
-studies+=("32769997_zhou_2020_thyroid_hormone")
+#studies+=("32769997_zhou_2020_thyroid_hormone")
 #studies+=("32581359_saevarsdottir_2020_thyroid_autoimmunity") # Unnecessary. Supplement.
 #studies+=("32059762_manousaki_2020_vitamin_d")
 
 #studies+=("30367059_teumer_2018_thyroid_hormone_all")
-studies+=("30367059_teumer_2018_thyroid_hormone_female")
+#studies+=("30367059_teumer_2018_thyroid_hormone_female")
 #studies+=("30367059_teumer_2018_thyroid_hormone_male")
 #studies+=("30367059_teumer_2018_thyroxine_free_all")
 #studies+=("30367059_teumer_2018_thyroxine_free_female")
@@ -205,7 +205,7 @@ sleep 5s
 # Submit to Slurm Scheduler.
 # Indices in array of batch jobs start at zero.
 
-if false; then
+if true; then
   sbatch --array 0-${index_array_maximum}:1 --chdir $path_directory_batch \
   $path_file_script_slurm_job \
   $path_file_batch_instances \
