@@ -28,7 +28,7 @@
 
 # Identifiers or designators of parameter version, preparation batch, and
 # analysis batch.
-identifier_preparation="gwas_2023-12-19_alcohol_sex_test_ldsc_2023-12-19"
+identifier_analysis="gwas_2023-12-19_alcohol_sex_test_ldsc_2023-12-19"
 identifier_parameter="tcw_2023-12-19_alcohol_sex_test"
 
 # Directories.
