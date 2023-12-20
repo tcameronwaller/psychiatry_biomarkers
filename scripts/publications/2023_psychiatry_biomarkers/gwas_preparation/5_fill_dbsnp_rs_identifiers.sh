@@ -26,7 +26,7 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock" # parent directory for procedural reads and writes
 
 path_directory_source="${path_directory_dock}/${identifier_preparation}/4_filter_constrain_gwas_values"
-path_directory_product="${path_directory_dock}/${identifier_preparation}/5_fill_dbsnp_rs_identifiers_test"
+path_directory_product="${path_directory_dock}/${identifier_preparation}/5_fill_dbsnp_rs_identifiers_test_split"
 path_directory_batch="${path_directory_product}/batch"
 
 # Files.
