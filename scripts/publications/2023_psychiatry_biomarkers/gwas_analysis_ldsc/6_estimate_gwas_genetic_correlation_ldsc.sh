@@ -421,7 +421,7 @@ fi
 
 ##########
 # Batch parallelization.
-if false; then
+if true; then
   # Organize batch job instances.
   for comparison in "${comparisons[@]}"; do
     # Define parameters in array instance for batch job.
