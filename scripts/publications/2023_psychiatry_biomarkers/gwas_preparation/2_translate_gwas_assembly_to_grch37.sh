@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 24 May 2023
-# Date, last execution: 19 December 2023
-# Date, review: 19 December 2023
+# Date, last execution: 22 December 2023
+# Date, review: 22 December 2023
 ################################################################################
 # Note
 
@@ -63,8 +63,8 @@
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="gwas_2023-12-19_alcohol_sex_test_ldsc_2023-12-19"
-identifier_parameter="tcw_2023-12-19_alcohol_sex_test"
+identifier_preparation="gwas_2023-12-22_dbsnp_rsid"
+identifier_parameter="tcw_2023-12-22_dbsnp_rsid"
 
 # Directories.
 cd ~/paths
@@ -113,9 +113,7 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 
 ##########
 # 36635386_chen_2023 (GRCh38 to GRCh37)
-
-if false; then
-
+if true; then
   # UCSC: 15,428,167 lines to 15,396,790 lines (TCW; 24 May 2023)
   # Ensembl: 15,428,167 lines to 15,384,987 lines (TCW; 26 September 2023)
   /usr/bin/bash $path_script_map_assembly \
@@ -132,31 +130,28 @@ if false; then
   $path_file_chain_grch38_to_grch37 \
   $threads \
   $report
-
 fi
 
 ##########
 # 36477530_saunders_2022 (GRCh38 to GRCh37)
-
-# UCSC:
-# Ensembl: 13,268,541 lines to 13,254,829 lines (TCW; 31 August 2023)
-/usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/36477530_saunders_2022_alcohol_all.txt.gz" \
-"${path_directory_product}/36477530_saunders_2022_alcohol_all.txt.gz" \
-$path_file_chain_grch38_to_grch37 \
-$threads \
-$report
-
-# UCSC:
-# Ensembl: 13,422,054 lines to 13,408,726 lines (TCW; 31 August 2023)
-/usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/36477530_saunders_2022_alcohol_no_ukb.txt.gz" \
-"${path_directory_product}/36477530_saunders_2022_alcohol_no_ukb.txt.gz" \
-$path_file_chain_grch38_to_grch37 \
-$threads \
-$report
-
 if false; then
+  # UCSC:
+  # Ensembl: 13,268,541 lines to 13,254,829 lines (TCW; 31 August 2023)
+  /usr/bin/bash $path_script_map_assembly \
+  "${path_directory_source}/36477530_saunders_2022_alcohol_all.txt.gz" \
+  "${path_directory_product}/36477530_saunders_2022_alcohol_all.txt.gz" \
+  $path_file_chain_grch38_to_grch37 \
+  $threads \
+  $report
+
+  # UCSC:
+  # Ensembl: 13,422,054 lines to 13,408,726 lines (TCW; 31 August 2023)
+  /usr/bin/bash $path_script_map_assembly \
+  "${path_directory_source}/36477530_saunders_2022_alcohol_no_ukb.txt.gz" \
+  "${path_directory_product}/36477530_saunders_2022_alcohol_no_ukb.txt.gz" \
+  $path_file_chain_grch38_to_grch37 \
+  $threads \
+  $report
 
   # UCSC:
   # Ensembl: 13,763,313 lines to 13,712,881 lines (TCW; 31 August 2023)
@@ -229,38 +224,36 @@ if false; then
   $path_file_chain_grch38_to_grch37 \
   $threads \
   $report
-
 fi
 
 ##########
 # 34662886_backman_2021 (GRCh38 to GRCh37)
-
-# Ensembl: 502,524 lines to 499,614 lines (TCW; 26 September 2023)
-/usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/34662886_backman_2021_albumin.txt.gz" \
-"${path_directory_product}/34662886_backman_2021_albumin.txt.gz" \
-$path_file_chain_grch38_to_grch37 \
-$threads \
-$report
-
+if true; then
+  # Ensembl: 502,524 lines to 499,614 lines (TCW; 26 September 2023)
+  /usr/bin/bash $path_script_map_assembly \
+  "${path_directory_source}/34662886_backman_2021_albumin.txt.gz" \
+  "${path_directory_product}/34662886_backman_2021_albumin.txt.gz" \
+  $path_file_chain_grch38_to_grch37 \
+  $threads \
+  $report
+fi
 
 
 ##########
 # 34017140_mbatchou_2021 (GRCh38 to GRCh37)
+if true; then
+  # Ensembl: 11,367,923 lines to 11,346,500 (TCW; 26 September 2023)
+  /usr/bin/bash $path_script_map_assembly \
+  "${path_directory_source}/34017140_mbatchou_2021_albumin.txt.gz" \
+  "${path_directory_product}/34017140_mbatchou_2021_albumin.txt.gz" \
+  $path_file_chain_grch38_to_grch37 \
+  $threads \
+  $report
+fi
 
-# Ensembl: 11,367,923 lines to 11,346,500 (TCW; 26 September 2023)
-/usr/bin/bash $path_script_map_assembly \
-"${path_directory_source}/34017140_mbatchou_2021_albumin.txt.gz" \
-"${path_directory_product}/34017140_mbatchou_2021_albumin.txt.gz" \
-$path_file_chain_grch38_to_grch37 \
-$threads \
-$report
-
+##########
+# 32747698_matoba_2020
 if false; then
-
-  ##########
-  # 32747698_matoba_2020
-
   # Ensembl: _____ lines to ____ lines (TCW; __ November 2023)
   /usr/bin/bash $path_script_map_assembly \
   "${path_directory_source}/32747698_matoba_2020_europe.txt.gz" \
@@ -268,11 +261,11 @@ if false; then
   $path_file_chain_grch38_to_grch37 \
   $threads \
   $report
+fi
 
-
-  ##########
-  # 32581359_saevarsdottir_2020 (GRCh38 to GRCh37)
-
+##########
+# 32581359_saevarsdottir_2020 (GRCh38 to GRCh37)
+if true; then
   # Ensembl: 44,690,177 lines to 43,529,207 (TCW; 26 September 2023)
   /usr/bin/bash $path_script_map_assembly \
   "${path_directory_source}/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz" \
@@ -280,12 +273,12 @@ if false; then
   $path_file_chain_grch38_to_grch37 \
   $threads \
   $report
+fi
 
 
-
-  ##########
-  # 24586183_medici_2014 (NCBI36-hg18 to GRCh37)
-
+##########
+# 24586183_medici_2014 (NCBI36-hg18 to GRCh37)
+if false; then
   # UCSC: 2,425,175 lines to 2,424,714 lines (TCW; 24 May 2023)
   # Ensembl: 2,425,175 lines to 2,424,987 lines (TCW; 26 September 2023)
   /usr/bin/bash $path_script_map_assembly \
@@ -302,7 +295,6 @@ if false; then
   $path_file_chain_ncbi36_to_grch37 \
   $threads \
   $report
-
 fi
 
 #

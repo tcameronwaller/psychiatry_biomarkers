@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 15 November 2023
-# Date, last execution: 19 December 2023
-# Date, review: 19 December 2023
+# Date, last execution: 22 December 2023
+# Date, review: 22 December 2023
 ################################################################################
 # Note
 
@@ -83,8 +83,8 @@ set -o xtrace
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="gwas_2023-12-19_alcohol_sex_test_ldsc_2023-12-19"
-identifier_parameter="tcw_2023-12-19_alcohol_sex_test"
+identifier_preparation="gwas_2023-12-22_dbsnp_rsid"
+identifier_parameter="tcw_2023-12-22_dbsnp_rsid"
 
 # Directories.
 cd ~/paths
