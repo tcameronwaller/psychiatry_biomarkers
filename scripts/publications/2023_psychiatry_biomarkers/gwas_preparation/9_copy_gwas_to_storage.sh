@@ -3,19 +3,19 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 3 October 2023
-# Date, last execution: 20 November 2023
-# Date, review: 16 November 2023
+# Date, last execution: __ December 2023
+# Date, review: 30 December 2023
 ################################################################################
 # Note
 
-# count of files: 78
+# count of files: __
 
 ################################################################################
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="tcw_2023-12-14_test"
-identifier_parameter="tcw_2023-12-14_test"
+identifier_preparation="gwas_2023-12-30"
+identifier_parameter="tcw_2023-12-30_dbsnp_rsid"
 
 # Directories.
 cd ~/paths

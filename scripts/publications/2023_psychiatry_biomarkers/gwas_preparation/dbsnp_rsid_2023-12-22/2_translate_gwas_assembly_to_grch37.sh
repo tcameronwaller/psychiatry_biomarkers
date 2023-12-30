@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 24 May 2023
-# Date, last execution: 30 December 2023
-# Date, review: 30 December 2023
+# Date, last execution: 22 December 2023
+# Date, review: 22 December 2023
 ################################################################################
 # Note
 
@@ -63,8 +63,8 @@
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="gwas_2023-12-30"
-identifier_parameter="tcw_2023-12-30"
+identifier_preparation="gwas_2023-12-22_dbsnp_rsid"
+identifier_parameter="tcw_2023-12-22_dbsnp_rsid"
 
 # Directories.
 cd ~/paths
@@ -134,7 +134,7 @@ fi
 
 ##########
 # 36477530_saunders_2022 (GRCh38 to GRCh37)
-if true; then
+if false; then
   # UCSC:
   # Ensembl: 13,268,541 lines to 13,254,829 lines (TCW; 31 August 2023)
   /usr/bin/bash $path_script_map_assembly \
@@ -253,7 +253,7 @@ fi
 
 ##########
 # 32747698_matoba_2020
-if true; then
+if false; then
   # Ensembl: _____ lines to ____ lines (TCW; __ November 2023)
   /usr/bin/bash $path_script_map_assembly \
   "${path_directory_source}/32747698_matoba_2020_europe.txt.gz" \
@@ -278,7 +278,7 @@ fi
 
 ##########
 # 24586183_medici_2014 (NCBI36-hg18 to GRCh37)
-if true; then
+if false; then
   # UCSC: 2,425,175 lines to 2,424,714 lines (TCW; 24 May 2023)
   # Ensembl: 2,425,175 lines to 2,424,987 lines (TCW; 26 September 2023)
   /usr/bin/bash $path_script_map_assembly \

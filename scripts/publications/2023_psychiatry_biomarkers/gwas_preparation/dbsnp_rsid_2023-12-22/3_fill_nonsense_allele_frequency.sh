@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 14 November 2023
-# Date, last execution: 30 December 2023
-# Date, review: 30 December 2023
+# Date, last execution: 22 December 2023
+# Date, review: 22 December 2023
 ################################################################################
 # Note
 
@@ -23,8 +23,8 @@
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="gwas_2023-12-30"
-identifier_parameter="tcw_2023-12-30"
+identifier_preparation="gwas_2023-12-22_dbsnp_rsid"
+identifier_parameter="tcw_2023-12-22_dbsnp_rsid"
 
 # Directories.
 cd ~/paths
