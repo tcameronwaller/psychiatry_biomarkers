@@ -54,6 +54,7 @@ cp -r $path_directory_source $path_directory_product
 cd $path_directory_product
 pwd
 du -hs ./*
+ls -l
 
 echo "----------"
 echo "Count of files in batch:"
