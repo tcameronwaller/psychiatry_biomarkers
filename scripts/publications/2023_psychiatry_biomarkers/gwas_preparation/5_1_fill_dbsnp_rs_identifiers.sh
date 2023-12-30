@@ -8,9 +8,28 @@
 ################################################################################
 # Note
 
-# Note: TCW; 19 December 2023
-# I bypassed the dbSNP rsID fill procedure entirely because the process was
-# failing on the computational cluster due to running out of memory.
+# Note: TCW; 23 December 2023
+# For the 40 studies below I submitted batch job array 3178183 to the
+# computational grid cluster via the Slurm Workload Manager on 22 December 2023.
+# On 23 December 2023, the batch job array completed successfully (exit code 0),
+# using up to 277.26 Gigabytes of memory for each job.
+
+# Note: TCW; 29 December 2023
+# For example, here are the results of the "fill_dbsnp_rsid.sh" script procedure
+# for the study "37872160_williams_2023" as recorded in the file below.
+# "/.../gwas_2023-12-22_dbsnp_rsid/5_fill_dbsnp_rs_identifiers/batch/..."
+# ".../fill_rsid_3178183.mforgehi2.3178207.0.stdout"
+# Count of lines in original source file: 57,523,911
+# Count of lines in novel product file: 57,523,911
+# Notice that the count of lines was the same since parameter "strict" was set
+# to "false".
+# With parameter "strict" set to false, the procedure ought to be loss-less,
+# preserving all information from the original GWAS summary statistics.
+# Count of lines that matched and merged with dbSNP: 36,107,225
+# Percentage of lines that matched and merged with dbSNP: 62.769%
+
+# Note:
+
 
 ################################################################################
 # Organize paths.
