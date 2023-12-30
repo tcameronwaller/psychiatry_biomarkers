@@ -16,7 +16,7 @@
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="gwas_2023-12-30"
+identifier_preparation="gwas_preparation_2023-12-30"
 identifier_parameter="tcw_2023-12-30"
 identifier_preparation_dbsnp_rsid="gwas_2023-12-22_dbsnp_rsid"
 identifier_parameter_dbsnp_rsid="tcw_2023-12-30_dbsnp_rsid"

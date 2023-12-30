@@ -63,7 +63,7 @@
 # Organize paths.
 
 # Identifiers or designators of parameter version and preparation batch.
-identifier_preparation="gwas_2023-12-30"
+identifier_preparation="gwas_preparation_2023-12-30"
 identifier_parameter="tcw_2023-12-30"
 
 # Directories.
