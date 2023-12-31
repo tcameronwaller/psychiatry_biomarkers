@@ -8,7 +8,7 @@
 ################################################################################
 # Note
 
-# count of files: 40 (TCW; 22 December 2023)
+# count of files: 204 (TCW; 30 December 2023)
 
 # After format translation (and maybe before) the following study was an outlier
 # for its small size in terms of disk memory usage.

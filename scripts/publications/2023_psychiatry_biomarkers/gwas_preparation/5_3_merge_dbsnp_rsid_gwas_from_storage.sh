@@ -30,7 +30,7 @@ path_directory_gwas_summaries=$(<"./gwas_summaries_waller_metabolism.txt")
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 
-path_directory_source_dbsnp_rsid="${path_directory_gwas_summaries}/organization/${identifier_preparation_dbsnp_rsid}"
+path_directory_source_dbsnp_rsid="${path_directory_gwas_summaries}/organization/${identifier_preparation_dbsnp_rsid}/5_fill_dbsnp_rs_identifiers"
 path_directory_source="${path_directory_dock}/${identifier_preparation}/4_filter_constrain_gwas_values"
 path_directory_product="${path_directory_dock}/${identifier_preparation}/5_fill_dbsnp_rs_identifiers"
 path_directory_product_temporary="${path_directory_product}/temporary_dbsnp_rsid_raw"
