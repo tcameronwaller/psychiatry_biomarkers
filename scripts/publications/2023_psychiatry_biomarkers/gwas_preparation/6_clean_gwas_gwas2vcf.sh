@@ -3,12 +3,12 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 23 December 2022
-# Date, last execution: __ December 2023
+# Date, last execution: 30 December 2023
 # Date, review: 30 December 2023
 ################################################################################
 # Note
 
-# SLURM batch job: 2420655 (190 instances; 29 November 2023)
+# SLURM batch job: 3820654 (244 instances; 30 December 2023)
 
 ################################################################################
 
