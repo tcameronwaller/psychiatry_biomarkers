@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 23 Decemboer 2022
-# Date, last execution: 20 December 2023
-# Date, review: 20 December 2023
+# Date, last execution: 8 January 2024
+# Date, review: 8 January 2023
 ################################################################################
 # Note
 
@@ -15,8 +15,8 @@
 
 # Identifiers or designators of parameter version, preparation batch, and
 # analysis batch.
-identifier_analysis="gwas_2023-12-19_alcohol_sex_test_ldsc_2023-12-19"
-identifier_parameter="tcw_2023-12-19_alcohol_sex_test"
+identifier_analysis="gwas_2023-12-30_ldsc_2024-01-08"
+identifier_parameter="tcw_2023-12-30_dbsnp_rsid"
 
 # Directories.
 cd ~/paths
@@ -24,8 +24,7 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 
 path_directory_group_parent="${path_directory_dock}/${identifier_analysis}"
-#path_directory_source="${path_directory_group_parent}/1_gwas_summaries_source"
-path_directory_source="${path_directory_group_parent}/8_gwas_effective_observations"
+path_directory_source="${path_directory_group_parent}/1_gwas_summaries_source"
 path_directory_product="${path_directory_group_parent}/3_gwas_format_ldsc"
 
 # Files.
