@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 2 October 2023
-# Date, last execution: __ December 2023
-# Date, review: 30 December 2023
+# Date, last execution: 8 January 2024
+# Date, review: 8 January 2024
 ################################################################################
 # Note
 
@@ -67,7 +67,7 @@ path_directory_process=$(<"./process_psychiatric_metabolism.txt")
 path_directory_dock="${path_directory_process}/dock"
 path_directory_parameters="${path_directory_dock}/parameters/psychiatric_metabolism"
 
-path_directory_source_rescue="${path_directory_dock}/gwas_preparation_${identifier_preparation}/5_fill_dbsnp_rs_identifiers"
+path_directory_source_rescue="${path_directory_dock}/${identifier_preparation}/5_fill_dbsnp_rs_identifiers"
 path_directory_source="${path_directory_dock}/${identifier_preparation}/6_gwas_clean_gwas2vcf"
 path_directory_product="${path_directory_dock}/${identifier_preparation}/7_filter_constrain_gwas_values"
 path_directory_parent_temporary="${path_directory_process}/temporary_check_9"
@@ -88,6 +88,7 @@ cd $path_directory_product
 # Organize parameters.
 
 report="true"
+set -x
 
 ################################################################################
 # Execute procedure.
@@ -97,8 +98,8 @@ report="true"
 ##########
 # Check sets of GWAS summary statistics to describe potential problems.
 
-# $ ls ./*.txt.gz | wc -l
-# $ du -hs ./*.txt.gz
+ls $path_directory_source/*.txt.gz | wc -l # 244 (TCW; 8 January 2024)
+du -hs $path_directory_source/*.txt.gz
 
 # records that do not pass checks: 1 of 21,795,381 (header line)
 #/usr/bin/bash $path_script_check \
@@ -117,24 +118,32 @@ cp $path_directory_source/*.txt.gz $path_directory_product
 ##########
 # Remove files of GWAS summary statistics that failed GWAS2VCF procedure.
 
-#rm $path_directory_product/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz
-#rm $path_directory_product/32242144_revez_2020_vitamin_d.txt.gz
-#rm $path_directory_product/32099098_polimanti_2020_eur_opioid_dep_exposed.txt.gz
-#rm $path_directory_product/32099098_polimanti_2020_eur_opioid_dep_unexposed.txt.gz
-#rm $path_directory_product/32099098_polimanti_2020_eur_opioid_exposure.txt.gz
-#rm $path_directory_product/30718901_howard_2019_pgc_ukb.txt.gz
+rm $path_directory_product/37872160_williams_2023.txt.gz
+rm $path_directory_product/37872160_williams_2023_dbsnp_rsid.txt.gz
+rm $path_directory_product/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz
+rm $path_directory_product/32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid.txt.gz
+rm $path_directory_product/32242144_revez_2020_vitamin_d.txt.gz
+rm $path_directory_product/32099098_polimanti_2020_eur_opioid_dep_exposed.txt.gz
+rm $path_directory_product/32099098_polimanti_2020_eur_opioid_dep_unexposed.txt.gz
+rm $path_directory_product/32099098_polimanti_2020_eur_opioid_exposure.txt.gz
+rm $path_directory_product/30718901_howard_2019_pgc_ukb.txt.gz
 
 ##########
 # Copy GWAS summary statistics from before GWAS2VCF where appropriate.
 # Some studies will be useful for analysis in LDSC even if they lack sufficient
 # information to pass filters in GWAS2VCF.
 
-#cp $path_directory_source_rescue/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz $path_directory_product
-#cp $path_directory_source_rescue/32242144_revez_2020_vitamin_d.txt.gz $path_directory_product
-#cp $path_directory_source_rescue/32099098_polimanti_2020_eur_opioid_dep_exposed.txt.gz $path_directory_product
-#cp $path_directory_source_rescue/32099098_polimanti_2020_eur_opioid_dep_unexposed.txt.gz $path_directory_product
-#cp $path_directory_source_rescue/32099098_polimanti_2020_eur_opioid_exposure.txt.gz $path_directory_product
-#cp $path_directory_source_rescue/30718901_howard_2019_pgc_ukb.txt.gz $path_directory_product
+cp $path_directory_source_rescue/37872160_williams_2023.txt.gz $path_directory_product
+cp $path_directory_source_rescue/37872160_williams_2023_dbsnp_rsid.txt.gz $path_directory_product
+cp $path_directory_source_rescue/32581359_saevarsdottir_2020_thyroid_autoimmunity.txt.gz $path_directory_product
+cp $path_directory_source_rescue/32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid.txt.gz $path_directory_product
+cp $path_directory_source_rescue/32242144_revez_2020_vitamin_d.txt.gz $path_directory_product
+cp $path_directory_source_rescue/32099098_polimanti_2020_eur_opioid_dep_exposed.txt.gz $path_directory_product
+cp $path_directory_source_rescue/32099098_polimanti_2020_eur_opioid_dep_unexposed.txt.gz $path_directory_product
+cp $path_directory_source_rescue/32099098_polimanti_2020_eur_opioid_exposure.txt.gz $path_directory_product
+cp $path_directory_source_rescue/30718901_howard_2019_pgc_ukb.txt.gz $path_directory_product
+
+
 
 # Remove temporary, intermediate files.
 #rm -r $path_directory_parent_temporary
