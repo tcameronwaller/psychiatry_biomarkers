@@ -13,7 +13,7 @@
 # script "6_call_submit_gwas_ldsc_genetic_correlation.sh" in the directory
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
-# SLURM batch job: __, __, __, __ (group: "main"; instances: 13,120; date: 9 January 2024)
+# SLURM batch job: 4554870, 4554871, 4554872, 4554873 (group: "main"; instances: 13,120; date: 9 January 2024)
 
 # SLURM batch job: 2622900, 2622901, 2622902 (group: "main"; instances: 8,316; date: 6 December 2023)
 # SLURM batch job: 2448364, 2448365, 2448366 (group: "prior_1"; instances: 8,316; date: 30 November 2023)
@@ -162,6 +162,8 @@ primaries+=("29700475_wray_2018_pgc")
 primaries+=("29325848_martin_2018_adhd_female")
 primaries+=("29325848_martin_2018_adhd_male")
 primaries+=("28761083_arnold_2018")
+
+
 
 ##########
 # Secondary studies.
