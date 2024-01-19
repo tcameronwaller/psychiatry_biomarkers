@@ -20,6 +20,7 @@ import textwrap
 
 # Custom.
 
+import extraction_ldsc
 import scratch
 import uk_biobank.interface
 import stragglers.interface
@@ -154,6 +155,14 @@ def define_subparser_main(subparsers=None):
         )
     )
     parser.add_argument(
+        "-extraction_ldsc", "--extraction_ldsc",
+        dest="extraction_ldsc",
+        action="store_true",
+        help=(
+            "Extract information from reports of analyses in LDSC."
+        )
+    )
+    parser.add_argument(
         "-scratch", "--scratch",
         dest="scratch",
         action="store_true",
@@ -244,6 +253,13 @@ def evaluate_parameters_main(arguments):
         print("... executing 'scratch' procedure ...")
         # Execute procedure.
         scratch.execute_procedure(
+            path_dock=arguments.path_dock
+        )
+    if arguments.extraction_ldsc:
+        # Report status.
+        print("... executing 'extraction_ldsc' procedure ...")
+        # Execute procedure.
+        extraction_ldsc.execute_procedure(
             path_dock=arguments.path_dock
         )
     pass

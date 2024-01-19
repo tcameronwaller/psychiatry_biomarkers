@@ -46,6 +46,7 @@ fi
 
 # Routine: main
 #python3 $path_package/interface.py main --path_dock $path_dock --scratch
+python3 $path_package/interface.py main --path_dock $path_dock --extraction_ldsc # TCW; 19 January 2024 <-- re-write this as a Python script for versatility
 
 # Routine: uk_biobank
 #python3 $path_package/interface.py uk_biobank --path_dock $path_dock --assembly # TCW; 07 November 2022
@@ -60,7 +61,6 @@ fi
 # Routine: stragglers
 
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --scrap # TCW; 05 October 2022
-python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_extraction # TCW; 5 September 2023 <-- re-write this as a Python script for versatility
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_prioritize_supplement # TCW; 12 September 2022
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_assembly # TCW; 16 May 2023
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_organization # TCW; 24 April 2023
