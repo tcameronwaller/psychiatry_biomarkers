@@ -48,7 +48,6 @@ import statsmodels.multivariate.pca
 # Custom
 import partner.utility as putility
 import partner.extraction as pextr
-import stragglers.mcita_assembly as s_mcita_ass
 
 ###############################################################################
 # Functionality
@@ -247,6 +246,15 @@ def execute_procedure(
     # Manage extraction of information about SNP heritability.
 
     if True:
+        # Optionally read list of indices by which to sort rows in each
+        # extraction table of genetic correlations.
+        path_file_list_sort = os.path.join(
+            paths["parameters"], "list_sort_heritability_psychiatry_substance_thyroid.txt",
+        )
+        list_sort = putility.read_file_text_list(
+            delimiter="\n",
+            path_file=path_file_list_sort,
+        )
         # Collect information.
         pail_write_heritability = dict()
         # Extract information from reports of analyses in LDSC.
@@ -257,6 +265,14 @@ def execute_procedure(
             analysis="heritability",
             report=True,
         )
+        if True:
+            table_heritability = (
+                putility.sort_table_rows_by_list_indices(
+                    table=table_heritability,
+                    list_sort=list_sort,
+                    name_column="sort_rows_temporary",
+                    report=True,
+            ))
         pail_write_heritability["table_heritability"] = table_heritability
         # Extract information from reports of analyses in LDSC.
         table_heritability_no_liability = pextr.read_extract_from_all_ldsc_files_in_directory(
@@ -266,6 +282,14 @@ def execute_procedure(
             analysis="heritability",
             report=True,
         )
+        if True:
+            table_heritability_no_liability = (
+                putility.sort_table_rows_by_list_indices(
+                    table=table_heritability_no_liability,
+                    list_sort=list_sort,
+                    name_column="sort_rows_temporary",
+                    report=True,
+            ))
         pail_write_heritability["table_heritability_no_liability"] = table_heritability_no_liability
         # Write information to file.
         control_write_product(
@@ -288,15 +312,15 @@ def execute_procedure(
         path_file_list_sort = os.path.join(
             paths["parameters"], "list_sort_correlation_primary_secondary.txt",
         )
-        list_sort = putility.read_file_text_list(
-            delimiter="\n",
-            path_file=None,
-        )
+        #list_sort = putility.read_file_text_list(
+        #    delimiter="\n",
+        #    path_file=path_file_list_sort,
+        #)
         # Collect information.
         pail_write_correlation = dict()
         # Extract names of child directories within parent directory.
         names_directories = putility.extract_subdirectory_names(
-            path=paths["correlation"]
+            path=paths["correlation_primary_secondary"]
         )
         names_directories_ldsc = list(filter(
             lambda name: (name != "batch"),
@@ -308,7 +332,7 @@ def execute_procedure(
         # Write each table to file.
         for name_directory in names_directories_ldsc:
             path_directory = os.path.join(
-                paths["correlation"], name_directory,
+                paths["correlation_primary_secondary"], name_directory,
             )
             table_correlation = pextr.read_extract_from_all_ldsc_files_in_directory(
                 path_directory=path_directory,
@@ -317,14 +341,76 @@ def execute_procedure(
                 analysis="correlation",
                 report=True,
             )
-            if True:
-                table_correlation_sort = putility.sort_table_by_list_indices()
+            if False:
+                table_correlation = (
+                    putility.sort_table_rows_by_list_indices(
+                        table=table_correlation,
+                        list_sort=list_sort,
+                        name_column="sort_rows_temporary",
+                        report=True,
+                ))
             pail_write_correlation[str("table_" + name_directory)] = table_correlation
         # Write information to file.
         control_write_product(
             pail_write=pail_write_correlation,
-            path_directory=paths["correlation_extraction"],
+            path_directory=paths["correlation_primary_secondary_extraction"],
         )
+
+    ##########
+    # Manage extraction of information about genetic correlations between
+    # pairs of primary and secondary traits.
+
+    if True:
+        # Optionally read list of indices by which to sort rows in each
+        # extraction table of genetic correlations.
+        path_file_list_sort = os.path.join(
+            paths["parameters"], "list_sort_correlation_primary.txt",
+        )
+        #list_sort = putility.read_file_text_list(
+        #    delimiter="\n",
+        #    path_file=path_file_list_sort,
+        #)
+        # Collect information.
+        pail_write_correlation = dict()
+        # Extract names of child directories within parent directory.
+        names_directories = putility.extract_subdirectory_names(
+            path=paths["correlation_primary"]
+        )
+        names_directories_ldsc = list(filter(
+            lambda name: (name != "batch"),
+            names_directories
+        ))
+        print("--------------------")
+        print(names_directories_ldsc)
+        print("--------------------")
+        # Write each table to file.
+        for name_directory in names_directories_ldsc:
+            path_directory = os.path.join(
+                paths["correlation_primary"], name_directory,
+            )
+            table_correlation = pextr.read_extract_from_all_ldsc_files_in_directory(
+                path_directory=path_directory,
+                file_name_pattern=".log",
+                file_name_pattern_not=".....",
+                analysis="correlation",
+                report=True,
+            )
+            if False:
+                table_correlation = (
+                    putility.sort_table_rows_by_list_indices(
+                        table=table_correlation,
+                        list_sort=list_sort,
+                        name_column="sort_rows_temporary",
+                        report=True,
+                ))
+            pail_write_correlation[str("table_" + name_directory)] = table_correlation
+        # Write information to file.
+        control_write_product(
+            pail_write=pail_write_correlation,
+            path_directory=paths["correlation_primary_extraction"],
+        )
+
+
 
     pass
 
