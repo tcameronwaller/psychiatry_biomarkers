@@ -116,14 +116,18 @@ def initialize_directories(
 
     # Remove previous files to avoid version or batch confusion.
     if restore:
-        putility.remove_directory(path=paths["correlation_extraction"])
         putility.remove_directory(path=paths["heritability_extraction"])
+        putility.remove_directory(path=paths["correlation_primary_secondary_extraction"])
+        putility.remove_directory(path=paths["correlation_primary_extraction"])
     # Initialize directories.
     putility.create_directories(
-        path=paths["correlation_extraction"]
+        path=paths["heritability_extraction"]
     )
     putility.create_directories(
-        path=paths["heritability_extraction"]
+        path=paths["correlation_primary_secondary_extraction"]
+    )
+    putility.create_directories(
+        path=paths["correlation_primary_extraction"]
     )
     # Return information.
     return paths
