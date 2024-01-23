@@ -259,7 +259,7 @@ def execute_procedure(
             delimiter="\n",
             path_file=path_file_list_sort,
         )
-        print("Length of list of indices: " + len(list_sort))
+        print("Length of list of indices: " + str(len(list_sort)))
         print(list_sort)
         # Collect information.
         pail_write_heritability = dict()
