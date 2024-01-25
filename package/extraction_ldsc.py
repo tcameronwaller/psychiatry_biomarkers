@@ -318,10 +318,10 @@ def execute_procedure(
         path_file_list_sort = os.path.join(
             paths["parameters"], "list_sort_correlation_thyroid_sex_biomarkers_full.txt",
         )
-        #list_sort = putility.read_file_text_list(
-        #    delimiter="\n",
-        #    path_file=path_file_list_sort,
-        #)
+        list_sort = putility.read_file_text_list(
+            delimiter="\n",
+            path_file=path_file_list_sort,
+        )
         # Collect information.
         pail_write_correlation = dict()
         # Extract names of child directories within parent directory.
