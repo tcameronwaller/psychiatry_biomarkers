@@ -259,8 +259,8 @@ def execute_procedure(
             delimiter="\n",
             path_file=path_file_list_sort,
         )
-        print("Length of list of indices: " + str(len(list_sort)))
-        print(list_sort)
+        #print("Length of list of indices: " + str(len(list_sort)))
+        #print(list_sort)
         # Collect information.
         pail_write_heritability = dict()
         # Extract information from reports of analyses in LDSC.
@@ -316,7 +316,7 @@ def execute_procedure(
         # Optionally read list of indices by which to sort rows in each
         # extraction table of genetic correlations.
         path_file_list_sort = os.path.join(
-            paths["parameters"], "list_sort_correlation_primary_secondary.txt",
+            paths["parameters"], "list_sort_correlation_thyroid_sex_biomarkers_full.txt",
         )
         #list_sort = putility.read_file_text_list(
         #    delimiter="\n",
@@ -347,7 +347,7 @@ def execute_procedure(
                 analysis="correlation",
                 report=True,
             )
-            if False:
+            if True:
                 table_correlation = (
                     putility.sort_table_rows_by_list_indices(
                         table=table_correlation,
