@@ -364,18 +364,18 @@ def execute_procedure(
 
     ##########
     # Manage extraction of information about genetic correlations between
-    # pairs of primary and secondary traits.
+    # pairs of primary and primary traits.
 
     if True:
         # Optionally read list of indices by which to sort rows in each
         # extraction table of genetic correlations.
         path_file_list_sort = os.path.join(
-            paths["parameters"], "list_sort_correlation_primary.txt",
+            paths["parameters"], "list_sort_correlation_psychiatry_substance.txt",
         )
-        #list_sort = putility.read_file_text_list(
-        #    delimiter="\n",
-        #    path_file=path_file_list_sort,
-        #)
+        list_sort = putility.read_file_text_list(
+            delimiter="\n",
+            path_file=path_file_list_sort,
+        )
         # Collect information.
         pail_write_correlation = dict()
         # Extract names of child directories within parent directory.
@@ -401,7 +401,7 @@ def execute_procedure(
                 analysis="correlation",
                 report=True,
             )
-            if False:
+            if True:
                 table_correlation = (
                     putility.sort_table_rows_by_list_indices(
                         table=table_correlation,
