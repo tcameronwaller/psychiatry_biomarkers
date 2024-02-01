@@ -13,7 +13,7 @@
 # script "6_call_submit_gwas_ldsc_genetic_correlation.sh" in the directory
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
-# SLURM batch job: __ (group: "secondaries-thyroid"; instances: 3,844; date: 31 January 2024)
+# SLURM batch job: 5419161 (group: "secondaries-thyroid"; instances: 3,844; date: 31 January 2024)
 
 
 
@@ -51,7 +51,7 @@ path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_
 path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
 
 # Initialize directories.
-rm -r $path_directory_product_parent # caution
+#rm -r $path_directory_product_parent # caution
 rm -r $path_directory_batch # caution
 mkdir -p $path_directory_product_parent
 mkdir -p $path_directory_product_child

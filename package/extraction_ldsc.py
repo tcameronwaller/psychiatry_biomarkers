@@ -113,12 +113,21 @@ def initialize_directories(
             path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_primary_extraction",
         )
 
+        paths["correlation_secondary"] = os.path.join(
+            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_secondary",
+        )
+        paths["correlation_secondary_extraction"] = os.path.join(
+            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_secondary_extraction",
+        )
+
+
 
     # Remove previous files to avoid version or batch confusion.
     if restore:
         putility.remove_directory(path=paths["heritability_extraction"])
         putility.remove_directory(path=paths["correlation_primary_secondary_extraction"])
         putility.remove_directory(path=paths["correlation_primary_extraction"])
+        putility.remove_directory(path=paths["correlation_secondary_extraction"])
     # Initialize directories.
     putility.create_directories(
         path=paths["heritability_extraction"]
@@ -128,6 +137,9 @@ def initialize_directories(
     )
     putility.create_directories(
         path=paths["correlation_primary_extraction"]
+    )
+    putility.create_directories(
+        path=paths["correlation_secondary_extraction"]
     )
     # Return information.
     return paths
@@ -416,6 +428,60 @@ def execute_procedure(
             path_directory=paths["correlation_primary_extraction"],
         )
 
+    ##########
+    # Manage extraction of information about genetic correlations between
+    # pairs of secondary and secondary traits.
+
+    if True:
+        # Optionally read list of indices by which to sort rows in each
+        # extraction table of genetic correlations.
+        path_file_list_sort = os.path.join(
+            paths["parameters"], "list_sort_correlation_thyroid_disorders_biomarkers.txt",
+        )
+        if False:
+            list_sort = putility.read_file_text_list(
+                delimiter="\n",
+                path_file=path_file_list_sort,
+            )
+        # Collect information.
+        pail_write_correlation = dict()
+        # Extract names of child directories within parent directory.
+        names_directories = putility.extract_subdirectory_names(
+            path=paths["correlation_secondary"]
+        )
+        names_directories_ldsc = list(filter(
+            lambda name: (name != "batch"),
+            names_directories
+        ))
+        print("--------------------")
+        print(names_directories_ldsc)
+        print("--------------------")
+        # Write each table to file.
+        for name_directory in names_directories_ldsc:
+            path_directory = os.path.join(
+                paths["correlation_secondary"], name_directory,
+            )
+            table_correlation = pextr.read_extract_from_all_ldsc_files_in_directory(
+                path_directory=path_directory,
+                file_name_pattern=".log",
+                file_name_pattern_not=".....",
+                analysis="correlation",
+                report=True,
+            )
+            if False:
+                table_correlation = (
+                    putility.sort_table_rows_by_list_indices(
+                        table=table_correlation,
+                        list_sort=list_sort,
+                        name_column="sort_rows_temporary",
+                        report=True,
+                ))
+            pail_write_correlation[str("table_" + name_directory)] = table_correlation
+        # Write information to file.
+        control_write_product(
+            pail_write=pail_write_correlation,
+            path_directory=paths["correlation_secondary_extraction"],
+        )
 
 
     pass
