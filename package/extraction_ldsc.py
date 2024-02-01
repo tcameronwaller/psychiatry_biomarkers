@@ -438,7 +438,7 @@ def execute_procedure(
         path_file_list_sort = os.path.join(
             paths["parameters"], "list_sort_correlation_thyroid_disorders_biomarkers.txt",
         )
-        if False:
+        if True:
             list_sort = putility.read_file_text_list(
                 delimiter="\n",
                 path_file=path_file_list_sort,
@@ -468,7 +468,7 @@ def execute_procedure(
                 analysis="correlation",
                 report=True,
             )
-            if False:
+            if True:
                 table_correlation = (
                     putility.sort_table_rows_by_list_indices(
                         table=table_correlation,
