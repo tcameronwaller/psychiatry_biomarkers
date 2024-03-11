@@ -46,7 +46,7 @@ import scipy.linalg
 import statsmodels.multivariate.pca
 
 # Custom
-import partner.utility as putility
+import partner.utility as putly # this import path for subpackage
 import partner.extraction as pextr
 
 ###############################################################################
@@ -124,21 +124,21 @@ def initialize_directories(
 
     # Remove previous files to avoid version or batch confusion.
     if restore:
-        putility.remove_directory(path=paths["heritability_extraction"])
-        putility.remove_directory(path=paths["correlation_primary_secondary_extraction"])
-        putility.remove_directory(path=paths["correlation_primary_extraction"])
-        putility.remove_directory(path=paths["correlation_secondary_extraction"])
+        putly.remove_directory(path=paths["heritability_extraction"])
+        putly.remove_directory(path=paths["correlation_primary_secondary_extraction"])
+        putly.remove_directory(path=paths["correlation_primary_extraction"])
+        putly.remove_directory(path=paths["correlation_secondary_extraction"])
     # Initialize directories.
-    putility.create_directories(
+    putly.create_directories(
         path=paths["heritability_extraction"]
     )
-    putility.create_directories(
+    putly.create_directories(
         path=paths["correlation_primary_secondary_extraction"]
     )
-    putility.create_directories(
+    putly.create_directories(
         path=paths["correlation_primary_extraction"]
     )
-    putility.create_directories(
+    putly.create_directories(
         path=paths["correlation_secondary_extraction"]
     )
     # Return information.
@@ -146,81 +146,9 @@ def initialize_directories(
 
 
 
-##########
-# Write
-
-
-def write_product_table(
-    name=None,
-    table=None,
-    path_directory=None,
-):
-    """
-    Writes product information in a Pandas data frame table to file.
-
-    arguments:
-        name (str): base name for file
-        table (object): Pandas data frame table
-        path_directory (str): path to directory in which to write file
-
-    raises:
-
-    returns:
-
-    """
-
-    # Specify directories and files.
-    path_table_text = os.path.join(
-        path_directory, str(name + ".tsv")
-    )
-    # Write information to file.
-    table.to_csv(
-        path_or_buf=path_table_text,
-        sep="\t",
-        header=True,
-        index=False,
-        na_rep="NA",
-    )
-    pass
-
-
-def control_write_product(
-    pail_write=None,
-    path_directory=None,
-):
-    """
-    Writes product information to file.
-
-    arguments:
-        pail_write (dict): collection of information to write to file
-        path_parent (str): full path to directory in which to write files
-
-    raises:
-
-    returns:
-
-    """
-
-    # Initialize directories.
-    putility.create_directories(
-        path=path_directory,
-    )
-    # Write each table to file.
-    for name in pail_write.keys():
-        write_product_table(
-            name=name,
-            table=pail_write[name],
-            path_directory=path_directory,
-        )
-    pass
-
-
 ###############################################################################
 # Procedure
 
-
-# TODO: TCW; 11 January 2024
-# TODO: I need to extract the primary-primary genetic correlations...
 
 
 def execute_procedure(
@@ -240,7 +168,7 @@ def execute_procedure(
     """
 
     # Report version.
-    putility.print_terminal_partition(level=1)
+    putly.print_terminal_partition(level=1)
     print(path_dock)
     print("version check: 1")
     # Pause procedure.
@@ -267,7 +195,7 @@ def execute_procedure(
         path_file_list_sort = os.path.join(
             paths["parameters"], "list_sort_heritability_psychiatry_substance_thyroid.txt",
         )
-        list_sort = putility.read_file_text_list(
+        list_sort = putly.read_file_text_list(
             delimiter="\n",
             path_file=path_file_list_sort,
         )
@@ -285,7 +213,7 @@ def execute_procedure(
         )
         if True:
             table_heritability = (
-                putility.sort_table_rows_by_list_indices(
+                putly.sort_table_rows_by_list_indices(
                     table=table_heritability,
                     list_sort=list_sort,
                     name_column="sort_rows_temporary",
@@ -302,23 +230,20 @@ def execute_procedure(
         )
         if True:
             table_heritability_no_liability = (
-                putility.sort_table_rows_by_list_indices(
+                putly.sort_table_rows_by_list_indices(
                     table=table_heritability_no_liability,
                     list_sort=list_sort,
                     name_column="sort_rows_temporary",
                     report=True,
             ))
         pail_write_heritability["table_heritability_no_liability"] = table_heritability_no_liability
-        # Write information to file.
-        control_write_product(
+        # Write product information to file.
+        putly.write_product_tables(
             pail_write=pail_write_heritability,
             path_directory=paths["heritability_extraction"],
         )
 
 
-    # TODO: TCW; 19 January 2024
-    # TODO: for the genetic correlation extractions, implement optional feature
-    # to sort the rows in each table...
 
     ##########
     # Manage extraction of information about genetic correlations between
@@ -330,14 +255,14 @@ def execute_procedure(
         path_file_list_sort = os.path.join(
             paths["parameters"], "list_sort_correlation_thyroid_sex_biomarkers_full.txt",
         )
-        list_sort = putility.read_file_text_list(
+        list_sort = putly.read_file_text_list(
             delimiter="\n",
             path_file=path_file_list_sort,
         )
         # Collect information.
         pail_write_correlation = dict()
         # Extract names of child directories within parent directory.
-        names_directories = putility.extract_subdirectory_names(
+        names_directories = putly.extract_subdirectory_names(
             path=paths["correlation_primary_secondary"]
         )
         names_directories_ldsc = list(filter(
@@ -361,18 +286,19 @@ def execute_procedure(
             )
             if True:
                 table_correlation = (
-                    putility.sort_table_rows_by_list_indices(
+                    putly.sort_table_rows_by_list_indices(
                         table=table_correlation,
                         list_sort=list_sort,
                         name_column="sort_rows_temporary",
                         report=True,
                 ))
             pail_write_correlation[str("table_" + name_directory)] = table_correlation
-        # Write information to file.
-        control_write_product(
+        # Write product information to file.
+        putly.write_product_tables(
             pail_write=pail_write_correlation,
             path_directory=paths["correlation_primary_secondary_extraction"],
         )
+
 
     ##########
     # Manage extraction of information about genetic correlations between
@@ -384,14 +310,14 @@ def execute_procedure(
         path_file_list_sort = os.path.join(
             paths["parameters"], "list_sort_correlation_psychiatry_substance.txt",
         )
-        list_sort = putility.read_file_text_list(
+        list_sort = putly.read_file_text_list(
             delimiter="\n",
             path_file=path_file_list_sort,
         )
         # Collect information.
         pail_write_correlation = dict()
         # Extract names of child directories within parent directory.
-        names_directories = putility.extract_subdirectory_names(
+        names_directories = putly.extract_subdirectory_names(
             path=paths["correlation_primary"]
         )
         names_directories_ldsc = list(filter(
@@ -415,18 +341,19 @@ def execute_procedure(
             )
             if True:
                 table_correlation = (
-                    putility.sort_table_rows_by_list_indices(
+                    putly.sort_table_rows_by_list_indices(
                         table=table_correlation,
                         list_sort=list_sort,
                         name_column="sort_rows_temporary",
                         report=True,
                 ))
             pail_write_correlation[str("table_" + name_directory)] = table_correlation
-        # Write information to file.
-        control_write_product(
+        # Write product information to file.
+        putly.write_product_tables(
             pail_write=pail_write_correlation,
             path_directory=paths["correlation_primary_extraction"],
         )
+
 
     ##########
     # Manage extraction of information about genetic correlations between
@@ -439,14 +366,14 @@ def execute_procedure(
             paths["parameters"], "list_sort_correlation_thyroid_disorders_biomarkers.txt",
         )
         if True:
-            list_sort = putility.read_file_text_list(
+            list_sort = putly.read_file_text_list(
                 delimiter="\n",
                 path_file=path_file_list_sort,
             )
         # Collect information.
         pail_write_correlation = dict()
         # Extract names of child directories within parent directory.
-        names_directories = putility.extract_subdirectory_names(
+        names_directories = putly.extract_subdirectory_names(
             path=paths["correlation_secondary"]
         )
         names_directories_ldsc = list(filter(
@@ -470,18 +397,19 @@ def execute_procedure(
             )
             if True:
                 table_correlation = (
-                    putility.sort_table_rows_by_list_indices(
+                    putly.sort_table_rows_by_list_indices(
                         table=table_correlation,
                         list_sort=list_sort,
                         name_column="sort_rows_temporary",
                         report=True,
                 ))
             pail_write_correlation[str("table_" + name_directory)] = table_correlation
-        # Write information to file.
-        control_write_product(
+        # Write product information to file.
+        putly.write_product_tables(
             pail_write=pail_write_correlation,
             path_directory=paths["correlation_secondary_extraction"],
         )
+
 
 
     pass
