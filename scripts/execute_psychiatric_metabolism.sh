@@ -3,33 +3,33 @@
 #chmod u+x script.sh
 #chmod -R 777
 
-# TODO: TCW; 25 July 2022
-# TODO: "psychiatric_metabolism" and "sexy_alcohol" will become the main driver packages with the "interface.py".
-# TODO: These main driver packages will have subpackages: "uk_biobank", "local_studies"
-# TODO: Change name of the "main" parser to "uk_biobank", then call uk_biobank procedures directly from "interface.py"
-# TODO:
+################################################################################
+# Author: T. Cameron Waller, PhD
+# Date, first execution: 1 December 2020
+# Date, last execution: 14 March 2024
+# Review: TCW; 14 March 2024
+################################################################################
+# Note
+
+# This Bash script calls Python scripts or interfaces to more extensive
+# packages and modules. Paths in this script are specific to execution on a
+# specific server.
 
 
 ################################################################################
-# Activate Python Virtual Environment.
-# Read private, local file paths.
-#echo "read private file path variables and organize paths..."
+# Organize paths.
+
+echo "read private file path variables and organize paths..."
 cd ~/paths
 path_tools=$(<"./waller_tools.txt")
 path_environment_main="${path_tools}/python/environments/main"
-source "${path_environment_main}/bin/activate"
-echo "----------"
-echo "confirm activation of Python Virtual Environment..."
-which python3
-sleep 5s
-
-################################################################################
-# Read private, local file paths.
-echo "read private file path variables and organize paths..."
-cd ~/paths
 path_process=$(<"./process_psychiatric_metabolism.txt")
 path_dock="$path_process/dock"
-path_package="${path_process}/psychiatric_metabolism/psychiatric_metabolism"
+path_package="${path_process}/psychiatry_biomarkers/psychiatry_biomarkers"
+
+
+################################################################################
+# Execute procedure(s).
 
 # Echo each command to console.
 set -x
@@ -42,11 +42,24 @@ then
     mkdir -p $path_dock
 fi
 
-# Execute procedure(s).
+##########
+# Activate Python Virtual Environment.
+source "${path_environment_main}/bin/activate"
+echo "----------"
+echo "...Confirm Python Virtual Environment path..."
+which python3
+sleep 1s
+echo "----------"
+
+##########
+# Call Python procedures.
 
 # Routine: main
-#python3 $path_package/interface.py main --path_dock $path_dock --scratch
-python3 $path_package/interface.py main --path_dock $path_dock --extraction_ldsc # TCW; 19 January 2024 <-- re-write this as a Python script for versatility
+python3 $path_package/interface.py main --path_dock $path_dock --extraction_ldsc
+#python3 $path_package/interface.py main --path_dock $path_dock --assembly_rg
+#python3 $path_package/interface.py main --path_dock $path_dock --assembly_prs
+
+# Notes below this point are about execution of old and obsolete procedures (TCW; 12 March 2024).
 
 # Routine: uk_biobank
 #python3 $path_package/interface.py uk_biobank --path_dock $path_dock --assembly # TCW; 07 November 2022
@@ -68,9 +81,26 @@ python3 $path_package/interface.py main --path_dock $path_dock --extraction_ldsc
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mbpdb_regression # TCW; 24 April 2023
 #python3 $path_package/interface.py stragglers --path_dock $path_dock --mcita_assembly # TCW; 06 July 2022
 
-################################################################################
+
+##########
 # Deactivate Python Virtual Environment.
 deactivate
 echo "----------"
 echo "confirm deactivation of Python Virtual Environment..."
 which python3
+
+
+
+################################################################################
+# Report.
+if [[ "$report" == "true" ]]; then
+  echo "----------"
+  echo "Script complete:"
+  echo $0 # Print full file path to script.
+  echo "execute_psychiatry_biomarkers.sh"
+  echo "----------"
+fi
+
+
+
+#

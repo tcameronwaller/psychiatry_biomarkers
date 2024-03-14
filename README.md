@@ -1,2 +1,2 @@
-# bipolar_metabolism
-analysis on metabolism in bipolar disorder and other psychiatric disorders
+# psychiatry_biomarkers
+analysis of biomarkers in psychiatric disorders

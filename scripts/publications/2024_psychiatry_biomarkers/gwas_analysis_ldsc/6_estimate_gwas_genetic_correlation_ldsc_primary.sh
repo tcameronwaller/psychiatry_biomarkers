@@ -3,8 +3,8 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 6 August 2023
-# Date, last execution: 31 January 2024
-# Date, review: 31 January 2024
+# Date, last execution: 9 January 2024
+# Date, review: 9 January 2024
 ################################################################################
 # Note
 
@@ -13,7 +13,7 @@
 # script "6_call_submit_gwas_ldsc_genetic_correlation.sh" in the directory
 # "/.../sexy_alcohol/repository/scripts/record/2022-08-01/ldsc_heritability_correlation/".
 
-# SLURM batch job: 5419161 (group: "secondaries-thyroid"; instances: 3,844; date: 31 January 2024)
+# SLURM batch job: 4579486, 4579487 (group: "primaries"; instances: 6,400; date: 9 January 2024)
 
 
 
@@ -34,8 +34,8 @@ path_directory_group_parent="${path_directory_dock}/${identifier_analysis}"
 path_directory_reference="${path_directory_group_parent}/2_reference_ldsc"
 path_directory_source_primary="${path_directory_group_parent}/4_gwas_munge_ldsc"
 path_directory_source_secondary="${path_directory_group_parent}/4_gwas_munge_ldsc"
-path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc_secondary"
-path_directory_product_child="${path_directory_product_parent}/thyroid_disorders_biomarkers"
+path_directory_product_parent="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary"
+path_directory_product_child="${path_directory_product_parent}/neuropsychiatry_substance_disorders"
 path_directory_disequilibrium="${path_directory_reference}/disequilibrium/eur_w_ld_chr"
 path_directory_batch="${path_directory_product_parent}/batch"
 
@@ -51,7 +51,7 @@ path_file_script_ldsc_correlation="${path_directory_ldsc}/estimate_gwas_genetic_
 path_file_script_ldsc_correlation_batch_1="${path_directory_ldsc}/ldsc_correlation_batch_1.sh"
 
 # Initialize directories.
-#rm -r $path_directory_product_parent # caution
+rm -r $path_directory_product_parent # caution
 rm -r $path_directory_batch # caution
 mkdir -p $path_directory_product_parent
 mkdir -p $path_directory_product_child
@@ -73,77 +73,96 @@ report="true"
 
 
 ##########
-# Secondary studies.
+# Primary studies.
 
-# Define array of secondary studies.
-secondaries=()
+# Define array of primary studies.
+primaries=()
 
-# Thyroid disorders, thyroid biomarkers.
-# Review: TCW; 31 January 2024
-# Count of secondary studies and versions: 62
+# Psychiatric and substance-use disorders
+# Review: TCW; 9 January 2024
+# Count of primary studies and versions: 80
 
-secondaries+=("37872160_williams_2023")
-secondaries+=("37872160_williams_2023_dbsnp_rsid")
-secondaries+=("36635386_chen_2023_thyroxine_total")
-secondaries+=("36635386_chen_2023_thyroxine_total_dbsnp_rsid")
-secondaries+=("36093044_mathieu_2022_hypothyroidism")
-secondaries+=("34594039_sakaue_2021_multi_hypothyroidism")
-secondaries+=("34594039_sakaue_2021_multi_hyperthyroidism")
-secondaries+=("34594039_sakaue_2021_multi_hashimoto")
-secondaries+=("34594039_sakaue_2021_multi_graves")
-secondaries+=("34594039_sakaue_2021_eur_hypothyroidism")
-secondaries+=("34594039_sakaue_2021_eur_hyperthyroidism")
-secondaries+=("34594039_sakaue_2021_eur_hashimoto")
-secondaries+=("34594039_sakaue_2021_eur_graves")
-secondaries+=("34594039_sakaue_2021_gc_hypothyroidism")
-secondaries+=("34594039_sakaue_2021_gc_hyperthyroidism")
-secondaries+=("34594039_sakaue_2021_gc_hashimoto")
-secondaries+=("34594039_sakaue_2021_gc_graves")
-secondaries+=("34594039_sakaue_2021_multi_hypothyroidism_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_multi_hyperthyroidism_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_multi_hashimoto_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_multi_graves_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_eur_hypothyroidism_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_eur_hyperthyroidism_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_eur_hashimoto_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_eur_graves_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_gc_hypothyroidism_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_gc_hyperthyroidism_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_gc_hashimoto_dbsnp_rsid")
-secondaries+=("34594039_sakaue_2021_gc_graves_dbsnp_rsid")
-secondaries+=("33441150_dennis_2021_thyroxine_total")
-secondaries+=("33441150_dennis_2021_thyroxine_free")
-secondaries+=("33441150_dennis_2021_parathyrin")
-secondaries+=("32769997_zhou_2020_thyroid_hormone")
-secondaries+=("32769997_zhou_2020_thyroid_hormone_dbsnp_rsid")
-secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity")
-secondaries+=("32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid")
-secondaries+=("30367059_teumer_2018_thyroid_hormone_all")
-secondaries+=("30367059_teumer_2018_thyroid_hormone_female")
-secondaries+=("30367059_teumer_2018_thyroid_hormone_male")
-secondaries+=("30367059_teumer_2018_thyroxine_free_all")
-secondaries+=("30367059_teumer_2018_thyroxine_free_female")
-secondaries+=("30367059_teumer_2018_thyroxine_free_male")
-secondaries+=("30367059_teumer_2018_hypothyroidism")
-secondaries+=("30367059_teumer_2018_hyperthyroidism")
-secondaries+=("30367059_teumer_2018_thyroid_hormone_all_dbsnp_rsid")
-secondaries+=("30367059_teumer_2018_thyroid_hormone_female_dbsnp_rsid")
-secondaries+=("30367059_teumer_2018_thyroid_hormone_male_dbsnp_rsid")
-secondaries+=("30367059_teumer_2018_thyroxine_free_all_dbsnp_rsid")
-secondaries+=("30367059_teumer_2018_thyroxine_free_female_dbsnp_rsid")
-secondaries+=("30367059_teumer_2018_thyroxine_free_male_dbsnp_rsid")
-secondaries+=("30367059_teumer_2018_hypothyroidism_dbsnp_rsid")
-secondaries+=("30367059_teumer_2018_hyperthyroidism_dbsnp_rsid")
-secondaries+=("29875488_sun_2018_parathyrin")
-secondaries+=("29875488_sun_2018_thyroid_peroxidase")
-secondaries+=("29875488_sun_2018_parathyrin_dbsnp_rsid")
-secondaries+=("29875488_sun_2018_thyroid_peroxidase_dbsnp_rsid")
-secondaries+=("24586183_medici_2014_thyroid_peroxidase_antibody")
-secondaries+=("24586183_medici_2014_thyroid_peroxidase_reactivity")
-secondaries+=("00000000_neale_2020_hypothyroidism_self")
-secondaries+=("00000000_neale_2020_hypothyroidism_icd")
-secondaries+=("00000000_neale_2020_hyperthyroidism_self")
-secondaries+=("00000000_neale_2020_hyperthyroidism_icd")
+primaries+=("36702997_demontis_2023_adhd")
+primaries+=("36477530_saunders_2022_alcohol_all")
+primaries+=("36477530_saunders_2022_alcohol_no_ukb")
+primaries+=("36477530_saunders_2022_tobacco_all")
+primaries+=("36477530_saunders_2022_tobacco_no_ukb")
+primaries+=("36477530_saunders_2022_tobacco_ever_all")
+primaries+=("36477530_saunders_2022_tobacco_ever_no_ukb")
+primaries+=("36477530_saunders_2022_tobacco_age_all")
+primaries+=("36477530_saunders_2022_tobacco_age_no_ukb")
+primaries+=("36477530_saunders_2022_tobacco_cessation_all")
+primaries+=("36477530_saunders_2022_tobacco_cessation_no_ukb")
+primaries+=("35396580_trubetskoy_2022_all")
+primaries+=("35396580_trubetskoy_2022_female")
+primaries+=("35396580_trubetskoy_2022_male")
+primaries+=("34099189_blokland_2022_mdd_female")
+primaries+=("34099189_blokland_2022_mdd_male")
+primaries+=("34099189_blokland_2022_rmdd_female")
+primaries+=("34099189_blokland_2022_rmdd_male")
+primaries+=("34099189_blokland_2022_scz_female")
+primaries+=("34099189_blokland_2022_scz_male")
+primaries+=("34099189_blokland_2022_bip_female")
+primaries+=("34099189_blokland_2022_bip_male")
+primaries+=("34099189_blokland_2022_mdd_sex")
+primaries+=("34099189_blokland_2022_rmdd_sex")
+primaries+=("34099189_blokland_2022_scz_sex")
+primaries+=("34099189_blokland_2022_bip_sex")
+primaries+=("34002096_mullins_2021_bd_all")
+primaries+=("34002096_mullins_2021_bd_all_alt_1")
+primaries+=("34002096_mullins_2021_bd_no_ukb")
+primaries+=("34002096_mullins_2021_bd_no_ukb_alt_1")
+primaries+=("34002096_mullins_2021_bd_1")
+primaries+=("34002096_mullins_2021_bd_1_alt_1")
+primaries+=("34002096_mullins_2021_bd_2")
+primaries+=("34002096_mullins_2021_bd_2_alt_1")
+primaries+=("33096046_johnson_2020_eur_all")
+primaries+=("33096046_johnson_2020_eur_unrelated")
+primaries+=("32747698_matoba_2020_europe")
+primaries+=("32099098_polimanti_2020_eur_opioid_dep_exposed")
+primaries+=("32099098_polimanti_2020_eur_opioid_dep_unexposed")
+primaries+=("32099098_polimanti_2020_eur_opioid_exposure")
+primaries+=("31748690_purves_2020_meta")
+primaries+=("31748690_purves_2020_ukb")
+primaries+=("31594949_nievergelt_2019_trans_all")
+primaries+=("31594949_nievergelt_2019_europe_all")
+primaries+=("31308545_watson_2019")
+primaries+=("30818990_yu_2019")
+primaries+=("30804558_grove_2019")
+primaries+=("30718901_howard_2019_pgc_ukb")
+primaries+=("30718901_howard_2019_pgc")
+primaries+=("30643251_liu_2019_alcohol_all")
+primaries+=("30643251_liu_2019_alcohol_no_ukb")
+primaries+=("30643251_liu_2019_tobacco_all")
+primaries+=("30643251_liu_2019_tobacco_no_ukb")
+primaries+=("30643251_liu_2019_tobacco_ever_all")
+primaries+=("30643251_liu_2019_tobacco_ever_no_ukb")
+primaries+=("30643251_liu_2019_tobacco_age_all")
+primaries+=("30643251_liu_2019_tobacco_age_no_ukb")
+primaries+=("30643251_liu_2019_tobacco_cessation_all")
+primaries+=("30643251_liu_2019_tobacco_cessation_no_ukb")
+primaries+=("30482948_walters_2018_eur_all")
+primaries+=("30482948_walters_2018_eur_all_alt_1")
+primaries+=("30482948_walters_2018_eur_all_alt_2")
+primaries+=("30482948_walters_2018_eur_unrel_meta")
+primaries+=("30482948_walters_2018_eur_unrel_meta_alt_1")
+primaries+=("30482948_walters_2018_eur_unrel_meta_alt_2")
+primaries+=("30482948_walters_2018_eur_unrel_genotype")
+primaries+=("30482948_walters_2018_eur_unrel_genotype_alt_1")
+primaries+=("30482948_walters_2018_eur_unrel_genotype_alt_2")
+primaries+=("30482948_walters_2018_female")
+primaries+=("30482948_walters_2018_female_alt_1")
+primaries+=("30482948_walters_2018_female_alt_2")
+primaries+=("30482948_walters_2018_male")
+primaries+=("30482948_walters_2018_male_alt_1")
+primaries+=("30482948_walters_2018_male_alt_2")
+primaries+=("30478444_demontis_2019_adhd")
+primaries+=("29700475_wray_2018_pgc_ukb")
+primaries+=("29700475_wray_2018_pgc")
+primaries+=("29325848_martin_2018_adhd_female")
+primaries+=("29325848_martin_2018_adhd_male")
+primaries+=("28761083_arnold_2018")
+
 
 
 
@@ -162,8 +181,8 @@ comparisons=()
 
 if true; then
   # Assemble array of batch instance details.
-  for primary in "${secondaries[@]}"; do
-    for secondary in "${secondaries[@]}"; do
+  for primary in "${primaries[@]}"; do
+    for secondary in "${primaries[@]}"; do
       # Organize paths.
       name_comparison="${primary}_-_${secondary}"
       path_file_base_product="${path_directory_product_child}/${name_comparison}"
@@ -263,7 +282,7 @@ if [[ "$report" == "true" ]]; then
   echo "----------"
   echo "Script complete:"
   echo $0 # Print full file path to script.
-  echo "6_estimate_gwas_genetic_correlation_ldsc_secondary.sh"
+  echo "6_estimate_gwas_genetic_correlation_ldsc_primary.sh"
   echo "----------"
 fi
 

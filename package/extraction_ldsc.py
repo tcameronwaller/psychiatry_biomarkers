@@ -1,18 +1,51 @@
 
 """
+Organize procedural code for extraction of information from raw text report logs
+that the LDSC tool creates for estimates of SNP heritability (h2) and
+genetic correlation (rg).
 
-This module contains functions for general organization of the raw extraction
-data from the UK Biobank accessions.
+This module makes use of the 'extraction' module within the 'partner' package.
 
-Combine information from multiple UK Biobank accessions.
-Integrate identifier matchings.
-Exclude individual cases (persons) who subsequently withdrew consent.
-It is also necessary to handle the somewhat awkward format of array fields.
+Author:
 
+    T. Cameron Waller, Ph.D.
+    tcameronwaller@gmail.com
+    Monroe, North Carolina 28110
+    United States of America
+
+License:
+
+    This file is part of project 'psychiatry_biomarkers'
+    (https://github.com/tcameronwaller/psychiatry_biomarkers/).
+
+    Project 'psychiatry_biomarkers' supports data analysis for publications
+    about biomarkers in psychiatric disorders.
+    Copyright (C) 2024 Thomas Cameron Waller
+
+    Project 'psychiatry_biomarkers' is free software: you can redistribute it
+    and/or modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation, either version 3 of the License,
+    or (at your option) any later version.
+
+    Project 'psychiatry_biomarkers' is distributed in the hope that it will be
+    useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+    Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with project 'psychiatry_biomarkers'.
+    If not, see <http://www.gnu.org/licenses/>.
 """
 
 ###############################################################################
 # Notes
+
+# Primary studies include a curated collection of summary statistics from prior
+# GWAS on psychiatric disorders and substance-use disorders.
+
+# Secondary studies include a curated collection of summary statistics from
+# prior GWAS on thyroid disorders, thyroid biomarkers, sex hormones,
+# other hormones, and other biomarkers.
 
 ###############################################################################
 # Installation and importation
@@ -80,66 +113,68 @@ def initialize_directories(
     paths = dict()
     # Define paths to directories.
     paths["dock"] = path_dock
-    if True:
 
-        paths["parameters"] = os.path.join(
-            path_dock, "parameters", "psychiatric_metabolism",
-        )
-
-
-        paths["heritability"] = os.path.join(
-            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "5_gwas_heritability_ldsc",
-        )
-        paths["heritability_no_liability"] = os.path.join(
-            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "5_gwas_heritability_ldsc_no_liability",
-        )
-        paths["heritability_extraction"] = os.path.join(
-            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "5_gwas_heritability_ldsc_extraction",
-        )
+    # Source paths.
+    paths["parameters"] = os.path.join(
+        path_dock, "parameters", "psychiatric_metabolism",
+    )
+    paths["heritability"] = os.path.join(
+        path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "5_gwas_heritability_ldsc",
+    )
+    paths["heritability_no_liability"] = os.path.join(
+        path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "5_gwas_heritability_ldsc_no_liability",
+    )
 
 
-        paths["correlation_primary_secondary"] = os.path.join(
-            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_primary_secondary",
-        )
-        paths["correlation_primary_secondary_extraction"] = os.path.join(
-            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_primary_secondary_extraction",
-        )
+    paths["correlation_primary"] = os.path.join(
+        path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_primary",
+    )
+    paths["correlation_secondary"] = os.path.join(
+        path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_secondary",
+    )
+
+    paths["correlation_primary_secondary"] = os.path.join(
+        path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_primary_secondary",
+    )
 
 
-        paths["correlation_primary"] = os.path.join(
-            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_primary",
-        )
-        paths["correlation_primary_extraction"] = os.path.join(
-            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_primary_extraction",
-        )
 
-        paths["correlation_secondary"] = os.path.join(
-            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_secondary",
-        )
-        paths["correlation_secondary_extraction"] = os.path.join(
-            path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "6_gwas_correlation_ldsc_secondary_extraction",
-        )
-
+    paths["extraction_h2"] = os.path.join(
+        path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "extraction_5_gwas_heritability_ldsc",
+    )
+    paths["extraction_rg_one_one"] = os.path.join(
+        path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "extraction_6_gwas_correlation_ldsc_primary",
+    )
+    paths["extraction_rg_two_two_thyroid"] = os.path.join(
+        path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "extraction_6_gwas_correlation_ldsc_secondary_thyroid",
+    )
+    paths["extraction_rg_two_two_all"] = os.path.join(
+        path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "extraction_6_gwas_correlation_ldsc_secondary_all",
+    )
+    paths["extraction_rg_one_two"] = os.path.join(
+        path_dock, "gwas_2023-12-30_ldsc_2024-01-08", "extraction_6_gwas_correlation_ldsc_primary_secondary",
+    )
 
 
     # Remove previous files to avoid version or batch confusion.
     if restore:
-        putly.remove_directory(path=paths["heritability_extraction"])
-        putly.remove_directory(path=paths["correlation_primary_secondary_extraction"])
-        putly.remove_directory(path=paths["correlation_primary_extraction"])
-        putly.remove_directory(path=paths["correlation_secondary_extraction"])
+        putly.remove_directory(path=paths["extraction_h2"])
+        putly.remove_directory(path=paths["extraction_rg_one_one"])
+        putly.remove_directory(path=paths["extraction_rg_two_two_thyroid"])
+        putly.remove_directory(path=paths["extraction_rg_two_two_all"])
+        putly.remove_directory(path=paths["extraction_rg_one_two"])
     # Initialize directories.
     putly.create_directories(
-        path=paths["heritability_extraction"]
+        path=paths["extraction_h2"]
     )
     putly.create_directories(
-        path=paths["correlation_primary_secondary_extraction"]
+        path=paths["extraction_rg_one_two"]
     )
     putly.create_directories(
-        path=paths["correlation_primary_extraction"]
+        path=paths["extraction_rg_one_one"]
     )
     putly.create_directories(
-        path=paths["correlation_secondary_extraction"]
+        path=paths["extraction_rg_two_two_thyroid"]
     )
     # Return information.
     return paths
@@ -240,7 +275,7 @@ def execute_procedure(
         # Write product information to file.
         putly.write_product_tables(
             pail_write=pail_write_heritability,
-            path_directory=paths["heritability_extraction"],
+            path_directory=paths["extraction_h2"],
         )
 
 
@@ -296,7 +331,7 @@ def execute_procedure(
         # Write product information to file.
         putly.write_product_tables(
             pail_write=pail_write_correlation,
-            path_directory=paths["correlation_primary_secondary_extraction"],
+            path_directory=paths["extraction_rg_one_two"],
         )
 
 
@@ -351,7 +386,7 @@ def execute_procedure(
         # Write product information to file.
         putly.write_product_tables(
             pail_write=pail_write_correlation,
-            path_directory=paths["correlation_primary_extraction"],
+            path_directory=paths["extraction_rg_one_one"],
         )
 
 
@@ -407,7 +442,7 @@ def execute_procedure(
         # Write product information to file.
         putly.write_product_tables(
             pail_write=pail_write_correlation,
-            path_directory=paths["correlation_secondary_extraction"],
+            path_directory=paths["extraction_rg_two_two_thyroid"],
         )
 
 

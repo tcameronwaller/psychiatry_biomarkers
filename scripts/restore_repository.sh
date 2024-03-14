@@ -7,12 +7,13 @@
 
 # Main project that manages and drives execution.
 #project="sexy_alcohol"
-project="psychiatric_metabolism"
+project="psychiatry_biomarkers"
 
 # Read private, local file path for main project directory.
 echo "read private file path variables..."
 cd ~/paths
-path_process=$(<"./process_${project}.txt")
+#path_process=$(<"./process_${project}.txt")
+path_process=$(<"./process_psychiatric_metabolism.txt")
 
 # Define paths.
 path_parameters="$path_process/dock/parameters" # parent directory for parameter information from multiple repositories
