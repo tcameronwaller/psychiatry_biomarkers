@@ -4,13 +4,11 @@
 # Author: T. Cameron Waller
 # Date, first execution: 16 May 2024
 # Date, last execution: 16 May 2024
-# Date, review: ___ 2024
+# Date, review: 16 May 2024
 ################################################################################
 # Note
 
-# SLURM batch job: ___ (group: "secondaries"; instances: 26,896; date: 15 May 2024)
-# TODO: set up the SLURM driver scripts to accommodate 26,896 instances in 3 sub-batches (<= 10,000 per batch)
-
+# SLURM batch job: ___ (group: "secondaries"; instances: 26,896; date: 16 May 2024)
 
 ##########
 # Note: TCW; 16 May 2024
