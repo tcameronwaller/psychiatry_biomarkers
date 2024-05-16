@@ -8,7 +8,7 @@
 ################################################################################
 # Note
 
-# SLURM batch job: ___ (group: "secondaries"; instances: 26,896; date: 16 May 2024)
+# SLURM batch job: 9373122, 9373123, 9373124 (group: "secondaries"; instances: 26,896; date: 16 May 2024)
 
 ##########
 # Note: TCW; 16 May 2024
