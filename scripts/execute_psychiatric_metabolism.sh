@@ -58,6 +58,10 @@ echo "----------"
 python3 $path_package/interface.py main --path_dock $path_dock --extraction_ldsc
 #python3 $path_package/interface.py main --path_dock $path_dock --assembly_rg
 #python3 $path_package/interface.py main --path_dock $path_dock --assembly_prs
+#python3 $path_package/interface.py main --path_dock $path_dock --plot
+
+# Routine: sexy_age
+
 
 # Notes below this point are about execution of old and obsolete procedures (TCW; 12 March 2024).
 
