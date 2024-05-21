@@ -110,7 +110,7 @@ $report
 
 ##########
 # Remove temporary, intermediate files.
-rm -r $path_directory_temporary
+#rm -r $path_directory_temporary
 
 ################################################################################
 # Report.
