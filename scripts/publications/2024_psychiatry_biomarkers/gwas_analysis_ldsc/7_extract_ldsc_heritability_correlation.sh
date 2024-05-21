@@ -52,7 +52,7 @@ path_file_script_extract_h2_rg="${path_directory_process}/partner/scripts/ldsc/e
 
 # Initialize directories.
 rm -r $path_directory_temporary # caution
-#rm -r $path_directory_product_h2 # caution
+rm -r $path_directory_product_h2 # caution
 rm -r $path_directory_product_rg # caution
 mkdir -p $path_directory_temporary
 mkdir -p $path_directory_product_h2

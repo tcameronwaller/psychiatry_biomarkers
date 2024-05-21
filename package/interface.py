@@ -23,8 +23,8 @@ import textwrap
 import extraction_ldsc
 #import assembly_rg
 #import assembly_prs
-import uk_biobank.interface
-import stragglers.interface
+#import uk_biobank.interface
+#import stragglers.interface
 
 #dir()
 #importlib.reload()
