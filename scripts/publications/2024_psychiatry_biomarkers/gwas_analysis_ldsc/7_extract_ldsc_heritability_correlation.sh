@@ -34,29 +34,40 @@ path_directory_dock="${path_directory_process}/dock"
 
 path_directory_group_parent="${path_directory_dock}/${identifier_analysis}"
 
-path_directory_source_h2="${path_directory_group_parent}/5_gwas_heritability_ldsc"
-#path_directory_source_h2_no_liability="${path_directory_group_parent}/5_gwas_heritability_ldsc_no_liability"
-path_directory_product_h2="${path_directory_group_parent}/5_gwas_heritability_ldsc"
+path_directory_source_h2_1="${path_directory_group_parent}/5_gwas_heritability_ldsc"
+path_directory_product_h2_1="${path_directory_group_parent}/5_gwas_heritability_ldsc_extraction"
+#
+path_directory_source_h2_2="${path_directory_group_parent}/5_gwas_heritability_ldsc_no_liability"
+path_directory_product_h2_2="${path_directory_group_parent}/5_gwas_heritability_ldsc_no_liability_extraction"
 
 #path_directory_source_rg="${path_directory_group_parent}/6_gwas_correlation_ldsc_all"
-path_directory_source_rg="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary"
-#path_directory_source_rg="${path_directory_group_parent}/6_gwas_correlation_ldsc_secondary"
-#path_directory_source_rg="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary_secondary"
 #path_directory_product_rg="${path_directory_group_parent}/6_gwas_correlation_ldsc_all_extraction"
-path_directory_product_rg="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary_extraction"
-#path_directory_product_rg="${path_directory_group_parent}/6_gwas_correlation_ldsc_secondary_extraction"
-#path_directory_product_rg="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary_secondary_extraction"
+#
+path_directory_source_rg_1="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary"
+path_directory_product_rg_1="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary_extraction"
+#
+path_directory_source_rg_2="${path_directory_group_parent}/6_gwas_correlation_ldsc_secondary"
+path_directory_product_rg_2="${path_directory_group_parent}/6_gwas_correlation_ldsc_secondary_extraction"
+#
+path_directory_source_rg_3="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary_secondary"
+path_directory_product_rg_3="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary_secondary_extraction"
 
 # Scripts.
 path_file_script_extract_h2_rg="${path_directory_process}/partner/scripts/ldsc/extract_ldsc_heritability_correlation.sh"
 
 # Initialize directories.
 rm -r $path_directory_temporary # caution
-rm -r $path_directory_product_h2 # caution
-rm -r $path_directory_product_rg # caution
+rm -r $path_directory_product_h2_1 # caution
+rm -r $path_directory_product_h2_2 # caution
+rm -r $path_directory_product_rg_1 # caution
+rm -r $path_directory_product_rg_2 # caution
+rm -r $path_directory_product_rg_3 # caution
 mkdir -p $path_directory_temporary
-mkdir -p $path_directory_product_h2
-mkdir -p $path_directory_product_rg
+mkdir -p $path_directory_product_h2_1
+mkdir -p $path_directory_product_h2_2
+mkdir -p $path_directory_product_rg_1
+mkdir -p $path_directory_product_rg_2
+mkdir -p $path_directory_product_rg_3
 
 ################################################################################
 # Organize parameters.
@@ -77,17 +88,38 @@ name_file_product="table_heritability"
 #name_file_product="table_heritability_no_liability"
 /usr/bin/bash $path_file_script_extract_h2_rg \
 $type_analysis \
-$path_directory_source_h2 \
+$path_directory_source_h2_1 \
 $traversal \
 $name_file_source_prefix \
 $name_file_source_suffix \
 $name_file_source_not \
 $name_file_product \
-$path_directory_product_h2 \
+$path_directory_product_h2_1 \
 $path_directory_process \
 $path_directory_temporary \
 $path_directory_environment \
 $report
+
+if false; then
+  ##########
+  # SNP heritability.
+  type_analysis="heritability"
+  traversal="false" # whether to extract from all files in child source directories, preserving names of child directories
+  #name_file_product="table_heritability_no_liability"
+  /usr/bin/bash $path_file_script_extract_h2_rg \
+  $type_analysis \
+  $path_directory_source_h2_2 \
+  $traversal \
+  $name_file_source_prefix \
+  $name_file_source_suffix \
+  $name_file_source_not \
+  $name_file_product \
+  $path_directory_product_h2_2 \
+  $path_directory_process \
+  $path_directory_temporary \
+  $path_directory_environment \
+  $report
+fi
 
 ##########
 # Genetic correlation.
@@ -96,17 +128,62 @@ traversal="true" # whether to extract from all files in child source directories
 name_file_product="none"
 /usr/bin/bash $path_file_script_extract_h2_rg \
 $type_analysis \
-$path_directory_source_h2 \
+$path_directory_source_rg_1 \
 $traversal \
 $name_file_source_prefix \
 $name_file_source_suffix \
 $name_file_source_not \
 $name_file_product \
-$path_directory_product_rg \
+$path_directory_product_rg_1 \
 $path_directory_process \
 $path_directory_temporary \
 $path_directory_environment \
 $report
+
+if false; then
+
+  ##########
+  # Genetic correlation.
+  type_analysis="correlation"
+  traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
+  name_file_product="none"
+  /usr/bin/bash $path_file_script_extract_h2_rg \
+  $type_analysis \
+  $path_directory_source_rg_2 \
+  $traversal \
+  $name_file_source_prefix \
+  $name_file_source_suffix \
+  $name_file_source_not \
+  $name_file_product \
+  $path_directory_product_rg_2 \
+  $path_directory_process \
+  $path_directory_temporary \
+  $path_directory_environment \
+  $report
+
+  ##########
+  # Genetic correlation.
+  type_analysis="correlation"
+  traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
+  name_file_product="none"
+  /usr/bin/bash $path_file_script_extract_h2_rg \
+  $type_analysis \
+  $path_directory_source_rg_3 \
+  $traversal \
+  $name_file_source_prefix \
+  $name_file_source_suffix \
+  $name_file_source_not \
+  $name_file_product \
+  $path_directory_product_rg_3 \
+  $path_directory_process \
+  $path_directory_temporary \
+  $path_directory_environment \
+  $report
+
+fi
+
+
+
 
 ##########
 # Remove temporary, intermediate files.
