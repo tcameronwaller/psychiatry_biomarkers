@@ -10,30 +10,30 @@ Author:
 
     T. Cameron Waller, Ph.D.
     tcameronwaller@gmail.com
-    Monroe, North Carolina 28110
+    Rochester, Minnesota 55902
     United States of America
 
 License:
 
-    This file is part of project 'psychiatry_biomarkers'
-    (https://github.com/tcameronwaller/psychiatry_biomarkers/).
+    This file is part of project 'partner'
+    (https://github.com/tcameronwaller/partner/).
 
-    Project 'psychiatry_biomarkers' supports data analysis for publications
-    about biomarkers in psychiatric disorders.
+    Project 'partner' supports data analysis for multiple projects in
+    biomedical research.
     Copyright (C) 2024 Thomas Cameron Waller
 
-    Project 'psychiatry_biomarkers' is free software: you can redistribute it
+    Project 'partner' is free software: you can redistribute it
     and/or modify it under the terms of the GNU General Public License as
     published by the Free Software Foundation, either version 3 of the License,
     or (at your option) any later version.
 
-    Project 'psychiatry_biomarkers' is distributed in the hope that it will be
+    Project 'partner' is distributed in the hope that it will be
     useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
     Public License for more details.
 
     You should have received a copy of the GNU General Public License along
-    with project 'psychiatry_biomarkers'.
+    with project 'partner'.
     If not, see <http://www.gnu.org/licenses/>.
 """
 

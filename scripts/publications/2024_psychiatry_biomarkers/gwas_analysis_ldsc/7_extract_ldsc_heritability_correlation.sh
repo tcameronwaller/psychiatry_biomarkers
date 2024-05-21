@@ -35,22 +35,26 @@ path_directory_dock="${path_directory_process}/dock"
 path_directory_group_parent="${path_directory_dock}/${identifier_analysis}"
 
 path_directory_source_h2_1="${path_directory_group_parent}/5_gwas_heritability_ldsc"
-path_directory_product_h2_1="${path_directory_group_parent}/5_gwas_heritability_ldsc_extraction"
+path_directory_product_h2_1="${path_directory_group_parent}/extraction/5_gwas_heritability_ldsc"
 #
 path_directory_source_h2_2="${path_directory_group_parent}/5_gwas_heritability_ldsc_no_liability"
-path_directory_product_h2_2="${path_directory_group_parent}/5_gwas_heritability_ldsc_no_liability_extraction"
+path_directory_product_h2_2="${path_directory_group_parent}/extraction/5_gwas_heritability_ldsc_no_liability"
 
 #path_directory_source_rg="${path_directory_group_parent}/6_gwas_correlation_ldsc_all"
 #path_directory_product_rg="${path_directory_group_parent}/6_gwas_correlation_ldsc_all_extraction"
 #
 path_directory_source_rg_1="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary"
-path_directory_product_rg_1="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary_extraction"
+path_directory_product_rg_1="${path_directory_group_parent}/extraction/6_gwas_correlation_ldsc_primary"
 #
 path_directory_source_rg_2="${path_directory_group_parent}/6_gwas_correlation_ldsc_secondary"
-path_directory_product_rg_2="${path_directory_group_parent}/6_gwas_correlation_ldsc_secondary_extraction"
+path_directory_product_rg_2="${path_directory_group_parent}/extraction/6_gwas_correlation_ldsc_secondary"
 #
 path_directory_source_rg_3="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary_secondary"
-path_directory_product_rg_3="${path_directory_group_parent}/6_gwas_correlation_ldsc_primary_secondary_extraction"
+path_directory_product_rg_3="${path_directory_group_parent}/extraction/6_gwas_correlation_ldsc_primary_secondary"
+#
+path_directory_source_rg_4="${path_directory_group_parent}/6_gwas_correlation_ldsc_secondary_thyroid"
+path_directory_product_rg_4="${path_directory_group_parent}/extraction/6_gwas_correlation_ldsc_secondary_thyroid"
+
 
 # Scripts.
 path_file_script_extract_h2_rg="${path_directory_process}/partner/scripts/ldsc/extract_ldsc_heritability_correlation.sh"
@@ -62,12 +66,14 @@ rm -r $path_directory_product_h2_2 # caution
 rm -r $path_directory_product_rg_1 # caution
 rm -r $path_directory_product_rg_2 # caution
 rm -r $path_directory_product_rg_3 # caution
+rm -r $path_directory_product_rg_4 # caution
 mkdir -p $path_directory_temporary
 mkdir -p $path_directory_product_h2_1
 mkdir -p $path_directory_product_h2_2
 mkdir -p $path_directory_product_rg_1
 mkdir -p $path_directory_product_rg_2
 mkdir -p $path_directory_product_rg_3
+mkdir -p $path_directory_product_rg_4
 
 ################################################################################
 # Organize parameters.
@@ -105,7 +111,7 @@ if false; then
   # SNP heritability.
   type_analysis="heritability"
   traversal="false" # whether to extract from all files in child source directories, preserving names of child directories
-  #name_file_product="table_heritability_no_liability"
+  name_file_product="table_heritability_no_liability"
   /usr/bin/bash $path_file_script_extract_h2_rg \
   $type_analysis \
   $path_directory_source_h2_2 \
@@ -121,26 +127,50 @@ if false; then
   $report
 fi
 
-##########
-# Genetic correlation.
-type_analysis="correlation"
-traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
-name_file_product="none"
-/usr/bin/bash $path_file_script_extract_h2_rg \
-$type_analysis \
-$path_directory_source_rg_1 \
-$traversal \
-$name_file_source_prefix \
-$name_file_source_suffix \
-$name_file_source_not \
-$name_file_product \
-$path_directory_product_rg_1 \
-$path_directory_process \
-$path_directory_temporary \
-$path_directory_environment \
-$report
+if false; then
+
+  ##########
+  # Genetic correlation.
+  type_analysis="correlation"
+  traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
+  name_file_product="none"
+  /usr/bin/bash $path_file_script_extract_h2_rg \
+  $type_analysis \
+  $path_directory_source_rg_4 \
+  $traversal \
+  $name_file_source_prefix \
+  $name_file_source_suffix \
+  $name_file_source_not \
+  $name_file_product \
+  $path_directory_product_rg_4 \
+  $path_directory_process \
+  $path_directory_temporary \
+  $path_directory_environment \
+  $report
+
+fi
+
 
 if false; then
+
+  ##########
+  # Genetic correlation.
+  type_analysis="correlation"
+  traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
+  name_file_product="none"
+  /usr/bin/bash $path_file_script_extract_h2_rg \
+  $type_analysis \
+  $path_directory_source_rg_1 \
+  $traversal \
+  $name_file_source_prefix \
+  $name_file_source_suffix \
+  $name_file_source_not \
+  $name_file_product \
+  $path_directory_product_rg_1 \
+  $path_directory_process \
+  $path_directory_temporary \
+  $path_directory_environment \
+  $report
 
   ##########
   # Genetic correlation.
