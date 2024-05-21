@@ -29,7 +29,7 @@ cd ~/paths
 path_waller_tools=$(<"./waller_tools.txt")
 path_directory_environment="${path_waller_tools}/python/environments/main"
 path_directory_process=$(<"./process_psychiatric_metabolism.txt")
-path_directory_temporary="${path_directory_process}/temporary_blargish_tcw_2024-05-17"
+path_directory_temporary="${path_directory_process}/_temporary_blargish_tcw_2024-05-17_"
 path_directory_dock="${path_directory_process}/dock"
 
 path_directory_group_parent="${path_directory_dock}/${identifier_analysis}"
@@ -110,7 +110,7 @@ $report
 
 ##########
 # Remove temporary, intermediate files.
-#rm -r $path_directory_temporary
+rm -r $path_directory_temporary
 
 ################################################################################
 # Report.
