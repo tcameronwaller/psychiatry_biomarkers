@@ -3,7 +3,7 @@
 ################################################################################
 # Author: T. Cameron Waller
 # Date, first execution: 17 May 2024
-# Date, last execution: 17 May 2024
+# Date, last execution: 22 May 2024
 # Date, review: __ May 2024
 ################################################################################
 # Note
@@ -127,7 +127,7 @@ if false; then
   $report
 fi
 
-if false; then
+if true; then
 
   ##########
   # Genetic correlation.
