@@ -4,13 +4,10 @@
 # Author: T. Cameron Waller
 # Date, first execution: 17 May 2024
 # Date, last execution: 22 May 2024
-# Date, review: __ May 2024
+# Date, review: 22 May 2024
 ################################################################################
 # Note
 
-# TODO: TCW; 4 April 2023
-# TODO: write and call a python script to extract the LDSC estimates of heriability and genetic correlation
-# TODO: follow the pattern of the QQ-Plot scripts.
 
 ################################################################################
 
@@ -106,133 +103,100 @@ $path_directory_temporary \
 $path_directory_environment \
 $report
 
-if false; then
-  ##########
-  # SNP heritability.
-  type_analysis="heritability"
-  traversal="false" # whether to extract from all files in child source directories, preserving names of child directories
-  name_file_product="table_heritability_no_liability"
-  /usr/bin/bash $path_file_script_extract_h2_rg \
-  $type_analysis \
-  $path_directory_source_h2_2 \
-  $traversal \
-  $name_file_source_prefix \
-  $name_file_source_suffix \
-  $name_file_source_not \
-  $name_file_product \
-  $path_directory_product_h2_2 \
-  $path_directory_process \
-  $path_directory_temporary \
-  $path_directory_environment \
-  $report
-fi
+##########
+# SNP heritability.
+type_analysis="heritability"
+traversal="false" # whether to extract from all files in child source directories, preserving names of child directories
+name_file_product="table_heritability_no_liability"
+/usr/bin/bash $path_file_script_extract_h2_rg \
+$type_analysis \
+$path_directory_source_h2_2 \
+$traversal \
+$name_file_source_prefix \
+$name_file_source_suffix \
+$name_file_source_not \
+$name_file_product \
+$path_directory_product_h2_2 \
+$path_directory_process \
+$path_directory_temporary \
+$path_directory_environment \
+$report
 
-if true; then
+##########
+# Genetic correlation.
+type_analysis="correlation"
+traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
+name_file_product="none"
+/usr/bin/bash $path_file_script_extract_h2_rg \
+$type_analysis \
+$path_directory_source_rg_1 \
+$traversal \
+$name_file_source_prefix \
+$name_file_source_suffix \
+$name_file_source_not \
+$name_file_product \
+$path_directory_product_rg_1 \
+$path_directory_process \
+$path_directory_temporary \
+$path_directory_environment \
+$report
 
-  ##########
-  # Genetic correlation.
-  type_analysis="correlation"
-  traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
-  name_file_product="none"
-  /usr/bin/bash $path_file_script_extract_h2_rg \
-  $type_analysis \
-  $path_directory_source_rg_3 \
-  $traversal \
-  $name_file_source_prefix \
-  $name_file_source_suffix \
-  $name_file_source_not \
-  $name_file_product \
-  $path_directory_product_rg_3 \
-  $path_directory_process \
-  $path_directory_temporary \
-  $path_directory_environment \
-  $report
+##########
+# Genetic correlation.
+type_analysis="correlation"
+traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
+name_file_product="none"
+/usr/bin/bash $path_file_script_extract_h2_rg \
+$type_analysis \
+$path_directory_source_rg_2 \
+$traversal \
+$name_file_source_prefix \
+$name_file_source_suffix \
+$name_file_source_not \
+$name_file_product \
+$path_directory_product_rg_2 \
+$path_directory_process \
+$path_directory_temporary \
+$path_directory_environment \
+$report
 
-fi
+##########
+# Genetic correlation.
+type_analysis="correlation"
+traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
+name_file_product="none"
+/usr/bin/bash $path_file_script_extract_h2_rg \
+$type_analysis \
+$path_directory_source_rg_3 \
+$traversal \
+$name_file_source_prefix \
+$name_file_source_suffix \
+$name_file_source_not \
+$name_file_product \
+$path_directory_product_rg_3 \
+$path_directory_process \
+$path_directory_temporary \
+$path_directory_environment \
+$report
 
-
-if false; then
-
-  ##########
-  # Genetic correlation.
-  type_analysis="correlation"
-  traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
-  name_file_product="none"
-  /usr/bin/bash $path_file_script_extract_h2_rg \
-  $type_analysis \
-  $path_directory_source_rg_1 \
-  $traversal \
-  $name_file_source_prefix \
-  $name_file_source_suffix \
-  $name_file_source_not \
-  $name_file_product \
-  $path_directory_product_rg_1 \
-  $path_directory_process \
-  $path_directory_temporary \
-  $path_directory_environment \
-  $report
-
-  ##########
-  # Genetic correlation.
-  type_analysis="correlation"
-  traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
-  name_file_product="none"
-  /usr/bin/bash $path_file_script_extract_h2_rg \
-  $type_analysis \
-  $path_directory_source_rg_2 \
-  $traversal \
-  $name_file_source_prefix \
-  $name_file_source_suffix \
-  $name_file_source_not \
-  $name_file_product \
-  $path_directory_product_rg_2 \
-  $path_directory_process \
-  $path_directory_temporary \
-  $path_directory_environment \
-  $report
-
-  ##########
-  # Genetic correlation.
-  type_analysis="correlation"
-  traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
-  name_file_product="none"
-  /usr/bin/bash $path_file_script_extract_h2_rg \
-  $type_analysis \
-  $path_directory_source_rg_3 \
-  $traversal \
-  $name_file_source_prefix \
-  $name_file_source_suffix \
-  $name_file_source_not \
-  $name_file_product \
-  $path_directory_product_rg_3 \
-  $path_directory_process \
-  $path_directory_temporary \
-  $path_directory_environment \
-  $report
-
-  ##########
-  # Genetic correlation.
-  type_analysis="correlation"
-  traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
-  name_file_product="none"
-  /usr/bin/bash $path_file_script_extract_h2_rg \
-  $type_analysis \
-  $path_directory_source_rg_4 \
-  $traversal \
-  $name_file_source_prefix \
-  $name_file_source_suffix \
-  $name_file_source_not \
-  $name_file_product \
-  $path_directory_product_rg_4 \
-  $path_directory_process \
-  $path_directory_temporary \
-  $path_directory_environment \
-  $report
-
-fi
-
-
-
+##########
+# Genetic correlation.
+type_analysis="correlation"
+traversal="true" # whether to extract from all files in child source directories, preserving names of child directories
+name_file_product="none"
+/usr/bin/bash $path_file_script_extract_h2_rg \
+$type_analysis \
+$path_directory_source_rg_4 \
+$traversal \
+$name_file_source_prefix \
+$name_file_source_suffix \
+$name_file_source_not \
+$name_file_product \
+$path_directory_product_rg_4 \
+$path_directory_process \
+$path_directory_temporary \
+$path_directory_environment \
+$report
 
 ##########
 # Remove temporary, intermediate files.
