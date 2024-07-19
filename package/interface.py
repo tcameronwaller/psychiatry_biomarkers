@@ -1,5 +1,37 @@
 """
-...
+Manage execution of procedures.
+
+This module 'interface' is part of the 'psychiatry_biomarkers' package.
+
+Author:
+
+    T. Cameron Waller, Ph.D.
+    tcameronwaller@gmail.com
+    Rochester, Minnesota 55902
+    United States of America
+
+License:
+
+    This file is part of the project package directory 'psychiatry_biomarkers'
+    (https://github.com/tcameronwaller/psychiatry_biomarkers/).
+
+    Project 'psychiatry_biomarkers' supports data analysis with team in
+    psychiatry and pharmacogenomics.
+    Copyright (C) 2024 Thomas Cameron Waller
+
+    The code within project 'psychiatry_biomarkers' is free software: you can
+    redistribute it and/or modify it under the terms of the GNU General Public
+    License as published by the Free Software Foundation, either version 3 of
+    the GNU General Public License, or (at your option) any later version.
+
+    The code within project 'psychiatry_biomarkers' is distributed in the hope
+    that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with project 'psychiatry_biomarkers'. If not, see
+    <http://www.gnu.org/licenses/>.
 """
 
 ###############################################################################
@@ -7,10 +39,6 @@
 
 ###############################################################################
 # Installation and importation
-
-# Import modules from specific path without having to install a general package
-# I would have to figure out how to pass a path variable...
-# https://stackoverflow.com/questions/67631/how-to-import-a-module-given-the-full-path
 
 # Standard.
 import argparse
@@ -20,20 +48,14 @@ import textwrap
 
 # Custom.
 
-import extraction_ldsc
-#import assembly_rg
-#import assembly_prs
-#import uk_biobank.interface
-#import stragglers.interface
+import psychiatry_biomarkers.genetic_correlation.thyroid_organization
+#import psychiatry_biomarkers_polygenic_score.thyroid_organization
 
 #dir()
 #importlib.reload()
 
 ###############################################################################
 # Functionality
-
-
-# Parser and management of subparsers.
 
 
 def define_interface_parsers():
@@ -50,28 +72,23 @@ def define_interface_parsers():
     """
 
     # Define description.
-    description = define_description_general()
+    description = define_general_description()
     # Define epilog.
-    epilog = define_epilog_general()
+    epilog = define_general_epilog()
     # Define arguments.
     parser = argparse.ArgumentParser(
         description=description,
         epilog=epilog,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    subparsers = parser.add_subparsers(title="routines")
-    parser_main = define_subparser_main(subparsers=subparsers)
-    parser_uk_biobank = uk_biobank.interface.define_subparser_main(
-        subparsers=subparsers
-    )
-    parser_stragglers = stragglers.interface.define_subparser_main(
-        subparsers=subparsers
-    )
+    subparsers = parser.add_subparsers(title="procedures")
+    parser_main = define_main_subparser(subparsers=subparsers)
+    # TODO: add other subparsers here...
     # Parse arguments.
     return parser.parse_args()
 
 
-def define_description_general():
+def define_general_description():
     """
     Defines description for terminal interface.
 
@@ -89,14 +106,14 @@ def define_description_general():
         --------------------------------------------------
         --------------------------------------------------
 
-        Manage routines and procedures for Psychiatric Metabolism project.
+        Access data from UK Biobank and do other stuff.
 
         --------------------------------------------------
     """)
     return description
 
 
-def define_epilog_general():
+def define_general_epilog():
     """
     Defines epilog for terminal interface.
 
@@ -118,12 +135,9 @@ def define_epilog_general():
     return epilog
 
 
-# Package's main subparser.
-
-
-def define_subparser_main(subparsers=None):
+def define_main_subparser(subparsers=None):
     """
-    Defines subparser and parameters.
+    Defines subparser for procedures that adapt a model of human metabolism.
 
     arguments:
         subparsers (object): reference to subparsers' container
@@ -131,16 +145,16 @@ def define_subparser_main(subparsers=None):
     raises:
 
     returns:
-        (object): reference to subparser
+        (object): reference to parser
 
     """
 
     # Define description.
-    description = define_description_main()
+    description = define_main_description()
     # Define epilog.
-    epilog = define_epilog_main()
+    epilog = define_main_epilog()
     # Define parser.
-    parser = subparsers.add_parser(
+    parser_main = subparsers.add_parser(
         name="main",
         description=description,
         epilog=epilog,
@@ -148,28 +162,31 @@ def define_subparser_main(subparsers=None):
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     # Define arguments.
-    parser.add_argument(
-        "-path_dock", "--path_dock", dest="path_dock", type=str, required=True,
+    parser_main.add_argument(
+        "-path_directory_dock", "--path_directory_dock",
+        dest="path_directory_dock", type=str, required=True,
         help=(
             "Path to dock directory for source and product " +
             "directories and files."
         )
     )
-    parser.add_argument(
-        "-extraction_ldsc", "--extraction_ldsc",
-        dest="extraction_ldsc",
+    parser_main.add_argument(
+        "-rg_thyroid_organization",
+        "--rg_thyroid_organization",
+        dest="rg_thyroid_organization",
         action="store_true",
         help=(
-            "Extract information from reports of analyses in LDSC."
+            "Organize information."
         )
     )
+
     # Define behavior.
-    parser.set_defaults(func=evaluate_parameters_main)
+    parser_main.set_defaults(func=evaluate_main_parameters)
     # Return parser.
-    return parser
+    return parser_main
 
 
-def define_description_main():
+def define_main_description():
     """
     Defines description for terminal interface.
 
@@ -196,7 +213,7 @@ def define_description_main():
     return description
 
 
-def define_epilog_main():
+def define_main_epilog():
     """
     Defines epilog for terminal interface.
 
@@ -225,7 +242,7 @@ def define_epilog_main():
     return epilog
 
 
-def evaluate_parameters_main(arguments):
+def evaluate_main_parameters(arguments):
     """
     Evaluates parameters for model procedure.
 
@@ -241,13 +258,16 @@ def evaluate_parameters_main(arguments):
     print("--------------------------------------------------")
     print("... call to main routine ...")
     # Execute procedure.
-    if arguments.extraction_ldsc:
+    if arguments.rg_thyroid_organization:
         # Report status.
-        print("... executing 'extraction_ldsc' procedure ...")
+        print(
+           "... executing exercise.transcriptomics.organization procedure ..."
+          )
         # Execute procedure.
-        extraction_ldsc.execute_procedure(
-            path_dock=arguments.path_dock
+        psychiatry_biomarkers.genetic_correlation.thyroid_organization.execute_procedure(
+            path_directory_dock=arguments.path_directory_dock
         )
+
     pass
 
 
@@ -269,7 +289,7 @@ def execute_procedure():
 
     # Parse arguments from terminal.
     arguments = define_interface_parsers()
-    # Call the appropriate functions.
+    # Call the appropriate function.
     arguments.func(arguments)
 
 

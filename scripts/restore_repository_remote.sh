@@ -19,7 +19,6 @@
 # Organize script parameters.
 
 # Main project that manages and drives execution.
-#project="sexy_alcohol"
 project="psychiatry_biomarkers"
 
 # Read private, local file path for main project directory.
@@ -39,7 +38,6 @@ path_partner="$path_process/partner" # general utility functionality relevant to
 set -x
 
 # Remove previous versions of repositories.
-
 echo "remove previous versions of the repositories..."
 rm -r $path_parameters
 rm -r $path_repository
