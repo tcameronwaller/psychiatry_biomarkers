@@ -447,9 +447,6 @@ def read_organize_source_parameter_genetic_correlations(
 ##########
 # Organize genetic correlations in tables for supplement
 
-# TODO: TCW; 28 June 2024
-# Include additional columns in the parameter table.
-
 
 def organize_genetic_correlation_table_general(
     group_analysis=None,
@@ -553,11 +550,13 @@ def organize_genetic_correlation_table_general(
 
     ##########
     # Filter table's rows by primary and secondary studies in comparisons.
-    # This second filter removes self pairs and redundant pairs of the
-    # interchangeable primary and secondary studies.
-    # This second filter ensures that there are not redundant pairs or self
-    # pairs that would otherwise burden unnecessarily the correction for
-    # multiple hypothesis testing.
+    # This second filter nullifies with missing values, but does not remove,
+    # any self pairs and redundant pairs of the interchangeable primary and
+    # secondary studies. This second filter ensures that there are not self
+    # pairs or redundant pairs that would otherwise burden unnecessarily the
+    # correction for multiple hypothesis testing. The subsequent operation to
+    # calculate Benjamini-Hochberg false discovery rate q-values ignores any
+    # comparisons with missing values.
     table_filter_rows = pextr.filter_table_rows_ldsc_correlation(
         table=table_sort_rows,
         studies_primary_keep=studies_primary,
@@ -567,7 +566,7 @@ def organize_genetic_correlation_table_general(
         keep_double=False, # whether to keep double redundant pairs for symmetry
         match_redundancy=True, # whether to match redundant pairs of studies
         match_self_pair=True, # whether to match self pairs of studies
-        remove_else_null=True, # whether to remove, otherwise nullify matches
+        remove_else_null=False, # whether to remove, otherwise nullify matches
         report=True,
     )
 
@@ -599,8 +598,34 @@ def organize_genetic_correlation_table_general(
     )
 
     ##########
+    # Calculate Benjamini-Hochberg q-values for False-Discovery Rate (FDR).
+    # Calculate q-values across all comparisons in table.
+    # FDR 5% (q <= 0.05).
+    table_q = pdesc.calculate_table_false_discovery_rate_q_values(
+        threshold=0.05, # alpha; family-wise error rate
+        name_column_p_value="p_value_ldsc",
+        name_column_q_value="q_value_ldsc",
+        name_column_significance="q_significance_ldsc",
+        table=table_extra,
+    )
+    table_q = pdesc.calculate_table_false_discovery_rate_q_values(
+        threshold=0.05, # alpha; family-wise error rate
+        name_column_p_value="p_value_not_zero",
+        name_column_q_value="q_value_not_zero",
+        name_column_significance="q_significance_not_zero",
+        table=table_q,
+    )
+    table_q = pdesc.calculate_table_false_discovery_rate_q_values(
+        threshold=0.05, # alpha; family-wise error rate
+        name_column_p_value="p_value_less_one",
+        name_column_q_value="q_value_less_one",
+        name_column_significance="q_significance_less_one",
+        table=table_q,
+    )
+
+    ##########
     # Indicate analysis group.
-    table_group = table_extra.copy(deep=True)
+    table_group = table_q.copy(deep=True)
     table_group["group_analysis"] = group_analysis
 
     ##########
@@ -634,6 +659,13 @@ def organize_genetic_correlation_table_supplement(
 ):
     """
     Organize within table the information about genetic correlations from LDSC.
+
+    This function applies a filter to the table for specific, relevant studies
+    using the same parameters of "inclusion" and "table_studies" as in the
+    previous function that filtered "table_general". These filters in this
+    function will have the additional effect of removing the rows for self
+    pairs and redundant pairs which the previous filter had nullified by
+    filling with missing values.
 
     arguments:
         group_analysis (str): name of child directory for analysis group of
@@ -685,9 +717,6 @@ def organize_genetic_correlation_table_supplement(
 
     ##########
     # Filter table's rows by primary and secondary studies in comparisons.
-    # This second filter ensures that there are not redundant pairs or self
-    # pairs that would otherwise burden unnecessarily the correction for
-    # multiple hypothesis testing.
     # For text tables:
     # - match_redundancy=True
     # - match_self_pair=True
@@ -701,41 +730,31 @@ def organize_genetic_correlation_table_supplement(
         keep_double=False, # whether to keep double redundant pairs for symmetry
         match_redundancy=True, # whether to match redundant pairs of studies
         match_self_pair=True, # whether to match self pairs of studies
-        remove_else_null=True, # whether to remove, otherwise nullify matches
+        remove_else_null=True, # whether to remove or nullify matches
         report=True,
     )
 
     ##########
-    # Calculate Benjamini-Hochberg q-values for False-Discovery Rate (FDR).
-    # Calculate q-values across all comparisons in table.
-    # FDR 5% (q <= 0.05).
-    table_q = pdesc.calculate_table_false_discovery_rate_q_values(
-        threshold=0.05, # alpha; family-wise error rate
-        name_column_p_value="p_value_ldsc",
-        name_column_q_value="q_value_ldsc",
-        name_column_significance="q_significance_ldsc",
-        table=table_filter_rows,
-    )
-    table_q = pdesc.calculate_table_false_discovery_rate_q_values(
-        threshold=0.05, # alpha; family-wise error rate
-        name_column_p_value="p_value_not_zero",
-        name_column_q_value="q_value_not_zero",
-        name_column_significance="q_significance_not_zero",
-        table=table_q,
-    )
-    table_q = pdesc.calculate_table_false_discovery_rate_q_values(
-        threshold=0.05, # alpha; family-wise error rate
-        name_column_p_value="p_value_less_one",
-        name_column_q_value="q_value_less_one",
-        name_column_significance="q_significance_less_one",
-        table=table_q,
+    # Sort table's rows by primary and secondary studies in comparisons.
+    # Sort table's rows before filtering table's rows so that any removal of
+    # redundant pairs leaves the pair in desirable order.
+    table_sort_rows = porg.sort_table_rows_primary_secondary_reference(
+        table_main=table_filter_rows,
+        column_main_1="study_primary",
+        column_main_2="study_secondary",
+        table_reference_1=table_studies_inclusion,
+        table_reference_2=table_studies_inclusion,
+        column_reference_1="identifier",
+        column_reference_2="identifier",
+        column_reference_sequence="sort", # not column 'sort_group'
+        report=True,
     )
 
     ##########
     # Filter and sort table's columns.
     columns_sequence = pextr.define_genetic_correlation_table_column_sequence()
     table_filter_sort_columns = porg.filter_sort_table_columns(
-        table=table_q,
+        table=table_sort_rows,
         columns_sequence=columns_sequence,
         report=report,
     )
@@ -755,6 +774,7 @@ def organize_genetic_correlation_table_supplement(
         [
             "group_analysis",
             "abbreviation_primary",
+            "abbreviation_secondary",
         ],
         append=False,
         drop=True,
@@ -766,36 +786,11 @@ def organize_genetic_correlation_table_supplement(
     return table_supplement
 
 
-# TODO: TCW; 28 June 2024
-# AFTER calculating B-H FDR q-values for the values in the supplement, apply
-# a new filter on studies that is specific to the plots.
-# We want to keep the sex-stratified (and BD subtype) studies in the supplemental
-# tables for thoroughness while excluding these from the plots.
-
-# TODO: TCW; 28 June 2024
-# Consider implementing specific control from the parameter table for which
-# studies are included in which of the heatmaps.
-
-
-# TODO: TCW; 8 August 2024
-# Here is the challenge.
-# I need to filter the studies for the Supplement Table before calculating
-# the FDR q values.
-# For the symmetrical heatmaps, I need to use the same q-values as in the
-# Supplement Table; however, when I remove redundancy too early it disrupts
-# the correct filter to half diagonal.
-# PROPOSED SOLUTION:
-# Implement a new function.
-# 1. For each missing value of ldsc genetic correlation encountered
-# 2. flip the designations of primary and secondary studies and then check the
-# table for non-missing values for that reciprocal combination of studies.
-# 3. fill missing values in the original combination of primary-secondary.
-
-
 def simplify_transform_long_table_plot_symmetrical(
     studies_primary_keep=None,
     studies_secondary_keep=None,
     table_rg=None,
+    table_studies_inclusion=None,
     paths=None,
     report=None,
 ):
@@ -804,12 +799,21 @@ def simplify_transform_long_table_plot_symmetrical(
     simplifies contents, filters to half diagonal of corresponding matrices of
     values, and transforms to long format.
 
+    To enable the filter to the half diagonal of the otherwise symmetrical
+    matrix, it is necessary to accommodate the prior filters in preparation of
+    "table_general" that nullified by filling missing values for any self pairs
+    or redundant pairs of primary and secondary studies. This function applies
+    a clever patch to fill missing values from the reciprocal, interchangeable
+    combination of primary and secondary studies.
+
     arguments:
         studies_primary_keep (list<str>): identifiers or names of primary
             studies for which to keep information in table
         studies_secondary_keep (list<str>): identifiers or names of secondary
             studies for which to keep information in table
         table_rg (object): Pandas data-frame table of genetic correlations
+        table_studies_inclusion (object): Pandas data-frame table of
+            information about studies
         report (bool): whether to print reports
 
     raises:
@@ -822,6 +826,7 @@ def simplify_transform_long_table_plot_symmetrical(
     ##########
     # Copy information in table.
     table_rg = table_rg.copy(deep=True)
+    table_studies_inclusion = table_studies_inclusion.copy(deep=True)
 
     ##########
     # Filter table's rows by primary and secondary studies in comparisons.
@@ -841,8 +846,36 @@ def simplify_transform_long_table_plot_symmetrical(
         name_secondary="study_secondary",
         keep_double=False, # whether to keep double redundant pairs for symmetry
         match_redundancy=False, # whether to match redundant pairs of studies
-        match_self_pair=True, # whether to match self pairs of studies
+        match_self_pair=False, # whether to match self pairs of studies
         remove_else_null=False, # whether to remove, otherwise nullify matches
+        report=True,
+    )
+
+    ##########
+    # To ensure that non-missing values are available for the subsequent filter
+    # to the half diagonal matrix, fill missing values with any non-missing
+    # values from the reciprocal, interchangeable pair of primary and secondary
+    # studies.
+    table_fill = pextr.fill_missing_from_reciprocal_interchangeable_study_pair(
+        table=table_filter_rows,
+        name_primary="study_primary",
+        name_secondary="study_secondary",
+        report=False,
+    )
+
+    ##########
+    # Sort table's rows by primary and secondary studies in comparisons.
+    # Sort table's rows before filtering table's rows so that any removal of
+    # redundant pairs leaves the pair in desirable order.
+    table_sort_rows = porg.sort_table_rows_primary_secondary_reference(
+        table_main=table_fill,
+        column_main_1="study_primary",
+        column_main_2="study_secondary",
+        table_reference_1=table_studies_inclusion,
+        table_reference_2=table_studies_inclusion,
+        column_reference_1="identifier",
+        column_reference_2="identifier",
+        column_reference_sequence="sort", # not column 'sort_group'
         report=True,
     )
 
@@ -854,8 +887,8 @@ def simplify_transform_long_table_plot_symmetrical(
     # Simplify content of table.
     # Transform table to long format.
     table_long = pextr.simplify_transform_genetic_correlation_table_long(
-        table_rg=table_filter_rows,
-        q_values=False,
+        table_rg=table_sort_rows,
+        q_values=True,
         report=report,
     )
     # Remove temporarily the index level for analysis group.
@@ -902,7 +935,7 @@ def simplify_transform_long_table_plot_symmetrical(
         porg.filter_symmetrical_table_half_diagonal_two_value_types(
             table=table_wide_partial,
             name_index_type_value="type_value",
-            types_value=["signal", "p_value",],
+            types_value=["signal", "p_value", "q_value"],
             report=report,
         )
     )
@@ -958,6 +991,7 @@ def simplify_transform_long_table_plot_asymmetrical(
     studies_primary_keep=None,
     studies_secondary_keep=None,
     table_rg=None,
+    table_studies_inclusion=None,
     paths=None,
     report=None,
 ):
@@ -965,12 +999,21 @@ def simplify_transform_long_table_plot_asymmetrical(
     Beginning with an asymmetrical table of genetic correlations, this function
     simplifies contents and transforms to long format.
 
+    This function applies a filter to the table for specific, relevant studies
+    using the same parameters of "inclusion" and "table_studies" as in the
+    previous function that filtered "table_general". These filters in this
+    function will have the additional effect of removing the rows for self
+    pairs and redundant pairs which the previous filter had nullified by
+    filling with missing values.
+
     arguments:
         studies_primary_keep (list<str>): identifiers or names of primary
             studies for which to keep information in table
         studies_secondary_keep (list<str>): identifiers or names of secondary
             studies for which to keep information in table
         table_rg (object): Pandas data-frame table of genetic correlations
+        table_studies_inclusion (object): Pandas data-frame table of
+            information about studies
         report (bool): whether to print reports
 
     raises:
@@ -983,6 +1026,7 @@ def simplify_transform_long_table_plot_asymmetrical(
     ##########
     # Copy information in table.
     table_rg = table_rg.copy(deep=True)
+    table_studies_inclusion = table_studies_inclusion.copy(deep=True)
 
     ##########
     # Filter table's rows by primary and secondary studies in comparisons.
@@ -1003,32 +1047,33 @@ def simplify_transform_long_table_plot_asymmetrical(
         keep_double=False, # whether to keep double redundant pairs for symmetry
         match_redundancy=True, # whether to match redundant pairs of studies
         match_self_pair=True, # whether to match self pairs of studies
-        remove_else_null=True, # whether to remove, otherwise nullify matches
+        remove_else_null=True, # whether to remove or nullify matches
         report=True,
     )
 
     ##########
-    # Calculate Benjamini-Hochberg q-values to control the False-Discovery Rate
-    # (FDR) for testing multiple hypotheses.
-    # Calculate q-values across all comparisons in table.
-    # FDR 5% (q <= 0.05).
-    if False:
-        table_q = pdesc.calculate_table_false_discovery_rate_q_values(
-            threshold=0.05, # alpha; family-wise error rate
-            name_column_p_value="p_value_ldsc",
-            name_column_q_value="q_value_ldsc",
-            name_column_significance="q_significance_ldsc",
-            table=table_filter_rows,
-        )
-        pass
+    # Sort table's rows by primary and secondary studies in comparisons.
+    # Sort table's rows before filtering table's rows so that any removal of
+    # redundant pairs leaves the pair in desirable order.
+    table_sort_rows = porg.sort_table_rows_primary_secondary_reference(
+        table_main=table_filter_rows,
+        column_main_1="study_primary",
+        column_main_2="study_secondary",
+        table_reference_1=table_studies_inclusion,
+        table_reference_2=table_studies_inclusion,
+        column_reference_1="identifier",
+        column_reference_2="identifier",
+        column_reference_sequence="sort", # not column 'sort_group'
+        report=True,
+    )
 
 
     ##########
     # Simplify content of table.
     # Transform table to long format.
     table_long = pextr.simplify_transform_genetic_correlation_table_long(
-        table_rg=table_filter_rows,
-        q_values=False,
+        table_rg=table_sort_rows,
+        q_values=True,
         report=report,
     )
 
@@ -1120,6 +1165,7 @@ def organize_genetic_correlation_table_plot(
             studies_primary_keep=studies_primary,
             studies_secondary_keep=studies_secondary,
             table_rg=table_rg,
+            table_studies_inclusion=table_studies_inclusion,
             paths=paths,
             report=report,
         )
@@ -1129,6 +1175,7 @@ def organize_genetic_correlation_table_plot(
             studies_primary_keep=studies_primary,
             studies_secondary_keep=studies_secondary,
             table_rg=table_rg,
+            table_studies_inclusion=table_studies_inclusion,
             paths=paths,
             report=report,
         )
@@ -1139,26 +1186,29 @@ def organize_genetic_correlation_table_plot(
     # (FDR) for testing multiple hypotheses.
     # Calculate q-values across all comparisons in table.
     # FDR 5% (q <= 0.05).
-    table_q = pdesc.calculate_table_long_false_discovery_rate_q_values(
-        table=table_long,
-        name_index_type_value="type_value",
-        type_p_value="p_value",
-        threshold=0.05,
-        names_indices_rows=[
-            "group_analysis",
-            "abbreviation_primary",
-            "abbreviation_secondary",
-            "type_value",
-        ],
-        report=report,
-    )
+    # The tables for plots and figures now use the same Benjamini-Hochberg
+    # false discovery rate q-values as calculated for "table_general" and used
+    # in the supplemental table (TCW; 9 August 2024).
+    #table_q = pdesc.calculate_table_long_false_discovery_rate_q_values(
+    #    table=table_long,
+    #    name_index_type_value="type_value",
+    #    type_p_value="p_value",
+    #    threshold=0.05,
+    #    names_indices_rows=[
+    #        "group_analysis",
+    #        "abbreviation_primary",
+    #        "abbreviation_secondary",
+    #        "type_value",
+    #    ],
+    #    report=report,
+    #)
 
     ##########
     # Transform table to wide format.
     # Across columns: abbreviation_secondary, type_value
     # Across rows: group_analysis, abbreviation_primary
     table_wide = porg.transform_table_quadruple_index_long_to_wide_square(
-        table_long=table_q,
+        table_long=table_long,
         columns_index_pivot=["abbreviation_secondary", "type_value",],
         columns_index_stay=["group_analysis", "abbreviation_primary",],
         column_value_long="value",
@@ -1173,6 +1223,10 @@ def organize_genetic_correlation_table_plot(
     # Return information.
     return table_plot
 
+
+# TODO: TCW; 9 August 2024
+# It seems to be necessary to choose between "p_value" or "q_value" when
+# organizing the tables for the plots, especially the symmetrical plot.
 
 def control_prepare_genetic_correlation_table_supplement_plot(
     instance=None,
@@ -1299,72 +1353,42 @@ def control_prepare_genetic_correlation_table_supplement_plot(
         report=report,
     )
 
-
-    ##################################################
-    # TEST
-    ##################################################
     ##########
-    table_test = table_general
-    table_test.reset_index(
-        level=None,
-        inplace=True,
-        drop=False, # remove index; do not move to regular columns
+    # Initialize child directory for analysis group.
+    paths = initialize_directory_group_analysis(
+        group_analysis=group_analysis,
+        paths=paths,
+        restore=True,
     )
+
+    ##########
     # Collect information.
     # Collections of files.
     pail_write_files = dict()
-    pail_write_files[str("test_table_check")] = table_test
+    pail_write_files[str(name_table + "_for_supplement")] = table_supplement
+    pail_write_files[str(name_table + "_for_plot")] = table_plot
+    # Collections of directories.
+    pail_write_directories_text = dict()
+    pail_write_directories_pickle = dict()
+    pail_write_directories_text["text"] = pail_write_files
+    pail_write_directories_pickle["pickle"] = pail_write_files
+
     ##########
     # Write product information to file.
-    putly.write_tables_to_file(
-        pail_write=pail_write_files,
-        path_directory=paths["out_test"],
+    putly.write_tables_to_file_in_child_directories(
+        pail_write=pail_write_directories_text,
+        path_directory_parent=paths["group_analysis"],
         reset_index=False,
-        write_index=False,
+        write_index=True,
         type="text",
     )
-    ##################################################
-
-
-
-    if False:
-
-        ##########
-        # Initialize child directory for analysis group.
-        paths = initialize_directory_group_analysis(
-            group_analysis=group_analysis,
-            paths=paths,
-            restore=True,
-        )
-
-        ##########
-        # Collect information.
-        # Collections of files.
-        pail_write_files = dict()
-        pail_write_files[str(name_table + "_for_supplement")] = table_supplement
-        pail_write_files[str(name_table + "_for_plot")] = table_plot
-        # Collections of directories.
-        pail_write_directories_text = dict()
-        pail_write_directories_pickle = dict()
-        pail_write_directories_text["text"] = pail_write_files
-        pail_write_directories_pickle["pickle"] = pail_write_files
-
-        ##########
-        # Write product information to file.
-        putly.write_tables_to_file_in_child_directories(
-            pail_write=pail_write_directories_text,
-            path_directory_parent=paths["group_analysis"],
-            reset_index=False,
-            write_index=False,
-            type="text",
-        )
-        putly.write_tables_to_file_in_child_directories(
-            pail_write=pail_write_directories_pickle,
-            path_directory_parent=paths["group_analysis"],
-            reset_index=False,
-            write_index=False,
-            type="pickle",
-        )
+    putly.write_tables_to_file_in_child_directories(
+        pail_write=pail_write_directories_pickle,
+        path_directory_parent=paths["group_analysis"],
+        reset_index=False,
+        write_index=True,
+        type="pickle",
+    )
     pass
 
 
