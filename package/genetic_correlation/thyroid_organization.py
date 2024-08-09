@@ -75,21 +75,32 @@ import partner.parallelization as prall
 # Functionality
 
 
+
 ##########
-# Initialization
+# 1. Initialize directories for read of source and write of product files.
 
 
 def initialize_directories(
+    project=None,
+    routine=None,
+    procedure=None,
     path_directory_dock=None,
     restore=None,
+    report=None,
 ):
     """
     Initialize directories for procedure's product files.
 
     arguments:
-        path_directory_dock (str): path to dock directory for source and product
-            directories and files
+        project (str): name of project
+        routine (str): name of routine, either 'transcriptomics' or
+            'proteomics'
+        procedure (str): name of procedure, a set or step in the routine
+            process
+        path_directory_dock (str): path to dock directory for procedure's
+            source and product directories and files
         restore (bool): whether to remove previous versions of data
+        report (bool): whether to print reports
 
     raises:
 
@@ -102,23 +113,67 @@ def initialize_directories(
     paths = dict()
     # Define paths to directories.
     paths["dock"] = path_directory_dock
-    paths["wrangler_rg"] = os.path.join(
-        path_directory_dock, "wrangler_rg",
+    paths["in_data"] = os.path.join(
+        paths["dock"], "in_data", str(project), str(routine),
     )
-    paths["test"] = os.path.join(
-        paths["wrangler_rg"], "test",
+    paths["in_parameters"] = os.path.join(
+        paths["dock"], "in_parameters", str(project), str(routine),
     )
-    # Remove previous files to avoid version or batch confusion.
+    paths["in_parameters_private"] = os.path.join(
+        paths["dock"], "in_parameters_private", str(project), str(routine),
+    )
+    paths["out_project"] = os.path.join(
+        paths["dock"], str("out_" + project),
+    )
+    paths["out_routine"] = os.path.join(
+        paths["out_project"], str(routine),
+    )
+    paths["out_procedure"] = os.path.join(
+        paths["out_routine"], str(procedure),
+    )
+    paths["out_test"] = os.path.join(
+        paths["out_procedure"], "test",
+    )
+    paths["out_data"] = os.path.join(
+        paths["out_procedure"], "data",
+    )
+    paths["out_plot"] = os.path.join(
+        paths["out_procedure"], "plot",
+    )
+    # Initialize directories in main branch.
+    paths_initialization = [
+        #paths["out_project"],
+        #paths["out_routine"],
+        paths["out_procedure"], # omit to avoid conflict in parallel branches
+        paths["out_test"],
+        paths["out_data"],
+        paths["out_plot"],
+    ]
+    # Remove previous directories and files to avoid version or batch
+    # confusion.
     if restore:
-        putly.remove_directory(path=paths["wrangler_rg"])
-        putly.remove_directory(path=paths["test"])
-    # Initialize directories.
-    putly.create_directories(
-        path=paths["wrangler_rg"]
-    )
-    putly.create_directories(
-        path=paths["test"]
-    )
+        for path in paths_initialization:
+            putly.remove_directory(path=path) # caution
+            pass
+    # Create directories.
+    for path in paths_initialization:
+        putly.create_directories(
+            path=path,
+        )
+        pass
+    # Report.
+    if report:
+        putly.print_terminal_partition(level=3)
+        print(
+            "module: psychiatry_biomarkers.genetic_correlation." +
+            "thyroid_organization.py"
+        )
+        print("function: initialize_directories()")
+        putly.print_terminal_partition(level=5)
+        print("path to dock directory for procedure's files: ")
+        print(path_directory_dock)
+        putly.print_terminal_partition(level=5)
+        pass
     # Return information.
     return paths
 
@@ -148,7 +203,7 @@ def initialize_directory_group_analysis(
     paths = copy.deepcopy(paths)
     # Define paths to directories.
     paths["group_analysis"] = os.path.join(
-        paths["wrangler_rg"], group_analysis,
+        paths["out_data"], group_analysis,
     )
     # Remove previous files to avoid version or batch confusion.
     if restore:
@@ -161,17 +216,16 @@ def initialize_directory_group_analysis(
     return paths
 
 
+##########
+# 2. Organize SNP heritabilities in table for supplement
+
 
 ##########
-# Organize SNP heritabilities in table for supplement
-
-
-##########
-# Read and assemble genetic correlations
+# 3. Read and assemble genetic correlations
 
 
 def read_organize_source_data_genetic_correlations(
-    path_directory_dock=None,
+    paths=None,
     report=None,
 ):
     """
@@ -181,8 +235,8 @@ def read_organize_source_data_genetic_correlations(
     integer variable types.
 
     arguments:
-        path_directory_dock (str): path to dock directory for source and product
-            directories and files
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
         report (bool): whether to print reports
 
     raises:
@@ -201,8 +255,7 @@ def read_organize_source_data_genetic_correlations(
 
     # Define path to parent directory.
     path_directory_parent = os.path.join(
-        path_directory_dock, "data", "scratch",
-        "source_wrangler_rg",
+        paths["in_data"],
         "gwas_2023-12-30_ldsc_2024-01-08_extraction_2024-05-22",
         "extraction_2024-05-22",
     )
@@ -264,7 +317,7 @@ def control_assemble_genetic_correlations(
     genetic correlations from LDSC.
 
     arguments:
-        paths : (dict<str>): collection of paths to directories for procedure's
+        paths (dict<str>): collection of paths to directories for procedure's
             files
         report (bool): whether to print reports
 
@@ -277,7 +330,7 @@ def control_assemble_genetic_correlations(
 
     # Read source information from file.
     source = read_organize_source_data_genetic_correlations(
-        path_directory_dock=paths["dock"],
+        paths=paths,
         report=report,
     )
 
@@ -315,14 +368,11 @@ def control_assemble_genetic_correlations(
 
 
 ##########
-# Organize genetic correlations in tables for supplement
-
-# TODO: TCW; 28 June 2024
-# Include additional columns in the parameter table.
+# 3. Read parameters about studies
 
 
 def read_organize_source_parameter_genetic_correlations(
-    path_directory_dock=None,
+    paths=None,
     report=None,
 ):
     """
@@ -332,8 +382,8 @@ def read_organize_source_parameter_genetic_correlations(
     integer variable types.
 
     arguments:
-        path_directory_dock (str): path to dock directory for source and product
-            directories and files
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
         report (bool): whether to print reports
 
     raises:
@@ -352,8 +402,7 @@ def read_organize_source_parameter_genetic_correlations(
 
     # Define path to parent directory.
     path_directory_parent = os.path.join(
-        path_directory_dock, "parameters", "scratch",
-        "source_wrangler_rg",
+        paths["in_parameters_private"],
     )
     # Define paths to files.
     path_file_table_studies = os.path.join(
@@ -365,8 +414,9 @@ def read_organize_source_parameter_genetic_correlations(
     # Read information from file.
     # Specify variable types of columns within table.
     types_columns = dict()
-    types_columns["inclusion_thyroid"] = "float"
-    types_columns["inclusion_sex"] = "float"
+    types_columns["inclusion_thyroid_table"] = "float"
+    types_columns["inclusion_thyroid_figure"] = "float"
+    types_columns["inclusion_sex_table"] = "float"
     types_columns["sort"] = "float"
     types_columns["group"] = "string"
     types_columns["sort_group"] = "float"
@@ -391,10 +441,21 @@ def read_organize_source_parameter_genetic_correlations(
     return pail
 
 
+
+
+
+##########
+# Organize genetic correlations in tables for supplement
+
+# TODO: TCW; 28 June 2024
+# Include additional columns in the parameter table.
+
+
 def organize_genetic_correlation_table_general(
     group_analysis=None,
     name_table=None,
-    inclusion=None,
+    inclusion_table=None,
+    inclusion_figure=None,
     groups_primary=None,
     groups_secondary=None,
     symmetry=None,
@@ -410,7 +471,10 @@ def organize_genetic_correlation_table_general(
         group_analysis (str): name of child directory for analysis group of
             comparisons
         name_table (str): base name for files to which to save tables
-        inclusion (str): name of column to use for inclusion filter
+        inclusion_table (str): name of column to use for inclusion filter
+            of studies for the supplemental tables
+        inclusion_figure (str): name of column to use for inclusion filter
+            of studies for the figures
         groups_primary (list<str>): identifiers or names of groups of
             primary studies for which to keep information
         groups_secondary (list<str>): identifiers or names of groups of
@@ -439,7 +503,7 @@ def organize_genetic_correlation_table_general(
     ##########
     # Extract identifiers of primary and secondary studies to keep.
     table_studies_inclusion = table_studies.loc[
-        (table_studies[inclusion] == 1), :
+        (table_studies[inclusion_table] == 1), :
     ]
     table_studies_primary = table_studies_inclusion.loc[
         (table_studies_inclusion["group"].isin(groups_primary)), :
@@ -488,9 +552,29 @@ def organize_genetic_correlation_table_general(
     )
 
     ##########
+    # Filter table's rows by primary and secondary studies in comparisons.
+    # This second filter removes self pairs and redundant pairs of the
+    # interchangeable primary and secondary studies.
+    # This second filter ensures that there are not redundant pairs or self
+    # pairs that would otherwise burden unnecessarily the correction for
+    # multiple hypothesis testing.
+    table_filter_rows = pextr.filter_table_rows_ldsc_correlation(
+        table=table_sort_rows,
+        studies_primary_keep=studies_primary,
+        studies_secondary_keep=studies_secondary,
+        name_primary="study_primary",
+        name_secondary="study_secondary",
+        keep_double=False, # whether to keep double redundant pairs for symmetry
+        match_redundancy=True, # whether to match redundant pairs of studies
+        match_self_pair=True, # whether to match self pairs of studies
+        remove_else_null=True, # whether to remove, otherwise nullify matches
+        report=True,
+    )
+
+    ##########
     # Transfer extra attributes of primary and secondary studies.
     table_extra = porg.transfer_table_rows_attributes_reference(
-        table_main=table_sort_rows,
+        table_main=table_filter_rows,
         column_main_key="study_primary",
         table_reference=table_studies_inclusion,
         column_reference_key="identifier",
@@ -614,6 +698,7 @@ def organize_genetic_correlation_table_supplement(
         studies_secondary_keep=studies_secondary,
         name_primary="study_primary",
         name_secondary="study_secondary",
+        keep_double=False, # whether to keep double redundant pairs for symmetry
         match_redundancy=True, # whether to match redundant pairs of studies
         match_self_pair=True, # whether to match self pairs of studies
         remove_else_null=True, # whether to remove, otherwise nullify matches
@@ -690,6 +775,22 @@ def organize_genetic_correlation_table_supplement(
 # TODO: TCW; 28 June 2024
 # Consider implementing specific control from the parameter table for which
 # studies are included in which of the heatmaps.
+
+
+# TODO: TCW; 8 August 2024
+# Here is the challenge.
+# I need to filter the studies for the Supplement Table before calculating
+# the FDR q values.
+# For the symmetrical heatmaps, I need to use the same q-values as in the
+# Supplement Table; however, when I remove redundancy too early it disrupts
+# the correct filter to half diagonal.
+# PROPOSED SOLUTION:
+# Implement a new function.
+# 1. For each missing value of ldsc genetic correlation encountered
+# 2. flip the designations of primary and secondary studies and then check the
+# table for non-missing values for that reciprocal combination of studies.
+# 3. fill missing values in the original combination of primary-secondary.
+
 
 def simplify_transform_long_table_plot_symmetrical(
     studies_primary_keep=None,
@@ -1081,12 +1182,39 @@ def control_prepare_genetic_correlation_table_supplement_plot(
     Control procedure to organize within tables the information about genetic
     correlations from LDSC.
 
+    Note: TCW; 9 August 2024
+
+    For organization of "table_general", filter table's rows to include only
+    select, relevant studies and to exclude self pairs (same primary and
+    secondary studies) and redundant pairs (interchangeable primary and
+    secondary studies). These filters will ensure that both the supplemental
+    tables and the heatmap plots only represent the relevant genetic
+    correlations. Hence, it will only be necessary to calculate
+    Benjamini-Hochberg false discovery rate q-values once for "table_general"
+    and then use these same q-values in both the supplemental tables and the
+    heatmap plots. To allow the symmetrical heatmap plot (same studies across
+    horizontal and vertical axes) to have appropriate values when reducing to
+    the half diagonal, there is a special function for preparation of this
+    table that fills missing values using the reciprocal equivalent of
+    interchangeable primary and secondary studies.
+
+    Notice that the "inclusion_figure" studies for the plots and figures are a
+    subset of the larger "inclusion_table" studies for the supplemental table.
+    The supplemental table will include all of the studies in the narrative,
+    whereas the plots and figures will only include some of these. Importantly,
+    the Benjamini-Hochberg false discovery rate q-values will represent the
+    all inclusive set of studies and comparisons that are in the supplemental
+    table. The plots and figures will use these same q-values.
+
     arguments:
         instance (dict): parameters specific to current instance
             group_analysis (str): name of child directory for analysis group of
                 comparisons
             name_table (str): base name for files to which to save tables
-            inclusion (str): name of column to use for inclusion filter
+            inclusion_table (str): name of column to use for inclusion filter
+                of studies for the supplemental tables
+            inclusion_figure (str): name of column to use for inclusion filter
+                of studies for the figures
             groups_primary (list<str>): identifiers or names of groups of
                 primary studies for which to keep information
             groups_secondary (list<str>): identifiers or names of groups of
@@ -1112,7 +1240,8 @@ def control_prepare_genetic_correlation_table_supplement_plot(
     # Extract parameters specific to each instance.
     group_analysis = instance["group_analysis"]
     name_table = instance["name_table"]
-    inclusion = instance["inclusion"]
+    inclusion_table = instance["inclusion_table"]
+    inclusion_figure = instance["inclusion_figure"]
     groups_primary = instance["groups_primary"]
     groups_secondary = instance["groups_secondary"]
     symmetry = instance["symmetry"]
@@ -1127,7 +1256,8 @@ def control_prepare_genetic_correlation_table_supplement_plot(
     table_general = organize_genetic_correlation_table_general(
         group_analysis=group_analysis,
         name_table=name_table,
-        inclusion=inclusion,
+        inclusion_table=inclusion_table,
+        inclusion_figure=inclusion_figure,
         groups_primary=groups_primary,
         groups_secondary=groups_secondary,
         symmetry=symmetry,
@@ -1143,7 +1273,7 @@ def control_prepare_genetic_correlation_table_supplement_plot(
     table_supplement = organize_genetic_correlation_table_supplement(
         group_analysis=group_analysis,
         name_table=name_table,
-        inclusion=inclusion,
+        inclusion=inclusion_table,
         groups_primary=groups_primary,
         groups_secondary=groups_secondary,
         symmetry=symmetry,
@@ -1159,7 +1289,7 @@ def control_prepare_genetic_correlation_table_supplement_plot(
     table_plot = organize_genetic_correlation_table_plot(
         group_analysis=group_analysis,
         name_table=name_table,
-        inclusion=inclusion,
+        inclusion=inclusion_figure,
         groups_primary=groups_primary,
         groups_secondary=groups_secondary,
         symmetry=symmetry,
@@ -1169,38 +1299,72 @@ def control_prepare_genetic_correlation_table_supplement_plot(
         report=report,
     )
 
-    ##########
-    # Initialize child directory for analysis group.
-    paths = initialize_directory_group_analysis(
-        group_analysis=group_analysis,
-        paths=paths,
-        restore=True,
-    )
 
+    ##################################################
+    # TEST
+    ##################################################
     ##########
+    table_test = table_general
+    table_test.reset_index(
+        level=None,
+        inplace=True,
+        drop=False, # remove index; do not move to regular columns
+    )
     # Collect information.
     # Collections of files.
     pail_write_files = dict()
-    pail_write_files[str(name_table + "_for_supplement")] = table_supplement
-    pail_write_files[str(name_table + "_for_plot")] = table_plot
-    # Collections of directories.
-    pail_write_directories_text = dict()
-    pail_write_directories_pickle = dict()
-    pail_write_directories_text["text"] = pail_write_files
-    pail_write_directories_pickle["pickle"] = pail_write_files
-
+    pail_write_files[str("test_table_check")] = table_test
     ##########
     # Write product information to file.
-    putly.write_tables_to_file_in_child_directories(
-        pail_write=pail_write_directories_text,
-        path_directory_parent=paths["group_analysis"],
+    putly.write_tables_to_file(
+        pail_write=pail_write_files,
+        path_directory=paths["out_test"],
+        reset_index=False,
+        write_index=False,
         type="text",
     )
-    putly.write_tables_to_file_in_child_directories(
-        pail_write=pail_write_directories_pickle,
-        path_directory_parent=paths["group_analysis"],
-        type="pickle",
-    )
+    ##################################################
+
+
+
+    if False:
+
+        ##########
+        # Initialize child directory for analysis group.
+        paths = initialize_directory_group_analysis(
+            group_analysis=group_analysis,
+            paths=paths,
+            restore=True,
+        )
+
+        ##########
+        # Collect information.
+        # Collections of files.
+        pail_write_files = dict()
+        pail_write_files[str(name_table + "_for_supplement")] = table_supplement
+        pail_write_files[str(name_table + "_for_plot")] = table_plot
+        # Collections of directories.
+        pail_write_directories_text = dict()
+        pail_write_directories_pickle = dict()
+        pail_write_directories_text["text"] = pail_write_files
+        pail_write_directories_pickle["pickle"] = pail_write_files
+
+        ##########
+        # Write product information to file.
+        putly.write_tables_to_file_in_child_directories(
+            pail_write=pail_write_directories_text,
+            path_directory_parent=paths["group_analysis"],
+            reset_index=False,
+            write_index=False,
+            type="text",
+        )
+        putly.write_tables_to_file_in_child_directories(
+            pail_write=pail_write_directories_pickle,
+            path_directory_parent=paths["group_analysis"],
+            reset_index=False,
+            write_index=False,
+            type="pickle",
+        )
     pass
 
 
@@ -1215,7 +1379,7 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
 
     arguments:
         table_rg (object): Pandas data-frame table of genetic correlations
-        paths : (dict<str>): collection of paths to directories for procedure's
+        paths (dict<str>): collection of paths to directories for procedure's
             files
         report (bool): whether to print reports
 
@@ -1229,7 +1393,7 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
     # Read source information from file.
     # Organize source information within tables.
     source = read_organize_source_parameter_genetic_correlations(
-        path_directory_dock=paths["dock"],
+        paths=paths,
         report=report,
     )
     # Collect parameters common across all instances.
@@ -1244,7 +1408,8 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
         {
             "group_analysis": "primary_primary", # name of child directory
             "name_table": "table_psychiatry_substance", # base name of file
-            "inclusion": "inclusion_thyroid",
+            "inclusion_table": "inclusion_thyroid_table",
+            "inclusion_figure": "inclusion_thyroid_figure",
             "groups_primary": ["psychiatry","substance",],
             "groups_secondary": ["psychiatry","substance",],
             "symmetry": True,
@@ -1252,7 +1417,8 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
         {
             "group_analysis": "secondary_secondary_thyroid",
             "name_table": "table_thyroid",
-            "inclusion": "inclusion_thyroid",
+            "inclusion_table": "inclusion_thyroid_table",
+            "inclusion_figure": "inclusion_thyroid_figure",
             "groups_primary": ["thyroid",],
             "groups_secondary": ["thyroid",],
             "symmetry": True,
@@ -1260,32 +1426,33 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
         {
             "group_analysis": "primary_secondary_thyroid",
             "name_table": "table_psychiatry_substance_thyroid",
-            "inclusion": "inclusion_thyroid",
+            "inclusion_table": "inclusion_thyroid_table",
+            "inclusion_figure": "inclusion_thyroid_figure",
             "groups_primary": ["psychiatry","substance",],
             "groups_secondary": ["thyroid",],
             "symmetry": False,
         },
-        {
-            "group_analysis": "secondary_secondary_sex",
-            "name_table": "table_sex_hormone",
-            "inclusion": "inclusion_sex",
-            "groups_primary": ["hormone_sex",],
-            "groups_secondary": ["hormone_sex",],
-            "symmetry": True,
-        },
-        {
-            "group_analysis": "primary_secondary_sex",
-            "name_table": "table_psychiatry_substance_sex_hormone",
-            "inclusion": "inclusion_sex",
-            "groups_primary": ["psychiatry","substance",],
-            "groups_secondary": ["hormone_sex",],
-            "symmetry": False,
-        },
+        #{
+        #    "group_analysis": "secondary_secondary_sex",
+        #    "name_table": "table_sex_hormone",
+        #    "inclusion": "inclusion_sex",
+        #    "groups_primary": ["hormone_sex",],
+        #    "groups_secondary": ["hormone_sex",],
+        #    "symmetry": True,
+        #},
+        #{
+        #    "group_analysis": "primary_secondary_sex",
+        #    "name_table": "table_psychiatry_substance_sex_hormone",
+        #    "inclusion": "inclusion_sex",
+        #    "groups_primary": ["psychiatry","substance",],
+        #    "groups_secondary": ["hormone_sex",],
+        #    "symmetry": False,
+        #},
 
     ]
 
     # Execute procedure iteratively with parallelization across instances.
-    if True:
+    if False:
         prall.drive_procedure_parallel(
             function_control=(
                 control_prepare_genetic_correlation_table_supplement_plot
@@ -1298,7 +1465,7 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
     else:
         # Execute procedure directly for testing.
         control_prepare_genetic_correlation_table_supplement_plot(
-            instance=instances[4],
+            instance=instances[0],
             parameters=parameters,
         )
     pass
@@ -1306,32 +1473,35 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
 
 def test():
 
-        ##################################################
-        # TEST
-        ##################################################
-        ##########
-        table_test = table_q
-        table_test.reset_index(
-            level=None,
-            inplace=True,
-            drop=False, # remove index; do not move to regular columns
-        )
-        # Collect information.
-        # Collections of files.
-        pail_write_files = dict()
-        pail_write_files[str("test_table_check")] = table_test
-        # Collections of directories.
-        pail_write_directories_text = dict()
-        pail_write_directories_text["text"] = pail_write_files
-        ##########
-        # Write product information to file.
-        putly.write_tables_to_file_in_child_directories(
-            pail_write=pail_write_directories_text,
-            path_directory_parent=paths["test"],
-            type="text",
-        )
-        ##################################################
-        pass
+    ##################################################
+    # TEST
+    ##################################################
+    ##########
+    table_test = table_general
+    table_test.reset_index(
+        level=None,
+        inplace=True,
+        drop=False, # remove index; do not move to regular columns
+    )
+    # Collect information.
+    # Collections of files.
+    pail_write_files = dict()
+    pail_write_files[str("test_table_check")] = table_test
+    ##########
+    # Write product information to file.
+    putly.write_tables_to_file(
+        pail_write=pail_write_files,
+        path_directory_parent=paths["out_test"],
+        reset_index=False,
+        write_index=False,
+        type="text",
+    )
+    ##################################################
+    pass
+
+
+##########
+# Network
 
 
 def control_prepare_genetic_correlation_network_links(
@@ -1459,6 +1629,11 @@ def control_prepare_genetic_correlation_network_links(
     pass
 
 
+
+
+
+################################################
+################################################
 ################################################
 # TODO: TCW; 6 June 2024
 # Everything below this point (except the "execute_procedure" main function) needs updates.
@@ -2328,61 +2503,88 @@ def execute_procedure(
 
     """
 
-    putly.print_terminal_partition(level=1)
-    print(path_directory_dock)
-    print("version check: 1")
-    print("running on halyard???")
-    # Pause procedure.
-    time.sleep(5.0)
+    ##########
+    # Parameters.
+    project="psychiatry_biomarkers"
+    routine="genetic_correlation"
+    procedure="thyroid_organization"
+    report = True
 
-    # Initialize directories.
+    ##########
+    # Report.
+    if report:
+        putly.print_terminal_partition(level=3)
+        print(
+            "module: psychiatry_biomarkers.genetic_correlation." +
+            "thyroid_organization.py"
+        )
+        print("function: execute_procedure()")
+        putly.print_terminal_partition(level=5)
+        print("system: local")
+        print("project: " + str(project))
+        print("routine: " + str(routine))
+        print("procedure: " + str(procedure))
+        putly.print_terminal_partition(level=5)
+        pass
+
+    ##########
+    # 1. Initialize directories for read of source and write of product files.
     paths = initialize_directories(
+        project=project,
+        routine=routine,
+        procedure=procedure,
         path_directory_dock=path_directory_dock,
         restore=True,
+        report=report,
     )
 
     ##########
-    # Organize SNP heritabilities within tables for supplement.
+    # 2. Organize SNP heritabilities within tables for supplement.
     # TODO: TCW; 27 May 2024
     # TODO: implement this... only 1 SNP h2 table for supplement.
     # TODO: need to filter and organize
 
     ##########
-    # Assemble all genetic correlations within main table for subsequent
-    # organization.
+    # 3. Read and assemble all genetic correlations within main table for
+    # subsequent organization.
     table_rg_total = control_assemble_genetic_correlations(
         paths=paths,
         report=True,
     )
 
     ##########
-    # Organize genetic correlations within tables for reporting as text or plot.
+    # 4. Organize genetic correlations within tables for reporting as text or
+    # plot.
     control_prepare_genetic_correlation_tables_supplement_plot(
         table_rg=table_rg_total,
         paths=paths,
         report=True,
     )
 
-    ##########
-    # Organize genetic correlations within tables for network.
-    if False:
-        control_prepare_genetic_correlation_network_links(
-            table_rg=table_rg_total,
-            paths=paths,
-            report=True,
-        )
+
 
     if False:
-        control_prepare_genetic_correlation_network(
-            paths=paths,
-        )
 
-    ##########
-    # Query genetic correlations within tables for article's Results.
-    if False:
-        control_query_genetic_correlation_tables(
-            paths=paths,
-        )
+        ##########
+        # Organize genetic correlations within tables for network.
+        if False:
+            control_prepare_genetic_correlation_network_links(
+                table_rg=table_rg_total,
+                paths=paths,
+                report=True,
+            )
+
+        if False:
+            control_prepare_genetic_correlation_network(
+                paths=paths,
+            )
+
+        ##########
+        # Query genetic correlations within tables for article's Results.
+        if False:
+            control_query_genetic_correlation_tables(
+                paths=paths,
+            )
 
     pass
 
