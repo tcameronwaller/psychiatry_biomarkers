@@ -216,8 +216,487 @@ def initialize_directory_group_analysis(
     return paths
 
 
+
 ##########
-# 2. Organize SNP heritabilities in table for supplement
+# 3. Read parameters about studies
+
+
+def read_source_parameter_studies_process(
+    paths=None,
+    report=None,
+):
+    """
+    Reads and organizes source information from file.
+
+    Notice that Pandas does not accommodate missing values within series of
+    integer variable types.
+
+    arguments:
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): Pandas data-frame table
+
+    """
+
+    # Primary studies: 80 studies; Disorders of Neurology, Psychiatry, and
+    # Substance Use.
+    # Secondary studies: 164 studies; Disorders of Thyroid Physiology,
+    # Biomarkers of Thyroid Physiology, Biomarkers of Sex Hormone Physiology,
+    # Biomarkers of other physiology and metabolism.
+
+    # Define path to parent directory.
+    path_directory_parent = os.path.join(
+        paths["in_parameters_private"],
+    )
+    # Define paths to files.
+    path_file_table_studies = os.path.join(
+        path_directory_parent,
+        "table_gwas_translation_tcw_2023-12-30.tsv",
+    )
+    # Read information from file.
+    # Specify variable types of columns within table.
+    types_columns = dict()
+    types_columns["inclusion"] = "int32"
+    types_columns["study"] = "string"
+    types_columns["phenotype"] = "string"
+    types_columns["sex"] = "string"
+    types_columns["observations_total"] = "float32"
+    types_columns["cases"] = "float32"
+    types_columns["controls"] = "float32"
+    types_columns["observations_effective"] = "float32"
+    types_columns["prevalence_sample"] = "float32"
+    types_columns["prevalence_population"] = "float32"
+    table = pandas.read_csv(
+        path_file_table_studies,
+        sep="\t",
+        header=0,
+        dtype=types_columns,
+        na_values=[
+            "nan", "na", "NAN", "NA", "<nan>", "<na>", "<NAN>", "<NA>",
+        ],
+    )
+    # Return information.
+    return table
+
+
+def read_source_parameter_studies_polish(
+    paths=None,
+    report=None,
+):
+    """
+    Reads and organizes source information from file.
+
+    Notice that Pandas does not accommodate missing values within series of
+    integer variable types.
+
+    arguments:
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): Pandas data-frame table
+
+    """
+
+    # Primary studies: 80 studies; Disorders of Neurology, Psychiatry, and
+    # Substance Use.
+    # Secondary studies: 164 studies; Disorders of Thyroid Physiology,
+    # Biomarkers of Thyroid Physiology, Biomarkers of Sex Hormone Physiology,
+    # Biomarkers of other physiology and metabolism.
+
+    # Define path to parent directory.
+    path_directory_parent = os.path.join(
+        paths["in_parameters_private"],
+    )
+    # Define paths to files.
+    path_file_table_studies = os.path.join(
+        path_directory_parent,
+        "table_studies_attributes.tsv",
+    )
+    # Read information from file.
+    # Specify variable types of columns within table.
+    types_columns = dict()
+    types_columns["inclusion_thyroid_table"] = "float"
+    types_columns["inclusion_thyroid_figure"] = "float"
+    types_columns["inclusion_sex_table"] = "float"
+    types_columns["sort"] = "float"
+    types_columns["group"] = "string"
+    types_columns["sort_group"] = "float"
+    types_columns["identifier"] = "string"
+    types_columns["abbreviation"] = "string"
+    types_columns["description"] = "string"
+    types_columns["sex"] = "string"
+    types_columns["ancestry"] = "string"
+    types_columns["author"] = "string"
+    types_columns["year"] = "string"
+    types_columns["pubmed"] = "string"
+    table = pandas.read_csv(
+        path_file_table_studies,
+        sep="\t",
+        header=0,
+        dtype=types_columns,
+        na_values=[
+            "nan", "na", "NAN", "NA", "<nan>", "<na>", "<NAN>", "<NA>",
+        ],
+    )
+    # Return information.
+    return table
+
+
+##########
+# 2. Read and organize SNP heritabilities in table for supplement
+
+
+def read_source_data_snp_heritability(
+    paths=None,
+    report=None,
+):
+    """
+    Reads and organizes source information from file.
+
+    Notice that Pandas does not accommodate missing values within series of
+    integer variable types.
+
+    arguments:
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict<object>): collection of information
+
+    """
+
+    # Primary studies: 80 studies; Disorders of Neurology, Psychiatry, and
+    # Substance Use.
+    # Secondary studies: 164 studies; Disorders of Thyroid Physiology,
+    # Biomarkers of Thyroid Physiology, Biomarkers of Sex Hormone Physiology,
+    # Biomarkers of other physiology and metabolism.
+
+    # Define path to parent directory.
+    path_directory_parent = os.path.join(
+        paths["in_data"],
+        "gwas_2023-12-30_ldsc_2024-01-08_extraction_2024-05-22",
+        "extraction_2024-05-22",
+    )
+    # Define path to child directories.
+    path_directory_heritability = os.path.join(
+        path_directory_parent,
+        "5_gwas_heritability_ldsc",
+    )
+    # Define paths to files.
+    path_file_table_heritability = os.path.join(
+        path_directory_heritability,
+        "table_heritability.tsv",
+    )
+    # Collect information.
+    pail = dict()
+    # Read and organize information from file.
+    types_columns = pextr.define_snp_heritability_table_column_types()
+    pail["table_heritability"] = pandas.read_csv(
+        path_file_table_heritability,
+        sep="\t",
+        header=0,
+        dtype=types_columns,
+        na_values=[
+            "nan", "na", "NAN", "NA", "<nan>", "<na>", "<NAN>", "<NA>",
+        ],
+        encoding="utf-8",
+    )
+    # Return information.
+    return pail
+
+
+def read_organize_source_parameter_snp_heritability(
+    paths=None,
+    report=None,
+):
+    """
+    Reads and organizes source information from file.
+
+    Notice that Pandas does not accommodate missing values within series of
+    integer variable types.
+
+    arguments:
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict<object>): collection of information
+
+    """
+
+    # Primary studies: 80 studies; Disorders of Neurology, Psychiatry, and
+    # Substance Use.
+    # Secondary studies: 164 studies; Disorders of Thyroid Physiology,
+    # Biomarkers of Thyroid Physiology, Biomarkers of Sex Hormone Physiology,
+    # Biomarkers of other physiology and metabolism.
+
+    # Read information from file.
+    table_process = read_source_parameter_studies_process(
+        paths=paths,
+        report=report,
+    )
+    table_polish = read_source_parameter_studies_polish(
+        paths=paths,
+        report=report,
+    )
+
+    # Translate names of columns.
+    translations_column = dict()
+    translations_column["study"] = "identifier"
+    table_process.rename(
+        columns=translations_column,
+        inplace=True,
+    )
+
+    # Specify sequence of columns within table.
+    columns_process = [
+        "inclusion",
+        "identifier",
+        "observations_total",
+        "cases",
+        "controls",
+        "observations_effective",
+        "prevalence_sample",
+        "prevalence_population",
+    ]
+    # Filter and sort columns within table.
+    table_process = porg.filter_sort_table_columns(
+        table=table_process,
+        columns_sequence=columns_process,
+        report=report,
+    )
+    # Specify sequence of columns within table.
+    columns_polish = [
+        "inclusion_thyroid_table",
+        "sort",
+        "group",
+        "sort_group",
+        "identifier",
+        "abbreviation",
+        "description",
+        "sex",
+        "ancestry",
+        "author",
+        "year",
+        "pubmed",
+    ]
+    # Filter and sort columns within table.
+    table_polish = porg.filter_sort_table_columns(
+        table=table_polish,
+        columns_sequence=columns_polish,
+        report=report,
+    )
+
+    # Merge tables with information about studies.
+    table_study = porg.merge_columns_two_tables(
+        identifier_first="identifier",
+        identifier_second="identifier",
+        table_first=table_polish,
+        table_second=table_process,
+        preserve_index=False,
+        report=report,
+    )
+
+    # Specify sequence of columns within table.
+    columns_sequence = [
+        "inclusion_thyroid_table",
+        "sort",
+        "group",
+        "sort_group",
+        "identifier",
+        "abbreviation",
+        "description",
+        "sex",
+        "ancestry",
+        "observations_total",
+        "cases",
+        "controls",
+        "observations_effective",
+        "prevalence_sample",
+        "prevalence_population",
+        "author",
+        "year",
+        "pubmed",
+    ]
+    # Filter and sort columns within table.
+    table_study = porg.filter_sort_table_columns(
+        table=table_study,
+        columns_sequence=columns_sequence,
+        report=report,
+    )
+    # Collect information.
+    pail = dict()
+    pail["table_study"] = table_study
+    # Return information.
+    return pail
+
+
+def control_read_organize_snp_heritability_table_supplement(
+    paths=None,
+    report=None,
+):
+    """
+    Control procedure to read from file the SNP heritabilities from LDSC and
+    organize these within a table for the article's supplement.
+
+    arguments:
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): Pandas data-frame table
+
+    """
+
+    # Read source information from file.
+    source_heritability = read_source_data_snp_heritability(
+        paths=paths,
+        report=report,
+    )
+    table_heritability_raw = source_heritability["table_heritability"]
+    # Organize identifier of study.
+    table_heritability_raw["identifier"] = table_heritability_raw.apply(
+        lambda row: str(row["name_file"]).strip().replace(".log", ""),
+        axis="columns", # apply function to each row
+    )
+    # Specify sequence of columns within table.
+    columns_heritability = (
+        pextr.define_snp_heritability_table_column_sequence()
+    )
+    # Filter and sort columns within table.
+    table_process = porg.filter_sort_table_columns(
+        table=table_heritability_raw,
+        columns_sequence=columns_heritability,
+        report=report,
+    )
+
+    # Read source information from file.
+    source_study = read_organize_source_parameter_snp_heritability(
+        paths=paths,
+        report=report,
+    )
+    # Merge tables with information about studies.
+    table_heritability = porg.merge_columns_two_tables(
+        identifier_first="identifier",
+        identifier_second="identifier",
+        table_first=source_study["table_study"],
+        table_second=table_heritability_raw,
+        preserve_index=False,
+        report=report,
+    )
+    # Filter rows in table.
+    table_heritability = table_heritability.loc[
+        (
+            (table_heritability["inclusion_thyroid_table"] == 1)
+        ), :
+    ].copy(deep=True)
+    # Sort rows within table.
+    table_heritability.sort_values(
+        by=[
+            "sort",
+        ],
+        axis="index",
+        ascending=True,
+        na_position="last",
+        inplace=True,
+    )
+
+    # Specify sequence of columns within table.
+    columns_sequence = [
+        #"inclusion_thyroid_table",
+        #"path_directory",
+        #"name_file",
+        #"type_analysis",
+        #"sort",
+        "group",
+        #"sort_group",
+        "identifier",
+        "abbreviation",
+        "description",
+        "sex",
+        "ancestry",
+        "observations_total",
+        "cases",
+        "controls",
+        "observations_effective",
+        "prevalence_sample",
+        "prevalence_population",
+        "author",
+        "year",
+        "pubmed",
+        "variants",
+        "heritability",
+        "heritability_error",
+        "heritability_ci95_low",
+        "heritability_ci95_high",
+        "heritability_ci99_low",
+        "heritability_ci99_high",
+        "lambda_gc",
+        "chi_square",
+        "intercept",
+        "intercept_error",
+        "ratio",
+        "ratio_error",
+        #"summary_heritability_error",
+        #"summary_heritability_ci95",
+        #"summary_heritability_ci99",
+    ]
+    # Filter and sort columns within table.
+    table_heritability = porg.filter_sort_table_columns(
+        table=table_heritability,
+        columns_sequence=columns_sequence,
+        report=report,
+    )
+
+    ##########
+    # Collect information.
+    # Collections of files.
+    pail_write_tables = dict()
+    pail_write_tables[str("table_heritability")] = table_heritability
+    ##########
+    # Write product information to file.
+    putly.write_tables_to_file(
+        pail_write=pail_write_tables,
+        path_directory=paths["out_data"],
+        reset_index=False,
+        write_index=False,
+        type="text",
+    )
+    # Report.
+    if report:
+        putly.print_terminal_partition(level=4)
+        print("Source table before organization:")
+        print(table_heritability)
+        print("Column labels:")
+        labels_columns = table_heritability.columns.to_list()
+        print(labels_columns)
+        putly.print_terminal_partition(level=4)
+        count_columns = (table_heritability.shape[1])
+        print("count of columns in table: " + str(count_columns))
+        count_rows = (table_heritability.shape[0])
+        print("count of rows in source table: " + str(count_rows))
+        putly.print_terminal_partition(level=4)
+        pass
+    # Return information.
+    return table_heritability
 
 
 ##########
@@ -365,83 +844,6 @@ def control_assemble_genetic_correlations(
         pass
     # Return information.
     return table
-
-
-##########
-# 3. Read parameters about studies
-
-
-def read_organize_source_parameter_genetic_correlations(
-    paths=None,
-    report=None,
-):
-    """
-    Reads and organizes source information from file.
-
-    Notice that Pandas does not accommodate missing values within series of
-    integer variable types.
-
-    arguments:
-        paths (dict<str>): collection of paths to directories for procedure's
-            files
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (dict<object>): collection of Pandas data-frame tables with entry names
-            (keys) derived from original names of files
-
-    """
-
-    # Primary studies: 80 studies; Disorders of Neurology, Psychiatry, and
-    # Substance Use.
-    # Secondary studies: 164 studies; Disorders of Thyroid Physiology,
-    # Biomarkers of Thyroid Physiology, Biomarkers of Sex Hormone Physiology,
-    # Biomarkers of other physiology and metabolism.
-
-    # Define path to parent directory.
-    path_directory_parent = os.path.join(
-        paths["in_parameters_private"],
-    )
-    # Define paths to files.
-    path_file_table_studies = os.path.join(
-        path_directory_parent,
-        "table_studies_attributes_filter_sort.tsv",
-    )
-    # Collect information.
-    pail = dict()
-    # Read information from file.
-    # Specify variable types of columns within table.
-    types_columns = dict()
-    types_columns["inclusion_thyroid_table"] = "float"
-    types_columns["inclusion_thyroid_figure"] = "float"
-    types_columns["inclusion_sex_table"] = "float"
-    types_columns["sort"] = "float"
-    types_columns["group"] = "string"
-    types_columns["sort_group"] = "float"
-    types_columns["identifier"] = "string"
-    types_columns["abbreviation"] = "string"
-    types_columns["description"] = "string"
-    types_columns["sex"] = "string"
-    types_columns["ancestry"] = "string"
-    types_columns["author"] = "string"
-    types_columns["year"] = "string"
-    types_columns["pubmed"] = "string"
-    pail["table_studies"] = pandas.read_csv(
-        path_file_table_studies,
-        sep="\t",
-        header=0,
-        dtype=types_columns,
-        na_values=[
-            "nan", "na", "NAN", "NA", "<nan>", "<na>", "<NAN>", "<NA>",
-        ],
-    )
-    # Return information.
-    return pail
-
-
-
 
 
 ##########
@@ -1067,7 +1469,6 @@ def simplify_transform_long_table_plot_asymmetrical(
         report=True,
     )
 
-
     ##########
     # Simplify content of table.
     # Transform table to long format.
@@ -1223,10 +1624,6 @@ def organize_genetic_correlation_table_plot(
     # Return information.
     return table_plot
 
-
-# TODO: TCW; 9 August 2024
-# It seems to be necessary to choose between "p_value" or "q_value" when
-# organizing the tables for the plots, especially the symmetrical plot.
 
 def control_prepare_genetic_correlation_table_supplement_plot(
     instance=None,
@@ -1416,13 +1813,13 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
 
     # Read source information from file.
     # Organize source information within tables.
-    source = read_organize_source_parameter_genetic_correlations(
+    table_studies = read_source_parameter_studies_polish(
         paths=paths,
         report=report,
     )
     # Collect parameters common across all instances.
     parameters = dict()
-    parameters["table_studies"] = source["table_studies"]
+    parameters["table_studies"] = table_studies
     parameters["table_rg"] = table_rg
     parameters["paths"] = paths
     parameters["report"] = report
@@ -1476,7 +1873,7 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
     ]
 
     # Execute procedure iteratively with parallelization across instances.
-    if False:
+    if True:
         prall.drive_procedure_parallel(
             function_control=(
                 control_prepare_genetic_correlation_table_supplement_plot
@@ -1502,11 +1899,6 @@ def test():
     ##################################################
     ##########
     table_test = table_general
-    table_test.reset_index(
-        level=None,
-        inplace=True,
-        drop=False, # remove index; do not move to regular columns
-    )
     # Collect information.
     # Collections of files.
     pail_write_files = dict()
@@ -1515,11 +1907,12 @@ def test():
     # Write product information to file.
     putly.write_tables_to_file(
         pail_write=pail_write_files,
-        path_directory_parent=paths["out_test"],
+        path_directory=paths["out_test"],
         reset_index=False,
-        write_index=False,
+        write_index=True,
         type="text",
     )
+
     ##################################################
     pass
 
@@ -1559,11 +1952,10 @@ def control_prepare_genetic_correlation_network_links(
 
     # Read source information from file.
     # Organize source information within tables.
-    source = read_organize_source_parameter_genetic_correlations(
+    table_studies = read_source_parameter_studies_polish(
         path_directory_dock=paths["dock"],
         report=report,
     )
-    table_studies = source["table_studies"]
 
     # TODO: organize the table of network links
 
@@ -2564,9 +2956,17 @@ def execute_procedure(
 
     ##########
     # 2. Organize SNP heritabilities within tables for supplement.
+
     # TODO: TCW; 27 May 2024
     # TODO: implement this... only 1 SNP h2 table for supplement.
     # TODO: need to filter and organize
+
+    table_h2 = control_read_organize_snp_heritability_table_supplement(
+        paths=paths,
+        report=True,
+    )
+
+
 
     ##########
     # 3. Read and assemble all genetic correlations within main table for
