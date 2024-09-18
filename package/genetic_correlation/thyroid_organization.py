@@ -68,7 +68,7 @@ import partner.extraction as pextr
 import partner.organization as porg
 import partner.description as pdesc
 #import partner.regression as preg
-#import partner.plot as pplot
+import partner.plot as pplot
 import partner.parallelization as prall
 
 ###############################################################################
@@ -202,23 +202,29 @@ def initialize_directory_group_analysis(
     # Copy information.
     paths = copy.deepcopy(paths)
     # Define paths to directories.
-    paths["group_analysis"] = os.path.join(
+    paths["out_data_group_analysis"] = os.path.join(
         paths["out_data"], group_analysis,
+    )
+    paths["out_plot_group_analysis"] = os.path.join(
+        paths["out_plot"], group_analysis,
     )
     # Remove previous files to avoid version or batch confusion.
     if restore:
-        putly.remove_directory(path=paths["group_analysis"])
+        putly.remove_directory(path=paths["out_data_group_analysis"])
+        putly.remove_directory(path=paths["out_plot_group_analysis"])
     # Initialize directories.
     putly.create_directories(
-        path=paths["group_analysis"]
+        path=paths["out_data_group_analysis"]
+    )
+    putly.create_directories(
+        path=paths["out_plot_group_analysis"]
     )
     # Return information.
     return paths
 
 
-
 ##########
-# 3. Read parameters about studies
+# 2.1. Read parameters about studies
 
 
 def read_source_parameter_studies_process(
@@ -326,6 +332,8 @@ def read_source_parameter_studies_polish(
     types_columns = dict()
     types_columns["inclusion_thyroid_table"] = "float"
     types_columns["inclusion_thyroid_figure"] = "float"
+    types_columns["inclusion_thyroid_figure_1"] = "float"
+    types_columns["inclusion_thyroid_figure_2"] = "float"
     types_columns["inclusion_sex_table"] = "float"
     types_columns["sort"] = "float"
     types_columns["group"] = "string"
@@ -352,7 +360,7 @@ def read_source_parameter_studies_polish(
 
 
 ##########
-# 2. Read and organize SNP heritabilities in table for supplement
+# 2.2. Read and organize SNP heritabilities in table for supplement
 
 
 def read_source_data_snp_heritability(
@@ -700,7 +708,7 @@ def control_read_organize_snp_heritability_table_supplement(
 
 
 ##########
-# 3. Read and assemble genetic correlations
+# 2.3. Read and assemble genetic correlations
 
 
 def read_organize_source_data_genetic_correlations(
@@ -847,7 +855,129 @@ def control_assemble_genetic_correlations(
 
 
 ##########
-# Organize genetic correlations in tables for supplement
+# 2.4. Read and organize information to plot charts
+
+
+def organize_source_plot_table_index(
+    table=None,
+    report=None,
+):
+    """
+    Organizes index of table from source.
+
+    arguments:
+        table (object): Pandas data-frame table of genetic correlations
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): source information
+
+    """
+
+    ##########
+    # Copy information in table.
+    table_copy = table.copy(deep=True)
+
+    ##########
+    # Organize information in table.
+    table_copy.reset_index(
+        level=None,
+        inplace=True,
+        drop=False, # remove index; do not move to regular columns
+    )
+    table_copy.set_index(
+        [
+            "group_analysis",
+            "abbreviation_primary",
+        ],
+        append=False,
+        drop=True,
+        inplace=True,
+    )
+
+    ##########
+    # Return information.
+    return table_copy
+
+
+def read_organize_source_plot(
+    group_analysis=None,
+    name_table=None,
+    path_directory_dock=None,
+    report=None,
+):
+    """
+    Reads and organizes source information from file.
+
+    arguments:
+        group_analysis (str): name of child directory for analysis group of
+            comparisons
+        name_table (str): base name for files to which to save tables
+        path_directory_dock (str): path to dock directory for source and product
+            directories and files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): Pandas data-frame table
+
+    """
+
+    ##########
+    # Genetic correlations:
+    # Thyroid Disorders and Thyroid Biomarkers
+    # against Psychiatric and Substance Use Disorders
+    ##########
+
+    # Define path to parent directory.
+    path_directory_parent = os.path.join(
+        path_directory_dock, "out_psychiatry_biomarkers",
+        "genetic_correlation", "thyroid_organization", "data"
+    )
+    # Define path to child directory.
+    path_directory_child = os.path.join(
+        path_directory_parent, group_analysis, "pickle",
+    )
+    # Define path to file.
+    path_file_table = os.path.join(
+        path_directory_child,
+        str(name_table + "_for_plot.pickle"),
+    )
+    # Read information from file.
+    table_raw = pandas.read_pickle(
+        path_file_table,
+    )
+    print("here is the table before organizing the index...")
+    print(table_raw)
+    # Organize information in table from source.
+    # Collect information.
+    table = organize_source_plot_table_index(
+        table=table_raw,
+        report=report,
+    )
+    print("here is the table after organizing the index...")
+    print(table)
+    # This functionality is useful for reading a similarly-formatted table from
+    # tab-delimited text file.
+    if False:
+        # Read and organize information from file.
+        pail = putly.read_table_multiindex_columns_transpose(
+            path_file_table=path_file_table,
+            row_index_place_holder="group_secondary",
+            name_row_index="group_secondary",
+            name_column_index_1="group_primary",
+            name_column_index_2="type_value",
+            report=True,
+        )
+    # Return information.
+    return table
+
+
+##########
+# 3. Organize genetic correlations in tables for supplements and plots
 
 
 def organize_genetic_correlation_table_general(
@@ -1774,14 +1904,14 @@ def control_prepare_genetic_correlation_table_supplement_plot(
     # Write product information to file.
     putly.write_tables_to_file_in_child_directories(
         pail_write=pail_write_directories_text,
-        path_directory_parent=paths["group_analysis"],
+        path_directory_parent=paths["out_data_group_analysis"],
         reset_index=False,
         write_index=True,
         type="text",
     )
     putly.write_tables_to_file_in_child_directories(
         pail_write=pail_write_directories_pickle,
-        path_directory_parent=paths["group_analysis"],
+        path_directory_parent=paths["out_data_group_analysis"],
         reset_index=False,
         write_index=True,
         type="pickle",
@@ -1827,8 +1957,8 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
     # Collect parameters specific to each instance.
     instances = [
         {
-            "group_analysis": "primary_primary", # name of child directory
-            "name_table": "table_psychiatry_substance", # base name of file
+            "group_analysis": "primary_primary_table_s2_figure_s1", # name of child directory
+            "name_table": "table_psychiatry_substance_table_s2_figure_s1", # base name of file
             "inclusion_table": "inclusion_thyroid_table",
             "inclusion_figure": "inclusion_thyroid_figure",
             "groups_primary": ["psychiatry","substance",],
@@ -1836,8 +1966,8 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
             "symmetry": True,
         },
         {
-            "group_analysis": "secondary_secondary_thyroid",
-            "name_table": "table_thyroid",
+            "group_analysis": "secondary_secondary_table_s3_figure_s2",
+            "name_table": "table_thyroid_table_s3_figure_s2",
             "inclusion_table": "inclusion_thyroid_table",
             "inclusion_figure": "inclusion_thyroid_figure",
             "groups_primary": ["thyroid",],
@@ -1845,10 +1975,28 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
             "symmetry": True,
         },
         {
-            "group_analysis": "primary_secondary_thyroid",
-            "name_table": "table_psychiatry_substance_thyroid",
+            "group_analysis": "primary_secondary_table_s4",
+            "name_table": "table_psychiatry_substance_thyroid_table_s4",
             "inclusion_table": "inclusion_thyroid_table",
             "inclusion_figure": "inclusion_thyroid_figure",
+            "groups_primary": ["psychiatry","substance",],
+            "groups_secondary": ["thyroid",],
+            "symmetry": False,
+        },
+        {
+            "group_analysis": "primary_secondary_figure_1", # must use same parameters for q-values in supplemental table
+            "name_table": "table_psychiatry_substance_thyroid_figure_1",
+            "inclusion_table": "inclusion_thyroid_table",
+            "inclusion_figure": "inclusion_thyroid_figure_1",
+            "groups_primary": ["psychiatry","substance",],
+            "groups_secondary": ["thyroid",],
+            "symmetry": False,
+        },
+        {
+            "group_analysis": "primary_secondary_thyroid_figure_2", # must use same parameters for q-values in supplemental table
+            "name_table": "table_psychiatry_substance_thyroid_figure_2",
+            "inclusion_table": "inclusion_thyroid_table",
+            "inclusion_figure": "inclusion_thyroid_figure_2",
             "groups_primary": ["psychiatry","substance",],
             "groups_secondary": ["thyroid",],
             "symmetry": False,
@@ -1918,7 +2066,7 @@ def test():
 
 
 ##########
-# Network
+# 4. Network
 
 
 def control_prepare_genetic_correlation_network_links(
@@ -2039,11 +2187,273 @@ def control_prepare_genetic_correlation_network_links(
     # Write product information to file.
     putly.write_tables_to_file_in_child_directories(
         pail_write=pail_write_directories_text,
-        path_directory_parent=paths["group_analysis"],
+        path_directory_parent=paths["out_data_group_analysis"],
         type="text",
     )
     pass
 
+
+
+##########
+# 5. Plot charts
+
+
+
+def create_write_figure_heat_map(
+    table=None,
+    name_figure=None,
+    path_directory=None,
+    report=None,
+):
+    """
+    Creation dot plot and write to file.
+
+    Assume that rows for records in the source table are already in proper sort
+    order corresponding to the categorical labels on the abscissa (horizontal
+    axis).
+
+    arguments:
+        table (object): Pandas data-frame table in long format with
+            floating-point values of signal and p-values.
+        name_figure (str): name of figure to use in file name
+        path_directory (str): path to parent directory within which to write a
+            file for figure
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): figure object from MatPlotLib
+
+    """
+
+    # Define fonts.
+    fonts = pplot.define_font_properties()
+    # Define colors.
+    colors = pplot.define_color_properties()
+    # Create figure.
+    figure = pplot.plot_heat_map_few_signal_significance_labels(
+        table=table,
+        transpose_table=True,
+        index_group_columns="abbreviation_secondary",
+        index_group_rows="abbreviation_primary",
+        fill_missing=True,
+        value_missing_fill=0.0,
+        constrain_signal_values=True,
+        value_minimum=-1.0, # -1.0
+        value_maximum=1.0, # 1.0
+        significance_p=True,
+        significance_q=True,
+        thresholds_p=[0.05, 0.01,],
+        #thresholds_q=[0.05, 0.01,],
+        thresholds_q=[0.05,],
+        show_legend=True, # whether to show legend on individual figures
+        show_scale_bar=True, # whether to show scale bar on individual figures
+        #label_legend=str(
+        #    "Labels:\n"
+        #    + str("  " + "$\u2020$: p < 0.05" + "  \n") # dagger U+2020
+        #    + str("  " + "$\u2021$: p < 0.01" + "  \n") # double dagger U+2021
+        #    + str("  " + "  \n") # blank line
+        #    + str("  " + "$\u002A$: q < 0.05" + "  \n") # asterisk U+002A
+        #    + str("  " + "$\u2051$: q < 0.01") # double asterisk U+2051
+        #),
+        label_legend=str(
+            "Labels:\n"
+            + str("  " + "  \n") # blank line
+            + str("  " + "$\u2020$: p < 0.05" + "  \n") # dagger U+2020
+            + str("  " + "$\u2021$: p < 0.01" + "  \n") # double dagger U+2021
+            + str("  " + "  \n") # blank line
+            + str("  " + "$\u002A$: q < 0.05") # asterisk U+002A
+        ),
+        labels_ordinate_categories=[""],
+        labels_abscissa_categories=[""],
+        title_chart_top_right="",
+        title_ordinate="",
+        title_abscissa="",
+        title_bar="Genetic Correlations (rg)",
+        size_label_sig_p="thirteen", # multi-panel: twelve; individual: thirteen
+        size_label_sig_q="thirteen", # multi-panel: twelve; individual: thirteen
+        size_title_ordinate="eight", # ten
+        size_title_abscissa="eight", # ten
+        size_label_ordinate="twelve", # multi-panel: ten; individual: twelve
+        size_label_abscissa="twelve", # multi-panel: ten; individual: twelve
+        size_label_legend="twelve", # twelve
+        size_title_bar="twelve", # twelve
+        size_label_bar="thirteen", # thirteen
+        aspect="square", # square, portrait, landscape, ...
+        fonts=fonts,
+        colors=colors,
+        report=True,
+    )
+    # Write figure to file.
+    pplot.write_product_plot_figure(
+        figure=figure,
+        format="jpg", # jpg, png, svg
+        resolution=300,
+        name_file=name_figure,
+        path_directory=path_directory,
+    )
+    # Return information.
+    return figure
+
+
+def create_heatmap_figure_for_table_groups(
+    factors=None,
+    table=None,
+    path_directory_parent=None,
+    report=None,
+):
+    """
+    Splits rows within table by groups of factor columns.
+    Applies procedure to to each group of rows.
+
+    arguments:
+        factors (list<str>): names of columns in table by which to split groups
+        table (object): Pandas data-frame table of columns for feature variables
+            across rows for observation records
+        path_directory_parent (str): path to parent directory within which to
+            write files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+
+    """
+
+    # Copy information in table.
+    table = table.copy(deep=True)
+    # Organize table.
+    if False:
+        table.reset_index(
+            level=None,
+            inplace=True,
+            drop=True, # remove index; do not move to regular columns
+        )
+        table.drop_duplicates(
+            subset=None,
+            keep="first",
+            inplace=True,
+        )
+        table.set_index(
+            factors,
+            append=False,
+            drop=True,
+            inplace=True
+        )
+    # Split rows within table by factor columns.
+    groups = table.groupby(
+        level=factors,
+    )
+    for name, table_group in groups:
+        # Copy information in table.
+        table_group = table_group.copy(deep=True)
+        # Transpose table.
+        table_group = table_group.transpose(copy=True)
+        # Organize table.
+        if False:
+            table_group.reset_index(
+                level=None,
+                inplace=True,
+                drop=False, # do not remove index; move to regular columns
+            )
+
+        # Report.
+        if report:
+            putly.print_terminal_partition(level=4)
+            print("Name of group:")
+            print(name)
+            print("Table for group after split:")
+            print(table_group)
+            putly.print_terminal_partition(level=4)
+        # Complete procedures on each group table after split.
+        # For example, calculate summary statistics on each group and then
+        # collect within a new summary table.
+        if True:
+            # Create figure and write to file.
+            create_write_figure_heat_map(
+                table=table_group,
+                name_figure=name,
+                path_directory=path_directory_parent,
+                report=True,
+            )
+        pass
+    # Return information.
+    pass
+
+
+def control_plot_charts(
+    paths=None,
+    report=None,
+):
+    """
+    Control plotting of charts.
+
+    arguments:
+        paths : (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+
+    raises:
+
+    returns:
+
+    """
+
+    # Define instances for iteration.
+    instances = [
+        {
+            "group_analysis": "primary_primary_table_s2_figure_s1", # name of child directory
+            "name_table": "table_psychiatry_substance_table_s2_figure_s1", # base name of file
+        },
+        {
+            "group_analysis": "secondary_secondary_table_s3_figure_s2",
+            "name_table": "table_thyroid_table_s3_figure_s2",
+        },
+        {
+            "group_analysis": "primary_secondary_table_s4",
+            "name_table": "table_psychiatry_substance_thyroid_table_s4",
+        },
+        {
+            "group_analysis": "primary_secondary_figure_1", # must use same parameters for q-values in supplemental table
+            "name_table": "table_psychiatry_substance_thyroid_figure_1",
+        },
+
+        {
+            "group_analysis": "primary_secondary_thyroid_figure_2", # must use same parameters for q-values in supplemental table
+            "name_table": "table_psychiatry_substance_thyroid_figure_2",
+        },
+        #{
+        #    "group_analysis": "primary_secondary_sex",
+        #    "name_table": "table_psychiatry_substance_sex_hormone",
+        #},
+    ]
+    # Iterate on instances.
+    for instance in instances:
+        # Initialize child directory for analysis group.
+        paths = initialize_directory_group_analysis(
+            group_analysis=instance["group_analysis"],
+            paths=paths,
+            restore=False,
+        )
+        # Read source information from file.
+        table_source = read_organize_source_plot(
+            group_analysis=instance["group_analysis"],
+            name_table=instance["name_table"],
+            path_directory_dock=paths["dock"],
+            report=report,
+        )
+        # Prepare product.
+        # Create chart and write to file.
+        create_heatmap_figure_for_table_groups(
+            factors=["group_analysis"],
+            table=table_source,
+            path_directory_parent=paths["out_plot_group_analysis"],
+            report=report,
+        )
+        pass
+    pass
 
 
 
@@ -2956,17 +3366,10 @@ def execute_procedure(
 
     ##########
     # 2. Organize SNP heritabilities within tables for supplement.
-
-    # TODO: TCW; 27 May 2024
-    # TODO: implement this... only 1 SNP h2 table for supplement.
-    # TODO: need to filter and organize
-
     table_h2 = control_read_organize_snp_heritability_table_supplement(
         paths=paths,
         report=True,
     )
-
-
 
     ##########
     # 3. Read and assemble all genetic correlations within main table for
@@ -2981,6 +3384,22 @@ def execute_procedure(
     # plot.
     control_prepare_genetic_correlation_tables_supplement_plot(
         table_rg=table_rg_total,
+        paths=paths,
+        report=True,
+    )
+
+    ##########
+    # 5. Organize tables of nodes and links for network representation of
+    # genetic correlations.
+
+
+    ##########
+    # 6. Query genetic correlations for convenient reporting within the text
+    # of the article's Results.
+
+    ##########
+    # 7. Plot charts to represent genetic correlations.
+    control_plot_charts(
         paths=paths,
         report=True,
     )
@@ -3016,4 +3435,5 @@ def execute_procedure(
 
 
 
-#
+###############################################################################
+# End
