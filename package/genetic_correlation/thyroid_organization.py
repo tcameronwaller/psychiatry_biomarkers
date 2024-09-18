@@ -2069,6 +2069,77 @@ def test():
 # 4. Network
 
 
+# TODO: needs update
+def control_prepare_genetic_correlation_network(
+    paths=None,
+):
+    """
+    Control procedure to test extraction of information from LDSC report text
+    logs for SNP heritability and genetic correlation.
+
+    arguments:
+        paths : (dict<str>): collection of paths to directories for procedure's
+            files
+
+    raises:
+
+    returns:
+
+    """
+
+    # Genome-Wide Association Studies (GWAS) as Nodes and Genetic Correlations
+    # as Links between them.
+
+    # Read source information from file.
+    # Organize source information within tables.
+    source = read_source_genetic_correlations_node_link_diagram(
+        path_directory_dock=paths["dock"],
+        report=True,
+    )
+    # Combine tables of genetic correlations.
+    table = combine_tables_correlation(
+        table_1=source["table_correlations_1_1"],
+        table_2=source["table_correlations_2_2"],
+        table_3=source["table_correlations_1_2"],
+        report=True,
+    )
+    # Filter genetic correlations.
+    table_studies_inclusion = source["table_studies"].loc[
+        (source["table_studies"]["inclusion"] == 1), :
+    ]
+    studies_inclusion = table_studies_inclusion["identifier"].to_list()
+    order_columns = [
+        #"index",
+        "study_primary",
+        "study_secondary",
+        "variants",
+        "variants_valid",
+        "correlation",
+        "correlation_absolute",
+        "correlation_error",
+        "p_not_zero",
+        "q_not_zero",
+    ]
+    table_filter = pextr.filter_table_ldsc_correlation_studies(
+        table=table,
+        studies_keep=studies_inclusion,
+        threshold_q=0.05,
+        order_columns=order_columns,
+        report=True,
+    )
+    # Collect tables.
+    pail_write = dict()
+    pail_write["tables"] = dict()
+    pail_write["tables"]["table_study_correlations_q-value_0-005"] = table_filter
+    # Write product information to file.
+    putly.write_tables_to_file_in_child_directories(
+        pail_write=pail_write,
+        path_directory_parent=paths["wrangler"],
+    )
+    pass
+
+
+
 def control_prepare_genetic_correlation_network_links(
     table_rg=None,
     paths=None,
@@ -2198,7 +2269,6 @@ def control_prepare_genetic_correlation_network_links(
 # 5. Plot charts
 
 
-
 def create_write_figure_heat_map(
     table=None,
     name_figure=None,
@@ -2247,8 +2317,8 @@ def create_write_figure_heat_map(
         thresholds_p=[0.05, 0.01,],
         #thresholds_q=[0.05, 0.01,],
         thresholds_q=[0.05,],
-        show_legend=True, # whether to show legend on individual figures
-        show_scale_bar=True, # whether to show scale bar on individual figures
+        show_legend=False, # whether to show legend on individual figures
+        show_scale_bar=False, # whether to show scale bar on individual figures
         #label_legend=str(
         #    "Labels:\n"
         #    + str("  " + "$\u2020$: p < 0.05" + "  \n") # dagger U+2020
@@ -2270,16 +2340,16 @@ def create_write_figure_heat_map(
         title_chart_top_right="",
         title_ordinate="",
         title_abscissa="",
-        title_bar="Genetic Correlations (rg)",
-        size_label_sig_p="thirteen", # multi-panel: twelve; individual: thirteen
-        size_label_sig_q="thirteen", # multi-panel: twelve; individual: thirteen
+        title_bar="Genetic Correlations (rg)", # Genetic Correlations (rg)
+        size_label_sig_p="twelve", # multi-panel: twelve; individual: thirteen
+        size_label_sig_q="twelve", # multi-panel: twelve; individual: thirteen
         size_title_ordinate="eight", # ten
         size_title_abscissa="eight", # ten
-        size_label_ordinate="twelve", # multi-panel: ten; individual: twelve
-        size_label_abscissa="twelve", # multi-panel: ten; individual: twelve
+        size_label_ordinate="eleven", # multi-panel: ten; individual: twelve
+        size_label_abscissa="eleven", # multi-panel: ten; individual: twelve
         size_label_legend="twelve", # twelve
         size_title_bar="twelve", # twelve
-        size_label_bar="thirteen", # thirteen
+        size_label_bar="thirteen", # thirteen for whole; five for bar itself
         aspect="square", # square, portrait, landscape, ...
         fonts=fonts,
         colors=colors,
@@ -2288,7 +2358,7 @@ def create_write_figure_heat_map(
     # Write figure to file.
     pplot.write_product_plot_figure(
         figure=figure,
-        format="jpg", # jpg, png, svg
+        format="svg", # jpg, png, svg
         resolution=300,
         name_file=name_figure,
         path_directory=path_directory,
@@ -3238,77 +3308,6 @@ def combine_tables_correlation(
     return table
 
 
-# TODO: needs update
-def control_prepare_genetic_correlation_network(
-    paths=None,
-):
-    """
-    Control procedure to test extraction of information from LDSC report text
-    logs for SNP heritability and genetic correlation.
-
-    arguments:
-        paths : (dict<str>): collection of paths to directories for procedure's
-            files
-
-    raises:
-
-    returns:
-
-    """
-
-    # Genome-Wide Association Studies (GWAS) as Nodes and Genetic Correlations
-    # as Links between them.
-
-    # Read source information from file.
-    # Organize source information within tables.
-    source = read_source_genetic_correlations_node_link_diagram(
-        path_directory_dock=paths["dock"],
-        report=True,
-    )
-    # Combine tables of genetic correlations.
-    table = combine_tables_correlation(
-        table_1=source["table_correlations_1_1"],
-        table_2=source["table_correlations_2_2"],
-        table_3=source["table_correlations_1_2"],
-        report=True,
-    )
-    # Filter genetic correlations.
-    table_studies_inclusion = source["table_studies"].loc[
-        (source["table_studies"]["inclusion"] == 1), :
-    ]
-    studies_inclusion = table_studies_inclusion["identifier"].to_list()
-    order_columns = [
-        #"index",
-        "study_primary",
-        "study_secondary",
-        "variants",
-        "variants_valid",
-        "correlation",
-        "correlation_absolute",
-        "correlation_error",
-        "p_not_zero",
-        "q_not_zero",
-    ]
-    table_filter = pextr.filter_table_ldsc_correlation_studies(
-        table=table,
-        studies_keep=studies_inclusion,
-        threshold_q=0.05,
-        order_columns=order_columns,
-        report=True,
-    )
-    # Collect tables.
-    pail_write = dict()
-    pail_write["tables"] = dict()
-    pail_write["tables"]["table_study_correlations_q-value_0-005"] = table_filter
-    # Write product information to file.
-    putly.write_tables_to_file_in_child_directories(
-        pail_write=pail_write,
-        path_directory_parent=paths["wrangler"],
-    )
-    pass
-
-
-
 ###############################################################################
 # Procedure
 
@@ -3391,6 +3390,12 @@ def execute_procedure(
     ##########
     # 5. Organize tables of nodes and links for network representation of
     # genetic correlations.
+    if False:
+        control_prepare_genetic_correlation_network_links(
+            table_rg=table_rg_total,
+            paths=paths,
+            report=True,
+        )
 
 
     ##########
@@ -3408,14 +3413,6 @@ def execute_procedure(
 
     if False:
 
-        ##########
-        # Organize genetic correlations within tables for network.
-        if False:
-            control_prepare_genetic_correlation_network_links(
-                table_rg=table_rg_total,
-                paths=paths,
-                report=True,
-            )
 
         if False:
             control_prepare_genetic_correlation_network(
