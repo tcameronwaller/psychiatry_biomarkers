@@ -1025,12 +1025,12 @@ def read_organize_source_supplemental_tables_for_network(
     for instance in instances:
         # Define path to child directory.
         path_directory_child = os.path.join(
-            path_directory_parent, group_analysis, "pickle",
+            path_directory_parent, instance["group_analysis"], "pickle",
         )
         # Define path to file.
         path_file_table = os.path.join(
             path_directory_child,
-            str(name_table + "_for_supplement.pickle"),
+            str(instance["name_table"] + "_for_supplement.pickle"),
         )
         # Read information from file.
         table_instance = pandas.read_pickle(
@@ -1073,10 +1073,6 @@ def read_organize_source_supplemental_tables_for_network(
         pass
     # Return information.
     return table
-
-
-
-
 
 
 ##########
@@ -2174,13 +2170,6 @@ def test():
 # as Links between them.
 
 
-# Filter genetic correlations from combined supplemental tables.
-# Require non-missing values in each column below.
-#"correlation",
-#"p_value_ldsc",
-#"q_value_ldsc",
-
-
 def control_prepare_genetic_correlation_network_nodes_links(
     paths=None,
     report=None,
@@ -2211,7 +2200,7 @@ def control_prepare_genetic_correlation_network_nodes_links(
         paths=paths,
         report=report,
     )
-    table_rg read_organize_source_supplemental_tables_for_network(
+    table_rg = read_organize_source_supplemental_tables_for_network(
         paths=paths,
         report=report,
     )
@@ -2390,9 +2379,6 @@ def control_prepare_genetic_correlation_network_nodes_links_from_scratch(
         type="text",
     )
     pass
-
-
-
 
 
 
@@ -3366,7 +3352,6 @@ def execute_procedure(
     # 5. Organize tables of nodes and links for network representation of
     # genetic correlations.
     control_prepare_genetic_correlation_network_nodes_links(
-        table_rg=table_rg_total,
         paths=paths,
         report=True,
     )
