@@ -2194,6 +2194,9 @@ def control_prepare_genetic_correlation_network_nodes_links(
     group_analysis = "network_links"
     name_table_links = "table_network_links"
     name_table_nodes = "table_network_nodes"
+    groups_primary = ["psychiatry","substance", "thyroid",]
+    groups_secondary = ["psychiatry","substance", "thyroid",]
+    symmetry = False
 
     # Read source information from file.
     table_studies = read_source_parameter_studies_polish(
@@ -2203,6 +2206,42 @@ def control_prepare_genetic_correlation_network_nodes_links(
     table_rg = read_organize_source_supplemental_tables_for_network(
         paths=paths,
         report=report,
+    )
+
+    # Filter rows in table by selection of studies.
+    inclusion = "inclusion_thyroid_figure"
+    # Extract identifiers of primary and secondary studies to keep.
+    table_studies_inclusion = table_studies.loc[
+        (table_studies[inclusion] == 1), :
+    ]
+    table_studies_primary = table_studies_inclusion.loc[
+        (table_studies_inclusion["group"].isin(groups_primary)), :
+    ]
+    table_studies_secondary = table_studies_inclusion.loc[
+        (table_studies_inclusion["group"].isin(groups_secondary)), :
+    ]
+    studies_primary = copy.deepcopy(
+        table_studies_primary["identifier"].to_list()
+    )
+    studies_secondary = copy.deepcopy(
+        table_studies_secondary["identifier"].to_list()
+    )
+    # Filter table's rows by primary and secondary studies in comparisons.
+    # For text tables:
+    # - match_redundancy=True
+    # - match_self_pair=True
+    # - remove_else_null=True
+    table_rg = pextr.filter_table_rows_ldsc_correlation(
+        table=table_rg,
+        studies_primary_keep=studies_primary,
+        studies_secondary_keep=studies_secondary,
+        name_primary="study_primary",
+        name_secondary="study_secondary",
+        keep_double=False, # whether to keep double redundant pairs for symmetry
+        match_redundancy=True, # whether to match redundant pairs of studies
+        match_self_pair=True, # whether to match self pairs of studies
+        remove_else_null=True, # whether to remove or nullify matches
+        report=True,
     )
 
     # Filter rows in table for non-missing values across relevant columns.
