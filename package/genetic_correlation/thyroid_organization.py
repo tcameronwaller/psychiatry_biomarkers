@@ -977,6 +977,109 @@ def read_organize_source_plot(
 
 
 ##########
+# 2.5. Read and organize information for network nodes and links
+
+
+def read_organize_source_supplemental_tables_for_network(
+    paths=None,
+    report=None,
+):
+    """
+    Reads and organizes source information from file.
+
+    arguments:
+        paths : (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (object): Pandas data-frame table
+
+    """
+
+    # Define path to parent directory.
+    path_directory_parent = os.path.join(
+        paths["dock"], "out_psychiatry_biomarkers",
+        "genetic_correlation", "thyroid_organization", "data"
+    )
+    # Define instances for iteration.
+    instances = [
+        {
+            "group_analysis": "primary_primary_table_s2_figure_s1", # name of child directory
+            "name_table": "table_psychiatry_substance_table_s2_figure_s1", # base name of file
+        },
+        {
+            "group_analysis": "secondary_secondary_table_s3_figure_s2",
+            "name_table": "table_thyroid_table_s3_figure_s2",
+        },
+        {
+            "group_analysis": "primary_secondary_table_s4",
+            "name_table": "table_psychiatry_substance_thyroid_table_s4",
+        },
+    ]
+    # Collect information.
+    tables = list()
+    # Iterate on instances.
+    for instance in instances:
+        # Define path to child directory.
+        path_directory_child = os.path.join(
+            path_directory_parent, group_analysis, "pickle",
+        )
+        # Define path to file.
+        path_file_table = os.path.join(
+            path_directory_child,
+            str(name_table + "_for_supplement.pickle"),
+        )
+        # Read information from file.
+        table_instance = pandas.read_pickle(
+            path_file_table,
+        )
+        # Collect table.
+        tables.append(table_instance)
+        pass
+    # Concatenate tables.
+    table = pandas.concat(
+        tables,
+        axis="index",
+        join="outer",
+        ignore_index=True,
+        copy=True,
+    )
+    # Report.
+    if report:
+        putly.print_terminal_partition(level=4)
+        putly.print_terminal_partition(level=3)
+        print(str(
+            "module: psychiatry_biomarkers.genetic_correlation." +
+            "thyroid_organization.py"
+        ))
+        print(
+            "function: read_organize_source_supplemental_tables_for_network()"
+        )
+        print("column labels:")
+        labels_columns = table.columns.to_list()
+        print(labels_columns)
+        putly.print_terminal_partition(level=4)
+        count_columns = (table.shape[1])
+        print("count of columns in table: " + str(count_columns))
+        count_rows = (table.shape[0])
+        print("count of rows in source table: " + str(count_rows))
+        putly.print_terminal_partition(level=4)
+        print("table:")
+        print(table)
+        putly.print_terminal_partition(level=4)
+        pass
+    # Return information.
+    return table
+
+
+
+
+
+
+##########
 # 3. Organize genetic correlations in tables for supplements and plots
 
 
@@ -2067,19 +2170,30 @@ def test():
 
 ##########
 # 4. Network
+# Genome-Wide Association Studies (GWAS) as Nodes and Genetic Correlations
+# as Links between them.
 
 
-# TODO: needs update
-def control_prepare_genetic_correlation_network(
+# Filter genetic correlations from combined supplemental tables.
+# Require non-missing values in each column below.
+#"correlation",
+#"p_value_ldsc",
+#"q_value_ldsc",
+
+
+def control_prepare_genetic_correlation_network_nodes_links(
     paths=None,
+    report=None,
 ):
     """
-    Control procedure to test extraction of information from LDSC report text
-    logs for SNP heritability and genetic correlation.
+    Control procedure to organize within tables the information about genetic
+    correlations from LDSC.
 
     arguments:
         paths : (dict<str>): collection of paths to directories for procedure's
             files
+        report (bool): whether to print reports
+
 
     raises:
 
@@ -2087,60 +2201,72 @@ def control_prepare_genetic_correlation_network(
 
     """
 
-    # Genome-Wide Association Studies (GWAS) as Nodes and Genetic Correlations
-    # as Links between them.
+    # Organize parameters.
+    group_analysis = "network_links"
+    name_table_links = "table_network_links"
+    name_table_nodes = "table_network_nodes"
 
     # Read source information from file.
-    # Organize source information within tables.
-    source = read_source_genetic_correlations_node_link_diagram(
-        path_directory_dock=paths["dock"],
-        report=True,
+    table_studies = read_source_parameter_studies_polish(
+        paths=paths,
+        report=report,
     )
-    # Combine tables of genetic correlations.
-    table = combine_tables_correlation(
-        table_1=source["table_correlations_1_1"],
-        table_2=source["table_correlations_2_2"],
-        table_3=source["table_correlations_1_2"],
-        report=True,
+    table_rg read_organize_source_supplemental_tables_for_network(
+        paths=paths,
+        report=report,
     )
-    # Filter genetic correlations.
-    table_studies_inclusion = source["table_studies"].loc[
-        (source["table_studies"]["inclusion"] == 1), :
-    ]
-    studies_inclusion = table_studies_inclusion["identifier"].to_list()
-    order_columns = [
-        #"index",
-        "study_primary",
-        "study_secondary",
-        "variants",
-        "variants_valid",
-        "correlation",
-        "correlation_absolute",
-        "correlation_error",
-        "p_not_zero",
-        "q_not_zero",
-    ]
-    table_filter = pextr.filter_table_ldsc_correlation_studies(
-        table=table,
-        studies_keep=studies_inclusion,
-        threshold_q=0.05,
-        order_columns=order_columns,
-        report=True,
+
+    # Filter rows in table for non-missing values across relevant columns.
+    table_rg.dropna(
+        axis="index",
+        how="any",
+        subset=[
+            "correlation",
+            "correlation_error",
+            "p_value_ldsc",
+            "q_value_ldsc",
+        ],
+        inplace=True,
     )
-    # Collect tables.
-    pail_write = dict()
-    pail_write["tables"] = dict()
-    pail_write["tables"]["table_study_correlations_q-value_0-005"] = table_filter
+    # Filter rows in table by applying a threshold on the q-value.
+    table_rg = table_rg.loc[
+        (
+            (table_rg["q_value_ldsc"] < 0.05)
+        ), :
+    ].copy(deep=True)
+
+    ##########
+    # Initialize child directory for analysis group.
+    paths = initialize_directory_group_analysis(
+        group_analysis=group_analysis,
+        paths=paths,
+        restore=True,
+    )
+
+    ##########
+    # Collect information.
+    # Collections of files.
+    pail_write_files = dict()
+    pail_write_files[str(name_table_nodes)] = table_studies
+    pail_write_files[str(name_table_links)] = table_rg
+    # Collections of directories.
+    pail_write_directories_text = dict()
+    pail_write_directories_text["text"] = pail_write_files
+
+    ##########
     # Write product information to file.
     putly.write_tables_to_file_in_child_directories(
-        pail_write=pail_write,
-        path_directory_parent=paths["wrangler"],
+        pail_write=pail_write_directories_text,
+        path_directory_parent=paths["out_data_group_analysis"],
+        reset_index=False,
+        write_index=True,
+        type="text",
     )
     pass
 
 
-
-def control_prepare_genetic_correlation_network_links(
+# This function will probably become obsolete... TCW; 19 September 2024
+def control_prepare_genetic_correlation_network_nodes_links_from_scratch(
     table_rg=None,
     paths=None,
     report=None,
@@ -2172,7 +2298,7 @@ def control_prepare_genetic_correlation_network_links(
     # Read source information from file.
     # Organize source information within tables.
     table_studies = read_source_parameter_studies_polish(
-        path_directory_dock=paths["dock"],
+        paths=paths,
         report=report,
     )
 
@@ -2259,9 +2385,14 @@ def control_prepare_genetic_correlation_network_links(
     putly.write_tables_to_file_in_child_directories(
         pail_write=pail_write_directories_text,
         path_directory_parent=paths["out_data_group_analysis"],
+        reset_index=False,
+        write_index=True,
         type="text",
     )
     pass
+
+
+
 
 
 
@@ -3151,162 +3282,6 @@ def control_query_genetic_correlation_tables(
 # filter links in the combined link table by the primary and secondary studies for inclusion from node attribute table
 
 
-# TODO: needs update
-def read_source_genetic_correlations_node_link_diagram(
-    path_directory_dock=None,
-    report=None,
-):
-    """
-    Reads and organizes source information from file.
-
-    Notice that Pandas does not accommodate missing values within series of
-    integer variable types.
-
-    arguments:
-        path_directory_dock (str): path to dock directory for source and product
-            directories and files
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (dict<object>): collection of Pandas data-frame tables with entry names
-            (keys) derived from original names of files
-
-    """
-
-    # Define path to parent directory.
-    path_dir_parent = os.path.join(
-        path_directory_dock, "parameters", "scratch",
-        "table_chart_correlation_network_2024-02-22",
-    )
-    # Define path to child directory.
-    path_directory_primary_secondary = os.path.join(
-        path_dir_parent, "6_gwas_correlation_ldsc_primary_secondary_extraction",
-    )
-    # Define paths to files.
-    path_file_table_studies = os.path.join(
-        path_dir_parent, "table_studies_attributes.tsv",
-    )
-    path_file_table_primary_primary = os.path.join(
-        path_dir_parent, "table_neuropsychiatry_substance_disorders.tsv",
-    )
-    path_file_table_secondary_secondary = os.path.join(
-        path_dir_parent, "table_thyroid_disorders_biomarkers.tsv",
-    )
-
-    # Specify variable types in tables.
-    types_columns = dict()
-    types_columns["path_directory"] = "string"
-    types_columns["name_file"] = "string"
-    types_columns["summary_correlation_error"] = "string"
-    types_columns["summary_correlation_ci95"] = "string"
-    types_columns["summary_correlation_ci99"] = "string"
-    types_columns["variants"] = "float"
-    types_columns["variants_valid"] = "float"
-    types_columns["covariance"] = "float"
-    types_columns["covariance_error"] = "float"
-    types_columns["z_score"] = "float"
-    types_columns["correlation"] = "float"
-    types_columns["correlation_error"] = "float"
-    types_columns["p_not_zero"] = "float"
-
-    # Collect tables.
-    pail = dict()
-
-    # Read information from file.
-    pail["table_studies"] = pandas.read_csv(
-        path_file_table_studies,
-        sep="\t",
-        header=0,
-        na_values=["nan", "na", "NAN", "NA", "<nan>", "<na>", "<NAN>", "<NA>",],
-    )
-
-    # Read and organize information from file.
-
-    # Correlations between primary-primary studies and secondary-secondary
-    # studies.
-    pail["primary_primary"] = (
-        pextr.read_organize_table_ldsc_correlation_single(
-            path_file_table=path_file_table_primary_primary,
-            types_columns=types_columns,
-            report=True,
-    ))
-    pail["secondary_secondary"] = (
-        pextr.read_organize_table_ldsc_correlation_single(
-            path_file_table=path_file_table_secondary_secondary,
-            types_columns=types_columns,
-            report=True,
-    ))
-
-    # Correlations between primary-secondary studies.
-    pail["primary_secondary"] = (
-        pextr.read_organize_table_ldsc_correlation_multiple(
-            path_directory_parent=path_directory_primary_secondary,
-            types_columns=types_columns,
-            report=True,
-    ))
-
-    # Return information.
-    return pail
-
-
-def combine_tables_correlation(
-    table_1=None,
-    table_2=None,
-    table_3=None,
-    report=None,
-):
-    """
-    Combines information from multiple tables.
-
-    arguments:
-        table_1 (object): Pandas data-frame table
-        table_2 (object): Pandas data-frame table
-        table_3 (object): Pandas data-frame table
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (object): Pandas data-frame table
-
-    """
-
-    # Copy information in first table.
-    table = table_1.copy(deep=True)
-    # Concatenate tables.
-    table = pandas.concat(
-        [table, table_2,],
-        axis="index",
-        join="outer",
-        ignore_index=True,
-        copy=True,
-    )
-    table = pandas.concat(
-        [table, table_3,],
-        axis="index",
-        join="outer",
-        ignore_index=True,
-        copy=True,
-    )
-    # Report.
-    if report:
-        putly.print_terminal_partition(level=4)
-        print("Concatenation of tables:")
-        print(table)
-        print("Column labels:")
-        labels_columns = table.columns.to_list()
-        print(labels_columns)
-        putly.print_terminal_partition(level=4)
-        count_table_rows = (table.shape[0])
-        count_table_columns = (table.shape[1])
-        print("Table rows: " + str(count_table_rows))
-        print("Table columns: " + str(count_table_columns))
-        putly.print_terminal_partition(level=4)
-    # Return information.
-    return table
-
 
 ###############################################################################
 # Procedure
@@ -3390,17 +3365,20 @@ def execute_procedure(
     ##########
     # 5. Organize tables of nodes and links for network representation of
     # genetic correlations.
-    if False:
-        control_prepare_genetic_correlation_network_links(
-            table_rg=table_rg_total,
-            paths=paths,
-            report=True,
-        )
+    control_prepare_genetic_correlation_network_nodes_links(
+        table_rg=table_rg_total,
+        paths=paths,
+        report=True,
+    )
 
 
     ##########
     # 6. Query genetic correlations for convenient reporting within the text
     # of the article's Results.
+    if False:
+        control_query_genetic_correlation_tables(
+            paths=paths,
+        )
 
     ##########
     # 7. Plot charts to represent genetic correlations.
@@ -3408,23 +3386,6 @@ def execute_procedure(
         paths=paths,
         report=True,
     )
-
-
-
-    if False:
-
-
-        if False:
-            control_prepare_genetic_correlation_network(
-                paths=paths,
-            )
-
-        ##########
-        # Query genetic correlations within tables for article's Results.
-        if False:
-            control_query_genetic_correlation_tables(
-                paths=paths,
-            )
 
     pass
 
