@@ -492,6 +492,8 @@ def read_organize_source_parameter_snp_heritability(
     # Specify sequence of columns within table.
     columns_polish = [
         "inclusion_thyroid_table",
+        "inclusion_sex_table",
+        "inclusion_sex_alcohol_tobacco_table",
         "sort",
         "group",
         "sort_group",
@@ -524,6 +526,8 @@ def read_organize_source_parameter_snp_heritability(
     # Specify sequence of columns within table.
     columns_sequence = [
         "inclusion_thyroid_table",
+        "inclusion_sex_table",
+        "inclusion_sex_alcohol_tobacco_table",
         "sort",
         "group",
         "sort_group",
@@ -553,6 +557,12 @@ def read_organize_source_parameter_snp_heritability(
     pail["table_study"] = table_study
     # Return information.
     return pail
+
+
+# TODO: TCW; 8 October 2024
+# Temporarily necessary to switch within this function between variables for the
+# "inclusion" filter.
+# Currently set for the sex-hormones-alcohol-tobacco project...
 
 
 def control_read_organize_snp_heritability_table_supplement(
@@ -612,9 +622,11 @@ def control_read_organize_snp_heritability_table_supplement(
         report=report,
     )
     # Filter rows in table.
+    #inclusion = "inclusion_thyroid_table"
+    inclusion = "inclusion_sex_alcohol_tobacco_table"
     table_heritability = table_heritability.loc[
         (
-            (table_heritability["inclusion_thyroid_table"] == 1)
+            (table_heritability[inclusion] == 1)
         ), :
     ].copy(deep=True)
     # Sort rows within table.
@@ -2099,6 +2111,15 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
             "inclusion_figure": "inclusion_thyroid_figure_2",
             "groups_primary": ["psychiatry","substance",],
             "groups_secondary": ["thyroid",],
+            "symmetry": False,
+        },
+        {
+            "group_analysis": "primary_secondary_table_sex_alcohol_tobacco", # name of child directory
+            "name_table": "table_sex_substance", # base name of file
+            "inclusion_table": "inclusion_sex_alcohol_tobacco_table",
+            "inclusion_figure": "inclusion_sex_alcohol_tobacco_table",
+            "groups_primary": ["substance",],
+            "groups_secondary": ["hormone_sex",],
             "symmetry": False,
         },
         #{
