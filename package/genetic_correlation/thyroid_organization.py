@@ -335,6 +335,7 @@ def read_source_parameter_studies_polish(
     types_columns["inclusion_thyroid_figure_1"] = "float"
     types_columns["inclusion_thyroid_figure_2"] = "float"
     types_columns["inclusion_sex_table"] = "float"
+    types_columns["inclusion_sex_alcohol_tobacco_table"] = "float"
     types_columns["sort"] = "float"
     types_columns["group"] = "string"
     types_columns["sort_group"] = "float"
