@@ -494,6 +494,7 @@ def read_organize_source_parameter_snp_heritability(
         "inclusion_thyroid_table",
         "inclusion_sex_table",
         "inclusion_sex_alcohol_tobacco_table",
+        "inclusion_gonad",
         "sort",
         "group",
         "sort_group",
@@ -528,6 +529,7 @@ def read_organize_source_parameter_snp_heritability(
         "inclusion_thyroid_table",
         "inclusion_sex_table",
         "inclusion_sex_alcohol_tobacco_table",
+        "inclusion_gonad",
         "sort",
         "group",
         "sort_group",
@@ -559,10 +561,11 @@ def read_organize_source_parameter_snp_heritability(
     return pail
 
 
-# TODO: TCW; 8 October 2024
+# TODO: TCW; 21 October 2024
 # Temporarily necessary to switch within this function between variables for the
 # "inclusion" filter.
-# Currently set for the sex-hormones-alcohol-tobacco project...
+# Currently set for the sex-hormones-alcohol-tobacco project... <-- not anymore
+# Currently set for the sex-hormones versus psychiatric and substance use disorders
 
 
 def control_read_organize_snp_heritability_table_supplement(
@@ -622,8 +625,9 @@ def control_read_organize_snp_heritability_table_supplement(
         report=report,
     )
     # Filter rows in table.
-    #inclusion = "inclusion_thyroid_table"
-    inclusion = "inclusion_sex_alcohol_tobacco_table"
+    inclusion = "inclusion_thyroid_table"
+    #inclusion = "inclusion_sex_alcohol_tobacco_table"
+    #inclusion = "inclusion_gonad"
     table_heritability = table_heritability.loc[
         (
             (table_heritability[inclusion] == 1)
@@ -697,9 +701,12 @@ def control_read_organize_snp_heritability_table_supplement(
     putly.write_tables_to_file(
         pail_write=pail_write_tables,
         path_directory=paths["out_data"],
-        reset_index=False,
-        write_index=False,
+        reset_index_rows=False,
+        write_index_rows=False,
+        write_index_columns=True,
         type="text",
+        delimiter="\t",
+        suffix=".tsv",
     )
     # Report.
     if report:
@@ -1086,6 +1093,82 @@ def read_organize_source_supplemental_tables_for_network(
         pass
     # Return information.
     return table
+
+
+##########
+# 2.6. Read and organize information queries
+
+
+def read_organize_source_supplemental_tables_for_query(
+    paths=None,
+    report=None,
+):
+    """
+    Reads and organizes source information from file.
+
+    Notice that Pandas does not accommodate missing values within series of
+    integer variable types.
+
+    arguments:
+        paths (dict<str>): collection of paths to directories for procedure's
+            files
+        report (bool): whether to print reports
+
+    raises:
+
+    returns:
+        (dict<object>): collection of Pandas data-frame tables with entry names
+            (keys) derived from original names of files
+
+    """
+
+    # Define path to parent directory.
+    path_directory_parent = os.path.join(
+        paths["dock"], "out_psychiatry_biomarkers",
+        "genetic_correlation", "thyroid_organization", "data"
+    )
+    # Define instances for iteration.
+    instances = [
+        {
+            "handle": "table_rg_one_one",
+            "group_analysis": "primary_primary_table_s2_figure_s1", # name of child directory
+            "name_table": "table_psychiatry_substance_table_s2_figure_s1", # base name of file
+        },
+        {
+            "handle": "table_rg_two_two",
+            "group_analysis": "secondary_secondary_table_s3_figure_s2",
+            "name_table": "table_thyroid_table_s3_figure_s2",
+        },
+        {
+            "handle": "table_rg_one_two",
+            "group_analysis": "primary_secondary_table_s4",
+            "name_table": "table_psychiatry_substance_thyroid_table_s4",
+        },
+    ]
+
+    # Collect information.
+    pail = dict()
+    # Iterate on instances.
+    for instance in instances:
+        # Define path to child directory.
+        path_directory_child = os.path.join(
+            path_directory_parent, instance["group_analysis"], "pickle",
+        )
+        # Define path to file.
+        path_file_table = os.path.join(
+            path_directory_child,
+            str(instance["name_table"] + "_for_supplement.pickle"),
+        )
+        # Read information from file.
+        table_instance = pandas.read_pickle(
+            path_file_table,
+        )
+        # Collect table.
+        pail[instance["handle"]] = table_instance
+        pass
+
+    # Return information.
+    return pail
 
 
 ##########
@@ -2017,16 +2100,22 @@ def control_prepare_genetic_correlation_table_supplement_plot(
     putly.write_tables_to_file_in_child_directories(
         pail_write=pail_write_directories_text,
         path_directory_parent=paths["out_data_group_analysis"],
-        reset_index=False,
-        write_index=True,
+        reset_index_rows=False,
+        write_index_rows=True,
+        write_index_columns=True,
         type="text",
+        delimiter="\t",
+        suffix=".tsv",
     )
     putly.write_tables_to_file_in_child_directories(
         pail_write=pail_write_directories_pickle,
         path_directory_parent=paths["out_data_group_analysis"],
-        reset_index=False,
-        write_index=True,
+        reset_index_rows=False,
+        write_index_rows=None,
+        write_index_columns=None,
         type="pickle",
+        delimiter=None,
+        suffix=".pickle",
     )
     pass
 
@@ -2122,6 +2211,33 @@ def control_prepare_genetic_correlation_tables_supplement_plot(
             "groups_secondary": ["hormone_sex",],
             "symmetry": False,
         },
+        {
+            "group_analysis": "gonad_psychiatry_substance", # name of child directory
+            "name_table": "table_gonad_psychiatry_substance", # base name of file
+            "inclusion_table": "inclusion_gonad",
+            "inclusion_figure": "inclusion_gonad",
+            "groups_primary": ["psychiatry", "substance",],
+            "groups_secondary": ["hormone_sex",],
+            "symmetry": False,
+        },
+        {
+            "group_analysis": "gonad_psychiatry", # name of child directory
+            "name_table": "table_gonad_psychiatry", # base name of file
+            "inclusion_table": "inclusion_gonad",
+            "inclusion_figure": "inclusion_gonad",
+            "groups_primary": ["psychiatry",],
+            "groups_secondary": ["hormone_sex",],
+            "symmetry": False,
+        },
+        {
+            "group_analysis": "gonad_substance", # name of child directory
+            "name_table": "table_gonad_substance", # base name of file
+            "inclusion_table": "inclusion_gonad",
+            "inclusion_figure": "inclusion_gonad",
+            "groups_primary": ["substance",],
+            "groups_secondary": ["hormone_sex",],
+            "symmetry": False,
+        },
         #{
         #    "group_analysis": "secondary_secondary_sex",
         #    "name_table": "table_sex_hormone",
@@ -2177,9 +2293,12 @@ def test():
     putly.write_tables_to_file(
         pail_write=pail_write_files,
         path_directory=paths["out_test"],
-        reset_index=False,
-        write_index=True,
+        reset_index_rows=False,
+        write_index_rows=True,
+        write_index_columns=True,
         type="text",
+        delimiter="\t",
+        suffix=".tsv",
     )
 
     ##################################################
@@ -2308,9 +2427,12 @@ def control_prepare_genetic_correlation_network_nodes_links(
     putly.write_tables_to_file_in_child_directories(
         pail_write=pail_write_directories_text,
         path_directory_parent=paths["out_data_group_analysis"],
-        reset_index=False,
-        write_index=True,
+        reset_index_rows=False,
+        write_index_rows=True,
+        write_index_columns=True,
         type="text",
+        delimiter="\t",
+        suffix=".tsv",
     )
     pass
 
@@ -2435,9 +2557,12 @@ def control_prepare_genetic_correlation_network_nodes_links_from_scratch(
     putly.write_tables_to_file_in_child_directories(
         pail_write=pail_write_directories_text,
         path_directory_parent=paths["out_data_group_analysis"],
-        reset_index=False,
-        write_index=True,
+        reset_index_rows=False,
+        write_index_rows=True,
+        write_index_columns=True,
         type="text",
+        delimiter="\t",
+        suffix=".tsv",
     )
     pass
 
@@ -2492,11 +2617,11 @@ def create_write_figure_heat_map(
         value_maximum=1.0, # 1.0
         significance_p=True,
         significance_q=True,
-        thresholds_p=[0.05, 0.01,],
+        thresholds_p=[0.001, 0.00001,],
         #thresholds_q=[0.05, 0.01,],
         thresholds_q=[0.05,],
         show_legend=False, # whether to show legend on individual figures
-        show_scale_bar=False, # whether to show scale bar on individual figures
+        show_scale_bar=True, # whether to show scale bar on individual figures
         #label_legend=str(
         #    "Labels:\n"
         #    + str("  " + "$\u2020$: p < 0.05" + "  \n") # dagger U+2020
@@ -2508,8 +2633,8 @@ def create_write_figure_heat_map(
         label_legend=str(
             "Labels:\n"
             + str("  " + "  \n") # blank line
-            + str("  " + "$\u2020$: p < 0.05" + "  \n") # dagger U+2020
-            + str("  " + "$\u2021$: p < 0.01" + "  \n") # double dagger U+2021
+            + str("  " + "$\u2020$: p < 1E-3" + "  \n") # dagger U+2020
+            + str("  " + "$\u2021$: p < 1E-5" + "  \n") # double dagger U+2021
             + str("  " + "  \n") # blank line
             + str("  " + "$\u002A$: q < 0.05") # asterisk U+002A
         ),
@@ -2528,7 +2653,7 @@ def create_write_figure_heat_map(
         size_label_legend="twelve", # twelve
         size_title_bar="twelve", # twelve
         size_label_bar="thirteen", # thirteen for whole; five for bar itself
-        aspect="square", # square, portrait, landscape, ...
+        aspect="landscape", # square, portrait, landscape, ...
         fonts=fonts,
         colors=colors,
         report=True,
@@ -2536,8 +2661,8 @@ def create_write_figure_heat_map(
     # Write figure to file.
     pplot.write_product_plot_figure(
         figure=figure,
-        format="svg", # jpg, png, svg
-        resolution=300,
+        format="jpg", # svg, jpg, png
+        resolution=600,
         name_file=name_figure,
         path_directory=path_directory,
     )
@@ -2672,6 +2797,18 @@ def control_plot_charts(
             "group_analysis": "primary_secondary_thyroid_figure_2", # must use same parameters for q-values in supplemental table
             "name_table": "table_psychiatry_substance_thyroid_figure_2",
         },
+        {
+            "group_analysis": "gonad_psychiatry_substance", # name of child directory
+            "name_table": "table_gonad_psychiatry_substance", # base name of file
+        },
+        {
+            "group_analysis": "gonad_psychiatry", # name of child directory
+            "name_table": "table_gonad_psychiatry", # base name of file
+        },
+        {
+            "group_analysis": "gonad_substance", # name of child directory
+            "name_table": "table_gonad_substance", # base name of file
+        },
         #{
         #    "group_analysis": "primary_secondary_sex",
         #    "name_table": "table_psychiatry_substance_sex_hormone",
@@ -2704,127 +2841,13 @@ def control_plot_charts(
     pass
 
 
-
-
-################################################
-################################################
-################################################
-# TODO: TCW; 6 June 2024
-# Everything below this point (except the "execute_procedure" main function) needs updates.
-
-
 ##########
-# Query tables of genetic correlations
-
-
-def read_source_tables_genetic_correlation(
-    path_directory_dock=None,
-    report=None,
-):
-    """
-    Reads and organizes source information from file.
-
-    Notice that Pandas does not accommodate missing values within series of
-    integer variable types.
-
-    arguments:
-        path_directory_dock (str): path to dock directory for source and product
-            directories and files
-        report (bool): whether to print reports
-
-    raises:
-
-    returns:
-        (dict<object>): collection of Pandas data-frame tables with entry names
-            (keys) derived from original names of files
-
-    """
-
-    # Define path to parent directory.
-    path_directory_parent = os.path.join(
-        path_directory_dock, "parameters", "scratch",
-        "tables_genetic_correlation",
-    )
-    # Define paths to files.
-    path_file_table_one_one = os.path.join(
-        path_directory_parent, "table_rg_primary_primary.tsv",
-    )
-    path_file_table_two_two = os.path.join(
-        path_directory_parent, "table_rg_secondary_secondary.tsv",
-    )
-    path_file_table_one_two = os.path.join(
-        path_directory_parent, "table_rg_primary_secondary.tsv",
-    )
-
-    # Collect tables.
-    pail = dict()
-
-    # Specify variable types of columns within table.
-    types_columns = dict()
-    types_columns["study_primary"] = "string"
-    types_columns["study_secondary"] = "string"
-    types_columns["abbreviation_primary"] = "string"
-    types_columns["abbreviation_secondary"] = "string"
-    types_columns["trait_primary"] = "string"
-    types_columns["trait_secondary"] = "string"
-    types_columns["sex_primary"] = "string"
-    types_columns["sex_secondary"] = "string"
-    types_columns["variants_valid"] = "float"
-    types_columns["correlation"] = "float"
-    types_columns["correlation_error"] = "float"
-    types_columns["z_score"] = "float" # <-- will be obsolete after update extraction
-    types_columns["p_not_zero"] = "float" # <-- will be obsolete after update extraction
-    types_columns["q_not_zero"] = "float" # <-- will be obsolete after update extraction
-    #types_columns["z_statistic_ldsc"] = "float"
-    #types_columns["p_value_ldsc"] = "float"
-    #types_columns["q_value_ldsc"] = "float"
-    #types_columns["z_statistic_not_zero"] = "float"
-    #types_columns["p_value_not_zero"] = "float"
-    #types_columns["q_value_not_zero"] = "float"
-    #types_columns["z_statistic_less_one"] = "float"
-    #types_columns["p_value_less_one"] = "float"
-    #types_columns["q_value_less_one"] = "float"
-    types_columns["correlation_ci95_low"] = "float"
-    types_columns["correlation_ci95_high"] = "float"
-    types_columns["correlation_ci99_low"] = "float"
-    types_columns["correlation_ci99_high"] = "float"
-    types_columns["summary_correlation_error"] = "string"
-    types_columns["summary_correlation_ci95"] = "string"
-    types_columns["summary_correlation_ci99"] = "string"
-    # Read information from file.
-    pail["table_rg_one_one"] = pandas.read_csv(
-        path_file_table_one_one,
-        sep="\t",
-        header=0,
-        dtype=types_columns,
-        na_values=[
-            "nan", "na", "NAN", "NA", "<nan>", "<na>", "<NAN>", "<NA>",
-        ],
-    )
-    pail["table_rg_two_two"] = pandas.read_csv(
-        path_file_table_two_two,
-        sep="\t",
-        header=0,
-        dtype=types_columns,
-        na_values=[
-            "nan", "na", "NAN", "NA", "<nan>", "<na>", "<NAN>", "<NA>",
-        ],
-    )
-    pail["table_rg_one_two"] = pandas.read_csv(
-        path_file_table_one_two,
-        sep="\t",
-        header=0,
-        dtype=types_columns,
-        na_values=[
-            "nan", "na", "NAN", "NA", "<nan>", "<na>", "<NAN>", "<NA>",
-        ],
-    )
-    # Return information.
-    return pail
+# 6. Query values in tables
 
 
 def control_query_genetic_correlation_tables(
     paths=None,
+    report=None,
 ):
     """
     Control procedure to query genetic correlations within tables.
@@ -2833,8 +2856,9 @@ def control_query_genetic_correlation_tables(
     the article.
 
     arguments:
-        paths : (dict<str>): collection of paths to directories for procedure's
+        paths (dict<str>): collection of paths to directories for procedure's
             files
+        report (bool): whether to print reports
 
     raises:
 
@@ -2844,10 +2868,17 @@ def control_query_genetic_correlation_tables(
 
     # Read source information from file.
     # Organize source information within tables.
-    source = read_source_tables_genetic_correlation(
-        path_directory_dock=paths["dock"],
-        report=True,
+    source = read_organize_source_supplemental_tables_for_query(
+        paths=paths,
+        report=report,
     )
+
+    # Report.
+    if report:
+        putly.print_terminal_partition(level=1)
+        print("Queries follow on values of genetic correlation.")
+        putly.print_terminal_partition(level=2)
+        pass
 
     # Queries.
     # On 13 March 2024, TCW confirmed the primary and secondary studies in
@@ -2860,349 +2891,14 @@ def control_query_genetic_correlation_tables(
     variables_query = [
         #"variants_valid",
         "correlation",
-        "correlation_ci95_low",
-        "correlation_ci95_high",
-        "p_not_zero", # <-- obsolete after extraction update
-        "q_not_zero", # <-- obsolete after extraction update
-        #"p_value_not_zero",
-        #"q_value_not_zero",
+        "p_value_ldsc",
     ]
 
     # Queries on table of primary-primary genetic correlations.
-    # Query 1; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 1; Table: primary-primary.",
-        studies_primary=[
-            "34002096_mullins_2021_bd_all", # BD
-            "35396580_trubetskoy_2022_all", # SCZ
-            "30718901_howard_2019_pgc", # MDD
-        ],
-        studies_secondary=[
-            "34002096_mullins_2021_bd_all", # BD
-            "35396580_trubetskoy_2022_all", # SCZ
-            "30718901_howard_2019_pgc", # MDD
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 2; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 2; Table: primary-primary.",
-        studies_primary=[
-            "30718901_howard_2019_pgc", # MDD
-            "36702997_demontis_2023_adhd", # ADHD
-            "31748690_purves_2020_meta", # GAD
-            "31594949_nievergelt_2019_europe_all", # PTSD
-        ],
-        studies_secondary=[
-            "30718901_howard_2019_pgc", # MDD
-            "36702997_demontis_2023_adhd", # ADHD
-            "31748690_purves_2020_meta", # GAD
-            "31594949_nievergelt_2019_europe_all", # PTSD
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 3; Table: primary-primary
-    if True:
-        exclusions_query_3 = [
-            {
-                "primary": "36477530_saunders_2022_tobacco_all", # TOB-Q
-                "secondary": "32099098_polimanti_2020_eur_opioid_dep_unexposed", # OUD
-            },
-            {
-                "primary": "32099098_polimanti_2020_eur_opioid_dep_unexposed", # OUD
-                "secondary": "36477530_saunders_2022_tobacco_all", # TOB-Q
-            },
-        ]
-    else:
-        exclusions_query_3 = []
-        pass
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 3; Table: primary-primary.",
-        studies_primary=[
-            "30482948_walters_2018_eur_all", # AUD
-            "36477530_saunders_2022_alcohol_all", # ALC-Q
-            "36477530_saunders_2022_tobacco_ever_all", # TOB
-            "36477530_saunders_2022_tobacco_all", # TOB-Q
-            "33096046_johnson_2020_eur_all", # CUD
-            "32099098_polimanti_2020_eur_opioid_dep_unexposed", # OUD
-        ],
-        studies_secondary=[
-            "30482948_walters_2018_eur_all", # AUD
-            "36477530_saunders_2022_alcohol_all", # ALC-Q
-            "36477530_saunders_2022_tobacco_ever_all", # TOB
-            "36477530_saunders_2022_tobacco_all", # TOB-Q
-            "33096046_johnson_2020_eur_all", # CUD
-            "32099098_polimanti_2020_eur_opioid_dep_unexposed", # OUD
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=exclusions_query_3,
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 4; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 4; Table: primary-primary.",
-        studies_primary=[
-            "34002096_mullins_2021_bd_all", # BD
-            "35396580_trubetskoy_2022_all", # SCZ
-        ],
-        studies_secondary=[
-            "30482948_walters_2018_eur_all", # AUD
-            "36477530_saunders_2022_alcohol_all", # ALC-Q
-            "36477530_saunders_2022_tobacco_ever_all", # TOB
-            "36477530_saunders_2022_tobacco_all", # TOB-Q
-            "33096046_johnson_2020_eur_all", # CUD
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 5; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 5; Table: primary-primary.",
-        studies_primary=[
-            "30718901_howard_2019_pgc", # MDD
-            "36702997_demontis_2023_adhd", # ADHD
-            "31748690_purves_2020_meta", # GAD
-            "31594949_nievergelt_2019_europe_all", # PTSD
-        ],
-        studies_secondary=[
-            "30482948_walters_2018_eur_all", # AUD
-            "36477530_saunders_2022_tobacco_ever_all", # TOB
-            "36477530_saunders_2022_tobacco_all", # TOB-Q
-            "33096046_johnson_2020_eur_all", # CUD
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 6; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 6; Table: primary-primary.",
-        studies_primary=[
-            "35396580_trubetskoy_2022_all", # SCZ
-            "30718901_howard_2019_pgc", # MDD
-            "36702997_demontis_2023_adhd", # ADHD
-            "31748690_purves_2020_meta", # GAD
-        ],
-        studies_secondary=[
-            "32099098_polimanti_2020_eur_opioid_dep_unexposed", # OUD
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 7; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 7; Table: primary-primary.",
-        studies_primary=[
-            "28761083_arnold_2018", # OCD
-        ],
-        studies_secondary=[
-            "31308545_watson_2019", # ANN
-            "30818990_yu_2019", # TRS
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 8; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 8; Table: primary-primary.",
-        studies_primary=[
-            "34002096_mullins_2021_bd_all", # BD
-            "35396580_trubetskoy_2022_all", # SCZ
-            "30718901_howard_2019_pgc", # MDD
-            "31748690_purves_2020_meta", # GAD
-        ],
-        studies_secondary=[
-            "32747698_matoba_2020_europe", # ASD
-            "28761083_arnold_2018", # OCD
-            "31308545_watson_2019", # ANN
-            "30818990_yu_2019", # TRS
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 9; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 9; Table: primary-primary.",
-        studies_primary=[
-            "36702997_demontis_2023_adhd", # ADHD
-        ],
-        studies_secondary=[
-            "32747698_matoba_2020_europe", # ASD
-            "31308545_watson_2019", # ANN
-            "30818990_yu_2019", # TRS
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 10; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 10; Table: primary-primary.",
-        studies_primary=[
-            "31594949_nievergelt_2019_europe_all", # PTSD
-        ],
-        studies_secondary=[
-            "32747698_matoba_2020_europe", # ASD
-            "31308545_watson_2019", # ANN
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 11; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 11; Table: primary-primary.",
-        studies_primary=[
-            "32747698_matoba_2020_europe", # ASD
-            "30818990_yu_2019", # TRS
-        ],
-        studies_secondary=[
-            "36477530_saunders_2022_tobacco_all", # TOB-Q
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 12; Table: primary-primary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_one_one"],
-        label="Query 12; Table: primary-primary.",
-        studies_primary=[
-            "28761083_arnold_2018", # OCD
-            "31308545_watson_2019", # ANN
-        ],
-        studies_secondary=[
-            "36477530_saunders_2022_tobacco_all", # TOB-Q
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-
-    # Queries on table of secondary-secondary genetic correlations.
-    # Query 13; Table: secondary-secondary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_two_two"],
-        label="Query 13; Table: secondary-secondary.",
-        studies_primary=[
-            "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
-            "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
-            "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
-        ],
-        studies_secondary=[
-            "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
-            "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
-            "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 14; Table: secondary-secondary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_two_two"],
-        label="Query 14; Table: secondary-secondary.",
-        studies_primary=[
-            "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
-            "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
-            "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
-        ],
-        studies_secondary=[
-            "34594039_sakaue_2021_eur_hyperthyroidism", # Hyperthyroidism
-            "34594039_sakaue_2021_eur_graves", # Graves
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-    # Query 15; Table: secondary-secondary
-    pextr.query_table_correlation_range_variables(
-        table=source["table_rg_two_two"],
-        label="Query 15; Table: secondary-secondary.",
-        studies_primary=[
-            "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
-            "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
-            "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
-            "34594039_sakaue_2021_eur_hyperthyroidism", # Hyperthyroidism
-            "34594039_sakaue_2021_eur_graves", # Graves
-        ],
-        studies_secondary=[
-            "24586183_medici_2014_thyroid_peroxidase_reactivity", # Anti-TPO-React
-        ],
-        name_primary="study_primary",
-        name_secondary="study_secondary",
-        exclusions=[],
-        variables=variables_query,
-        remove_self_pair=True, # whether to exclude self pairs from report
-        report=True,
-    )
-
-    # Queries on table of primary-secondary genetic correlations.
-    # Query 16; Table: primary-secondary
+    # Query 1; Table: primary-secondary
     pextr.query_table_correlation_range_variables(
         table=source["table_rg_one_two"],
-        label="Query 16; Table: primary-secondary.",
+        label="Query 1; Table: primary-secondary.",
         studies_primary=[
             "34002096_mullins_2021_bd_all", # BD
             "35396580_trubetskoy_2022_all", # SCZ
@@ -3218,10 +2914,12 @@ def control_query_genetic_correlation_tables(
         remove_self_pair=True, # whether to exclude self pairs from report
         report=True,
     )
-    # Query 17; Table: primary-secondary
+
+    # Queries on table of primary-primary genetic correlations.
+    # Query 2; Table: primary-secondary
     pextr.query_table_correlation_range_variables(
         table=source["table_rg_one_two"],
-        label="Query 17; Table: primary-secondary.",
+        label="Query 2; Table: primary-secondary.",
         studies_primary=[
             "34002096_mullins_2021_bd_all", # BD
             "35396580_trubetskoy_2022_all", # SCZ
@@ -3236,10 +2934,11 @@ def control_query_genetic_correlation_tables(
         remove_self_pair=True, # whether to exclude self pairs from report
         report=True,
     )
-    # Query 18; Table: primary-secondary
+
+    # Query 3; Table: primary-secondary
     pextr.query_table_correlation_range_variables(
         table=source["table_rg_one_two"],
-        label="Query 18; Table: primary-secondary.",
+        label="Query 3; Table: primary-secondary.",
         studies_primary=[
             "30718901_howard_2019_pgc", # MDD
             "36702997_demontis_2023_adhd", # ADHD
@@ -3247,9 +2946,9 @@ def control_query_genetic_correlation_tables(
             "31594949_nievergelt_2019_europe_all", # PTSD
         ],
         studies_secondary=[
-            "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
             "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
             "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
+            "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
         ],
         name_primary="study_primary",
         name_secondary="study_secondary",
@@ -3258,18 +2957,19 @@ def control_query_genetic_correlation_tables(
         remove_self_pair=True, # whether to exclude self pairs from report
         report=True,
     )
-    # Query 19; Table: primary-secondary
+
+    # Query 4; Table: primary-secondary
     pextr.query_table_correlation_range_variables(
         table=source["table_rg_one_two"],
-        label="Query 19; Table: primary-secondary.",
+        label="Query 4; Table: primary-secondary.",
         studies_primary=[
             "36477530_saunders_2022_tobacco_ever_all", # TOB
             "36477530_saunders_2022_tobacco_all", # TOB-Q
         ],
         studies_secondary=[
-            "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
             "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
             "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
+            "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
         ],
         name_primary="study_primary",
         name_secondary="study_secondary",
@@ -3278,25 +2978,409 @@ def control_query_genetic_correlation_tables(
         remove_self_pair=True, # whether to exclude self pairs from report
         report=True,
     )
-
-
-
 
     if False:
-        # Collect tables.
-        pail_write = dict()
-        #pail_write["tables_genetic_correlation"] = dict()
-        pail_write_sub = dict()
-        pail_write_sub["table_rg_primary_primary"] = table_rg_one_one_clean
-        pail_write_sub["table_rg_secondary_secondary"] = table_rg_two_two_clean
-        pail_write_sub["table_rg_primary_secondary"] = table_rg_one_two_clean
-        pail_write["tables_genetic_correlation"] = pail_write_sub
-        # Write product information to file.
-        putly.write_tables_to_file_in_child_directories(
-            pail_write=pail_write,
-            path_directory_parent=paths["wrangler"],
+
+        # Query 2; Table: primary-primary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 2; Table: primary-primary.",
+            studies_primary=[
+                "30718901_howard_2019_pgc", # MDD
+                "36702997_demontis_2023_adhd", # ADHD
+                "31748690_purves_2020_meta", # GAD
+                "31594949_nievergelt_2019_europe_all", # PTSD
+            ],
+            studies_secondary=[
+                "30718901_howard_2019_pgc", # MDD
+                "36702997_demontis_2023_adhd", # ADHD
+                "31748690_purves_2020_meta", # GAD
+                "31594949_nievergelt_2019_europe_all", # PTSD
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 3; Table: primary-primary
+        if True:
+            exclusions_query_3 = [
+                {
+                    "primary": "36477530_saunders_2022_tobacco_all", # TOB-Q
+                    "secondary": "32099098_polimanti_2020_eur_opioid_dep_unexposed", # OUD
+                },
+                {
+                    "primary": "32099098_polimanti_2020_eur_opioid_dep_unexposed", # OUD
+                    "secondary": "36477530_saunders_2022_tobacco_all", # TOB-Q
+                },
+            ]
+        else:
+            exclusions_query_3 = []
+            pass
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 3; Table: primary-primary.",
+            studies_primary=[
+                "30482948_walters_2018_eur_all", # AUD
+                "36477530_saunders_2022_alcohol_all", # ALC-Q
+                "36477530_saunders_2022_tobacco_ever_all", # TOB
+                "36477530_saunders_2022_tobacco_all", # TOB-Q
+                "33096046_johnson_2020_eur_all", # CUD
+                "32099098_polimanti_2020_eur_opioid_dep_unexposed", # OUD
+            ],
+            studies_secondary=[
+                "30482948_walters_2018_eur_all", # AUD
+                "36477530_saunders_2022_alcohol_all", # ALC-Q
+                "36477530_saunders_2022_tobacco_ever_all", # TOB
+                "36477530_saunders_2022_tobacco_all", # TOB-Q
+                "33096046_johnson_2020_eur_all", # CUD
+                "32099098_polimanti_2020_eur_opioid_dep_unexposed", # OUD
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=exclusions_query_3,
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 4; Table: primary-primary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 4; Table: primary-primary.",
+            studies_primary=[
+                "34002096_mullins_2021_bd_all", # BD
+                "35396580_trubetskoy_2022_all", # SCZ
+            ],
+            studies_secondary=[
+                "30482948_walters_2018_eur_all", # AUD
+                "36477530_saunders_2022_alcohol_all", # ALC-Q
+                "36477530_saunders_2022_tobacco_ever_all", # TOB
+                "36477530_saunders_2022_tobacco_all", # TOB-Q
+                "33096046_johnson_2020_eur_all", # CUD
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 5; Table: primary-primary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 5; Table: primary-primary.",
+            studies_primary=[
+                "30718901_howard_2019_pgc", # MDD
+                "36702997_demontis_2023_adhd", # ADHD
+                "31748690_purves_2020_meta", # GAD
+                "31594949_nievergelt_2019_europe_all", # PTSD
+            ],
+            studies_secondary=[
+                "30482948_walters_2018_eur_all", # AUD
+                "36477530_saunders_2022_tobacco_ever_all", # TOB
+                "36477530_saunders_2022_tobacco_all", # TOB-Q
+                "33096046_johnson_2020_eur_all", # CUD
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 6; Table: primary-primary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 6; Table: primary-primary.",
+            studies_primary=[
+                "35396580_trubetskoy_2022_all", # SCZ
+                "30718901_howard_2019_pgc", # MDD
+                "36702997_demontis_2023_adhd", # ADHD
+                "31748690_purves_2020_meta", # GAD
+            ],
+            studies_secondary=[
+                "32099098_polimanti_2020_eur_opioid_dep_unexposed", # OUD
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 7; Table: primary-primary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 7; Table: primary-primary.",
+            studies_primary=[
+                "28761083_arnold_2018", # OCD
+            ],
+            studies_secondary=[
+                "31308545_watson_2019", # ANN
+                "30818990_yu_2019", # TRS
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 8; Table: primary-primary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 8; Table: primary-primary.",
+            studies_primary=[
+                "34002096_mullins_2021_bd_all", # BD
+                "35396580_trubetskoy_2022_all", # SCZ
+                "30718901_howard_2019_pgc", # MDD
+                "31748690_purves_2020_meta", # GAD
+            ],
+            studies_secondary=[
+                "32747698_matoba_2020_europe", # ASD
+                "28761083_arnold_2018", # OCD
+                "31308545_watson_2019", # ANN
+                "30818990_yu_2019", # TRS
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 9; Table: primary-primary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 9; Table: primary-primary.",
+            studies_primary=[
+                "36702997_demontis_2023_adhd", # ADHD
+            ],
+            studies_secondary=[
+                "32747698_matoba_2020_europe", # ASD
+                "31308545_watson_2019", # ANN
+                "30818990_yu_2019", # TRS
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 10; Table: primary-primary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 10; Table: primary-primary.",
+            studies_primary=[
+                "31594949_nievergelt_2019_europe_all", # PTSD
+            ],
+            studies_secondary=[
+                "32747698_matoba_2020_europe", # ASD
+                "31308545_watson_2019", # ANN
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 11; Table: primary-primary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 11; Table: primary-primary.",
+            studies_primary=[
+                "32747698_matoba_2020_europe", # ASD
+                "30818990_yu_2019", # TRS
+            ],
+            studies_secondary=[
+                "36477530_saunders_2022_tobacco_all", # TOB-Q
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 12; Table: primary-primary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_one"],
+            label="Query 12; Table: primary-primary.",
+            studies_primary=[
+                "28761083_arnold_2018", # OCD
+                "31308545_watson_2019", # ANN
+            ],
+            studies_secondary=[
+                "36477530_saunders_2022_tobacco_all", # TOB-Q
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+
+        # Queries on table of secondary-secondary genetic correlations.
+        # Query 13; Table: secondary-secondary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_two_two"],
+            label="Query 13; Table: secondary-secondary.",
+            studies_primary=[
+                "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
+                "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
+                "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
+            ],
+            studies_secondary=[
+                "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
+                "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
+                "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 14; Table: secondary-secondary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_two_two"],
+            label="Query 14; Table: secondary-secondary.",
+            studies_primary=[
+                "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
+                "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
+                "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
+            ],
+            studies_secondary=[
+                "34594039_sakaue_2021_eur_hyperthyroidism", # Hyperthyroidism
+                "34594039_sakaue_2021_eur_graves", # Graves
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 15; Table: secondary-secondary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_two_two"],
+            label="Query 15; Table: secondary-secondary.",
+            studies_primary=[
+                "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
+                "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
+                "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
+                "34594039_sakaue_2021_eur_hyperthyroidism", # Hyperthyroidism
+                "34594039_sakaue_2021_eur_graves", # Graves
+            ],
+            studies_secondary=[
+                "24586183_medici_2014_thyroid_peroxidase_reactivity", # Anti-TPO-React
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+
+        # Queries on table of primary-secondary genetic correlations.
+        # Query 16; Table: primary-secondary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_two"],
+            label="Query 16; Table: primary-secondary.",
+            studies_primary=[
+                "34002096_mullins_2021_bd_all", # BD
+                "35396580_trubetskoy_2022_all", # SCZ
+            ],
+            studies_secondary=[
+                "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
+                "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 17; Table: primary-secondary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_two"],
+            label="Query 17; Table: primary-secondary.",
+            studies_primary=[
+                "34002096_mullins_2021_bd_all", # BD
+                "35396580_trubetskoy_2022_all", # SCZ
+            ],
+            studies_secondary=[
+                "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 18; Table: primary-secondary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_two"],
+            label="Query 18; Table: primary-secondary.",
+            studies_primary=[
+                "30718901_howard_2019_pgc", # MDD
+                "36702997_demontis_2023_adhd", # ADHD
+                "31748690_purves_2020_meta", # GAD
+                "31594949_nievergelt_2019_europe_all", # PTSD
+            ],
+            studies_secondary=[
+                "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
+                "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
+                "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
+        )
+        # Query 19; Table: primary-secondary
+        pextr.query_table_correlation_range_variables(
+            table=source["table_rg_one_two"],
+            label="Query 19; Table: primary-secondary.",
+            studies_primary=[
+                "36477530_saunders_2022_tobacco_ever_all", # TOB
+                "36477530_saunders_2022_tobacco_all", # TOB-Q
+            ],
+            studies_secondary=[
+                "32581359_saevarsdottir_2020_thyroid_autoimmunity_dbsnp_rsid", # AITD
+                "36093044_mathieu_2022_hypothyroidism", # Hypothyroidism
+                "34594039_sakaue_2021_eur_hashimoto", # Hashimoto
+            ],
+            name_primary="study_primary",
+            name_secondary="study_secondary",
+            exclusions=[],
+            variables=variables_query,
+            remove_self_pair=True, # whether to exclude self pairs from report
+            report=True,
         )
     pass
+
+
+
+
+
+################################################
+################################################
+################################################
+# TODO: TCW; 6 June 2024
+# Everything below this point (except the "execute_procedure" main function) needs updates.
+
 
 
 
@@ -3374,64 +3458,78 @@ def execute_procedure(
         putly.print_terminal_partition(level=5)
         pass
 
-    ##########
-    # 1. Initialize directories for read of source and write of product files.
-    paths = initialize_directories(
-        project=project,
-        routine=routine,
-        procedure=procedure,
-        path_directory_dock=path_directory_dock,
-        restore=True,
-        report=report,
-    )
+    if False:
 
-    ##########
-    # 2. Organize SNP heritabilities within tables for supplement.
-    table_h2 = control_read_organize_snp_heritability_table_supplement(
-        paths=paths,
-        report=True,
-    )
+        ##########
+        # 1. Initialize directories for read of source and write of product files.
+        paths = initialize_directories(
+            project=project,
+            routine=routine,
+            procedure=procedure,
+            path_directory_dock=path_directory_dock,
+            restore=True,
+            report=report,
+        )
 
-    ##########
-    # 3. Read and assemble all genetic correlations within main table for
-    # subsequent organization.
-    table_rg_total = control_assemble_genetic_correlations(
-        paths=paths,
-        report=True,
-    )
+        ##########
+        # 2. Organize SNP heritabilities within tables for supplement.
+        table_h2 = control_read_organize_snp_heritability_table_supplement(
+            paths=paths,
+            report=True,
+        )
 
-    ##########
-    # 4. Organize genetic correlations within tables for reporting as text or
-    # plot.
-    control_prepare_genetic_correlation_tables_supplement_plot(
-        table_rg=table_rg_total,
-        paths=paths,
-        report=True,
-    )
+        ##########
+        # 3. Read and assemble all genetic correlations within main table for
+        # subsequent organization.
+        table_rg_total = control_assemble_genetic_correlations(
+            paths=paths,
+            report=True,
+        )
 
-    ##########
-    # 5. Organize tables of nodes and links for network representation of
-    # genetic correlations.
-    control_prepare_genetic_correlation_network_nodes_links(
-        paths=paths,
-        report=True,
-    )
+        ##########
+        # 4. Organize genetic correlations within tables for reporting as text or
+        # plot.
+        control_prepare_genetic_correlation_tables_supplement_plot(
+            table_rg=table_rg_total,
+            paths=paths,
+            report=True,
+        )
+
+        ##########
+        # 5. Organize tables of nodes and links for network representation of
+        # genetic correlations.
+        control_prepare_genetic_correlation_network_nodes_links(
+            paths=paths,
+            report=True,
+        )
+
+        pass
 
 
     ##########
     # 6. Query genetic correlations for convenient reporting within the text
     # of the article's Results.
-    if False:
+    if True:
+        paths = initialize_directories(
+            project=project,
+            routine=routine,
+            procedure=procedure,
+            path_directory_dock=path_directory_dock,
+            restore=False,
+            report=report,
+        )
         control_query_genetic_correlation_tables(
             paths=paths,
+            report=report,
         )
 
     ##########
     # 7. Plot charts to represent genetic correlations.
-    control_plot_charts(
-        paths=paths,
-        report=True,
-    )
+    if False:
+        control_plot_charts(
+            paths=paths,
+            report=True,
+        )
 
     pass
 
