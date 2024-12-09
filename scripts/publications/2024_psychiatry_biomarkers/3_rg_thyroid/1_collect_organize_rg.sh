@@ -26,7 +26,7 @@ project_main="psychiatry_biomarkers"
 # Directories.
 cd ~
 path_directory_paths="./Downloads/paths_process_local"
-path_directory_tool=$(<"$path_directory_paths/path_directory_tool.txt")
+path_directory_tools=$(<"$path_directory_paths/path_directory_tools.txt")
 path_directory_process=$(<"$path_directory_paths/path_directory_process_local.txt")
 path_directory_package="$path_directory_process/package"
 path_directory_package_partner="$path_directory_package/partner"
@@ -48,7 +48,7 @@ path_directory_parameters_private="$path_directory_dock/in_parameters_private/${
 # Scripts.
 
 # Executable handles.
-path_environment_main="$path_directory_tool/python/environments/main"
+path_environment_main="$path_directory_tools/python/environments/main"
 echo $path_environment_main
 # Initialize directory.
 #rm -r $path_directory_product # caution
